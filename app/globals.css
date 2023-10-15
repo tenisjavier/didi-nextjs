@@ -25,3 +25,164 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.header-sec {
+  padding-top: 150px;
+  padding-bottom: 70px;
+  background-repeat: no-repeat;
+  background-size: 120%;
+  min-height: 480px;
+  background-position-y: -60px;
+}
+
+section.main-text h1 {
+  @apply text-gray-primary mb-5 mt-5 text-2xl font-extrabold lg:text-4xl;
+}
+
+section.main-text h2 {
+  @apply text-gray-primary decoration-orange-primary mb-5 mt-5 text-2xl font-extrabold underline lg:text-3xl;
+}
+
+section.main-text h3 {
+  @apply text-orange-primary mb-5 mt-5 text-xl font-extrabold;
+}
+
+section.main-text p em {
+  @apply mt-3 mb-5 text-lg font-light lg:text-2xl;
+}
+
+section.main-text p a {
+  @apply mt-3 mb-5 text-lg font-normal text-yellow-500 hover:text-blue-600 lg:text-xl;
+}
+
+section.main-text p {
+  @apply mt-3 mb-3 text-lg font-light text-gray-700 lg:text-2xl;
+}
+
+section.main-text ol {
+  @apply mt-3 mb-3 list-decimal text-lg font-light lg:text-2xl;
+}
+
+section.main-text ul {
+  @apply mt-3 mb-3 text-lg font-light underline decoration-sky-500 lg:text-2xl;
+}
+
+section.main-text ol li {
+  @apply mt-3 mb-3;
+}
+
+.btn-static {
+  @apply bg-blue-primary shadow-orange-primary/30 inline-block min-w-max rounded-full font-semibold text-white shadow-xl;
+}
+
+.btn-primary {
+  @apply bg-orange-primary shadow-orange-primary/30 inline-block min-w-max cursor-pointer rounded-full font-semibold text-white shadow-xl hover:bg-orange-700 hover:text-white;
+}
+
+.btn-primary a {
+  @apply hover:text-white;
+}
+
+.btn-green {
+  @apply bg-green-primary shadow-green-primary/30 inline-block min-w-max cursor-pointer rounded-full font-semibold text-white shadow-xl hover:bg-green-700 hover:text-white;
+}
+.btn-whatsapp {
+  @apply bg-whatsapp-primary shadow-whatsapp-primary/30 inline-block cursor-pointer rounded-full py-3 pl-2 pr-4 font-semibold text-white shadow-xl hover:bg-green-700 hover:text-white border-solid border-2 border-white;
+}
+
+.btn-primary a {
+  @apply hover:text-white;
+}
+
+.btn-light {
+  @apply hover:bg-gray-primary text-gray-primary shadow-gray-primary/10 inline-block min-w-max cursor-pointer rounded-full bg-white font-semibold shadow-xl hover:text-white;
+}
+.btn-light a {
+  @apply hover:text-white;
+}
+
+.btn-dark {
+  @apply hover:bg-gray-primary shadow-gray-primary/20 inline-block min-w-max cursor-pointer rounded-full bg-gray-500 font-semibold  text-white shadow-xl hover:text-white;
+}
+.btn-dark a {
+  @apply hover:text-white;
+}
+.btn-hidden {
+  @apply hidden opacity-0;
+}
+
+.text-c {
+  text-align: center;
+}
+
+.accordion h5 {
+  @apply text-xl;
+}
+
+.accordion a {
+  @apply text-orange-primary;
+}
+
+.pagination {
+  display: block;
+  text-align: center;
+}
+
+.pagination .page-item {
+  display: inline-block;
+  text-align: center;
+  padding: 0.2rem 0.4rem;
+  margin: 0 0.2rem;
+  cursor: pointer;
+  border: 1px solid #6b7280;
+  color: #6b7280;
+}
+
+.pagination .page-item:hover,
+.pagination .page-item.active {
+  background-color: #6b7280;
+  color: white;
+}
+
+.slick-initialized .slick-track {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slick-initialized .slick-track .slick-slide {
+  text-align: center;
+}
+
+.white-right::before {
+  content: "";
+  background-color: white;
+  width: 50%;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+@media only screen and (max-width: 1024px) {
+  .white-right::before {
+    width: 0%;
+    height: 0%;
+  }
+}
+
+@media only screen and (min-width: 1940px) {
+  .ultra-wide-height-fix {
+    height: 450px;
+  }
+}
