@@ -6,6 +6,14 @@ const config: Config = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  safelist: [
+    "bg-gray-light",
+    "bg-gray-primary",
+    "bg-blue-primary",
+    "bg-orange-primary",
+    "bg-green-primary",
+    "bg-white",
+  ],
   theme: {
     fontFamily: {
       GorutsXbold: ["Goruts Xbold", "sans-serif"],
@@ -62,6 +70,9 @@ const config: Config = {
       },
       backgroundImage: {
         "drv-orange": "url('../images/bg-image-orange-drv.jpg')",
+      },
+      fontFamily: {
+        sans: ["var(--font-aspira)"],
       },
     },
   },

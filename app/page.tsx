@@ -29,14 +29,14 @@ export default async function Home() {
     <>
       {<ListSection {...props}></ListSection>}
 
-      <h1 className="text-3xl text-red-500">home</h1>
+      <h1 className="text-3xl text-red-500 font-bold">home</h1>
       {images.map((image, index) => (
         <Image
           alt={image.description}
           key={index}
           src={image.url}
-          width={300}
-          height={300}
+          fill
+          placeholder="blur"
         />
       ))}
     </>

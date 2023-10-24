@@ -2,6 +2,8 @@
 import { CountryCode } from "@/typings";
 import { City } from "@/typings";
 import { ImageType } from "@/typings";
+import { PageComponent } from "@/typings";
+import { CTASectionT } from "@/typings";
 
 //? Contentful API URL and Token from .env.local
 const apiUrl = `https://graphql.contentful.com/content/v1/spaces/${process.env.CONTENTFUL_SPACE_ID}/environments/master`;
@@ -40,6 +42,92 @@ const fetchCities = async (countryCode: CountryCode): Promise<City[]> => {
   }
   const cities = await res.json();
   return cities.data.cityCollection.items;
+};
+
+//? returns a object of components of a page
+//* params: the pathname of the page ex: "/mx/food/"
+const fetchPageComponents = async (
+  pathname: string
+): Promise<PageComponent[]> => {
+  const query = `query {
+    pageCollection(where: {pathname:"${pathname}"}, limit: 10){
+      items {
+        componentsCollection{
+          items{
+            sys {
+              id
+            }
+            __typename
+          }
+        }
+      }
+        }
+    }`;
+
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+    cache: "no-cache",
+  });
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch page components");
+  }
+  const pageComponents = await res.json();
+  const componentsToFetch =
+    pageComponents.data.pageCollection.items[0].componentsCollection.items.map(
+      (item: { sys: { id: string }; __typename: string }) => {
+        return { id: item.sys.id, __typename: item.__typename };
+      }
+    );
+  return componentsToFetch;
+};
+//? returns one component by its Id and Type
+//* params: id and type of the component
+const fetchCTASectionById = async (id: string): Promise<CTASectionT> => {
+  const query = `query {
+    ctaSection(id:"${id}"){
+      name
+      isHero
+      title
+      desc
+      bullets
+      textColor
+      bgColor
+      bgImage {
+        title
+        description
+        url
+      }
+      mobileBgImage{
+        title
+        description
+        url
+      }
+      image{
+        title
+        description
+        url
+      }
+      
+      btnType
+      btnMode
+      btnText
+      btnLink
+      reverse
+    }
+    }`;
+
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+    cache: "no-cache",
+  });
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch ctaSection");
+  }
+  const { data } = await res.json();
+  return data.ctaSection;
 };
 
 //? returns a object of images
@@ -82,4 +170,4 @@ const fetchImages = async (imagesList: string[]): Promise<ImageType[]> => {
   return images.data.assetCollection.items;
 };
 
-export { fetchCities, fetchImages };
+export { fetchCities, fetchPageComponents, fetchCTASectionById, fetchImages };
