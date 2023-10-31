@@ -1,59 +1,19 @@
 import React from "react";
 import Image from "next/image";
 import Btn from "@/components/Btn";
-import SectionBullets from "./SectionBullets";
-import SectionLink from "./SectionLink";
-import SectionList from "./SectionList";
+import SectionBullets from "@/components/CTASection/SectionBullets";
+import SectionList from "@/components/CTASection/SectionList";
 import SectionCreditCardCashBackBullets, {
   SectionCreditCardCashBackBulletsProps,
 } from "./SectionCreditCardCashBackBullets";
 import textHighlighter from "@/utils/textHighlighter";
 import { CTASectionT } from "@/typings";
 
-// export interface CTAProps extends BtnProps {
-//   isHero: boolean;
-//   title?: string;
-//   desc?: string;
-//   link?: string;
-//   textColor?: string;
-//   bgImage?: ImageType;
-//   bgImageStyle?: string;
-//   mobileBgImage?: ImageType;
-//   mobileBgImageStyle?: string;
-//   bgVideo?: React.ReactNode;
-//   imageRawRender?: React.ReactNode;
-//   bgColor?: string;
-//   image?: ImageType;
-//   imageStyle?: string;
-//   bullets?: string[] | JSX.Element[];
-//   list?: {
-//     text: string;
-//     link: string;
-//   }[];
-//   customBulletIcon?: boolean;
-//   icon?: any;
-//   reverse?: boolean;
-//   RTL?: boolean;
-//   descBeforeBullets?: boolean;
-//   // bulletsCreditCard?: SectionCreditCardCashBackBulletsProps;
-//   bulletsConfigColumn?: "default" | "singleColumn";
-//   bgColumTitle?: string;
-//   borderColor?: string;
-//   hasTextHighlighterBullets?: boolean;
-//   textHighlighterConfig?: {
-//     hasTextHighlighter: boolean;
-//     style?: string;
-//   };
-//   whiteRight?: boolean;
-//   mobileTitlePosition?: string;
-// }
-
 const CTASection = (props: CTASectionT) => {
   const {
     isHero,
     title,
     desc,
-    link,
     textColor,
     bgImage,
     mobileBgImage,
@@ -75,7 +35,6 @@ const CTASection = (props: CTASectionT) => {
     descBeforeBullets = true,
     // bulletsCreditCard,
     bulletsConfigColumn = "default",
-    bgColumTitle,
     borderColor,
     textHighlighterConfig,
     hasTextHighlighterBullets,
@@ -196,7 +155,7 @@ const CTASection = (props: CTASectionT) => {
         <div
           className={`${
             mobileTitlePosition === "top" ? "absolute top-24 md:static" : ""
-          } w-11/12 mb-8 lg:mt-16 lg:w-1/2 text-${textColor} ${bgColumTitle} z-10 xl:${textDir}`}
+          } w-11/12 mb-8 lg:mt-16 lg:w-1/2 text-${textColor} z-10 xl:${textDir}`}
         >
           {getTitleElement()}
           <div
@@ -224,7 +183,6 @@ const CTASection = (props: CTASectionT) => {
               />
             )} */}
           </div>
-          {link && <SectionLink link={link} />}
           {list && <SectionList list={list} />}
           <div className="text-center lg:text-left">
             <Btn

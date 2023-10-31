@@ -19,7 +19,6 @@ const Breadcrumb = ({ customBreadcrumb, countryCode }: BreadcrumbProps) => {
       return item !== "";
     });
 
-  console.log(directories);
   const isNotLink = ["features"];
 
   //   //* if cb is passed through Layout will replace actual pathname breadcrumb

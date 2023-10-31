@@ -24,7 +24,7 @@ export default async function Home() {
     textColor: "text-white",
     items: items,
   };
-  console.log(city);
+
   return (
     <>
       {<ListSection {...props}></ListSection>}

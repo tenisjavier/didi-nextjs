@@ -4,6 +4,7 @@ import { City } from "@/typings";
 import { ImageType } from "@/typings";
 import { PageComponent } from "@/typings";
 import { CTASectionT } from "@/typings";
+import { ColumnSectionT } from "@/typings";
 
 //? Contentful API URL and Token from .env.local
 const apiUrl = `https://graphql.contentful.com/content/v1/spaces/${process.env.CONTENTFUL_SPACE_ID}/environments/master`;
@@ -49,20 +50,31 @@ const fetchCities = async (countryCode: CountryCode): Promise<City[]> => {
 const fetchPageComponents = async (
   pathname: string
 ): Promise<PageComponent[]> => {
-  const query = `query {
-    pageCollection(where: {pathname:"${pathname}"}, limit: 10){
+  const query = `
+  fragment ctaFields on CtaSection {
+    __typename
+    sys {
+      id
+    }
+  }
+  fragment columnFields on ColumnSection {
+    __typename
+    sys {
+      id
+    }
+  }
+  query {
+    pageCollection(limit:2) {
       items {
-        componentsCollection{
-          items{
-            sys {
-              id
-            }
-            __typename
+        componentsCollection(limit:4) {
+          items {
+           ...ctaFields
+            ...columnFields
           }
         }
       }
-        }
-    }`;
+    }
+  }`;
 
   const res = await fetch(`${apiUrl}?query=${query}`, {
     headers: headers,
@@ -79,6 +91,7 @@ const fetchPageComponents = async (
         return { id: item.sys.id, __typename: item.__typename };
       }
     );
+
   return componentsToFetch;
 };
 //? returns one component by its Id and Type
@@ -129,6 +142,57 @@ const fetchCTASectionById = async (id: string): Promise<CTASectionT> => {
   const { data } = await res.json();
   return data.ctaSection;
 };
+//? returns one component by its Id and Type
+//* params: id and type of the component
+const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
+  const query = `query {
+    columnSection(id:"${id}"){
+      name
+      title
+      desc
+      textColor
+      bgColor
+      gridCols
+  		gap
+      columnsCollection{
+        items{
+          name
+          title
+          desc
+          textColor
+          bgColor
+          image {
+            title
+            description
+            url
+          }
+          btnType
+          btnMode
+          btnText
+          btnLink
+          }
+        }
+      }
+    }`;
+
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+    cache: "no-cache",
+  });
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch columnSection");
+  }
+  const { data } = await res.json();
+
+  const columnSection = {
+    ...data.columnSection,
+    columns: data.columnSection.columnsCollection.items,
+  };
+  delete columnSection.columnsCollection;
+  return columnSection;
+};
 
 //? returns a object of images
 //* params: array of image names to fetch
@@ -170,4 +234,10 @@ const fetchImages = async (imagesList: string[]): Promise<ImageType[]> => {
   return images.data.assetCollection.items;
 };
 
-export { fetchCities, fetchPageComponents, fetchCTASectionById, fetchImages };
+export {
+  fetchCities,
+  fetchPageComponents,
+  fetchCTASectionById,
+  fetchColumnSectionById,
+  fetchImages,
+};

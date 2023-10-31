@@ -1,21 +1,31 @@
 import React from "react";
-import { PageComponent } from "@/typings";
-import { fetchCTASectionById } from "@/utils/db";
-import CTASection from "./CTASection";
-import { CTASectionT } from "@/typings";
+import { CTASectionT, ColumnSectionT, PageComponent } from "@/typings";
+import { fetchCTASectionById, fetchColumnSectionById } from "@/utils/db";
+import CTASection from "@/components/CTASection";
+import ColumnSection from "@/components/ColumnSection";
 
 interface BuilderComponentProps {
   components: PageComponent[];
 }
 
+//? return the JSX of the components to show on the opage
 const BuilderComponent = async ({ components }: BuilderComponentProps) => {
   const JSXComponents = [];
   for (const c of components) {
-    const section = await fetchComponent(c.__typename, c.id);
-    console.log(c);
-    const props: CTASectionT = section;
-    JSXComponents.push(<CTASection {...props}></CTASection>);
+    const props = await fetchComponent(c.__typename, c.id);
+    switch (c.__typename) {
+      case "CtaSection":
+        JSXComponents.push(<CTASection {...props}></CTASection>);
+        break;
+      case "ColumnSection":
+        console.log(props);
+        JSXComponents.push(<ColumnSection {...props}></ColumnSection>);
+        break;
+      default:
+        break;
+    }
   }
+
   return JSXComponents;
 };
 
@@ -25,7 +35,7 @@ const fetchComponent = async (type: string, id: string) => {
     case "CtaSection":
       return await fetchCTASectionById(id);
     case "ColumnSection":
-      return <div>list-section</div>;
+      return await fetchColumnSectionById(id);
     default:
       return <div>default</div>;
   }
