@@ -17,19 +17,20 @@ import { ColumnSectionT } from "@/typings";
 //   gap?: number;
 // }
 
-const ColumnsSection = ({
-  columns,
-  title,
-  desc,
-  bgColor,
-  textColor,
-  sectionID,
-  RTL,
-  hasTextHighlight,
-  textHighlightStyles,
-  gridCols,
-  gap,
-}: ColumnSectionT) => {
+const ColumnsSection = (props: ColumnSectionT) => {
+  const {
+    columns,
+    title,
+    desc,
+    bgColor,
+    textColor,
+    sectionID,
+    RTL,
+    hasTextHighlight,
+    textHighlightStyles,
+    gridCols,
+    gap,
+  } = props;
   let dir: any = "ltr";
 
   if (RTL) {

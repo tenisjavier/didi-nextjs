@@ -1,5 +1,5 @@
 import React from "react";
-import { CTASectionT, ColumnSectionT, PageComponent } from "@/typings";
+import { PageComponent } from "@/typings";
 import { fetchCTASectionById, fetchColumnSectionById } from "@/utils/db";
 import CTASection from "@/components/CTASection";
 import ColumnSection from "@/components/ColumnSection";
@@ -8,36 +8,28 @@ interface BuilderComponentProps {
   components: PageComponent[];
 }
 
-//? return the JSX of the components to show on the opage
+//? return the JSX array of components to show on the opage
 const BuilderComponent = async ({ components }: BuilderComponentProps) => {
   const JSXComponents = [];
   for (const c of components) {
-    const props = await fetchComponent(c.__typename, c.id);
-    switch (c.__typename) {
-      case "CtaSection":
-        JSXComponents.push(<CTASection {...props}></CTASection>);
-        break;
-      case "ColumnSection":
-        console.log(props);
-        JSXComponents.push(<ColumnSection {...props}></ColumnSection>);
-        break;
-      default:
-        break;
-    }
+    const component = await fetchComponent(c.__typename, c.id);
+    JSXComponents.push(component);
   }
 
   return JSXComponents;
 };
 
-//? function that return the correct db function to use depending on type
+//? function that return the correct component from db fetch depending on type
 const fetchComponent = async (type: string, id: string) => {
   switch (type) {
     case "CtaSection":
-      return await fetchCTASectionById(id);
+      const ctaSectionProps = await fetchCTASectionById(id);
+      return <CTASection {...ctaSectionProps}></CTASection>;
     case "ColumnSection":
-      return await fetchColumnSectionById(id);
+      const columnSectionProps = await fetchColumnSectionById(id);
+      return <ColumnSection {...columnSectionProps}></ColumnSection>;
     default:
-      return <div>default</div>;
+      return null;
   }
 };
 

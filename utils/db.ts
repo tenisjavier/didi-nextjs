@@ -121,7 +121,7 @@ const fetchCTASectionById = async (id: string): Promise<CTASectionT> => {
         description
         url
       }
-      
+      rounded
       btnType
       btnMode
       btnText

@@ -46,6 +46,7 @@ const CTASectionSchema = z.object({
   bgImage: ImageSchema.optional(),
   mobileBgImage: ImageSchema.optional(),
   image: ImageSchema.optional(),
+  rounded: z.enum(["rounded", "rounded-full"]),
   btnType: BtnType.optional(),
   btnMode: BtnMode.optional(),
   btnText: BtnType.min(5).max(30).optional(),

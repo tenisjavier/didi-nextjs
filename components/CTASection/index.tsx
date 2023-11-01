@@ -21,6 +21,7 @@ const CTASection = (props: CTASectionT) => {
     imageRawRender,
     bgColor,
     image,
+    rounded,
     bullets,
     list,
     customBulletIcon,
@@ -50,7 +51,7 @@ const CTASection = (props: CTASectionT) => {
     : "!absolute z-0 h-full w-full md:block ";
   const mobileBgImageStyle =
     "!absolute z-0 h-full w-full md:!hidden object-cover";
-  const imageStyle = "z-10 m-4 w-80 h-80 lg:w-100 lg:h-100 rounded-full ";
+  const imageStyle = "z-10 m-4 w-80 h-80 lg:w-100 lg:h-100 " + rounded;
   const getTitleElement = () => {
     if (isHero) {
       return (
