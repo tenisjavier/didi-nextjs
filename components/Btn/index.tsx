@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import { getBtnLinks } from "@/config/btn/btn-config";
 import gtmEvent from "@/config/tracking/gtm";
 import { FaSpinner } from "react-icons/fa";
-// import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { usePathname } from "next/navigation";
+import { getCountryCode } from "@/middleware";
 
 //? @desc:  CTA buttons.  If not btnType is passed it will be a normal btn.
 //* @props: btnType drv/pax/none | btnLink (normal btn) "url" | btnMode light/none | children: normal btn text
@@ -63,7 +64,7 @@ const Btn = ({
   download,
   btnTextCenter,
 }: BtnProps) => {
-  const countryCode = "cl";
+  const countryCode = getCountryCode(usePathname());
   const btnData = getBtnLinks(countryCode);
 
   const [isLoading, setIsLoading] = useState(false);

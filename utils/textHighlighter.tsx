@@ -1,6 +1,6 @@
 import React from "react";
 
-const textHighlighter = (text?: string, styles?: string) => {
+const textHighlighter = (text?: string, styles?: string | undefined | null) => {
   if (!text) {
     return;
   }

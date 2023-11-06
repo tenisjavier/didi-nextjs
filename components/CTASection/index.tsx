@@ -58,12 +58,12 @@ const CTASection = (props: CTASectionT) => {
         <h1 className={`text-4xl font-bold md:text-5xl mt-0`}>
           {title &&
             title.split("\n").map((str, index) => (
-              <>
+              <span key={index}>
                 {textHighlighterConfig?.hasTextHighlighter
                   ? textHighlighter(str, textHighlighterConfig.style)
                   : str}
                 <br />
-              </>
+              </span>
             ))}
         </h1>
       );
@@ -72,12 +72,12 @@ const CTASection = (props: CTASectionT) => {
         <h2 className="font-bold text-3xl md:text-4xl">
           {title &&
             title.split("\n").map((str, index) => (
-              <>
+              <span key={index}>
                 {textHighlighterConfig?.hasTextHighlighter
                   ? textHighlighter(str, textHighlighterConfig.style)
                   : str}
                 <br />
-              </>
+              </span>
             ))}
         </h2>
       );
@@ -89,12 +89,12 @@ const CTASection = (props: CTASectionT) => {
       <p className={`mb-10 text-lg`}>
         {desc &&
           desc.split("\n").map((str, index) => (
-            <>
+            <span key={index}>
               {textHighlighterConfig?.hasTextHighlighter
                 ? textHighlighter(str, textHighlighterConfig.style)
                 : str}
               <br />
-            </>
+            </span>
           ))}
       </p>
     );

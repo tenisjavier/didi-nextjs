@@ -1,4 +1,5 @@
 // @desc: utility library for ctaButtons and oneLinks
+import { CountryCode } from "@/typings";
 
 interface SingleBtnInterface {
   drvLink: string;
@@ -183,7 +184,7 @@ const btnLinks: AllBtnInterface = {
   },
 };
 
-const getBtnLinks = (countryCode: string): SingleBtnInterface => {
+const getBtnLinks = (countryCode: CountryCode): SingleBtnInterface => {
   let links = btnLinks[countryCode];
   return links;
 };

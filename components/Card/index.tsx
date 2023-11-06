@@ -1,7 +1,6 @@
 import React from "react";
 import Btn from "@/components/Btn";
 import Image from "next/image";
-import { AiOutlineClockCircle } from "react-icons/ai";
 import textHighlighter from "@/utils/textHighlighter";
 import { CardT } from "@/typings";
 
@@ -37,8 +36,6 @@ const Card = (props: CardT) => {
     textColor,
     image,
     imageStyle,
-    height,
-    width,
     btnLink,
     btnMode,
     btnText,
@@ -46,7 +43,6 @@ const Card = (props: CardT) => {
     index,
     RTL,
     rounded,
-    reverse,
     hasTextHighlighter,
     textHighlighterStyle,
     titleStyles,
@@ -64,9 +60,7 @@ const Card = (props: CardT) => {
     <div
       style={{ direction: dir }}
       className={` "max-w-xs"
-       ${rounded} rounded ${bgColor} ${
-        reverse ? "flex flex-col-reverse justify-between" : ""
-      }  text-${textColor} my-3 text-center lg:mx-4 card-${index}`}
+       ${rounded} rounded ${bgColor} text-${textColor} my-3 text-center lg:mx-4 card-${index}`}
     >
       {titlePosition === "beforeImage" && title && (
         <h4 className={`mb-4 text-xl font-bold lg:text-center ${titleStyles}`}>
@@ -81,12 +75,14 @@ const Card = (props: CardT) => {
             src={image.url}
             alt={image.description}
             className={imageStyle}
+            width={50}
+            height={50}
           ></Image>
         )}
       </div>
 
       <div
-        className={`flex ${height} ${width} flex-col items-center justify-between px-6 py-4 text-center`}
+        className={`flex flex-col items-center justify-between px-6 py-4 text-center`}
       >
         <div className={`mb-4`}>
           {titlePosition === "afterImage" && title && (

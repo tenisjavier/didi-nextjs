@@ -1,6 +1,4 @@
 import React from "react";
-import { fetchPageComponents } from "@/utils/db";
-import BuilderComponent from "@/components/BuilderComponent";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -9,13 +7,7 @@ export const metadata: Metadata = {
 };
 
 const page = async () => {
-  const components = await fetchPageComponents("/mx/");
-  return (
-    <div>
-      <BuilderComponent components={components}></BuilderComponent>
-      <p className="font-bold text-white">page</p>
-    </div>
-  );
+  return <></>;
 };
 
 export default page;

@@ -1,8 +1,13 @@
 import React from "react";
 import { PageComponent } from "@/typings";
-import { fetchCTASectionById, fetchColumnSectionById } from "@/utils/db";
+import {
+  fetchCTASectionById,
+  fetchColumnSectionById,
+  fetchCarouselSectionById,
+} from "@/utils/db";
 import CTASection from "@/components/CTASection";
 import ColumnSection from "@/components/ColumnSection";
+import CarouselSection from "@/components/CarouselSection";
 
 interface BuilderComponentProps {
   components: PageComponent[];
@@ -28,6 +33,9 @@ const fetchComponent = async (type: string, id: string) => {
     case "ColumnSection":
       const columnSectionProps = await fetchColumnSectionById(id);
       return <ColumnSection {...columnSectionProps}></ColumnSection>;
+    case "CarouselSection":
+      const carouselSectionProps = await fetchCarouselSectionById(id);
+      return <CarouselSection {...carouselSectionProps}></CarouselSection>;
     default:
       return null;
   }

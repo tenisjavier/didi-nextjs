@@ -1,10 +1,10 @@
 //? Contentful fetches per content type, country and category
+import CarouselSection from "@/components/CarouselSection";
 import { CountryCode } from "@/typings";
 import { City } from "@/typings";
 import { ImageType } from "@/typings";
 import { PageComponent } from "@/typings";
-import { CTASectionT } from "@/typings";
-import { ColumnSectionT } from "@/typings";
+import { CTASectionT, ColumnSectionT, CarouselSectionT } from "@/typings";
 
 //? Contentful API URL and Token from .env.local
 const apiUrl = `https://graphql.contentful.com/content/v1/spaces/${process.env.CONTENTFUL_SPACE_ID}/environments/master`;
@@ -63,6 +63,12 @@ const fetchPageComponents = async (
       id
     }
   }
+  fragment carouselFields on CarouselSection {
+    __typename
+    sys {
+      id
+    }
+  }
   query {
     pageCollection(limit:2) {
       items {
@@ -70,6 +76,7 @@ const fetchPageComponents = async (
           items {
            ...ctaFields
             ...columnFields
+            ...carouselFields
           }
         }
       }
@@ -185,13 +192,89 @@ const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
     throw new Error("Failed to fetch columnSection");
   }
   const { data } = await res.json();
-
   const columnSection = {
     ...data.columnSection,
-    columns: data.columnSection.columnsCollection.items,
+    columns: data.columnSection?.columnsCollection.items,
   };
   delete columnSection.columnsCollection;
   return columnSection;
+};
+
+//? returns one component by its Id and Type
+//* params: id and type of the component
+const fetchCarouselSectionById = async (
+  id: string
+): Promise<CarouselSectionT> => {
+  const query = `fragment ctaFields on CtaSection {
+    name
+    isHero
+    title
+    desc
+    bullets
+    textColor
+    bgColor
+    bgImage {
+      title
+      description
+      url
+    }
+    mobileBgImage{
+      title
+      description
+      url
+    }
+    image{
+      title
+      description
+      url
+    }
+    rounded
+    btnType
+    btnMode
+    btnText
+    btnLink
+    reverse
+  }
+
+
+query {
+carouselSection(id:"${id}") {
+  bgColor
+  textColor
+  sectionsCollection(limit:4){
+    items{
+         ...ctaFields
+    }
+  }
+  iconsCollection{
+    items{
+      title
+      description
+      url
+    }
+  }
+   menu 
+}
+}`;
+
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+    cache: "no-cache",
+  });
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch carouselSection");
+  }
+  const { data } = await res.json();
+  const carouselSection = {
+    ...data.carouselSection,
+    sections: data.carouselSection?.sectionsCollection.items,
+    icons: data.carouselSection?.iconsCollection.items,
+  };
+  delete carouselSection.sectionsCollection;
+  delete carouselSection.iconsCollection;
+  return carouselSection;
 };
 
 //? returns a object of images
@@ -239,5 +322,6 @@ export {
   fetchPageComponents,
   fetchCTASectionById,
   fetchColumnSectionById,
+  fetchCarouselSectionById,
   fetchImages,
 };

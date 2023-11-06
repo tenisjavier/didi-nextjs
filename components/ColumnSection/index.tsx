@@ -24,7 +24,7 @@ const ColumnsSection = (props: ColumnSectionT) => {
     desc,
     bgColor,
     textColor,
-    sectionID,
+    // sectionID,
     RTL,
     hasTextHighlight,
     textHighlightStyles,
@@ -40,7 +40,6 @@ const ColumnsSection = (props: ColumnSectionT) => {
   return (
     <section
       style={{ direction: dir }}
-      id={sectionID}
       className={`${bgColor} text-${textColor} py-12`}
     >
       <div className="container mx-auto flex flex-col flex-wrap justify-center md:justify-around">

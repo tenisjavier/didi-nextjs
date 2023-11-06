@@ -4,8 +4,11 @@ import localFont from "next/font/local";
 import Header from "@/components/Header/index";
 import { headers } from "next/headers";
 import { CountryCode } from "@/typings";
+import BuilderComponent from "@/components/BuilderComponent";
+import { fetchPageComponents } from "@/utils/db";
 
 const countryCode = headers().get("x-country-code") as CountryCode;
+const pathname = headers().get("x-pathname") as string;
 
 export const metadata: Metadata = {
   title: {
@@ -30,16 +33,19 @@ const aspira = localFont({
   variable: "--font-aspira",
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  //? builder will return the array of components fetch by db by pathname
+  const components = await fetchPageComponents(pathname);
   return (
     <html lang="en">
       <body className={`${aspira.variable} font-sans`}>
         <Header></Header>
         {children}
+        <BuilderComponent components={components}></BuilderComponent>
       </body>
     </html>
   );

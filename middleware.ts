@@ -3,7 +3,7 @@ import { CountryCode } from "@/typings";
 import { BusinessType } from "@/typings";
 
 //? returns a country code from the url
-const getCountryCode = (pathname: string): CountryCode => {
+export const getCountryCode = (pathname: string): CountryCode => {
   const countryCode = pathname.split("/")[1] || "en";
   return countryCode as CountryCode;
 };
