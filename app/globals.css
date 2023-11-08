@@ -123,14 +123,6 @@ section.main-text ol li {
   text-align: center;
 }
 
-.accordion h5 {
-  @apply text-xl;
-}
-
-.accordion a {
-  @apply text-orange-primary;
-}
-
 .pagination {
   display: block;
   text-align: center;

@@ -1,10 +1,14 @@
 //? Contentful fetches per content type, country and category
-import CarouselSection from "@/components/CarouselSection";
 import { CountryCode } from "@/typings";
 import { City } from "@/typings";
 import { ImageType } from "@/typings";
 import { PageComponent } from "@/typings";
-import { CTASectionT, ColumnSectionT, CarouselSectionT } from "@/typings";
+import {
+  CTASectionT,
+  ColumnSectionT,
+  CarouselSectionT,
+  AccordionSectionT,
+} from "@/typings";
 
 //? Contentful API URL and Token from .env.local
 const apiUrl = `https://graphql.contentful.com/content/v1/spaces/${process.env.CONTENTFUL_SPACE_ID}/environments/master`;
@@ -69,14 +73,21 @@ const fetchPageComponents = async (
       id
     }
   }
+  fragment acordionFields on AccordionSection {
+    __typename
+    sys {
+      id
+    }
+  }
   query {
     pageCollection(limit:2) {
       items {
-        componentsCollection(limit:4) {
+        componentsCollection(limit:10) {
           items {
            ...ctaFields
             ...columnFields
             ...carouselFields
+            ...acordionFields
           }
         }
       }
@@ -101,7 +112,7 @@ const fetchPageComponents = async (
 
   return componentsToFetch;
 };
-//? returns one component by its Id and Type
+//? returns one CTA component by its ID
 //* params: id and type of the component
 const fetchCTASectionById = async (id: string): Promise<CTASectionT> => {
   const query = `query {
@@ -149,7 +160,7 @@ const fetchCTASectionById = async (id: string): Promise<CTASectionT> => {
   const { data } = await res.json();
   return data.ctaSection;
 };
-//? returns one component by its Id and Type
+//? returns one Column component by its ID
 //* params: id and type of the component
 const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
   const query = `query {
@@ -276,6 +287,68 @@ carouselSection(id:"${id}") {
   delete carouselSection.iconsCollection;
   return carouselSection;
 };
+//? returns one component by its Id and Type
+//* params: id and type of the component
+const fetchAccordionSectionById = async (
+  id: string
+): Promise<AccordionSectionT> => {
+  const query = `fragment faqFields on Faq {
+    title
+    content {
+      json
+      links {
+        assets {
+          block {
+            sys {
+              id
+            }
+            title
+            description
+            url
+            width
+            height
+          }
+        }
+      }
+    }
+  }
+
+query {
+accordionSection(id:"${id}") {
+  title
+  desc
+  textColor
+  bgColor
+  textAccordionColor
+  bgAccordionColor
+  isClosed
+  rtl
+  isFaq
+  itemsCollection(limit:4){
+    items{
+         ...faqFields
+    }
+  }
+}
+}`;
+
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+    cache: "no-cache",
+  });
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch accordionSection");
+  }
+  const { data } = await res.json();
+  const accordionSection = {
+    ...data.accordionSection,
+    items: data.accordionSection?.itemsCollection.items,
+  };
+  delete accordionSection.itemsCollection;
+  return accordionSection;
+};
 
 //? returns a object of images
 //* params: array of image names to fetch
@@ -323,5 +396,6 @@ export {
   fetchCTASectionById,
   fetchColumnSectionById,
   fetchCarouselSectionById,
+  fetchAccordionSectionById,
   fetchImages,
 };

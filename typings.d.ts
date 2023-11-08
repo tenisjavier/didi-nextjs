@@ -23,6 +23,13 @@ const ImageSchema = z.object({
   title: z.string(),
   url: z.string(),
   description: z.string(),
+  width: z.nullable(),
+  height: z.nullable(),
+  sys: z
+    .object({
+      id: z.string(),
+    })
+    .nullish(),
 });
 
 const CitySchema = z.object({
@@ -91,6 +98,30 @@ const CarouselSectionSchema = z.object({
   menu: z.array(z.string()),
 });
 
+const AccordionSchema = z.object({
+  title: z.string(),
+  content: z.any(),
+  slug: z.string(),
+  bgColor: z.string(),
+  textColor: z.string(),
+  isClosed: z.boolean(),
+  type: z.string(),
+  isFaq: z.boolean(),
+});
+
+const AccordionSectionSchema = z.object({
+  items: z.array(AccordionSchema),
+  title: z.string(),
+  desc: z.string().optional(),
+  textColor: z.string(),
+  bgColor: z.string(),
+  textAccordionColor: z.string(),
+  bgAccordionColor: z.string(),
+  isClosed: z.boolean(),
+  RTL: z.boolean(),
+  isFaq: z.boolean(),
+});
+
 export type CountryCode = z.infer<typeof CountrySchema>;
 export type BusinessType = z.infer<typeof BusinessSchema>;
 export type ImageType = z.infer<typeof ImageSchema>;
@@ -99,5 +130,7 @@ export type CTASectionT = z.infer<typeof CTASectionSchema>;
 export type CardT = z.infer<typeof CardSchema>;
 export type ColumnSectionT = z.infer<typeof ColumnSectionSchema>;
 export type CarouselSectionT = z.infer<typeof CarouselSectionSchema>;
+export type AccordionT = z.infer<typeof AccordionSchema>;
+export type AccordionSectionT = z.infer<typeof AccordionSectionSchema>;
 
 export type PageComponent = { id: string; __typename: string };
