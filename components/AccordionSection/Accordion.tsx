@@ -18,7 +18,7 @@ const Accordion = ({
   var [isOpen, setIsOpen] = useState(false);
   var [height, setHeight] = useState("0px");
   const content1: any = useRef(null);
-  console.log(bgColor);
+
   if (isClosed === false) {
     [isOpen, setIsOpen] = useState(true);
     [height, setHeight] = useState("50");

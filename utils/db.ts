@@ -8,6 +8,7 @@ import {
   ColumnSectionT,
   CarouselSectionT,
   AccordionSectionT,
+  BannerT,
 } from "@/typings";
 
 //? Contentful API URL and Token from .env.local
@@ -73,7 +74,13 @@ const fetchPageComponents = async (
       id
     }
   }
-  fragment acordionFields on AccordionSection {
+  fragment accordionFields on AccordionSection {
+    __typename
+    sys {
+      id
+    }
+  }
+  fragment bannerFields on Banner {
     __typename
     sys {
       id
@@ -87,7 +94,8 @@ const fetchPageComponents = async (
            ...ctaFields
             ...columnFields
             ...carouselFields
-            ...acordionFields
+            ...accordionFields
+            ...bannerFields
           }
         }
       }
@@ -98,6 +106,7 @@ const fetchPageComponents = async (
     headers: headers,
     cache: "no-cache",
   });
+
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
     throw new Error("Failed to fetch page components");
@@ -211,7 +220,7 @@ const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
   return columnSection;
 };
 
-//? returns one component by its Id and Type
+//? returns one Carousel component by its Id
 //* params: id and type of the component
 const fetchCarouselSectionById = async (
   id: string
@@ -287,7 +296,7 @@ carouselSection(id:"${id}") {
   delete carouselSection.iconsCollection;
   return carouselSection;
 };
-//? returns one component by its Id and Type
+//? returns one Accordion Section component by its Id
 //* params: id and type of the component
 const fetchAccordionSectionById = async (
   id: string
@@ -349,6 +358,44 @@ accordionSection(id:"${id}") {
   delete accordionSection.itemsCollection;
   return accordionSection;
 };
+//? returns one Banner component by its Id
+//* params: id and type of the component
+const fetchBannerById = async (id: string): Promise<BannerT> => {
+  const query = `
+
+query {
+banner(id:"${id}") {
+  name
+  title
+  desc
+  bgColor
+  textColor
+  image {
+    title
+    description
+    url
+  }
+  btnType
+  btnMode
+  btnText
+  btnLink
+  reverse
+}
+}`;
+
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+    cache: "no-cache",
+  });
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch banner");
+  }
+  const { data } = await res.json();
+  console.log(data);
+  return data.banner;
+};
 
 //? returns a object of images
 //* params: array of image names to fetch
@@ -397,5 +444,6 @@ export {
   fetchColumnSectionById,
   fetchCarouselSectionById,
   fetchAccordionSectionById,
+  fetchBannerById,
   fetchImages,
 };

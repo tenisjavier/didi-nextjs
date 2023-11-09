@@ -121,6 +121,19 @@ const AccordionSectionSchema = z.object({
   RTL: z.boolean(),
   isFaq: z.boolean(),
 });
+const BannerSchema = z.object({
+  name: z.string(),
+  title: z.string(),
+  desc: z.string().nullish(),
+  bgColor: z.string(),
+  textColor: z.string(),
+  image: ImageSchema.nullish(),
+  btnType: BtnType.nullish(),
+  btnMode: BtnMode.nullish(),
+  btnText: BtnType.min(5).max(30).nullish(),
+  btnLink: BtnMode.nullish(),
+  reverse: z.boolean().nullish(),
+});
 
 export type CountryCode = z.infer<typeof CountrySchema>;
 export type BusinessType = z.infer<typeof BusinessSchema>;
@@ -132,5 +145,6 @@ export type ColumnSectionT = z.infer<typeof ColumnSectionSchema>;
 export type CarouselSectionT = z.infer<typeof CarouselSectionSchema>;
 export type AccordionT = z.infer<typeof AccordionSchema>;
 export type AccordionSectionT = z.infer<typeof AccordionSectionSchema>;
+export type BannerT = z.infer<typeof BannerSchema>;
 
 export type PageComponent = { id: string; __typename: string };

@@ -41,10 +41,10 @@ export type BtnMode =
   | "static";
 
 export interface BtnProps {
-  btnType?: BtnType;
+  btnType: BtnType;
   btnText2?: string;
   btnLink2?: string;
-  btnMode?: BtnMode;
+  btnMode: BtnMode;
   btnModeSecondary?: BtnMode;
   btnLink?: string;
   btnText?: string;
