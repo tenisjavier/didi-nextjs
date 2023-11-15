@@ -44,7 +44,7 @@ const NavLogo = ({ countryCode, businessType }: NavLogoProps) => {
       />
     );
 
-  if (businessType === "didipay") {
+  if (businessType === "pay") {
     logoImg = (
       <Image
         src="/images/logos/didi-pay-logo.png"

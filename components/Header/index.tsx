@@ -4,12 +4,15 @@ import NavLogo from "@/components/Header/NavLogo";
 import MenuCountryFlags from "@/components/MenuCountryFlags";
 import Menu from "@/components/Menu";
 import Breadcrumb from "@/components/Header/Breadcrumb";
-import { CountryCode } from "@/typings";
-import { BusinessType } from "@/typings";
+import { CountryCode, BusinessType } from "@/typings";
 
-const Header = () => {
-  const countryCode = headers().get("x-country-code") as CountryCode;
-  const businessType = headers().get("x-business-type") as BusinessType;
+interface HeaderProps {
+  countryCode: CountryCode;
+  businessType: BusinessType;
+}
+
+const Header = ({ countryCode, businessType }: HeaderProps) => {
+  console.log(businessType);
   return (
     <>
       <nav className="fixed z-40 h-14 w-full shadow-sm  shadow-orange-primary bg-white ">

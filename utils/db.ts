@@ -1,6 +1,6 @@
 //? Contentful fetches per content type, country and category
 import { CountryCode } from "@/typings";
-import { City } from "@/typings";
+import { City, Country } from "@/typings";
 import { ImageType } from "@/typings";
 import { PageComponent } from "@/typings";
 import {
@@ -48,6 +48,34 @@ const fetchCities = async (countryCode: CountryCode): Promise<City[]> => {
   }
   const cities = await res.json();
   return cities.data.cityCollection.items;
+};
+//? returns a object of cities
+//* params: country code from the country to fetch the cities
+const fetchCountries = async (): Promise<Country[]> => {
+  const query = `query {
+    countryCollection{
+      items{
+        name
+        code
+        languageCode
+        arabicName
+        englishName
+        spanishName
+        chineseName
+        hostname
+      }
+    }
+    }`;
+
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+  });
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch countries");
+  }
+  const countries = await res.json();
+  return countries.data.countryCollection.items;
 };
 
 //? returns a object of components of a page
@@ -439,6 +467,7 @@ const fetchImages = async (imagesList: string[]): Promise<ImageType[]> => {
 
 export {
   fetchCities,
+  fetchCountries,
   fetchPageComponents,
   fetchCTASectionById,
   fetchColumnSectionById,

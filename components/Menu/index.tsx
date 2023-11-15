@@ -24,7 +24,7 @@ const Menu = ({ countryCode, businessType }: MenuProps) => {
 
   let links = menuLinks;
   if (businessType === "food") links = menuLinksFood;
-  if (businessType === "didipay") links = menuLinksPay;
+  if (businessType === "pay") links = menuLinksPay;
   if (businessType === "card") links = menuLinksCard;
 
   return (

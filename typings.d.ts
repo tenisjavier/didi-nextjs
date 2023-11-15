@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { BtnType, BtnMode } from "@/components/Btn";
 
-const CountrySchema = z.enum([
+const CountryCodeSchema = z.enum([
   "mx",
   "cl",
   "ar",
@@ -16,8 +16,8 @@ const CountrySchema = z.enum([
   "en",
   "eg",
 ]);
-
-const BusinessSchema = z.enum(["mobility", "food", "didipay", "card", "loan"]);
+const languageCodeSchema = z.enum(["es", "en", "ar"]);
+const BusinessSchema = z.enum(["mobility", "food", "pay", "card", "loan"]);
 
 const ImageSchema = z.object({
   title: z.string(),
@@ -39,6 +39,13 @@ const CitySchema = z.object({
     code: CountrySchema,
   }),
   image: ImageSchema,
+});
+const CountrySchema = z.object({
+  name: z.string(),
+  arabicName: z.string(),
+  englishName: z.string(),
+  spanishName: z.string(),
+  hostname: z.string(),
 });
 
 //? Section Components Schemas
@@ -135,10 +142,12 @@ const BannerSchema = z.object({
   reverse: z.boolean().nullish(),
 });
 
-export type CountryCode = z.infer<typeof CountrySchema>;
+export type CountryCode = z.infer<typeof CountryCodeSchema>;
+export type LanguageCode = z.infer<typeof languageCodeSchema>;
 export type BusinessType = z.infer<typeof BusinessSchema>;
 export type ImageType = z.infer<typeof ImageSchema>;
 export type City = z.infer<typeof CitySchema>;
+export type Country = z.infer<typeof CountrySchema>;
 export type CTASectionT = z.infer<typeof CTASectionSchema>;
 export type CardT = z.infer<typeof CardSchema>;
 export type ColumnSectionT = z.infer<typeof ColumnSectionSchema>;
