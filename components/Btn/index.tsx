@@ -4,7 +4,7 @@ import { getBtnLinks } from "@/config/btn/btn-config";
 import gtmEvent from "@/config/tracking/gtm";
 import { FaSpinner } from "react-icons/fa";
 import { usePathname } from "next/navigation";
-import { getCountryCode } from "@/middleware";
+import { getCountryCode } from "@/utils/country";
 
 //? @desc:  CTA buttons.  If not btnType is passed it will be a normal btn.
 //* @props: btnType drv/pax/none | btnLink (normal btn) "url" | btnMode light/none | children: normal btn text
@@ -28,8 +28,7 @@ export type BtnType =
   | "entrega"
   | "entregaBusiness"
   | "en"
-  | "card"
-  | undefined;
+  | "card";
 
 export type BtnMode =
   | "primary"
@@ -66,10 +65,8 @@ const Btn = ({
 }: BtnProps) => {
   const countryCode = getCountryCode(usePathname());
   const btnData = getBtnLinks(countryCode);
-
   const [isLoading, setIsLoading] = useState(false);
 
-  // const version = ab("2023-05-h5-vs-ws-a-t2", "2023-05-h5-vs-ws-b-t2", "t2");
   if (btnType === "drv") {
     btnLink = btnData.drvLink;
     btnText = btnText || btnData.drvText;

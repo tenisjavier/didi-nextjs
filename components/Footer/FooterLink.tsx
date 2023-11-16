@@ -1,10 +1,7 @@
 import React from "react";
 import { getFooterLinks } from "@/config/footer/footer-config";
 import { FooterLinks } from "@/config/footer/footer-config";
-import {
-  FooterLinksFood,
-  getFooterLinksFood,
-} from "@/config/footer/footer-food-config";
+import { getFooterLinksFood } from "@/config/footer/footer-food-config";
 import { CountryCode, BusinessType } from "@/typings";
 
 interface FooterLinkProps {

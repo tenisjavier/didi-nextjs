@@ -1,5 +1,4 @@
 import React from "react";
-import { headers } from "next/headers";
 import NavLogo from "@/components/Header/NavLogo";
 import MenuCountryFlags from "@/components/MenuCountryFlags";
 import Menu from "@/components/Menu";
