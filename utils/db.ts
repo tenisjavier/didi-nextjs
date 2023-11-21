@@ -115,7 +115,7 @@ const fetchPageComponents = async (
     }
   }
   query {
-    pageCollection(limit:2) {
+    pageCollection(where: {pathname :"${pathname}"}) {
       items {
         componentsCollection(limit:10) {
           items {
@@ -143,7 +143,7 @@ const fetchPageComponents = async (
   const componentsToFetch =
     pageComponents.data.pageCollection.items[0].componentsCollection.items.map(
       (item: { sys: { id: string }; __typename: string }) => {
-        return { id: item.sys.id, __typename: item.__typename };
+        return { id: item.sys?.id, __typename: item.__typename };
       }
     );
 
