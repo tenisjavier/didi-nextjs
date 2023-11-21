@@ -6,12 +6,14 @@ import {
   fetchCarouselSectionById,
   fetchAccordionSectionById,
   fetchBannerById,
+  fetchColumnImageSectionById
 } from "@/utils/db";
 import CTASection from "@/components/CTASection";
 import ColumnSection from "@/components/ColumnSection";
 import CarouselSection from "@/components/CarouselSection";
 import AccordionSection from "@/components/AccordionSection";
 import Banner from "@/components/Banner";
+import ColumnImageSection from "./ColumnImageSection";
 
 interface BuilderComponentProps {
   components: PageComponent[];
@@ -20,7 +22,7 @@ interface BuilderComponentProps {
 //? return the JSX array of components to show on the opage
 const BuilderComponent = async ({ components }: BuilderComponentProps) => {
   const JSXComponents = [];
-  console.log(components);
+  console.log('components', components);
   for (const c of components) {
     const component = await fetchComponent(c.__typename, c.id);
     JSXComponents.push(component);
@@ -38,6 +40,9 @@ const fetchComponent = async (type: string, id: string) => {
     case "ColumnSection":
       const columnSectionProps = await fetchColumnSectionById(id);
       return <ColumnSection {...columnSectionProps}></ColumnSection>;
+    case "ColumnImageSection":
+      const columnImageProps = await fetchColumnImageSectionById(id);
+      return <ColumnImageSection {...columnImageProps}></ColumnImageSection>;
     case "CarouselSection":
       const carouselSectionProps = await fetchCarouselSectionById(id);
       return <CarouselSection {...carouselSectionProps}></CarouselSection>;

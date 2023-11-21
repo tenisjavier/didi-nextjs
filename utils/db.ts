@@ -9,6 +9,7 @@ import {
   CarouselSectionT,
   AccordionSectionT,
   BannerT,
+  ColumnImageT,
 } from "@/typings";
 
 //? Contentful API URL and Token from .env.local
@@ -114,6 +115,13 @@ const fetchPageComponents = async (
       id
     }
   }
+  fragment columnImageSectionFields on ColumnImageSection {
+    __typename
+    sys {
+      id
+    }
+  }
+
   query {
     pageCollection(where: {pathname :"${pathname}"}) {
       items {
@@ -124,6 +132,7 @@ const fetchPageComponents = async (
             ...carouselFields
             ...accordionFields
             ...bannerFields
+            ...columnImageSectionFields
           }
         }
       }
@@ -140,6 +149,7 @@ const fetchPageComponents = async (
     throw new Error("Failed to fetch page components");
   }
   const pageComponents = await res.json();
+
   const componentsToFetch =
     pageComponents.data.pageCollection.items[0].componentsCollection.items.map(
       (item: { sys: { id: string }; __typename: string }) => {
@@ -197,6 +207,7 @@ const fetchCTASectionById = async (id: string): Promise<CTASectionT> => {
   const { data } = await res.json();
   return data.ctaSection;
 };
+
 //? returns one Column component by its ID
 //* params: id and type of the component
 const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
@@ -246,6 +257,64 @@ const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
   };
   delete columnSection.columnsCollection;
   return columnSection;
+};
+
+//? returns one Column component by its ID
+//* params: id and type of the component
+const fetchColumnImageSectionById = async (
+  id: string
+): Promise<ColumnImageT> => {
+  const query = `query {
+    columnImageSection(id:"${id}"){
+      name
+      title
+      desc
+      textColor
+      bgColor
+      gridCols
+  		gap
+      image{
+        title
+        description
+        url
+      }
+      columnsCollection{
+        items{
+          name
+          title
+          desc
+          textColor
+          bgColor
+          image {
+            title
+            description
+            url
+          }
+          btnType
+          btnMode
+          btnText
+          btnLink
+          }
+        }
+      }
+    }`;
+
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+    cache: "no-cache",
+  });
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch columnSection");
+  }
+  const { data } = await res.json();
+  const columnImageSection = {
+    ...data.columnImageSection,
+    columns: data.columnImageSection?.columnsCollection.items,
+  };
+  delete columnImageSection.columnsCollection;
+  return columnImageSection;
 };
 
 //? returns one Carousel component by its Id
@@ -424,7 +493,6 @@ banner(id:"${id}") {
   console.log(data);
   return data.banner;
 };
-
 //? returns a object of images
 //* params: array of image names to fetch
 const fetchImages = async (imagesList: string[]): Promise<ImageType[]> => {
@@ -471,6 +539,7 @@ export {
   fetchPageComponents,
   fetchCTASectionById,
   fetchColumnSectionById,
+  fetchColumnImageSectionById,
   fetchCarouselSectionById,
   fetchAccordionSectionById,
   fetchBannerById,

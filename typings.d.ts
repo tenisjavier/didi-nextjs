@@ -17,7 +17,14 @@ const CountryCodeSchema = z.enum([
   "eg",
 ]);
 const languageCodeSchema = z.enum(["es", "en", "ar"]);
-const BusinessSchema = z.enum(["mobility", "food", "pay", "card", "loan"]);
+const BusinessSchema = z.enum([
+  "mobility",
+  "food",
+  "pay",
+  "card",
+  "loan",
+  "drive",
+]);
 
 const ImageSchema = z.object({
   title: z.string(),
@@ -96,6 +103,24 @@ const ColumnSectionSchema = z.object({
   columns: z.array(CardSchema),
 });
 
+const ColumnImageSchema = z.object({
+  name: z.string(),
+  title: z.string().nullish(),
+  desc: z.string().nullish(),
+  textColor: z.string(),
+  bgColor: z.string(),
+  sectionID: z.string().nullish(),
+  RTL: z.boolean().nullish(),
+  hasTextHighlight: z.boolean().nullish(),
+  textHighlightStyles: z.string().nullish(),
+  gridCols: z.number(),
+  gap: z.number(),
+  columns: z.array(CardSchema),
+  image: ImageSchema.nullish(),
+  imageAlignment: z.enum(["left", "right", "center"]),
+  rounded: z.enum(["rounded", "rounded-full"]),
+});
+
 const CarouselSectionSchema = z.object({
   name: z.string(),
   textColor: z.string(),
@@ -151,6 +176,7 @@ export type Country = z.infer<typeof CountrySchema>;
 export type CTASectionT = z.infer<typeof CTASectionSchema>;
 export type CardT = z.infer<typeof CardSchema>;
 export type ColumnSectionT = z.infer<typeof ColumnSectionSchema>;
+export type ColumnImageT = z.infer<typeof ColumnImageSchema>;
 export type CarouselSectionT = z.infer<typeof CarouselSectionSchema>;
 export type AccordionT = z.infer<typeof AccordionSchema>;
 export type AccordionSectionT = z.infer<typeof AccordionSectionSchema>;

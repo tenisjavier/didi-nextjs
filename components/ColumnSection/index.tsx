@@ -46,8 +46,8 @@ const ColumnsSection = (props: ColumnSectionT) => {
         {title &&
           title
             .split("\n")
-            .map((str) => (
-              <h2 className="text-left lg:text-center text-4xl">
+            .map((str, index) => (
+              <h2 key={index} className="text-left lg:text-center text-4xl">
                 {hasTextHighlight
                   ? textHighlighter(str, textHighlightStyles)
                   : str}
@@ -56,14 +56,13 @@ const ColumnsSection = (props: ColumnSectionT) => {
         {desc &&
           desc
             .split("\n")
-            .map((str) => (
-              <p className="text-left lg:text-center text-lg">{str}</p>
+            .map((str, index) => (
+              <p key={index} className="text-left lg:text-center text-lg">{str}</p>
             ))}
 
         <div
-          className={`grid grid-cols-1 md:grid-cols-2 lg:${
-            "grid-cols-" + gridCols
-          } ${"gap-" + gap} mt-10  lg:justify-around `}
+          className={`grid grid-cols-1 md:grid-cols-2 lg:${"grid-cols-" + gridCols
+            } ${"gap-" + gap} mt-10  lg:justify-around `}
         >
           {columns &&
             columns.map((col, index) => {
