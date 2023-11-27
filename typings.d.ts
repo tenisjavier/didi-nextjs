@@ -167,6 +167,27 @@ const BannerSchema = z.object({
   reverse: z.boolean().nullish(),
 });
 
+const CarouselSchema = z.object({
+  slides: z.array(BannerSchema),
+  images: z.array(ImageSchema),
+  ctaSection: z.array(CTASectionSchema),
+  carouselType: z.enum(["Banner", "Images", "CTASection"]),
+  slidesToShow: z.number(),
+  slidesToScroll: z.number(),
+  arrowNext: z.string(),
+  arrowPrev: z.string(),
+  arrowColor: z.string(),
+  isAutoPlay: z.boolean(),
+  speedAutoPlay: z.number(),
+  imagesMobile: z.array(ImageSchema),
+  imageContainerStyle: z.string(),
+  imageStyle: z.string(),
+  slidesToShowMobile: z.number(),
+  hasDots: z.boolean(),
+  hasArrows: z.boolean(),
+  maxWidth: z.string(),
+});
+
 export type CountryCode = z.infer<typeof CountryCodeSchema>;
 export type LanguageCode = z.infer<typeof languageCodeSchema>;
 export type BusinessType = z.infer<typeof BusinessSchema>;
@@ -181,5 +202,6 @@ export type CarouselSectionT = z.infer<typeof CarouselSectionSchema>;
 export type AccordionT = z.infer<typeof AccordionSchema>;
 export type AccordionSectionT = z.infer<typeof AccordionSectionSchema>;
 export type BannerT = z.infer<typeof BannerSchema>;
+export type CarouselT = z.infer<typeof CarouselSchema>;
 
 export type PageComponent = { id: string; __typename: string };

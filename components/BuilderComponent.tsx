@@ -6,7 +6,8 @@ import {
   fetchCarouselSectionById,
   fetchAccordionSectionById,
   fetchBannerById,
-  fetchColumnImageSectionById
+  fetchColumnImageSectionById,
+  fetchCarouselById
 } from "@/utils/db";
 import CTASection from "@/components/CTASection";
 import ColumnSection from "@/components/ColumnSection";
@@ -14,6 +15,7 @@ import CarouselSection from "@/components/CarouselSection";
 import AccordionSection from "@/components/AccordionSection";
 import Banner from "@/components/Banner";
 import ColumnImageSection from "./ColumnImageSection";
+import Carousel from "./Carousel/Carousel";
 
 interface BuilderComponentProps {
   components: PageComponent[];
@@ -33,6 +35,7 @@ const BuilderComponent = async ({ components }: BuilderComponentProps) => {
 
 //? function that return the correct component from db fetch depending on type
 const fetchComponent = async (type: string, id: string) => {
+  console.log(type);
   switch (type) {
     case "CtaSection":
       const ctaSectionProps = await fetchCTASectionById(id);
@@ -46,6 +49,9 @@ const fetchComponent = async (type: string, id: string) => {
     case "CarouselSection":
       const carouselSectionProps = await fetchCarouselSectionById(id);
       return <CarouselSection {...carouselSectionProps}></CarouselSection>;
+    case "Carousel":
+      const carouselProps = await fetchCarouselById(id);
+      return <Carousel {...carouselProps}></Carousel>;
     case "AccordionSection":
       const accordionSectionProps = await fetchAccordionSectionById(id);
       return <AccordionSection {...accordionSectionProps}></AccordionSection>;
@@ -58,3 +64,5 @@ const fetchComponent = async (type: string, id: string) => {
 };
 
 export default BuilderComponent;
+
+
