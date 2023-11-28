@@ -168,6 +168,7 @@ const BannerSchema = z.object({
 });
 
 const CarouselSchema = z.object({
+  title: z.string(),
   slides: z.array(BannerSchema),
   images: z.array(ImageSchema),
   ctaSection: z.array(CTASectionSchema),

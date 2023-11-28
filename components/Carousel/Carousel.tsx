@@ -51,7 +51,8 @@ const Carousel = (props: CarouselT) => {
     ctaSection,
     hasDots,
     hasArrows,
-    maxWidth
+    maxWidth,
+    title
   } = props;
 
 
@@ -116,7 +117,15 @@ const Carousel = (props: CarouselT) => {
   };
 
   return (
-    <Slider className={`max-w-[${maxWidth}px] m-auto`} {...settings}>{sliderContent && sliderContent}</Slider>
+    <div style={{
+      maxWidth: `${maxWidth}px`,
+      margin: 'auto'
+    }}>
+      {title && (
+        <h2 className="text-3xl font-bold text-center mb-8">{title}</h2>
+      )}
+      <Slider {...settings}>{sliderContent && sliderContent}</Slider>
+    </div>
   )
 };
 

@@ -299,7 +299,10 @@ const fetchColumnImageSectionById = async (
             description
             url
           }
-        }}`;
+        }
+      }
+    }
+  }`;
   const res = await fetch(`${apiUrl}?query=${query}`, {
     headers: headers,
     cache: "no-cache",
@@ -317,11 +320,14 @@ const fetchColumnImageSectionById = async (
   delete columnImageSection.columnsCollection;
   return columnImageSection;
 };
+//? returns one Column component by its ID
+//* params: id and type of the component
 const fetchCarouselById = async (id: string): Promise<CarouselT> => {
   const query = `query {
     carousel(id:"${id}"){
       name
       maxWidth
+      title
       slidesCollection{
         items{
           title
