@@ -11,7 +11,6 @@ interface HeaderProps {
 }
 
 const Header = ({ countryCode, businessType }: HeaderProps) => {
-  console.log(businessType);
   return (
     <>
       <nav className="fixed z-40 h-14 w-full shadow-sm  shadow-orange-primary bg-white ">

@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 };
 
 const page = async () => {
-  const components = await fetchPageComponents("/mx/");
-  console.log('components', components)
+  const components = await fetchPageComponents("/mx/conductor/");
+
   return <BuilderComponent components={components}></BuilderComponent>;
 };
 

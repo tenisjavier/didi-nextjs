@@ -37,7 +37,7 @@ const AccordionSection = ({
         {desc &&
           desc
             .split("\n")
-            .map((str) => <p className={`text-left md:${textDir}`}>{str}</p>)}
+            .map((str, index) => <p key={index} className={`text-left md:${textDir}`}>{str}</p>)}
         <div className={`flex flex-wrap justify-around `}>
           {items.map((item, index) => {
             return (

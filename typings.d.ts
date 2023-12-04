@@ -17,7 +17,14 @@ const CountryCodeSchema = z.enum([
   "eg",
 ]);
 const languageCodeSchema = z.enum(["es", "en", "ar"]);
-const BusinessSchema = z.enum(["mobility", "food", "pay", "card", "loan"]);
+const BusinessSchema = z.enum([
+  "mobility",
+  "food",
+  "pay",
+  "card",
+  "loan",
+  "drive",
+]);
 
 const ImageSchema = z.object({
   title: z.string(),
@@ -96,6 +103,24 @@ const ColumnSectionSchema = z.object({
   columns: z.array(CardSchema),
 });
 
+const ColumnImageSchema = z.object({
+  name: z.string(),
+  title: z.string().nullish(),
+  desc: z.string().nullish(),
+  textColor: z.string(),
+  bgColor: z.string(),
+  sectionID: z.string().nullish(),
+  RTL: z.boolean().nullish(),
+  hasTextHighlight: z.boolean().nullish(),
+  textHighlightStyles: z.string().nullish(),
+  gridCols: z.number(),
+  gap: z.number(),
+  columns: z.array(CardSchema),
+  image: ImageSchema.nullish(),
+  imageAlignment: z.enum(["left", "right", "center"]),
+  rounded: z.enum(["rounded", "rounded-full"]),
+});
+
 const CarouselSectionSchema = z.object({
   name: z.string(),
   textColor: z.string(),
@@ -142,6 +167,28 @@ const BannerSchema = z.object({
   reverse: z.boolean().nullish(),
 });
 
+const CarouselSchema = z.object({
+  title: z.string(),
+  slides: z.array(BannerSchema),
+  images: z.array(ImageSchema),
+  ctaSection: z.array(CTASectionSchema),
+  carouselType: z.enum(["Banner", "Images", "CTASection"]),
+  slidesToShow: z.number(),
+  slidesToScroll: z.number(),
+  arrowNext: z.string(),
+  arrowPrev: z.string(),
+  arrowColor: z.string(),
+  isAutoPlay: z.boolean(),
+  speedAutoPlay: z.number(),
+  imagesMobile: z.array(ImageSchema),
+  imageContainerStyle: z.string(),
+  imageStyle: z.string(),
+  slidesToShowMobile: z.number(),
+  hasDots: z.boolean(),
+  hasArrows: z.boolean(),
+  maxWidth: z.string(),
+});
+
 export type CountryCode = z.infer<typeof CountryCodeSchema>;
 export type LanguageCode = z.infer<typeof languageCodeSchema>;
 export type BusinessType = z.infer<typeof BusinessSchema>;
@@ -151,9 +198,11 @@ export type Country = z.infer<typeof CountrySchema>;
 export type CTASectionT = z.infer<typeof CTASectionSchema>;
 export type CardT = z.infer<typeof CardSchema>;
 export type ColumnSectionT = z.infer<typeof ColumnSectionSchema>;
+export type ColumnImageT = z.infer<typeof ColumnImageSchema>;
 export type CarouselSectionT = z.infer<typeof CarouselSectionSchema>;
 export type AccordionT = z.infer<typeof AccordionSchema>;
 export type AccordionSectionT = z.infer<typeof AccordionSectionSchema>;
 export type BannerT = z.infer<typeof BannerSchema>;
+export type CarouselT = z.infer<typeof CarouselSchema>;
 
 export type PageComponent = { id: string; __typename: string };

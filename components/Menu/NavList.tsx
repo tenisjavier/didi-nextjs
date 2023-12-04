@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import NavItem from "./NavItem";
 import { SingleMenuItem } from "@/config/menu/menu-config";
 import { CountryCode } from "@/typings";
@@ -11,16 +11,13 @@ interface NavListProps {
 const NavList = ({ links, countryCode }: NavListProps) => {
   return (
     <>
-      {links &&
-        useMemo(() => {
-          return links.map((link, index) => (
-            <NavItem
-              key={index}
-              link={link}
-              countryCode={countryCode}
-            ></NavItem>
-          ));
-        }, [links])}
+      {links && links?.map((link, index) => (
+        <NavItem
+          key={index}
+          link={link}
+          countryCode={countryCode}
+        ></NavItem>
+      ))}
     </>
   );
 };
