@@ -9,8 +9,10 @@ import {
   CarouselSectionT,
   AccordionSectionT,
   BannerT,
+  OptionsSectionT,
   ColumnImageT,
   CarouselT,
+
 } from "@/typings";
 
 //? Contentful API URL and Token from .env.local
@@ -122,7 +124,16 @@ const fetchPageComponents = async (
       id
     }
   }
+
+  fragment optionsFields on OptionsSection {
+    __typename
+    sys {
+      id
+    }
+  }
+
   fragment columnImageSectionFields on ColumnImageSection {
+
     __typename
     sys {
       id
@@ -139,8 +150,10 @@ const fetchPageComponents = async (
             ...carouselSectionFields
             ...accordionFields
             ...bannerFields
+            ...optionsFields
             ...columnImageSectionFields
             ...carouselFields
+
           }
         }
       }
@@ -219,34 +232,35 @@ const fetchCTASectionById = async (id: string): Promise<CTASectionT> => {
 
 //? returns one Column component by its ID
 //* params: id and type of the component
-const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
+const fetchOptionsSectionById = async (
+  id: string
+): Promise<OptionsSectionT> => {
   const query = `query {
-    columnSection(id:"${id}"){
+    optionsSection(id:"${id}"){
       name
       title
       desc
       textColor
       bgColor
-      gridCols
-  		gap
-      columnsCollection{
+      optionsTitle
+      optionsBulletTitle
+      optionsBulletDesc
+      optionsCollection{
         items{
           name
           title
-          desc
-          textColor
-          bgColor
           image {
             title
             description
             url
           }
-          btnType
-          btnMode
-          btnText
-          btnLink
+          bullets
           }
         }
+      btnType
+      btnMode
+      btnText
+      btnLink
       }
     }`;
 
@@ -257,15 +271,16 @@ const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
 
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch columnSection");
+    throw new Error("Failed to fetch optionsSection");
   }
   const { data } = await res.json();
-  const columnSection = {
-    ...data.columnSection,
-    columns: data.columnSection?.columnsCollection.items,
+  const optionsSection = {
+    ...data.optionsSection,
+    options: data.optionsSection?.optionsCollection.items,
   };
-  delete columnSection.columnsCollection;
-  return columnSection;
+  delete optionsSection.optionsCollection;
+  console.log(optionsSection);
+  return optionsSection;
 };
 
 //? returns one Column component by its ID
@@ -610,6 +625,59 @@ banner(id:"${id}") {
   console.log(data);
   return data.banner;
 };
+
+//? returns one Column component by its ID
+//* params: id and type of the component
+const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
+  const query = `query {
+    columnSection(id:"${id}"){
+      name
+      title
+      desc
+      textColor
+      bgColor
+      gridCols
+  		gap
+      columnsCollection{
+        items{
+          name
+          title
+          desc
+          textColor
+          bgColor
+          image {
+            title
+            description
+            url
+          }
+          btnType
+          btnMode
+          btnText
+          btnLink
+          }
+        }
+      }
+    }`;
+
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+    cache: "no-cache",
+  });
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch columnSection");
+  }
+  const { data } = await res.json();
+  const columnSection = {
+    ...data.columnSection,
+    columns: data.columnSection?.columnsCollection.items,
+  };
+  delete columnSection.columnsCollection;
+  return columnSection;
+};
+
+
 //? returns a object of images
 //* params: array of image names to fetch
 const fetchImages = async (imagesList: string[]): Promise<ImageType[]> => {
@@ -660,6 +728,7 @@ export {
   fetchCarouselSectionById,
   fetchAccordionSectionById,
   fetchBannerById,
+  fetchOptionsSectionById,
   fetchImages,
   fetchCarouselById,
 };
