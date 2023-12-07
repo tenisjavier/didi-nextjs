@@ -10,9 +10,11 @@ export const metadata: Metadata = {
   description: "Elmejor",
 };
 
+
 const Conductor = async () => {
   const components = await fetchPageComponents("/mx/conductor/");
   return <BuilderComponent components={components}></BuilderComponent>;
 };
 
 export default Conductor;
+

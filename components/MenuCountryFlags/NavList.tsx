@@ -10,16 +10,13 @@ interface NavListProps {
 const NavList = ({ links, countryCode }: NavListProps) => {
   return (
     <>
-      {links &&
-        useMemo(() => {
-          return links.map((menuLink, index) => (
-            <NavItem
-              key={index}
-              link={menuLink}
-              isSelected={menuLink.text.toLocaleLowerCase() === countryCode}
-            />
-          ));
-        }, [links])}
+      {links && links?.map((menuLink, index) => (
+        <NavItem
+          key={index}
+          link={menuLink}
+          isSelected={menuLink.text.toLocaleLowerCase() === countryCode}
+        />
+      ))}
     </>
   );
 };

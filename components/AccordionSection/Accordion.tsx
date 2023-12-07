@@ -15,13 +15,13 @@ const Accordion = ({
   isClosed,
   isFaq,
 }: AccordionT) => {
-  var [isOpen, setIsOpen] = useState(false);
-  var [height, setHeight] = useState("0px");
+  const [isOpen, setIsOpen] = useState(false);
+  const [height, setHeight] = useState("0px");
   const content1: any = useRef(null);
 
   if (isClosed === false) {
-    [isOpen, setIsOpen] = useState(true);
-    [height, setHeight] = useState("50");
+    setIsOpen(true)
+    setHeight("50")
   }
 
   const closeClass =
@@ -48,9 +48,8 @@ const Accordion = ({
         <>
           <div
             aria-hidden="true"
-            className={`mt-6 flex w-full cursor-pointer items-center justify-between rounded  border-solid border-gray-light px-10 lg:px-20 ${
-              isOpen ? "bg-white border-none" : bgColor
-            }`}
+            className={`mt-6 flex w-full cursor-pointer items-center justify-between rounded  border-solid border-gray-light px-10 lg:px-20 ${isOpen ? "bg-white border-none" : bgColor
+              }`}
             onClick={() => toggtle()}
           >
             <h3

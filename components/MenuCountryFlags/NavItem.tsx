@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, memo } from "react";
 import Image from "next/image";
 import { SingleMenuItem } from "@/config/menu/menu-config";
 
@@ -18,9 +18,8 @@ const NavItem: FC<NavItemProps> = ({ link, isSelected }) => {
 
   return (
     <li
-      className={`${
-        isSelected ? "bg-gray-200 rounded-full" : ""
-      } py-1 px-2 list-none group h-full flex flex-col w-full text-gray-primary justify-center gap-2.5 `}
+      className={`${isSelected ? "bg-gray-200 rounded-full" : ""
+        } py-1 px-2 list-none group h-full flex flex-col w-full text-gray-primary justify-center gap-2.5 `}
     >
       <a
         href={url}
@@ -44,4 +43,4 @@ const NavItem: FC<NavItemProps> = ({ link, isSelected }) => {
   );
 };
 
-export default NavItem;
+export default memo(NavItem);

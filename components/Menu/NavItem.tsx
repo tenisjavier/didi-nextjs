@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import Link from "next/link";
 import { AiOutlineRight, AiOutlineDown } from "react-icons/ai";
 import Image from "next/image";
@@ -60,4 +60,4 @@ const NavItem = ({ link, countryCode }: NavItemProps) => {
   );
 };
 
-export default NavItem;
+export default memo(NavItem);

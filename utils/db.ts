@@ -10,6 +10,9 @@ import {
   AccordionSectionT,
   BannerT,
   OptionsSectionT,
+  ColumnImageT,
+  CarouselT,
+
 } from "@/typings";
 
 //? Contentful API URL and Token from .env.local
@@ -97,7 +100,13 @@ const fetchPageComponents = async (
       id
     }
   }
-  fragment carouselFields on CarouselSection {
+  fragment carouselSectionFields on CarouselSection {
+    __typename
+    sys {
+      id
+    }
+  }
+  fragment carouselFields on Carousel {
     __typename
     sys {
       id
@@ -115,12 +124,22 @@ const fetchPageComponents = async (
       id
     }
   }
+
   fragment optionsFields on OptionsSection {
     __typename
     sys {
       id
     }
   }
+
+  fragment columnImageSectionFields on ColumnImageSection {
+
+    __typename
+    sys {
+      id
+    }
+  }
+
   query {
     pageCollection(where: {pathname :"${pathname}"}) {
       items {
@@ -128,10 +147,13 @@ const fetchPageComponents = async (
           items {
            ...ctaFields
             ...columnFields
-            ...carouselFields
+            ...carouselSectionFields
             ...accordionFields
             ...bannerFields
             ...optionsFields
+            ...columnImageSectionFields
+            ...carouselFields
+
           }
         }
       }
@@ -148,6 +170,7 @@ const fetchPageComponents = async (
     throw new Error("Failed to fetch page components");
   }
   const pageComponents = await res.json();
+
   const componentsToFetch =
     pageComponents.data.pageCollection.items[0].componentsCollection.items.map(
       (item: { sys: { id: string }; __typename: string }) => {
@@ -157,6 +180,7 @@ const fetchPageComponents = async (
 
   return componentsToFetch;
 };
+
 //? returns one CTA component by its ID
 //* params: id and type of the component
 const fetchCTASectionById = async (id: string): Promise<CTASectionT> => {
@@ -205,6 +229,7 @@ const fetchCTASectionById = async (id: string): Promise<CTASectionT> => {
   const { data } = await res.json();
   return data.ctaSection;
 };
+
 //? returns one Column component by its ID
 //* params: id and type of the component
 const fetchOptionsSectionById = async (
@@ -256,6 +281,171 @@ const fetchOptionsSectionById = async (
   delete optionsSection.optionsCollection;
   console.log(optionsSection);
   return optionsSection;
+};
+
+//? returns one Column component by its ID
+//* params: id and type of the component
+const fetchColumnImageSectionById = async (
+  id: string
+): Promise<ColumnImageT> => {
+  const query = `query {
+    columnImageSection(id:"${id}"){
+      name
+      title
+      desc
+      textColor
+      bgColor
+      gridCols
+  		gap
+      image{
+        title
+        description
+        url
+      }
+      columnsCollection{
+        items{
+          name
+          title
+          desc
+          textColor
+          bgColor
+          image {
+            title
+            description
+            url
+          }
+        }
+      }
+    }
+  }`;
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+    cache: "no-cache",
+  });
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch columnSection");
+  }
+  const { data } = await res.json();
+  const columnImageSection = {
+    ...data.columnImageSection,
+    columns: data.columnImageSection?.columnsCollection.items,
+  };
+  delete columnImageSection.columnsCollection;
+  return columnImageSection;
+};
+//? returns one Column component by its ID
+//* params: id and type of the component
+const fetchCarouselById = async (id: string): Promise<CarouselT> => {
+  const query = `query {
+    carousel(id:"${id}"){
+      name
+      maxWidth
+      title
+      slidesCollection{
+        items{
+          title
+          name
+          textColor
+          bgColor
+          btnType
+          btnMode
+          btnText
+          btnLink
+          reverse
+          image{
+            title
+            description
+            url
+            width
+            height
+          }
+        }
+      }
+      imagesCollection{
+        items{
+          title
+          description
+          url
+          width
+          height
+        }
+      }
+      isAutoPlay
+      hasDots
+      hasArrows
+      carouselType
+      slidesToShow
+      speedAutoPlay
+      imagesMobileCollection{
+        items{
+          title
+          description
+          url
+          width
+          height
+        }
+      }
+      slidesToShowMobile
+      ctaSectionCollection{
+        items{
+          name
+          isHero
+          title
+          desc
+          bullets
+          textColor
+          bgColor
+          bgImage {
+            title
+            description
+            url
+          }
+          mobileBgImage{
+            title
+            description
+            url
+          }
+          image{
+            title
+            description
+            url
+          }
+          rounded
+          btnType
+          btnMode
+          btnText
+          btnLink
+          reverse
+        }
+      }
+    }
+    }`;
+
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+    cache: "no-cache",
+  });
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch carousel");
+  }
+
+  const { data } = await res.json();
+  const carousel = {
+    ...data.carousel,
+    ctaSection: data.carousel?.ctaSectionCollection.items,
+    images: data.carousel?.imagesCollection.items,
+    imagesMobile: data.carousel?.imagesMobileCollection.items,
+    slides: data.carousel?.slidesCollection.items,
+  };
+  delete carousel.ctaSectionCollection;
+  delete carousel.imagesCollection;
+  delete carousel.imagesMobileCollection;
+  delete carousel.slidesCollection;
+  return carousel;
 };
 
 //? returns one Carousel component by its Id
@@ -334,6 +524,7 @@ carouselSection(id:"${id}") {
   delete carouselSection.iconsCollection;
   return carouselSection;
 };
+
 //? returns one Accordion Section component by its Id
 //* params: id and type of the component
 const fetchAccordionSectionById = async (
@@ -434,6 +625,7 @@ banner(id:"${id}") {
   console.log(data);
   return data.banner;
 };
+
 //? returns one Column component by its ID
 //* params: id and type of the component
 const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
@@ -485,6 +677,7 @@ const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
   return columnSection;
 };
 
+
 //? returns a object of images
 //* params: array of image names to fetch
 const fetchImages = async (imagesList: string[]): Promise<ImageType[]> => {
@@ -531,9 +724,11 @@ export {
   fetchPageComponents,
   fetchCTASectionById,
   fetchColumnSectionById,
+  fetchColumnImageSectionById,
   fetchCarouselSectionById,
   fetchAccordionSectionById,
   fetchBannerById,
   fetchOptionsSectionById,
   fetchImages,
+  fetchCarouselById,
 };
