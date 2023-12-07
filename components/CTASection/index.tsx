@@ -5,7 +5,7 @@ import SectionBullets from "@/components/CTASection/SectionBullets";
 import SectionList from "@/components/CTASection/SectionList";
 import SectionCreditCardCashBackBullets, {
   SectionCreditCardCashBackBulletsProps,
-} from "./SectionCreditCardCashBackBullets";
+} from "@/components/CTASection/SectionCreditCardCashBackBullets";
 import textHighlighter from "@/utils/textHighlighter";
 import { CTASectionT } from "@/typings";
 

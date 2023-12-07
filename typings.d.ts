@@ -141,6 +141,29 @@ const BannerSchema = z.object({
   btnLink: BtnMode.nullish(),
   reverse: z.boolean().nullish(),
 });
+const OptionsSchema = z.object({
+  name: z.string(),
+  title: z.string(),
+  image: ImageSchema(),
+  bullets: z.array(z.string()),
+  isActive: z.boolean(),
+});
+
+const OptionsSectionSchema = z.object({
+  name: z.string(),
+  title: z.string(),
+  desc: z.string().nullish(),
+  bgColor: z.string(),
+  textColor: z.string(),
+  optionsTitle: z.string(),
+  optionsBulletTitle: z.string(),
+  optionsBulletDesc: z.string(),
+  options: z.array(OptionsSchema),
+  btnType: BtnType.nullish(),
+  btnMode: BtnMode.nullish(),
+  btnText: BtnType.min(5).max(30).nullish(),
+  btnLink: BtnMode.nullish(),
+});
 
 export type CountryCode = z.infer<typeof CountryCodeSchema>;
 export type LanguageCode = z.infer<typeof languageCodeSchema>;
@@ -155,5 +178,7 @@ export type CarouselSectionT = z.infer<typeof CarouselSectionSchema>;
 export type AccordionT = z.infer<typeof AccordionSchema>;
 export type AccordionSectionT = z.infer<typeof AccordionSectionSchema>;
 export type BannerT = z.infer<typeof BannerSchema>;
+export type OptionsSectionT = z.infer<typeof OptionsSectionSchema>;
+export type OptionsT = z.infer<typeof OptionsSchema>;
 
 export type PageComponent = { id: string; __typename: string };

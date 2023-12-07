@@ -6,12 +6,14 @@ import {
   fetchCarouselSectionById,
   fetchAccordionSectionById,
   fetchBannerById,
+  fetchOptionsSectionById,
 } from "@/utils/db";
 import CTASection from "@/components/CTASection";
 import ColumnSection from "@/components/ColumnSection";
 import CarouselSection from "@/components/CarouselSection";
 import AccordionSection from "@/components/AccordionSection";
 import Banner from "@/components/Banner";
+import OptionsSection from "@/components/OptionsSection";
 
 interface BuilderComponentProps {
   components: PageComponent[];
@@ -47,6 +49,10 @@ const fetchComponent = async (type: string, id: string) => {
     case "Banner":
       const bannerProps = await fetchBannerById(id);
       return <Banner {...bannerProps}></Banner>;
+    case "OptionsSection":
+      const optionsSectionProps = await fetchOptionsSectionById(id);
+      return <OptionsSection {...optionsSectionProps}></OptionsSection>;
+
     default:
       return null;
   }
