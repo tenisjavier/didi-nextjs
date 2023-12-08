@@ -12,7 +12,8 @@ import {
   OptionsSectionT,
   ColumnImageT,
   CarouselT,
-
+  ListSectionT,
+  ListItemT,
 } from "@/typings";
 
 //? Contentful API URL and Token from .env.local
@@ -24,9 +25,12 @@ const headers = {
 
 //? returns a object of cities
 //* params: country code from the country to fetch the cities
-const fetchCities = async (countryCode: CountryCode): Promise<City[]> => {
+const fetchCities = async (
+  countryCode: CountryCode,
+  productCategory: string
+): Promise<City[]> => {
   const query = `query {
-    cityCollection(where: {country:{code:"${countryCode}"}}){
+    cityCollection(order: [name_ASC],where: {country:{code:"${countryCode}"}, product:{category_contains_some:"${productCategory}"}}){
       items{
         name
         slug
@@ -139,6 +143,14 @@ const fetchPageComponents = async (
       id
     }
   }
+  
+  fragment listSectionFields on ListSection {
+
+    __typename
+    sys {
+      id
+    }
+  }
 
   query {
     pageCollection(where: {pathname :"${pathname}"}) {
@@ -153,7 +165,7 @@ const fetchPageComponents = async (
             ...optionsFields
             ...columnImageSectionFields
             ...carouselFields
-
+            ...listSectionFields
           }
         }
       }
@@ -335,6 +347,7 @@ const fetchColumnImageSectionById = async (
   delete columnImageSection.columnsCollection;
   return columnImageSection;
 };
+
 //? returns one Column component by its ID
 //* params: id and type of the component
 const fetchCarouselById = async (id: string): Promise<CarouselT> => {
@@ -587,6 +600,7 @@ accordionSection(id:"${id}") {
   delete accordionSection.itemsCollection;
   return accordionSection;
 };
+
 //? returns one Banner component by its Id
 //* params: id and type of the component
 const fetchBannerById = async (id: string): Promise<BannerT> => {
@@ -676,7 +690,60 @@ const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
   delete columnSection.columnsCollection;
   return columnSection;
 };
+//? returns one Column component by its ID
+//* params: id and type of the component
+const fetchListSectionById = async (id: string): Promise<ListSectionT> => {
+  const query = `query {
+    listSection(id:"${id}"){
+      name
+      title
+      desc
+      country {
+        code
+      }
+      bgColor
+      textColor
+      listType
+      productCategory  
+      }
+    }`;
 
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+    cache: "no-cache",
+  });
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch listSection");
+  }
+  const { data } = await res.json();
+
+  //? fetch depending on the listType and productCategory
+  if (data.listSection.listType === "city") {
+    const cities = await fetchCities(
+      data.listSection.country.code,
+      data.listSection.productCategory
+    );
+    const items: ListItemT = cities.map((city) => {
+      return {
+        text: city.name,
+        image: city.image,
+        link: `/${city.country.code}/ciudades/${city.slug}/`,
+      };
+    });
+    data.listSection.items = items;
+  }
+  //? refactor to match the listSectionT
+  const listProps: ListSectionT = {
+    title: data.listSection.title,
+    desc: data.listSection.desc,
+    bgColor: data.listSection.bgColor,
+    textColor: data.listSection.textColor,
+    items: data.listSection.items,
+  };
+  return listProps;
+};
 
 //? returns a object of images
 //* params: array of image names to fetch
@@ -731,4 +798,5 @@ export {
   fetchOptionsSectionById,
   fetchImages,
   fetchCarouselById,
+  fetchListSectionById,
 };

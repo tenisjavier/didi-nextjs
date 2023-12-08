@@ -1,14 +1,6 @@
 import React from "react";
 import ListItem from "@/components/ListSection/ListItem";
-import { ListItemProps } from "@/components/ListSection/ListItem";
-
-export interface ListSectionProps {
-  title: string;
-  desc?: string;
-  items: ListItemProps[];
-  bgColor?: string;
-  textColor?: string;
-}
+import { ListSectionT } from "@/typings";
 
 const ListSection = ({
   title,
@@ -16,7 +8,7 @@ const ListSection = ({
   items,
   bgColor,
   textColor,
-}: ListSectionProps) => {
+}: ListSectionT) => {
   return (
     <section
       className={`container text-${textColor} ${bgColor} py-12 text-left w-full mx-auto`}
@@ -24,7 +16,7 @@ const ListSection = ({
       <h2 className="text-3xl ">{title}</h2>
       <p>{desc}</p>
       <ul
-        className={`m-0 p-0 my-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 lg:gap-2 w-full mx-auto items-center justify-center`}
+        className={`m-0 p-0 my-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 lg:gap-2 w-full mx-auto items-center justify-center list-none`}
       >
         {items &&
           items.map((item, index) => {
