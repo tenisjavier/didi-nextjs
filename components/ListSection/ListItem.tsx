@@ -2,20 +2,14 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
+import { ListItemT } from "@/typings";
 
-export interface ListItemProps {
-  text: string;
-  secondText?: string;
-  link?: string;
-  image?: any;
-}
-
-const ListItem = ({ text, secondText, link, image }: ListItemProps) => {
+const ListItem = ({ text, secondText, link, image }: ListItemT) => {
   const subText = secondText && secondText.slice(0, 40).concat("...");
 
   const item = link ? (
     <div className=" flex items-center justify-between px-4">
-      <span className="z-10 pt-3">
+      <span className="z-10 pt-1">
         <p>
           <Link href={link}>{text}</Link>
         </p>
@@ -26,11 +20,6 @@ const ListItem = ({ text, secondText, link, image }: ListItemProps) => {
 
       <Link href={link} className="z-10">
         <BsFillArrowRightCircleFill />
-        {/* <FontAwesomeIcon
-          icon={faArrowCircleRight}
-          size="1x"
-          className={`w-4 ${link === "#" && "hidden"}`}
-        ></FontAwesomeIcon> */}
       </Link>
     </div>
   ) : (
@@ -45,12 +34,11 @@ const ListItem = ({ text, secondText, link, image }: ListItemProps) => {
       {image && (
         <Image
           src={image.url}
-          alt={text}
+          alt={image.description}
           className={
-            "!absolute z-0 h-full w-full !block bg-cover brightness-50"
+            "!absolute z-0 h-full w-full !block bg-cover brightness-50 object-cover"
           }
-          width={300}
-          height={300}
+          fill
         ></Image>
       )}
       {item}

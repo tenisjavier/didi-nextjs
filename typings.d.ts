@@ -212,6 +212,21 @@ const CarouselSchema = z.object({
   maxWidth: z.string(),
 });
 
+const ListSectionSchema = z.object({
+  title: z.string(),
+  desc: z.string().nullish(),
+  bgColor: z.string(),
+  textColor: z.string(),
+  items: z.array(ListItemSchema),
+});
+
+const ListItemSchema = z.object({
+  text: z.string(),
+  secondText: z.string().nullish(),
+  link: z.string(),
+  image: z.ImageSchema().nullish(),
+});
+
 export type CountryCode = z.infer<typeof CountryCodeSchema>;
 export type LanguageCode = z.infer<typeof languageCodeSchema>;
 export type BusinessType = z.infer<typeof BusinessSchema>;
@@ -229,6 +244,7 @@ export type BannerT = z.infer<typeof BannerSchema>;
 export type OptionsSectionT = z.infer<typeof OptionsSectionSchema>;
 export type OptionsT = z.infer<typeof OptionsSchema>;
 export type CarouselT = z.infer<typeof CarouselSchema>;
-
+export type ListSectionT = z.infer<typeof ListSectionSchema>;
+export type ListItemT = z.infer<typeof ListItemSchema>;
 
 export type PageComponent = { id: string; __typename: string };

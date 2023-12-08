@@ -33,7 +33,7 @@ CarouselSectionT) => {
               <div
                 key={index}
                 onClick={() => {
-                  setActiveItem(index === activeItem ? 1 : index);
+                  setActiveItem(index === activeItem ? activeItem : index);
                 }}
                 className={`${
                   index === activeItem

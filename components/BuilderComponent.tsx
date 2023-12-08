@@ -6,12 +6,10 @@ import {
   fetchCarouselSectionById,
   fetchAccordionSectionById,
   fetchBannerById,
-
   fetchOptionsSectionById,
-
   fetchColumnImageSectionById,
-  fetchCarouselById
-
+  fetchCarouselById,
+  fetchListSectionById,
 } from "@/utils/db";
 import CTASection from "@/components/CTASection";
 import ColumnSection from "@/components/ColumnSection";
@@ -21,7 +19,7 @@ import Banner from "@/components/Banner";
 import OptionsSection from "@/components/OptionsSection";
 import ColumnImageSection from "@/components/ColumnImageSection";
 import Carousel from "@/components/Carousel/Carousel";
-
+import ListSection from "@/components/ListSection";
 
 interface BuilderComponentProps {
   components: PageComponent[];
@@ -30,7 +28,7 @@ interface BuilderComponentProps {
 //? return the JSX array of components to show on the opage
 const BuilderComponent = async ({ components }: BuilderComponentProps) => {
   const JSXComponents = [];
-  console.log('components', components);
+  console.log("components", components);
   for (const c of components) {
     const component = await fetchComponent(c.__typename, c.id);
     JSXComponents.push(component);
@@ -67,6 +65,9 @@ const fetchComponent = async (type: string, id: string) => {
     case "OptionsSection":
       const optionsSectionProps = await fetchOptionsSectionById(id);
       return <OptionsSection {...optionsSectionProps}></OptionsSection>;
+    case "ListSection":
+      const listSectionProps = await fetchListSectionById(id);
+      return <ListSection {...listSectionProps}></ListSection>;
 
     default:
       return null;
@@ -74,5 +75,3 @@ const fetchComponent = async (type: string, id: string) => {
 };
 
 export default BuilderComponent;
-
-
