@@ -291,7 +291,6 @@ const fetchOptionsSectionById = async (
     options: data.optionsSection?.optionsCollection.items,
   };
   delete optionsSection.optionsCollection;
-  console.log(optionsSection);
   return optionsSection;
 };
 
@@ -348,7 +347,7 @@ const fetchColumnImageSectionById = async (
   return columnImageSection;
 };
 
-//? returns one Column component by its ID
+//? returns one Carousel component by its ID
 //* params: id and type of the component
 const fetchCarouselById = async (id: string): Promise<CarouselT> => {
   const query = `query {
@@ -688,6 +687,7 @@ const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
     columns: data.columnSection?.columnsCollection.items,
   };
   delete columnSection.columnsCollection;
+  console.log(data);
   return columnSection;
 };
 //? returns one Column component by its ID
@@ -704,7 +704,13 @@ const fetchListSectionById = async (id: string): Promise<ListSectionT> => {
       bgColor
       textColor
       listType
-      productCategory  
+      productCategory
+      faqsCollection {
+        items {
+          title
+          slug
+        }
+      }  
       }
     }`;
 
@@ -732,6 +738,18 @@ const fetchListSectionById = async (id: string): Promise<ListSectionT> => {
         link: `/${city.country.code}/ciudades/${city.slug}/`,
       };
     });
+    data.listSection.items = items;
+  }
+
+  if (data.listSection.listType === "faq") {
+    const items: ListItemT = data.listSection.faqsCollection.items.map(
+      (faq: { title: string; slug: string }) => {
+        return {
+          text: faq.title,
+          link: `/${data.listSection.country.code}/centro-de-ayuda/${faq.slug}/`,
+        };
+      }
+    );
     data.listSection.items = items;
   }
   //? refactor to match the listSectionT

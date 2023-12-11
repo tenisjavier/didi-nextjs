@@ -75,14 +75,14 @@ const Card = (props: CardT) => {
             src={image.url}
             alt={image.description}
             className={imageStyle}
-            width={50}
-            height={50}
+            width={100}
+            height={100}
           ></Image>
         )}
       </div>
 
       <div
-        className={`flex flex-col items-center justify-between px-6 py-4 text-center`}
+        className={`flex h-80 flex-col items-center justify-between px-6 py-4 text-center`}
       >
         <div className={`mb-4`}>
           {titlePosition === "afterImage" && title && (
