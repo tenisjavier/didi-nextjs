@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import React from "react";
 import Slider, { Settings } from "react-slick";
@@ -16,8 +16,7 @@ function NextArrow(props: any) {
     <button
       className={`${arrowColor} before:content-[''] before:w-6 before:h-6 before:border-4 before:border-solid before:block before:border-l-0 before:border-b-0 before:rotate-45 before:rounded-bl-sm absolute z-50 right-5 top-1/2 transform -translate-y-1/2 text-4xl sm:text-2sm border-0 p-0 outline-0 bg-inherit cursor-pointer hover:font-bold m-0`}
       onClick={onClick}
-    >
-    </button>
+    ></button>
   );
 }
 
@@ -27,9 +26,7 @@ function PrevArrow(props: any) {
     <button
       className={`${arrowColor} before:content-[''] before:w-6 before:h-6 before:border-4 before:border-solid before:block before:border-r-0 before:border-t-0 before:rotate-45 before:rounded-bl-sm absolute z-50 left-5 top-1/2 transform -translate-y-1/2 text-4xl sm:text-2sm border-0 p-0 outline-0 bg-inherit cursor-pointer hover:font-bold m-0`}
       onClick={onClick}
-    >
-
-    </button>
+    ></button>
   );
 }
 
@@ -52,18 +49,18 @@ const Carousel = (props: CarouselT) => {
     hasDots,
     hasArrows,
     maxWidth,
-    title
+    title,
   } = props;
 
-
-  const screenSize = useScreenSize()
+  const screenSize = useScreenSize();
 
   const toShow = slidesToShow ? slidesToShow : 1;
   const toScroll = slidesToScroll ? slidesToShow : 1;
 
   const breakpoint = 1079;
 
-  const isMobile = imagesMobile && imagesMobile.length > 0 && screenSize <= breakpoint
+  const isMobile =
+    imagesMobile && imagesMobile.length > 0 && screenSize <= breakpoint;
 
   let sliderContent;
 
@@ -76,18 +73,23 @@ const Carousel = (props: CarouselT) => {
       );
     });
   } else if (carouselType === "Images") {
-    const imagesData = isMobile ? imagesMobile : images
+    const imagesData = isMobile ? imagesMobile : images;
     sliderContent = imagesData?.map((img, index) => {
       return (
-        <Image key={index} src={img.url} height={img.height || 1200} width={img.width || 1200} alt={img.description} className={`${imageStyle} z-10 w-full`}></Image>
+        <Image
+          key={index}
+          src={img.url}
+          height={img.height || 1200}
+          width={img.width || 1200}
+          alt={img.description}
+          className={`${imageStyle} z-10 w-full`}
+        ></Image>
       );
     });
   } else if (carouselType === "CTASection") {
     sliderContent = ctaSection?.map((cta, index) => {
-      return (
-        <CTASection key={index}  {...cta}></CTASection>
-      );
-    })
+      return <CTASection key={index} {...cta}></CTASection>;
+    });
   }
 
   var settings: Settings = {
@@ -103,7 +105,7 @@ const Carousel = (props: CarouselT) => {
     cssEase: "linear",
     nextArrow: <NextArrow arrow={arrowNext} arrowColor={arrowColor} />,
     prevArrow: <PrevArrow arrow={arrowPrev} arrowColor={arrowColor} />,
-    dotsClass: 'slick-dots flex justify-center z-50 !bottom-10',
+    dotsClass: "slick-dots flex justify-center z-50 !bottom-10",
 
     responsive: [
       {
@@ -117,16 +119,18 @@ const Carousel = (props: CarouselT) => {
   };
 
   return (
-    <div style={{
-      maxWidth: `${maxWidth}px`,
-      margin: 'auto'
-    }}>
+    <div
+      style={{
+        maxWidth: `${maxWidth}px`,
+        margin: "auto",
+      }}
+    >
       {title && (
         <h2 className="text-3xl font-bold text-center mb-8">{title}</h2>
       )}
       <Slider {...settings}>{sliderContent && sliderContent}</Slider>
     </div>
-  )
+  );
 };
 
 export default Carousel;
