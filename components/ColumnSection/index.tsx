@@ -28,7 +28,7 @@ const ColumnsSection = (props: ColumnSectionT) => {
       style={{ direction: dir }}
       className={`${bgColor} text-${textColor} py-12`}
     >
-      <div className="container mx-auto flex flex-col flex-wrap justify-center md:justify-around">
+      <div className="container mx-auto flex flex-col flex-wrap justify-center items-center md:justify-around">
         {title &&
           title.split("\n").map((str, index) => (
             <h2 key={index} className="text-left lg:text-center text-4xl">

@@ -41,9 +41,7 @@ const Card = (props: CardT) => {
     btnMode,
     btnText,
     btnType,
-    index,
     RTL,
-    rounded,
     hasTextHighlighter,
     textHighlighterStyle,
     titleStyles,
@@ -56,12 +54,11 @@ const Card = (props: CardT) => {
   if (RTL) {
     dir = "rtl";
   }
-  console.log(video);
   return (
     <div
       style={{ direction: dir }}
-      className={` "max-w-xs"
-       ${rounded} rounded ${bgColor} text-${textColor} my-3 text-center lg:mx-4 card-${index}`}
+      className={`max-w-xs
+       rounded ${bgColor} text-${textColor} my-3 text-center lg:mx-4`}
     >
       {titlePosition === "beforeImage" && title && (
         <h4 className={`mb-4 text-xl font-bold lg:text-center ${titleStyles}`}>
