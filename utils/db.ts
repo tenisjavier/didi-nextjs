@@ -58,6 +58,40 @@ const fetchCities = async (
   const cities = await res.json();
   return cities.data.cityCollection.items;
 };
+
+//* params: country code from the country to fetch the cities
+const fetchCitieBySlug = async (
+  countryCode: CountryCode,
+  slug: string
+): Promise<City> => {
+  const query = `query {
+    cityCollection(order: [name_ASC],where: {country:{code: "${countryCode}"}, slug: "${slug}" }){
+      items{
+        name
+        slug
+        country {
+          code
+        }
+        image {
+          title
+          description
+          url
+        }
+      }
+    }
+    }`;
+
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+  });
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch cities");
+  }
+  const cities = await res.json();
+  return cities.data.cityCollection.items?.[0];
+};
+
 //? returns a object of cities
 //* params: country code from the country to fetch the cities
 const fetchCountries = async (): Promise<Country[]> => {
@@ -932,4 +966,5 @@ export {
   fetchListSectionById,
   fetchGuideBySlug,
   fetchGuidesByCategory,
+  fetchCitieBySlug,
 };
