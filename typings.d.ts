@@ -82,6 +82,7 @@ const CardSchema = z.object({
   textColor: z.string(),
   bgColor: z.string(),
   image: ImageSchema.nullish(),
+  video: z.string().nullish(),
   btnType: BtnType.nullish(),
   btnMode: BtnMode.nullish(),
   btnText: BtnType.min(5).max(30).nullish(),

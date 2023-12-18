@@ -36,6 +36,7 @@ const Card = (props: CardT) => {
     textColor,
     image,
     imageStyle,
+    video,
     btnLink,
     btnMode,
     btnText,
@@ -55,7 +56,7 @@ const Card = (props: CardT) => {
   if (RTL) {
     dir = "rtl";
   }
-
+  console.log(video);
   return (
     <div
       style={{ direction: dir }}
@@ -78,6 +79,16 @@ const Card = (props: CardT) => {
             width={100}
             height={100}
           ></Image>
+        )}
+        {video && (
+          <iframe
+            className="h-56 w-full"
+            src={video}
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
         )}
       </div>
 
