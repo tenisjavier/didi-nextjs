@@ -227,6 +227,21 @@ const ListItemSchema = z.object({
   image: z.ImageSchema().nullish(),
 });
 
+const GuideSchema = z.object({
+  title: z.string(),
+  slug: z.string(),
+  excerpt: z.string(),
+  category: z.enum(["driver", "delivery", "restaurant"]),
+  country: z.countryCodeSchema(),
+  seoTitle: z.string(),
+  seoDescription: z.string(),
+  btnCustomText: z.string(),
+  btnCustomLink: z.string(),
+  featuredImage: z.ImageSchema(),
+  featuredImageMobile: z.ImageSchema(),
+  content: z.any(),
+});
+
 export type CountryCode = z.infer<typeof CountryCodeSchema>;
 export type LanguageCode = z.infer<typeof languageCodeSchema>;
 export type BusinessType = z.infer<typeof BusinessSchema>;
@@ -246,5 +261,6 @@ export type OptionsT = z.infer<typeof OptionsSchema>;
 export type CarouselT = z.infer<typeof CarouselSchema>;
 export type ListSectionT = z.infer<typeof ListSectionSchema>;
 export type ListItemT = z.infer<typeof ListItemSchema>;
+export type GuideT = z.infer<typeof GuideSchema>;
 
 export type PageComponent = { id: string; __typename: string };
