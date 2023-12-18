@@ -636,7 +636,6 @@ banner(id:"${id}") {
     throw new Error("Failed to fetch banner");
   }
   const { data } = await res.json();
-  console.log(data);
   return data.banner;
 };
 
@@ -664,6 +663,7 @@ const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
             description
             url
           }
+          video
           btnType
           btnMode
           btnText

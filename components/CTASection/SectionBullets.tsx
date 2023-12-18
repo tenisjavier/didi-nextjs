@@ -27,10 +27,9 @@ const SectionBullets = ({
       {bullets?.map((item, index) => (
         <li key={index} className="flex">
           {!customBulletIcon ? (
-            <FaCarSide
-              className={`mt-1 ${margin} text-orange-primary w-6`}
-              size={20}
-            />
+            <div className={`mt-1 ${margin} text-orange-primary w-6`}>
+              <FaCarSide size={22} />
+            </div>
           ) : (
             icon && icon
           )}

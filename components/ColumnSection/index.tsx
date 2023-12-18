@@ -45,9 +45,9 @@ const ColumnsSection = (props: ColumnSectionT) => {
           ))}
 
         <div
-          className={`grid grid-cols-1 md:grid-cols-2 lg:${
-            "grid-cols-" + gridCols
-          } ${"gap-" + gap} mt-10  lg:justify-around `}
+          className={`grid grid-cols-1 lg:${"grid-cols-" + gridCols} ${
+            "gap-" + gap
+          } mt-10  lg:justify-around `}
         >
           {columns &&
             columns.map((col, index) => {
