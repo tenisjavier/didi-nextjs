@@ -122,9 +122,9 @@ const CTASection = (props: CTASectionT) => {
         ${
           image || imageRawRender || bulletsConfigColumn === "singleColumn"
             ? whiteRight
-              ? "xl:justify-center"
-              : "xl:justify-between"
-            : "xl:justify-start"
+              ? "lg:justify-center"
+              : "lg:justify-between"
+            : "lg:justify-start"
         }`}
       >
         {image && (
