@@ -41,16 +41,20 @@ const CTASection = (props: CTASectionT) => {
     hasTextHighlighterBullets,
     whiteRight,
     mobileTitlePosition,
+    brightness,
   } = props;
 
   const isRtl = RTL ? "rtl" : "ltr";
   const textDir = RTL ? "text-right" : "text-left";
   const margin = RTL ? "ml-4" : "mr-4";
   const bgImageStyle = mobileBgImage
-    ? "hidden !absolute z-0 h-full w-full md:block object-cover"
-    : "!absolute z-0 h-full w-full md:block ";
-  const mobileBgImageStyle =
-    "!absolute z-0 h-full w-full md:!hidden object-cover";
+    ? `hidden !absolute z-0 h-full w-full md:block object-cover ${
+        brightness && brightness
+      }}`
+    : `!absolute z-0 h-full w-full md:block object-cover ${
+        brightness && brightness
+      }`;
+  const mobileBgImageStyle = `!absolute z-0 h-full w-full md:!hidden object-cover`;
   const imageStyle = "z-10 m-4 w-80 h-80 lg:w-100 lg:h-100 " + rounded;
   const getTitleElement = () => {
     if (isHero) {
@@ -103,7 +107,7 @@ const CTASection = (props: CTASectionT) => {
   return (
     <section
       style={{ direction: isRtl }}
-      className={`relative flex min-h-[40rem] w-full items-center justify-center overflow-hidden ${
+      className={`relative flex min-h-[44rem] w-full items-center justify-center overflow-hidden ${
         bgColor && bgColor
       } ${borderColor && "border-solid border border-" + borderColor} `}
     >

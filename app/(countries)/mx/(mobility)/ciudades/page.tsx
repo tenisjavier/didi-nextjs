@@ -11,9 +11,10 @@ export const metadata: Metadata = {
 };
 
 const ciudades = async () => {
-  const components = await fetchPageComponents("/mx/ciudades/");
-  console.log("components", components);
-  return <BuilderComponent components={components}></BuilderComponent>;
+  return null;
+  // const components = await fetchPageComponents("/mx/ciudades/");
+  // console.log("components", components);
+  // return <BuilderComponent components={components}></BuilderComponent>;
 };
 
 export default ciudades;

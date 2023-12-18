@@ -14,6 +14,7 @@ import {
   CarouselT,
   ListSectionT,
   ListItemT,
+  GuideT,
 } from "@/typings";
 
 //? Contentful API URL and Token from .env.local
@@ -243,7 +244,7 @@ const fetchCTASectionById = async (id: string): Promise<CTASectionT> => {
 };
 
 //? returns one Column component by its ID
-//* params: id and type of the component
+//* params: id of the component
 const fetchOptionsSectionById = async (
   id: string
 ): Promise<OptionsSectionT> => {
@@ -295,7 +296,7 @@ const fetchOptionsSectionById = async (
 };
 
 //? returns one Column component by its ID
-//* params: id and type of the component
+//* params: id of the component
 const fetchColumnImageSectionById = async (
   id: string
 ): Promise<ColumnImageT> => {
@@ -348,7 +349,7 @@ const fetchColumnImageSectionById = async (
 };
 
 //? returns one Carousel component by its ID
-//* params: id and type of the component
+//* params: id of the component
 const fetchCarouselById = async (id: string): Promise<CarouselT> => {
   const query = `query {
     carousel(id:"${id}"){
@@ -461,7 +462,7 @@ const fetchCarouselById = async (id: string): Promise<CarouselT> => {
 };
 
 //? returns one Carousel component by its Id
-//* params: id and type of the component
+//* params: id of the component
 const fetchCarouselSectionById = async (
   id: string
 ): Promise<CarouselSectionT> => {
@@ -538,7 +539,7 @@ carouselSection(id:"${id}") {
 };
 
 //? returns one Accordion Section component by its Id
-//* params: id and type of the component
+//* params: id of the component
 const fetchAccordionSectionById = async (
   id: string
 ): Promise<AccordionSectionT> => {
@@ -640,7 +641,7 @@ banner(id:"${id}") {
 };
 
 //? returns one Column component by its ID
-//* params: id and type of the component
+//* params: id of the component
 const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
   const query = `query {
     columnSection(id:"${id}"){
@@ -687,11 +688,10 @@ const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
     columns: data.columnSection?.columnsCollection.items,
   };
   delete columnSection.columnsCollection;
-  console.log(data);
   return columnSection;
 };
 //? returns one Column component by its ID
-//* params: id and type of the component
+//* params: id of the component
 const fetchListSectionById = async (id: string): Promise<ListSectionT> => {
   const query = `query {
     listSection(id:"${id}"){
@@ -762,6 +762,119 @@ const fetchListSectionById = async (id: string): Promise<ListSectionT> => {
   };
   return listProps;
 };
+//? returns one Guide component by its SLUG and COUNTRYCODE
+//* params: slug and countrycode
+const fetchGuideBySlug = async (
+  slug: string,
+  countryCode: CountryCode
+): Promise<GuideT> => {
+  const query = `query {
+    guideCollection (where: {country: {code:"${countryCode}"}, slug:"${slug}"} limit:1) {
+      items {
+        slug
+          title
+              excerpt
+              category
+              country {
+                code
+              }
+              seoTitle
+              seoDescription
+              btnCustomText
+              btnCustomLink
+              featuredImage {
+                title
+                description
+                url
+              }
+              featuredImageMobile {
+                title
+                description
+                url
+              }
+              content {
+                json
+                links {
+                          assets {
+                    block {
+                      sys {
+                        id
+                      }
+                      title
+                      description
+                      url
+                      width
+                      height
+                    }
+                  }
+                }
+              } 
+      }
+    }
+    }`;
+
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+    next: { revalidate: 60 },
+  });
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch Guide");
+  }
+  const { data } = await res.json();
+
+  const guide = data.guideCollection.items[0];
+
+  return guide;
+};
+//? returns one Guide component by its SLUG and COUNTRYCODE
+//* params: slug and countrycode
+const fetchGuidesByCategory = async (
+  category: string,
+  countryCode: CountryCode
+): Promise<
+  {
+    title: string;
+    excerpt: string;
+    featuredImage: ImageType;
+    slug: string;
+    countryCode: CountryCode;
+  }[]
+> => {
+  const query = `query {
+    guideCollection (where: {country: {code:"${countryCode}"}, category_contains_all:"${category}"} limit:10) {
+      items {
+        slug
+        title
+        excerpt
+        country {
+          code
+        }
+        featuredImage {
+            title
+            description
+            url
+        }
+      }
+    }
+    }`;
+
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+    next: { revalidate: 60 },
+  });
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch Guides by Category");
+  }
+  const { data } = await res.json();
+
+  const guides = data.guideCollection.items;
+
+  return guides;
+};
 
 //? returns a object of images
 //* params: array of image names to fetch
@@ -817,4 +930,6 @@ export {
   fetchImages,
   fetchCarouselById,
   fetchListSectionById,
+  fetchGuideBySlug,
+  fetchGuidesByCategory,
 };
