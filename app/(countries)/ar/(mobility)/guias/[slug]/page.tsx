@@ -1,9 +1,11 @@
 import React from "react";
 import { fetchGuideBySlug, fetchGuidesByCategory } from "@/utils/db";
 import { Metadata } from "next";
+import Link from "next/link";
 import CTASection from "@/components/CTASection";
 import RichContent from "@/components/RichContent";
 import Banner from "@/components/Banner";
+import ColumnsSection from "@/components/ColumnSection";
 import { notFound } from "next/navigation";
 import { GuideT } from "@/typings";
 
@@ -20,10 +22,13 @@ export let metadata: Metadata = {
 };
 
 const Guide = async ({ params: { slug } }: GuiasProps) => {
-  const guide = await fetchGuideBySlug(slug, "ar");
+  const [guide, suggestedGuides] = await Promise.all([
+    fetchGuideBySlug(slug, "ar"),
+    fetchGuidesByCategory("driver", "ar"),
+  ]);
+
   if (!guide) return notFound();
 
-  const suggestedGuides = await fetchGuidesByCategory("driver", "ar");
   metadata = guide.seoTitle
     ? {
         title: guide.seoTitle,
@@ -49,7 +54,29 @@ const Guide = async ({ params: { slug } }: GuiasProps) => {
     btnType: "drv",
     btnMode: "light",
   };
-  console.log(suggestedGuides);
+
+  const suggestedGuidesProps = {
+    name: "Suggested Guides",
+    title: "Guías para Socios Conductores en Argentina",
+    bgColor: "bg-blue-primary",
+    textColor: "white",
+    gridCols: 3,
+    gap: 0,
+    columns: suggestedGuides.map((guide: GuideT) => {
+      return {
+        title: <Link href={`/ar/guias/${guide.slug}`}>{guide.title}</Link>,
+        desc: guide.excerpt,
+        image: guide.featuredImage,
+        imageStyle: "object-cover h-56 w-full p-4",
+        bgColor: "bg-white",
+        textColor: "gray-primary",
+        btnType: "custom",
+        btnMode: "dark",
+        btnText: "Leer Guía",
+        btnLink: `/ar/guias/${guide.slug}`,
+      };
+    }),
+  };
   return (
     <>
       <CTASection {...heroProps}></CTASection>
@@ -57,6 +84,7 @@ const Guide = async ({ params: { slug } }: GuiasProps) => {
         <RichContent richContent={guide.content}></RichContent>
       </section>
       <Banner {...bannerProps}></Banner>
+      <ColumnsSection {...suggestedGuidesProps}></ColumnsSection>
     </>
   );
 };
@@ -68,6 +96,5 @@ export async function generateStaticParams() {
   const guidesSlugs = guides.map((guide: GuideT) => {
     slug: guide.slug;
   });
-  console.log("guidesSlugs", guidesSlugs);
   return guidesSlugs;
 }

@@ -6,14 +6,14 @@ import { fetchPageComponents } from "@/utils/db";
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
-  title: "Registrate como Socio Conductor DiDi",
+  title: "Servicios de DiDi por Ciudad. | DiDi Argentina",
   description:
-    "DiDi en Argentina, registrate como socio conductor en las categorías express y taxi ganando más y manejando menos. Si sos Socio Conductor llamános al +54 (11) 3987-6342",
+    "Conocé que servicios DiDi se encuentran en tu ciudad. Si querés ser socio conductor revisá los requisitos.",
 };
 
-const page = async () => {
-  const components = await fetchPageComponents("/ar/");
+const Cities = async () => {
+  const components = await fetchPageComponents("/ar/ciudades/");
   return <BuilderComponent components={components}></BuilderComponent>;
 };
 
-export default page;
+export default Cities;
