@@ -189,7 +189,7 @@ const RichContent = ({ richContent }: any) => {
         return (
           <div className="my-12 flex w-full justify-center mx-auto">
             <Image
-              className="max-w-xl md:max-w-4xl"
+              className="w-full h-auto md:max-w-4xl"
               src={image.url}
               alt={image.description}
               width={width}

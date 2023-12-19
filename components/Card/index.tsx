@@ -58,7 +58,7 @@ const Card = (props: CardT) => {
     <div
       style={{ direction: dir }}
       className={`max-w-xs
-       rounded ${bgColor} text-${textColor} my-3 text-center lg:mx-4`}
+       rounded ${bgColor} text-${textColor} my-3 text-center lg:mx-4 pb-4`}
     >
       {titlePosition === "beforeImage" && title && (
         <h4 className={`mb-4 text-xl font-bold lg:text-center ${titleStyles}`}>
@@ -73,8 +73,8 @@ const Card = (props: CardT) => {
             src={image.url}
             alt={image.description}
             className={imageStyle}
-            width={100}
-            height={100}
+            width={400}
+            height={400}
           ></Image>
         )}
         {video && (

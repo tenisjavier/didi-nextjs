@@ -1,3 +1,4 @@
+import React from "react";
 import { z } from "zod";
 import { BtnType, BtnMode } from "@/components/Btn";
 
@@ -77,11 +78,11 @@ const CTASectionSchema = z.object({
 
 const CardSchema = z.object({
   name: z.string(),
-  title: z.string(),
+  title: z.union([z.string(), React.ReactNode]),
   desc: z.string().nullish(),
   textColor: z.string(),
   bgColor: z.string(),
-  image: ImageSchema.nullish(),
+  image: z.union([ImageSchema.nullish(), React.ReactNode]),
   video: z.string().nullish(),
   btnType: BtnType.nullish(),
   btnMode: BtnMode.nullish(),
