@@ -10,10 +10,11 @@ export const metadata: Metadata = {
   description: "Elmejor",
 };
 
-const page = async () => {
-  const components = await fetchPageComponents("/cl/");
-  console.log('components', components)
+
+const Seguridad = async () => {
+  const components = await fetchPageComponents("/cl/seguridad/");
   return <BuilderComponent components={components}></BuilderComponent>;
 };
 
-export default page;
+export default Seguridad;
+

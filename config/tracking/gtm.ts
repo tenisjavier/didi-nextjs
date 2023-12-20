@@ -7,7 +7,7 @@ const gtmEvent = (
   const isBrowser = typeof window !== "undefined";
   if (isBrowser) {
     // @ts-ignore
-    window.dataLayer.push({
+    window?.dataLayer?.push({
       event: eventName,
       ...params,
     });
