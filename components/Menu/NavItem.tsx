@@ -17,8 +17,10 @@ const NavItem = ({ link, countryCode }: NavItemProps) => {
   const handleNavItemClick = (
     e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
   ) => {
-    e.preventDefault();
-    setIsDropdownOpen((prev) => !prev);
+    if (dropMenu) {
+      e.preventDefault();
+      setIsDropdownOpen((prev) => !prev);
+    }
   };
 
   return (
@@ -49,9 +51,9 @@ const NavItem = ({ link, countryCode }: NavItemProps) => {
             <AiOutlineRight className="lg:hidden text-orange-primary xl:text-3xl cursor-pointer"></AiOutlineRight>
           ))}
       </Link>
-      {link.dropMenu && (
+      {dropMenu && (
         <DropdownMenu
-          links={link.dropMenu}
+          links={dropMenu}
           isDropdownOpen={isDropdownOpen}
           countryCode={countryCode}
         />

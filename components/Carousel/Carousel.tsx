@@ -120,13 +120,14 @@ const Carousel = (props: CarouselT) => {
 
   return (
     <div
+      className="py-12"
       style={{
         maxWidth: `${maxWidth}px`,
         margin: "auto",
       }}
     >
       {title && (
-        <h2 className="text-3xl font-bold text-center mb-8">{title}</h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-center ">{title}</h2>
       )}
       <Slider {...settings}>{sliderContent && sliderContent}</Slider>
     </div>
