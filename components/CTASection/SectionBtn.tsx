@@ -38,10 +38,10 @@ const SectionBtn = ({
             btnText: btnText,
           },
         ];
-  console.log(btns);
-  return btns.map((btn: any) => (
+  return btns.map((btn: any, index: number) => (
     <>
       <Btn
+        key={index}
         btnType={btn.btnType}
         btnMode={btn.btnMode}
         btnLink={btn.btnLink}
