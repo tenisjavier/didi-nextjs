@@ -1,5 +1,5 @@
 //? Contentful fetches per content type, country and category
-import { CountryCode } from "@/typings";
+import { ArticleT, CountryCode } from "@/typings";
 import { City, Country } from "@/typings";
 import { ImageType } from "@/typings";
 import { PageComponent } from "@/typings";
@@ -910,6 +910,100 @@ const fetchGuidesByCategory = async (
   return guides;
 };
 
+//* params: country code from the country to fetch the cities
+const fetchArticleBySlug = async (
+  slug: string,
+  countryCode: CountryCode
+): Promise<ArticleT> => {
+  const query = `query {
+    articleCollection(where: {country:{code: "${countryCode}"}, slug: "${slug}"}, limit: 1){
+      items{
+        title
+        slug
+        seoTitle
+        seoDescription
+        country {
+          code
+        }
+        excerpt
+        featuredImage {
+          title
+          description
+          url
+        }
+        content {
+          json
+          links {
+          assets {
+              block {
+                sys {
+                  id
+                }
+                title
+                description
+                url
+                width
+                height
+              }
+            }
+          }
+        }
+      }
+    }
+    }`;
+
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+    next: { revalidate: 60 },
+  });
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch article by slug");
+  }
+  const articles = await res.json();
+
+  return articles.data.articleCollection.items?.[0];
+};
+
+const fetchArticles = async (countryCode: CountryCode): Promise<ArticleT[]> => {
+  const query = `
+  query {
+    articleCollection(where: {country:{code: "${countryCode}"}}){
+      items{
+        title
+        slug
+        seoTitle
+        seoDescription
+        country {
+          code
+        }
+        excerpt
+        featuredImage {
+          title
+          description
+          url
+        }
+      }
+    }
+  }
+`;
+
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+    next: { revalidate: 60 },
+  });
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch articles");
+  }
+
+  const articles = await res.json();
+
+  return articles.data.articleCollection.items;
+};
+
 //? returns a object of images
 //* params: array of image names to fetch
 const fetchImages = async (imagesList: string[]): Promise<ImageType[]> => {
@@ -967,4 +1061,6 @@ export {
   fetchGuideBySlug,
   fetchGuidesByCategory,
   fetchCitieBySlug,
+  fetchArticleBySlug,
+  fetchArticles,
 };

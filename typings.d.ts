@@ -88,6 +88,7 @@ const CardSchema = z.object({
   btnMode: BtnMode.nullish(),
   btnText: BtnType.min(5).max(30).nullish(),
   btnLink: BtnMode.nullish(),
+  isImageIcon: z.boolean().nullish(),
 });
 
 const ColumnSectionSchema = z.object({
@@ -244,6 +245,17 @@ const GuideSchema = z.object({
   content: z.any(),
 });
 
+const Article = z.object({
+  title: z.string(),
+  slug: z.string(),
+  seoTitle: z.string(),
+  seoDescription: z.string(),
+  featuredImage: z.ImageSchema(),
+  content: z.any(),
+  excerpt: z.string(),
+  country: z.countryCodeSchema(),
+});
+
 export type CountryCode = z.infer<typeof CountryCodeSchema>;
 export type LanguageCode = z.infer<typeof languageCodeSchema>;
 export type BusinessType = z.infer<typeof BusinessSchema>;
@@ -264,5 +276,6 @@ export type CarouselT = z.infer<typeof CarouselSchema>;
 export type ListSectionT = z.infer<typeof ListSectionSchema>;
 export type ListItemT = z.infer<typeof ListItemSchema>;
 export type GuideT = z.infer<typeof GuideSchema>;
+export type ArticleT = z.infer<typeof Article>;
 
 export type PageComponent = { id: string; __typename: string };
