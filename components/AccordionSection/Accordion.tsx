@@ -20,8 +20,8 @@ const Accordion = ({
   const content1: any = useRef(null);
 
   if (isClosed === false) {
-    setIsOpen(true)
-    setHeight("50")
+    setIsOpen(true);
+    setHeight("50");
   }
 
   const closeClass =
@@ -48,8 +48,9 @@ const Accordion = ({
         <>
           <div
             aria-hidden="true"
-            className={`mt-6 flex w-full cursor-pointer items-center justify-between rounded  border-solid border-gray-light px-10 lg:px-20 ${isOpen ? "bg-white border-none" : bgColor
-              }`}
+            className={`mt-6 flex w-full cursor-pointer items-center justify-between rounded  border-solid border-gray-light px-10 lg:px-20 ${
+              isOpen ? "bg-white border-none" : bgColor
+            }`}
             onClick={() => toggtle()}
           >
             <h3
@@ -58,15 +59,13 @@ const Accordion = ({
             >
               {title}
             </h3>
-            {isOpen ? (
-              <AiFillMinusCircle
-                className={`text-${textColor} text-xl w-6`}
-              ></AiFillMinusCircle>
-            ) : (
-              <AiFillPlusCircle
-                className={`text-${textColor} text-xl w-6`}
-              ></AiFillPlusCircle>
-            )}
+            <div className={`text-${textColor} text-xl w-6 ml-4`}>
+              {isOpen ? (
+                <AiFillMinusCircle></AiFillMinusCircle>
+              ) : (
+                <AiFillPlusCircle></AiFillPlusCircle>
+              )}
+            </div>
           </div>
           <div
             className={`accordion ${isOpen ? openClass : closeClass}`}

@@ -29,8 +29,8 @@ const Options = ({ name, title, image, isActive, onClick }: OptionsProps) => {
       <Image
         src={image.url}
         alt={image.description}
-        height={112}
-        width={128}
+        height={176}
+        width={192}
         className={`${
           isActive
             ? "lg:w-48 lg:h-44 md:w-48 md:h-44 w-32 h-28 mb-2"

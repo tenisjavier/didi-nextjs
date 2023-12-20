@@ -44,7 +44,6 @@ export interface BtnProps {
   btnText2?: string;
   btnLink2?: string;
   btnMode: BtnMode;
-  btnModeSecondary?: BtnMode;
   btnLink?: string;
   btnText?: string;
   notRedirectOutPage?: boolean;
@@ -56,9 +55,6 @@ const Btn = ({
   btnMode,
   btnLink,
   btnText,
-  btnModeSecondary,
-  btnText2,
-  btnLink2,
   notRedirectOutPage,
   download,
   btnTextCenter,
@@ -66,9 +62,8 @@ const Btn = ({
   const countryCode = getCountryCode(usePathname());
   const btnData = getBtnLinks(countryCode);
   const [isLoading, setIsLoading] = useState(false);
-
   if (btnType === "drv") {
-    btnLink = btnData.drvLink;
+    btnLink = btnData.drvLinkQB || btnData.drvLink;
     btnText = btnText || btnData.drvText;
   } else if (btnType === "drvWhatsapp") {
     btnLink = btnData.drvWhatsappLink;
@@ -149,7 +144,7 @@ const Btn = ({
         role="button"
         className={`${
           btnTextCenter ? "text-center" : ""
-        } p-0 text-lg md:text-base my-2 btn-${btnMode} btn-${btnModeSecondary}`}
+        } p-0 text-lg md:text-base my-2 btn-${btnMode}`}
       >
         {isLoading ? (
           <FaSpinner className="animate-spin px-8 py-3.5"></FaSpinner>
@@ -157,11 +152,11 @@ const Btn = ({
           <a
             // onClick={(e) => handleClick(e)}
             className={`block px-8 py-3 ${isLoading && ""} `}
-            href={btnLink || btnLink2}
+            href={btnLink}
             target={`${notRedirectOutPage ? "_blank" : ""}`}
             download={download}
           >
-            {btnText || btnText2}
+            {btnText}
           </a>
         )}
       </div>

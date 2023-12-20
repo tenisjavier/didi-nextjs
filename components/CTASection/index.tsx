@@ -3,6 +3,7 @@ import Image from "next/image";
 import Btn from "@/components/Btn";
 import SectionBullets from "@/components/CTASection/SectionBullets";
 import SectionList from "@/components/CTASection/SectionList";
+import SectionBtn from "./SectionBtn";
 import SectionCreditCardCashBackBullets, {
   SectionCreditCardCashBackBulletsProps,
 } from "@/components/CTASection/SectionCreditCardCashBackBullets";
@@ -31,7 +32,6 @@ const CTASection = (props: CTASectionT) => {
     btnLink,
     btnMode,
     reverse,
-    btnModeSecondary,
     RTL,
     descBeforeBullets = true,
     // bulletsCreditCard,
@@ -190,13 +190,12 @@ const CTASection = (props: CTASectionT) => {
           </div>
           {list && <SectionList list={list} />}
           <div className="text-center lg:text-left">
-            <Btn
+            <SectionBtn
               btnType={btnType}
               btnMode={btnMode}
-              btnModeSecondary={btnModeSecondary}
               btnLink={btnLink}
               btnText={btnText}
-            />
+            ></SectionBtn>
           </div>
         </div>
       </div>
