@@ -11,6 +11,12 @@ const nextConfig = {
         port: "",
         pathname: `/${process.env.CONTENTFUL_SPACE_ID}/**`,
       },
+      {
+        protocol: "https",
+        hostname: "downloads.ctfassets.net",
+        port: "",
+        pathname: `/${process.env.CONTENTFUL_SPACE_ID}/**`,
+      },
     ],
   },
   trailingSlash: true,

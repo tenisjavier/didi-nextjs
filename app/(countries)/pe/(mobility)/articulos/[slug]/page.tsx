@@ -18,13 +18,13 @@ interface GuiasProps {
 export let metadata: Metadata = {
   title: "Registrate como Socio Conductor DiDi",
   description:
-    "DiDi en Chile, registrate como socio conductor en las categorías express y taxi ganando más y manejando menos. Si sos Socio Conductor llamános al +54 (11) 3987-6342",
+    "DiDi en Perú, registrate como socio conductor en las categorías express y taxi ganando más y manejando menos. Si sos Socio Conductor llamános al +54 (11) 3987-6342",
 };
 
 const Article = async ({ params: { slug } }: GuiasProps) => {
   const [article, suggestedArticles] = await Promise.all([
-    fetchArticleBySlug(slug, "cl"),
-    fetchArticles("cl"),
+    fetchArticleBySlug(slug, "pe"),
+    fetchArticles("pe"),
   ]);
 
   if (!article) return notFound();
@@ -57,14 +57,14 @@ const Article = async ({ params: { slug } }: GuiasProps) => {
 
   const suggestedGuidesProps = {
     name: "Suggested Articles",
-    title: "DiDi Artículos de Lugares para Visitar en Chile",
+    title: "DiDi Artículos de Lugares para Visitar en Perú",
     bgColor: "bg-blue-primary",
     textColor: "white",
     gridCols: 3,
     gap: 0,
     columns: suggestedArticles.map((article: ArticleT) => {
       return {
-        title: <Link href={`/cl/articulos/${article.slug}`}>{article.title}</Link>,
+        title: <Link href={`/pe/articulos/${article.slug}`}>{article.title}</Link>,
         desc: article.excerpt,
         image: article.featuredImage,
         imageStyle: "object-cover h-56 w-full p-4",
@@ -73,7 +73,7 @@ const Article = async ({ params: { slug } }: GuiasProps) => {
         btnType: "custom",
         btnMode: "dark",
         btnText: "Leer Guía",
-        btnLink: `/cl/articulos/${article.slug}`,
+        btnLink: `/pe/articulos/${article.slug}`,
       };
     }),
   };
@@ -92,7 +92,7 @@ const Article = async ({ params: { slug } }: GuiasProps) => {
 export default Article;
 
 export async function generateStaticParams() {
-  const articles = await fetchArticles("cl");
+  const articles = await fetchArticles("pe");
   const articlesSlugs = articles.map((article: ArticleT) => {
     slug: article.slug;
   });
