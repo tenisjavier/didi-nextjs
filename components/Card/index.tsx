@@ -56,6 +56,10 @@ const Card = (props: CardT) => {
     dir = "rtl";
   }
 
+  const truncate = (str: string, n: number) => {
+    return str.length > n ? str.substring(0, n - 1) + "..." : str;
+  }
+
   return (
     <div
       style={{ direction: dir }}
@@ -69,7 +73,7 @@ const Card = (props: CardT) => {
             : title}
         </h4>
       )}
-      <div className="mb-5">
+      <div>
         {image && (
           <Image
             src={image.url}
@@ -92,9 +96,9 @@ const Card = (props: CardT) => {
       </div>
 
       <div
-        className={`flex h-80 flex-col items-center justify-between px-6 py-4 text-center`}
+        className={` flex h-80 flex-col items-center justify-between px-6 py-4 text-center`}
       >
-        <div className={`mb-4`}>
+        <div>
           {titlePosition === "afterImage" && title && (
             <h4
               className={`mb-4 text-xl font-bold lg:text-center ${titleStyles}`}
@@ -104,8 +108,9 @@ const Card = (props: CardT) => {
                 : title}
             </h4>
           )}
-          <p className={"text-lg"}></p>
-          {descPosition === "beforeBtn" && desc}
+          {desc && descPosition === "beforeBtn" && (
+            <p>{truncate(desc as string, 120)}</p>
+          )}
         </div>
         <div className="flex justify-center flex-col">
           <Btn
@@ -115,7 +120,9 @@ const Card = (props: CardT) => {
             btnText={btnText}
           ></Btn>
         </div>
-        {descPosition === "afterBtn" && desc}
+        {desc && descPosition === "afterBtn" && (
+          <p>{truncate(desc as string, 120)}</p>
+        )}
       </div>
     </div>
   );
