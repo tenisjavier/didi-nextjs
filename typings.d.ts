@@ -230,6 +230,16 @@ const ListItemSchema = z.object({
   image: z.ImageSchema().nullish(),
 });
 
+const FAQSchema = z.object({
+  title: z.string(),
+  slug: z.string(),
+  type: z.any(), //!FIX and rename category as other components
+  country: z.countryCodeSchema(),
+  content: z.any(),
+  isEducationalGuide: z.boolean(),
+  relatedCity: z.string().nullish(),
+});
+
 const GuideSchema = z.object({
   title: z.string(),
   slug: z.string(),
@@ -275,6 +285,7 @@ export type OptionsT = z.infer<typeof OptionsSchema>;
 export type CarouselT = z.infer<typeof CarouselSchema>;
 export type ListSectionT = z.infer<typeof ListSectionSchema>;
 export type ListItemT = z.infer<typeof ListItemSchema>;
+export type FAQT = z.infer<typeof FAQSchema>;
 export type GuideT = z.infer<typeof GuideSchema>;
 export type ArticleT = z.infer<typeof Article>;
 

@@ -47,7 +47,7 @@ const Card = (props: CardT) => {
     titleStyles,
     titlePosition = "afterImage",
     descPosition = "beforeBtn",
-    isImageIcon = image?.url?.toLowerCase()?.includes("icon")
+    isImageIcon = image?.url?.toLowerCase()?.includes("icon"),
   } = props;
 
   let dir: any = "ltr";
@@ -74,7 +74,9 @@ const Card = (props: CardT) => {
           <Image
             src={image.url}
             alt={image.description}
-            className={`${imageStyle} ${isImageIcon ? "max-h-[80px]" : "max-h-[200px]"} max-w-full`}
+            className={`${imageStyle} ${
+              isImageIcon ? "max-h-[80px]" : "max-h-[200px] w-auto"
+            } max-w-full`}
             width={400}
             height={400}
           ></Image>
