@@ -23,7 +23,7 @@ export let metadata: Metadata = {
 
 const Guide = async ({ params: { slug } }: GuiasProps) => {
   const [guide, suggestedGuides] = await Promise.all([
-    fetchGuideBySlug(slug, "ar"),
+    fetchGuideBySlug("ar", slug),
     fetchGuidesByCategory("driver", "ar"),
   ]);
 

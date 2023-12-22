@@ -1,9 +1,9 @@
 //? Contentful fetches per content type, country and category
-import { ArticleT, CountryCode } from "@/typings";
-import { City, Country } from "@/typings";
+import { City, Country, CountryCode } from "@/typings";
 import { ImageType } from "@/typings";
 import { PageComponent } from "@/typings";
 import {
+  ArticleT,
   CTASectionT,
   ColumnSectionT,
   CarouselSectionT,
@@ -15,6 +15,7 @@ import {
   ListSectionT,
   ListItemT,
   GuideT,
+  FAQT,
 } from "@/typings";
 
 //? Contentful API URL and Token from .env.local
@@ -724,7 +725,7 @@ const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
   delete columnSection.columnsCollection;
   return columnSection;
 };
-//? returns one Column component by its ID
+//? returns one List Section component by its ID
 //* params: id of the component
 const fetchListSectionById = async (id: string): Promise<ListSectionT> => {
   const query = `query {
@@ -799,8 +800,8 @@ const fetchListSectionById = async (id: string): Promise<ListSectionT> => {
 //? returns one Guide component by its SLUG and COUNTRYCODE
 //* params: slug and countrycode
 const fetchGuideBySlug = async (
-  slug: string,
-  countryCode: CountryCode
+  countryCode: CountryCode,
+  slug: string
 ): Promise<GuideT> => {
   const query = `query {
     guideCollection (where: {country: {code:"${countryCode}"}, slug:"${slug}"} limit:1) {
@@ -1004,6 +1005,57 @@ const fetchArticles = async (countryCode: CountryCode): Promise<ArticleT[]> => {
   return articles.data.articleCollection.items;
 };
 
+//? returns one FAQ component by its slug and country
+//* params: id of the component
+const fetchFAQBySlug = async (
+  countryCode: CountryCode,
+  slug: string
+): Promise<FAQT> => {
+  const query = `query {
+    faqCollection (where: {country: {code:"${countryCode}"}, slug:"${slug}"} limit: 1) {
+      items {
+        title
+        slug
+        type
+        country {
+          code
+        }
+        content {
+          json
+          links {
+            assets {
+              block {
+                sys {
+                  id
+                }
+                title
+                description
+                url
+                width
+                height
+              }
+            }
+          }
+        }
+      }
+    }
+  }`;
+
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+    cache: "no-cache",
+  });
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch listSection");
+  }
+  const { data } = await res.json();
+  const faq = data.faqCollection.items[0];
+
+  return faq;
+};
+
 //? returns a object of images
 //* params: array of image names to fetch
 const fetchImages = async (imagesList: string[]): Promise<ImageType[]> => {
@@ -1058,6 +1110,7 @@ export {
   fetchImages,
   fetchCarouselById,
   fetchListSectionById,
+  fetchFAQBySlug,
   fetchGuideBySlug,
   fetchGuidesByCategory,
   fetchCitieBySlug,

@@ -15,19 +15,18 @@ const Accordion = ({
   isClosed,
   isFaq,
 }: AccordionT) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(!isClosed);
   const [height, setHeight] = useState("0px");
   const content1: any = useRef(null);
 
-  if (isClosed === false) {
-    setIsOpen(true);
+  if (isOpen === true && height === "0px") {
     setHeight("50");
   }
 
   const closeClass =
     "text-lg bg-gray-200 text-gray-primary py-0 w-full px-4 md:px-20 transition-all duration-700 overflow-hidden";
   const openClass = `bg-white text-gray-primary w-full py-5 px-4 md:px-20 transition-all duration-700 text-lg overflow-hidden border-none`;
-  const toggtle = () => {
+  const toggle = () => {
     setIsOpen(!isOpen);
     setHeight(isOpen ? `0px` : `${content1.current.scrollHeight + 50}px`);
   };
@@ -51,7 +50,7 @@ const Accordion = ({
             className={`mt-6 flex w-full cursor-pointer items-center justify-between rounded  border-solid border-gray-light px-10 lg:px-20 ${
               isOpen ? "bg-white border-none" : bgColor
             }`}
-            onClick={() => toggtle()}
+            onClick={() => toggle()}
           >
             <h3
               className={`text-${textColor} text-md md:text-2xl`}
