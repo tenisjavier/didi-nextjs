@@ -8,10 +8,10 @@ export default async function MXLayout({
 }) {
   return (
     <>
-      <Header countryCode="pe" businessType="food"></Header>
+      <Header countryCode="cr" businessType="food"></Header>
       {children}
       <Footer
-        countryCode="pe"
+        countryCode="cr"
         businessType="food"
         languageCode="es"
       ></Footer>
