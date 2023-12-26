@@ -1,11 +1,9 @@
 import React from "react";
-import { fetchCitieBySlug, fetchCities, fetchGuideBySlug, fetchGuidesByCategory, fetchPageComponents } from "@/utils/db";
+import { fetchCitieBySlug, fetchCities, fetchPageComponents } from "@/utils/db";
 import { Metadata } from "next";
 import CTASection from "@/components/CTASection";
-import RichContent from "@/components/RichContent";
-import Banner from "@/components/Banner";
 import { notFound } from "next/navigation";
-import { City, GuideT } from "@/typings";
+import { City } from "@/typings";
 import BuilderComponent from "@/components/BuilderComponent";
 
 interface GuiasProps {
@@ -14,16 +12,16 @@ interface GuiasProps {
   };
 }
 
-export let metadata: Metadata = {
-  title: "Registrate como Socio Conductor DiDi",
-  description:
-    "DiDi en Panamá, registrate como socio conductor en las categorías express y taxi ganando más y manejando menos. Si sos Socio Conductor llamános al +54 (11) 3987-6342",
-};
+export let metadata: Metadata;
 
 const Guide = async ({ params: { slug } }: GuiasProps) => {
   const city = await fetchCitieBySlug("pa", slug);
   if (!city) return notFound();
 
+  metadata = {
+    title: `Conductores en ${city.name} - Regístrate Online | DiDi Panamá`,
+    description: `¿Quieres convertirte en Socio Conductor DiDi en ${city.name}? Regístrate online y comienza a generar ingresos de manera segura y flexible.`,
+  };
   const heroProps = {
     title: `Socios Conductores en ${city.name}`,
     desc: `¿Quieres convertirte en Socio Conductor DiDi en ${city.name}? Regístrate online y comienza a generar ingresos de manera segura y flexible.`,
@@ -50,11 +48,11 @@ const Guide = async ({ params: { slug } }: GuiasProps) => {
 export default Guide;
 
 export async function generateStaticParams() {
-  const cities = await fetchCities("pa", "driver")
+  const cities = await fetchCities("pa", "driver");
   const citiesSlugs = cities.map((city: City) => {
     return {
-      slug: city.slug
-    }
+      slug: city.slug,
+    };
   });
   console.log("citiesSlugs", citiesSlugs);
   return citiesSlugs;

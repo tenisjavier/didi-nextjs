@@ -39,16 +39,15 @@ const SectionBtn = ({
           },
         ];
   return btns.map((btn: any, index: number) => (
-    <>
+    <span key={index}>
       <Btn
-        key={index}
         btnType={btn.btnType}
         btnMode={btn.btnMode}
         btnLink={btn.btnLink}
         btnText={btn.btnText}
       ></Btn>
       <br></br>
-    </>
+    </span>
   ));
 };
 

@@ -255,7 +255,7 @@ const GuideSchema = z.object({
   content: z.any(),
 });
 
-const Article = z.object({
+const ArticleSchema = z.object({
   title: z.string(),
   slug: z.string(),
   seoTitle: z.string(),
@@ -263,6 +263,13 @@ const Article = z.object({
   featuredImage: z.ImageSchema(),
   content: z.any(),
   excerpt: z.string(),
+  country: z.countryCodeSchema(),
+});
+
+const LegalSchema = z.object({
+  title: z.string(),
+  slug: z.string(),
+  content: z.any(),
   country: z.countryCodeSchema(),
 });
 
@@ -287,6 +294,7 @@ export type ListSectionT = z.infer<typeof ListSectionSchema>;
 export type ListItemT = z.infer<typeof ListItemSchema>;
 export type FAQT = z.infer<typeof FAQSchema>;
 export type GuideT = z.infer<typeof GuideSchema>;
-export type ArticleT = z.infer<typeof Article>;
+export type ArticleT = z.infer<typeof ArticleSchema>;
+export type LegalT = z.infer<typeof LegalSchema>;
 
 export type PageComponent = { id: string; __typename: string };

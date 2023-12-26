@@ -4,6 +4,7 @@ import { fetchFAQBySlug, fetchImages } from "@/utils/db";
 import { notFound } from "next/navigation";
 import AccordionSection from "@/components/AccordionSection/";
 import CTASection from "@/components/CTASection";
+import { CTASectionT } from "@/typings";
 
 interface FAQProps {
   params: {
@@ -11,11 +12,7 @@ interface FAQProps {
   };
 }
 
-export let metadata: Metadata = {
-  title: "Registrate como Socio Conductor DiDi",
-  description:
-    "DiDi en Argentina, registrate como socio conductor en las categorías express y taxi ganando más y manejando menos. Si sos Socio Conductor llamános al +54 (11) 3987-6342",
-};
+let metadata: Metadata;
 
 const CentroDeAyuda = async ({ params: { slug } }: FAQProps) => {
   const [faq, bgImage] = await Promise.all([
@@ -24,14 +21,12 @@ const CentroDeAyuda = async ({ params: { slug } }: FAQProps) => {
   ]);
   if (!faq) return notFound();
   const content = faq.content.json.content[0].content[0].value;
-  metadata = faq.title
-    ? {
-        title: faq.title,
-        description: content.slice(0, 150),
-      }
-    : metadata;
+  metadata = {
+    title: faq.title,
+    description: content.slice(0, 150),
+  };
 
-  const heroProps = {
+  const heroProps: CTASectionT = {
     title: faq.title,
     bgColor: "bg-white",
     textColor: "white",
@@ -39,6 +34,7 @@ const CentroDeAyuda = async ({ params: { slug } }: FAQProps) => {
     btnMode: "primary",
     brightness: "brightness-75",
     bgImage: bgImage[0],
+    isHero: true,
   };
 
   const accordionProps = {

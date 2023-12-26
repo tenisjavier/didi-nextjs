@@ -770,7 +770,7 @@ const fetchListSectionById = async (id: string): Promise<ListSectionT> => {
       return {
         text: city.name,
         image: city.image,
-        link: `/${city.country.code}/ciudades/${city.slug}/`,
+        link: `/${city.country.code}/conductor/ciudades/${city.slug}/`,
       };
     });
     data.listSection.items = items;
@@ -1055,6 +1055,51 @@ const fetchFAQBySlug = async (
 
   return faq;
 };
+//? returns one FAQ component by its slug and country
+//* params: id of the component
+const fetchLegalBySlug = async (
+  countryCode: CountryCode,
+  slug: string
+): Promise<FAQT> => {
+  const query = `query {
+    legalCollection (where: {country: {code:"${countryCode}"}, slug:"${slug}"} limit: 1) {
+      items {
+        name
+        content {
+          json
+          links {
+            assets {
+              block {
+                sys {
+                  id
+                }
+                title
+                description
+                url
+                width
+                height
+              }
+            }
+          }
+        }
+      }
+    }
+  }`;
+
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+    cache: "no-cache",
+  });
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch Legal");
+  }
+  const { data } = await res.json();
+  const legal = data.legalCollection.items[0];
+  console.log(data);
+  return legal;
+};
 
 //? returns a object of images
 //* params: array of image names to fetch
@@ -1116,4 +1161,5 @@ export {
   fetchCitieBySlug,
   fetchArticleBySlug,
   fetchArticles,
+  fetchLegalBySlug,
 };
