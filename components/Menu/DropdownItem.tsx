@@ -1,8 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { CountryCode } from "@/typings";
-
-// import gtmEvent from "../../../../../config/gtm";
+import gtmEvent from "@/config/tracking/gtm";
 
 interface DropdownItemProps {
   url: string;

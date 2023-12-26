@@ -928,7 +928,7 @@ const menuLinks: Menu = {
         },
         {
           text: "Ciudades Operativas",
-          url: "/pa/ciudades/",
+          url: "/pa/conductor/ciudades/",
         },
       ],
     },
