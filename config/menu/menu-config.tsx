@@ -950,6 +950,10 @@ const menuLinks: Menu = {
           text: "Centro de Ayuda",
           url: "/pa/centro-de-ayuda/",
         },
+        {
+          text: "Acerca de DiDi",
+          url: "/pa/sobre-didi/",
+        },
       ],
     },
   ],

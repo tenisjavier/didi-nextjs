@@ -54,6 +54,5 @@ export async function generateStaticParams() {
       slug: city.slug,
     };
   });
-  console.log("citiesSlugs", citiesSlugs);
   return citiesSlugs;
 }
