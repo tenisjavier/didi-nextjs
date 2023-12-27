@@ -58,7 +58,7 @@ const Card = (props: CardT) => {
 
   const truncate = (str: string, n: number) => {
     return str.length > n ? str.substring(0, n - 1) + "..." : str;
-  }
+  };
 
   return (
     <div
@@ -79,7 +79,7 @@ const Card = (props: CardT) => {
             src={image.url}
             alt={image.description}
             className={`${imageStyle} ${
-              isImageIcon ? "max-h-[80px]" : "max-h-[200px] w-auto"
+              isImageIcon ? "max-h-[80px]" : "max-h-[250px] w-auto object-cover"
             } max-w-full`}
             width={400}
             height={400}

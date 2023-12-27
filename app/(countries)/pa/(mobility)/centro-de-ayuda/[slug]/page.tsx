@@ -1,5 +1,4 @@
 import React from "react";
-import { Metadata } from "next";
 import { fetchFAQBySlug, fetchImages } from "@/utils/db";
 import { notFound } from "next/navigation";
 import AccordionSection from "@/components/AccordionSection/";
@@ -12,7 +11,15 @@ interface FAQProps {
   };
 }
 
-let metadata: Metadata;
+// or Dynamic metadata
+export async function generateMetadata({ params: { slug } }: FAQProps) {
+  const faq = await fetchFAQBySlug("pa", slug);
+  const content = faq.content.json.content[0].content[0].value;
+  return {
+    title: faq.title,
+    description: content.slice(0, 150) + "...",
+  };
+}
 
 const CentroDeAyuda = async ({ params: { slug } }: FAQProps) => {
   const [faq, bgImage] = await Promise.all([
@@ -20,11 +27,6 @@ const CentroDeAyuda = async ({ params: { slug } }: FAQProps) => {
     fetchImages(["mx.HelpCenterHero.bgImage"]),
   ]);
   if (!faq) return notFound();
-  const content = faq.content.json.content[0].content[0].value;
-  metadata = {
-    title: faq.title,
-    description: content.slice(0, 150),
-  };
 
   const heroProps: CTASectionT = {
     title: faq.title,

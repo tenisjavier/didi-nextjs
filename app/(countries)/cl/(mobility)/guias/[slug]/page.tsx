@@ -20,15 +20,15 @@ export let metadata: Metadata = {
 };
 
 const Guide = async ({ params: { slug } }: GuiasProps) => {
-  const guide = await fetchGuideBySlug(slug, "cl");
+  const guide = await fetchGuideBySlug("cl", slug);
   if (!guide) return notFound();
 
   const suggestedGuides = await fetchGuidesByCategory("driver", "cl");
   metadata = guide.seoTitle
     ? {
-      title: guide.seoTitle,
-      description: guide.seoDescription,
-    }
+        title: guide.seoTitle,
+        description: guide.seoDescription,
+      }
     : metadata;
 
   const heroProps = {
