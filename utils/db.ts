@@ -759,13 +759,14 @@ const fetchListSectionById = async (id: string): Promise<ListSectionT> => {
     throw new Error("Failed to fetch listSection");
   }
   const { data } = await res.json();
-
+  console.log(data);
   //? fetch depending on the listType and productCategory
   if (data.listSection.listType === "city") {
     const cities = await fetchCities(
       data.listSection.country.code,
       data.listSection.productCategory
     );
+    console.log(cities);
     const items: ListItemT = cities.map((city) => {
       return {
         text: city.name,
@@ -967,10 +968,13 @@ const fetchArticleBySlug = async (
   return articles.data.articleCollection.items?.[0];
 };
 
-const fetchArticles = async (countryCode: CountryCode): Promise<ArticleT[]> => {
+const fetchArticles = async (
+  countryCode: CountryCode,
+  category: string
+): Promise<ArticleT[]> => {
   const query = `
   query {
-    articleCollection(where: {country:{code: "${countryCode}"}}){
+    articleCollection(where: {country:{code: "${countryCode}"}, category_contains_all: "${category}"}){
       items{
         title
         slug

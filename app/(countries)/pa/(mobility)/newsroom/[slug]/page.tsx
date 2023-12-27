@@ -1,6 +1,5 @@
 import React from "react";
 import { fetchArticleBySlug } from "@/utils/db";
-import { Metadata } from "next";
 import CTASection from "@/components/CTASection";
 import RichContent from "@/components/RichContent";
 import Banner from "@/components/Banner";
@@ -12,23 +11,19 @@ interface NewsroomProps {
   };
 }
 
-export let metadata: Metadata = {
-  title: "Registrate como Socio Conductor DiDi",
-  description:
-    "DiDi en Argentina, registrate como socio conductor en las categorías express y taxi ganando más y manejando menos. Si sos Socio Conductor llamános al +54 (11) 3987-6342",
-};
+// or Dynamic metadata
+export async function generateMetadata({ params: { slug } }: NewsroomProps) {
+  const article = await fetchArticleBySlug(slug, "pa");
+  return {
+    title: article.seoTitle,
+    description: article.seoDescription,
+  };
+}
 
 const Newsroom = async ({ params: { slug } }: NewsroomProps) => {
   const article = await fetchArticleBySlug(slug, "pa");
 
   if (!article) return notFound();
-
-  metadata = article.seoTitle
-    ? {
-        title: article.seoTitle,
-        description: article.seoDescription,
-      }
-    : metadata;
 
   const heroProps = {
     title: article.title,

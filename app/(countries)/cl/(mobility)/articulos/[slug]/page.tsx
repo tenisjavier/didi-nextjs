@@ -1,40 +1,45 @@
 import React from "react";
-import { fetchArticleBySlug, fetchArticles, fetchGuideBySlug, fetchGuidesByCategory } from "@/utils/db";
-import { Metadata } from "next";
+import { fetchArticleBySlug, fetchArticles } from "@/utils/db";
+
 import Link from "next/link";
 import CTASection from "@/components/CTASection";
 import RichContent from "@/components/RichContent";
 import Banner from "@/components/Banner";
 import ColumnsSection from "@/components/ColumnSection";
 import { notFound } from "next/navigation";
-import { ArticleT, GuideT } from "@/typings";
+import { ArticleT } from "@/typings";
 
-interface GuiasProps {
+interface ArticleProps {
   params: {
     slug: string;
   };
 }
 
-export let metadata: Metadata = {
-  title: "Registrate como Socio Conductor DiDi",
-  description:
-    "DiDi en Chile, registrate como socio conductor en las categorías express y taxi ganando más y manejando menos. Si sos Socio Conductor llamános al +54 (11) 3987-6342",
-};
+// or Dynamic metadata
+export async function generateMetadata({ params: { slug } }: ArticleProps) {
+  const article = await fetchArticleBySlug(slug, "cl");
+  return {
+    title: article.seoTitle,
+    description: article.seoDescription,
+  };
+}
 
-const Article = async ({ params: { slug } }: GuiasProps) => {
+// SSG approach for this pages
+export async function generateStaticParams() {
+  const articles = await fetchArticles("cl", "rides");
+  const articlesSlugs = articles.map((article: ArticleT) => {
+    slug: article.slug;
+  });
+  return articlesSlugs;
+}
+
+const Article = async ({ params: { slug } }: ArticleProps) => {
   const [article, suggestedArticles] = await Promise.all([
     fetchArticleBySlug(slug, "cl"),
-    fetchArticles("cl"),
+    fetchArticles("cl", "rides"),
   ]);
 
   if (!article) return notFound();
-
-  metadata = article.seoTitle
-    ? {
-      title: article.seoTitle,
-      description: article.seoDescription,
-    }
-    : metadata;
 
   const heroProps = {
     title: article.title,
@@ -42,7 +47,7 @@ const Article = async ({ params: { slug } }: GuiasProps) => {
     bgColor: "bg-white",
     textColor: "white",
     bgImage: article.featuredImage,
-    btnType: "drv",
+    btnType: "pax",
     btnMode: "light",
     brightness: "brightness-75",
   };
@@ -64,10 +69,11 @@ const Article = async ({ params: { slug } }: GuiasProps) => {
     gap: 0,
     columns: suggestedArticles.map((article: ArticleT) => {
       return {
-        title: <Link href={`/cl/articulos/${article.slug}`}>{article.title}</Link>,
+        title: (
+          <Link href={`/cl/articulos/${article.slug}`}>{article.title}</Link>
+        ),
         desc: article.excerpt,
         image: article.featuredImage,
-        imageStyle: "object-cover h-56 w-full p-4",
         bgColor: "bg-white",
         textColor: "gray-primary",
         btnType: "custom",
@@ -90,11 +96,3 @@ const Article = async ({ params: { slug } }: GuiasProps) => {
 };
 
 export default Article;
-
-export async function generateStaticParams() {
-  const articles = await fetchArticles("cl");
-  const articlesSlugs = articles.map((article: ArticleT) => {
-    slug: article.slug;
-  });
-  return articlesSlugs;
-}
