@@ -11,7 +11,8 @@ import Image from "next/image";
 import CTASection from "../CTASection";
 
 function NextArrow(props: any) {
-  const { onClick, arrow, arrowColor } = props;
+  const { onClick, arrow, arrowColor, hasArrow } = props;
+  if (!hasArrow) return <></>
   return (
     <button
       className={`${arrowColor} before:content-[''] before:w-6 before:h-6 before:border-4 before:border-solid before:block before:border-l-0 before:border-b-0 before:rotate-45 before:rounded-bl-sm absolute z-50 right-5 top-1/2 transform -translate-y-1/2 text-4xl sm:text-2sm border-0 p-0 outline-0 bg-inherit cursor-pointer hover:font-bold m-0`}
@@ -21,7 +22,8 @@ function NextArrow(props: any) {
 }
 
 function PrevArrow(props: any) {
-  const { onClick, arrow, arrowColor } = props;
+  const { onClick, arrow, arrowColor, hasArrow } = props;
+  if (!hasArrow) return <></>
   return (
     <button
       className={`${arrowColor} before:content-[''] before:w-6 before:h-6 before:border-4 before:border-solid before:block before:border-r-0 before:border-t-0 before:rotate-45 before:rounded-bl-sm absolute z-50 left-5 top-1/2 transform -translate-y-1/2 text-4xl sm:text-2sm border-0 p-0 outline-0 bg-inherit cursor-pointer hover:font-bold m-0`}
@@ -79,10 +81,10 @@ const Carousel = (props: CarouselT) => {
         <Image
           key={index}
           src={img.url}
-          height={img.height || 1200}
-          width={img.width || 1200}
+          height={img.height || 400}
+          width={img.width || 400}
           alt={img.description}
-          className={`${imageStyle} z-10 w-full`}
+          className={`${imageStyle} z-10 w-full h-auto max-w`}
         ></Image>
       );
     });
@@ -103,8 +105,8 @@ const Carousel = (props: CarouselT) => {
     slidesToScroll: toScroll,
     pauseOnHover: false,
     cssEase: "linear",
-    nextArrow: <NextArrow arrow={arrowNext} arrowColor={arrowColor} />,
-    prevArrow: <PrevArrow arrow={arrowPrev} arrowColor={arrowColor} />,
+    nextArrow: <NextArrow arrow={arrowNext} arrowColor={arrowColor} hasArrow={hasArrows} />,
+    prevArrow: <PrevArrow arrow={arrowPrev} arrowColor={arrowColor} hasArrow={hasArrows} />,
     dotsClass: "slick-dots flex justify-center z-50 !bottom-10",
 
     responsive: [
@@ -120,14 +122,14 @@ const Carousel = (props: CarouselT) => {
 
   return (
     <div
-      className="py-12"
+      // className="py-12"
       style={{
         maxWidth: `${maxWidth}px`,
         margin: "auto",
       }}
     >
       {title && (
-        <h2 className="text-3xl md:text-4xl font-bold text-center ">{title}</h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-center">{title}</h2>
       )}
       <Slider {...settings}>{sliderContent && sliderContent}</Slider>
     </div>

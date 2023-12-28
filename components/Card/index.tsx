@@ -69,8 +69,9 @@ const Card = (props: CardT) => {
       {titlePosition === "beforeImage" && title && (
         <h4 className={`mb-4 text-xl font-bold lg:text-center ${titleStyles}`}>
           {hasTextHighlighter
-            ? textHighlighter(title as string, textHighlighterStyle)
-            : title}
+            ? textHighlighter(truncate(title, 50) as string, textHighlighterStyle)
+            : truncate(title, 50)
+          }
         </h4>
       )}
       <div>
@@ -106,8 +107,8 @@ const Card = (props: CardT) => {
               className={`mb-4 text-xl font-bold lg:text-center ${titleStyles}`}
             >
               {hasTextHighlighter
-                ? textHighlighter(title as string, textHighlighterStyle)
-                : title}
+                ? textHighlighter(truncate(title, 50) as string, textHighlighterStyle)
+                : truncate(title, 50)}
             </h4>
           )}
           {desc && descPosition === "beforeBtn" && (

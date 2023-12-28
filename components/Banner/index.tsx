@@ -15,20 +15,19 @@ const Banner = ({
   btnText,
   reverse,
 }: BannerT) => {
+
   return (
     <div className={`py-8 lg:py-4 ${bgColor && bgColor} text-${textColor}`}>
-      <div className={`container mx-auto w-full `}>
+      <div className={`container mx-auto w-full ${bgColor && bgColor} text-${textColor} flex items-center justify-between flex-wrap`}>
         <div
-          className={` py-4  px-4 lg:px-0  ${
-            image ? "text-left" : "text-center"
-          }`}
+          className={` py-4  px-4 lg:px-0  ${image ? "text-left" : "text-center"
+            }`}
         >
           <h3 className={`mb-2 text-3xl lg:text-4xl  font-bold `}>{title}</h3>
           {desc && <p className="text-lg ">{desc}</p>}
           <span
-            className={`flex justify-center ${
-              btnText != "VideoSection.btnText" ? "" : "hidden"
-            }`}
+            className={`flex justify-center ${btnText != "VideoSection.btnText" ? "" : "hidden"
+              }`}
           >
             <Btn
               btnType={btnType}
@@ -40,9 +39,7 @@ const Banner = ({
         </div>
 
         {image ? (
-          <div className="mb-5 max-w-6xl text-center">
-            <Image src={image.url} alt={image.description} fill></Image>
-          </div>
+          <Image className="z-10 my-10 w-56 h-auto" src={image.url} alt={image.description} width={image?.width || 400} height={image?.height || 400}></Image>
         ) : (
           ""
         )}

@@ -391,9 +391,11 @@ const fetchCarouselById = async (id: string): Promise<CarouselT> => {
       name
       maxWidth
       title
+      arrowColor
       slidesCollection{
         items{
           title
+          desc
           name
           textColor
           bgColor
