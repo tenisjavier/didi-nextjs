@@ -11,10 +11,10 @@ export const metadata: Metadata = {
 };
 
 
-const Contact = async () => {
-  const components = await fetchPageComponents("/au/delivery/personal/");
+const Entrega = async () => {
+  const components = await fetchPageComponents("/co/entrega/");
   return <BuilderComponent components={components}></BuilderComponent>;
 };
 
-export default Contact;
+export default Entrega;
 

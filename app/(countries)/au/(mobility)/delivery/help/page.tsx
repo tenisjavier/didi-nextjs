@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 
 const Contact = async () => {
-  const components = await fetchPageComponents("/au/delivery/personal/");
+  const components = await fetchPageComponents("/au/delivery/help/");
   return <BuilderComponent components={components}></BuilderComponent>;
 };
 
