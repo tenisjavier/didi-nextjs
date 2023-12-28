@@ -89,6 +89,7 @@ const CardSchema = z.object({
   btnText: BtnType.min(5).max(30).nullish(),
   btnLink: BtnMode.nullish(),
   isImageIcon: z.boolean().nullish(),
+  pathname: z.string().nullish(),
 });
 
 const ColumnSectionSchema = z.object({

@@ -692,6 +692,7 @@ const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
         items{
           name
           title
+          pathname
           desc
           textColor
           bgColor

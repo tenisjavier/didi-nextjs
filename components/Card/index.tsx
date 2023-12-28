@@ -3,7 +3,7 @@ import Btn from "@/components/Btn";
 import Image from "next/image";
 import textHighlighter from "@/utils/textHighlighter";
 import { CardT } from "@/typings";
-
+import Link from "next/link";
 // @desc: card component for making columns or cards
 // @props: type drv/pax/none | link (normal btn) "url" | mode light/none | children: normal btn text
 
@@ -48,6 +48,7 @@ const Card = (props: CardT) => {
     titlePosition = "afterImage",
     descPosition = "beforeBtn",
     isImageIcon = image?.url?.toLowerCase()?.includes("icon"),
+    pathname,
   } = props;
 
   let dir: any = "ltr";
@@ -59,6 +60,8 @@ const Card = (props: CardT) => {
   const truncate = (str: string, n: number) => {
     return str.length > n ? str.substring(0, n - 1) + "..." : str;
   };
+
+
 
   return (
     <div
@@ -75,17 +78,36 @@ const Card = (props: CardT) => {
         </h4>
       )}
       <div>
-        {image && (
-          <Image
-            src={image.url}
-            alt={image.description}
-            className={`${imageStyle} ${
-              isImageIcon ? "max-h-[80px]" : "max-h-[250px] w-auto object-cover"
-            } max-w-full`}
-            width={400}
-            height={400}
-          ></Image>
+        {pathname ? (
+          <>
+            <Link href={pathname}>
+              {image && (
+                <Image
+                  src={image.url}
+                  alt={image.description}
+                  className={`${imageStyle} ${isImageIcon ? "max-h-[80px]" : "max-h-[250px] w-auto object-cover"
+                    } max-w-full`}
+                  width={400}
+                  height={400}
+                ></Image>
+              )}
+            </Link>
+          </>
+        ) : (
+          <>
+            {image && (
+              <Image
+                src={image.url}
+                alt={image.description}
+                className={`${imageStyle} ${isImageIcon ? "max-h-[80px]" : "max-h-[250px] w-auto object-cover"
+                  } max-w-full`}
+                width={400}
+                height={400}
+              ></Image>
+            )}
+          </>
         )}
+
         {video && (
           <iframe
             className="h-56 w-full"
