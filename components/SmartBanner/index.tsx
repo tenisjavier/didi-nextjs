@@ -101,9 +101,9 @@ const PaxLogo = () => {
   return (
     <div>
       <Image
-        src="/images/logos/didi-logo.png"
+        src="/images/logos/pax-logo.png"
         alt="didi pasajero logo"
-        className=""
+        className="w-12 h-auto"
         width={50}
         height={50}
       />

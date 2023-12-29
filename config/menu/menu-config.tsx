@@ -936,6 +936,16 @@ const menuLinks: Menu = {
       text: "DiDi Pasajero",
       url: "/pa/pasajero/",
       icon: "menu-pax",
+      dropMenu: [
+        {
+          text: "DiDi Pasajero",
+          url: "/pa/pasajero/",
+        },
+        {
+          text: "Descarga la App",
+          url: "https://global-rides-passenger.onelink.me/xNlo/globalhomepage",
+        },
+      ],
     },
     {
       text: "Acerca de DiDi",
