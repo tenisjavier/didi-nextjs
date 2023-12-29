@@ -1,12 +1,11 @@
 import React from "react";
-import { fetchCitieBySlug, fetchCities, fetchGuideBySlug, fetchGuidesByCategory, fetchPageComponents } from "@/utils/db";
+import { fetchCities, fetchPartnerBySlug, fetchPartnersByCategory } from "@/utils/db";
 import { Metadata } from "next";
 import CTASection from "@/components/CTASection";
 import RichContent from "@/components/RichContent";
-import Banner from "@/components/Banner";
 import { notFound } from "next/navigation";
-import { City, GuideT } from "@/typings";
-import BuilderComponent from "@/components/BuilderComponent";
+import { City, ColumnSectionT, PartnerT } from "@/typings";
+import ColumnsSection from "@/components/ColumnSection";
 
 interface GuiasProps {
   params: {
@@ -21,28 +20,58 @@ export let metadata: Metadata = {
 };
 
 const Guide = async ({ params: { slug } }: GuiasProps) => {
-  const city = await fetchCitieBySlug("mx", slug);
-  if (!city) return notFound();
+  const partner = await fetchPartnerBySlug("mx", slug);
+  const partners = (await fetchPartnersByCategory("mx", "didimas")).filter((partner: PartnerT) => partner.slug !== slug);
+  if (!partner) return notFound();
 
   const heroProps = {
-    title: `Socios Conductores en ${city.name}`,
-    desc: `¿Quieres convertirte en Socio Conductor DiDi en ${city.name}? Regístrate online y comienza a generar ingresos de manera segura y flexible.`,
-    bgColor: "bg-blue-primary",
+    title: partner.heroTitle,
+    desc: partner.heroDesc,
+    bgColor: "bg-orange-primary",
     textColor: "white",
-    image: city.image,
+    image: partner.logo,
     btnType: "drv",
-    btnMode: "primary",
+    btnMode: "light",
     brightness: "brightness-75",
     reverse: true,
     isHero: true,
   };
 
-  const components = await fetchPageComponents("/mx/conductor/");
+  const ctaFeaturesProps = {
+    title: partner.featureTitle,
+    desc: partner.featureDesc,
+    image: partner.featureImage,
+    bgColor: "bg-gray-light",
+    textColor: "bg-gray-primary",
+    btnType: "drv",
+    btnMode: "primary",
+    brightness: "brightness-75",
+  };
+
+  const columnSectionProps = {
+    title: "Esto es solo el comienzo, pronto vendrán más promociones",
+    columns: partners?.map((partner: PartnerT) => {
+      return {
+        title: partner.name,
+        desc: partner.desc,
+        image: partner.logo,
+        pathname: `/mx/didimas/${partner.slug}`,
+      }
+    }),
+    bgColor: "bg-white",
+    gap: 10,
+    textColor: "text-gray-primary",
+    gridCols: 3,
+  }
 
   return (
     <>
       <CTASection {...heroProps}></CTASection>
-      <BuilderComponent components={components}></BuilderComponent>;
+      <CTASection {...ctaFeaturesProps}></CTASection>
+      <section className="container mx-auto mb-32 text-gray-primary md:px-28 mt-16">
+        <RichContent richContent={partner.content}></RichContent>
+      </section>
+      <ColumnsSection {...columnSectionProps}></ColumnsSection>
     </>
   );
 };
@@ -50,11 +79,11 @@ const Guide = async ({ params: { slug } }: GuiasProps) => {
 export default Guide;
 
 export async function generateStaticParams() {
-  const cities = await fetchCities("mx", "driver")
-  const citiesSlugs = cities.map((city: City) => {
+  const partners = await fetchPartnersByCategory("mx", "didimas")
+  const partnersSlugs = partners.map((city: PartnerT) => {
     return {
       slug: city.slug
     }
   });
-  return citiesSlugs;
+  return partnersSlugs;
 }

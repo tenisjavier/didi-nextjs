@@ -93,7 +93,7 @@ const CardSchema = z.object({
 });
 
 const ColumnSectionSchema = z.object({
-  name: z.string(),
+  name: z.string().nullish(),
   title: z.string().nullish(),
   desc: z.string().nullish(),
   textColor: z.string(),
@@ -164,11 +164,13 @@ const BannerSchema = z.object({
   bgColor: z.string(),
   textColor: z.string(),
   image: ImageSchema.nullish(),
+  imageBottom: z.boolean().nullish(),
   btnType: BtnType.nullish(),
   btnMode: BtnMode.nullish(),
   btnText: BtnType.min(5).max(30).nullish(),
   btnLink: BtnMode.nullish(),
   reverse: z.boolean().nullish(),
+  video: z.string().nullish(),
 });
 const OptionsSchema = z.object({
   name: z.string(),
@@ -274,6 +276,24 @@ const LegalSchema = z.object({
   country: z.countryCodeSchema(),
 });
 
+const PartnerSchema = z.object({
+  name: z.string(),
+  slug: z.string(),
+  logo: z.ImageSchema(),
+  desc: z.string(),
+  country: z.countryCodeSchema(),
+  promoLink: z.string(),
+  promoLinkText: z.string(),
+  heroTitle: z.string(),
+  heroDesc: z.string(),
+  heroImage: z.ImageSchema(),
+  featureTitle: z.string(),
+  featureDesc: z.string(),
+  featureImage: z.ImageSchema(),
+  content: z.any(),
+  category: z.enum(["creditCard", "didimas"]),
+});
+
 export type CountryCode = z.infer<typeof CountryCodeSchema>;
 export type LanguageCode = z.infer<typeof languageCodeSchema>;
 export type BusinessType = z.infer<typeof BusinessSchema>;
@@ -297,5 +317,6 @@ export type FAQT = z.infer<typeof FAQSchema>;
 export type GuideT = z.infer<typeof GuideSchema>;
 export type ArticleT = z.infer<typeof ArticleSchema>;
 export type LegalT = z.infer<typeof LegalSchema>;
+export type PartnerT = z.infer<typeof PartnerSchema>;
 
 export type PageComponent = { id: string; __typename: string };
