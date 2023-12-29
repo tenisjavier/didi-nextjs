@@ -1,6 +1,5 @@
 import React from "react";
 import { fetchArticleBySlug, fetchArticles } from "@/utils/db";
-
 import Link from "next/link";
 import CTASection from "@/components/CTASection";
 import RichContent from "@/components/RichContent";
@@ -42,6 +41,7 @@ const Article = async ({ params: { slug } }: ArticleProps) => {
   if (!article) return notFound();
 
   const heroProps = {
+    isHero: true,
     title: article.title,
     desc: article.excerpt,
     bgColor: "bg-white",

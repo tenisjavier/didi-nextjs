@@ -10,11 +10,9 @@ export const metadata: Metadata = {
   description: "Elmejor",
 };
 
-
 const Legal = async () => {
-  const components = await fetchPageComponents("/pa/legal/");
+  const components = await fetchPageComponents("/cl/legal/");
   return <BuilderComponent components={components}></BuilderComponent>;
 };
 
 export default Legal;
-

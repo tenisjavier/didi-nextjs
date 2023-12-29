@@ -1,5 +1,10 @@
 import React from "react";
-import { fetchArticleBySlug, fetchArticles, fetchGuideBySlug, fetchGuidesByCategory } from "@/utils/db";
+import {
+  fetchArticleBySlug,
+  fetchArticles,
+  fetchGuideBySlug,
+  fetchGuidesByCategory,
+} from "@/utils/db";
 import { Metadata } from "next";
 import Link from "next/link";
 import CTASection from "@/components/CTASection";
@@ -24,16 +29,16 @@ export let metadata: Metadata = {
 const Article = async ({ params: { slug } }: GuiasProps) => {
   const [article, suggestedArticles] = await Promise.all([
     fetchArticleBySlug(slug, "cr"),
-    fetchArticles("cr"),
+    fetchArticles("cr", "food"),
   ]);
 
   if (!article) return notFound();
 
   metadata = article.seoTitle
     ? {
-      title: article.seoTitle,
-      description: article.seoDescription,
-    }
+        title: article.seoTitle,
+        description: article.seoDescription,
+      }
     : metadata;
 
   const heroProps = {
@@ -64,7 +69,9 @@ const Article = async ({ params: { slug } }: GuiasProps) => {
     gap: 0,
     columns: suggestedArticles.map((article: ArticleT) => {
       return {
-        title: <Link href={`/pe/articulos/${article.slug}`}>{article.title}</Link>,
+        title: (
+          <Link href={`/pe/articulos/${article.slug}`}>{article.title}</Link>
+        ),
         desc: article.excerpt,
         image: article.featuredImage,
         imageStyle: "object-cover h-56 w-full p-4",
@@ -92,7 +99,7 @@ const Article = async ({ params: { slug } }: GuiasProps) => {
 export default Article;
 
 export async function generateStaticParams() {
-  const articles = await fetchArticles("cr");
+  const articles = await fetchArticles("cr", "food");
   const articlesSlugs = articles.map((article: ArticleT) => {
     slug: article.slug;
   });
