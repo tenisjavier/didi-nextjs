@@ -13,6 +13,7 @@ const config: Config = {
     "bg-orange-primary",
     "bg-green-primary",
     "bg-white",
+    "bg-blue-dark",
   ],
   theme: {
     fontFamily: {

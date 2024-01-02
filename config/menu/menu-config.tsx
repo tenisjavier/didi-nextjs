@@ -407,6 +407,10 @@ const menuLinks: Menu = {
       icon: "menu-help",
       dropMenu: [
         {
+          text: "Sobre DiDi",
+          url: "/mx/nosotros/",
+        },
+        {
           text: "Seguridad",
           url: "/mx/seguridad/",
         },

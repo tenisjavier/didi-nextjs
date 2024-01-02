@@ -30,6 +30,20 @@ const Footer = async ({
   if (languageCode === "es") imageSrc = "/images/logos/android-ios-spanish.png";
   if (languageCode === "ar") imageSrc = "/images/logos/android-ios-arabic.png";
 
+  if (businessType === "food") {
+    logo = (
+      <Image
+        src="/images/logos/didi-food-logo.png"
+        alt="DiDi Food"
+        width={180}
+        height={83}
+      />
+    );
+
+    countries = countries.filter((c: Country) => c.code === "mx" || c.code === "pe" || c.code === "cr" || c.code === "co");
+  }
+
+
   return (
     <footer className="pb-36 lg:pb-0 bg-gray-primary">
       <div className="border-buffer h-32 border-x-0 border-b-2 border-t-0 border-solid border-white text-white ">
@@ -73,18 +87,20 @@ const Footer = async ({
               })}
             </div>
           </div>
-          <div className="flex h-1/2 w-full flex-initial flex-wrap items-center justify-center px-24 lg:h-full lg:w-1/2 xl:px-32 ">
-            <div className="flex w-full justify-center lg:w-auto">
-              <a href="https://global-rides-passenger.onelink.me/xNlo/globalhomepage">
-                <Image
-                  alt="Logo Stores"
-                  src={imageSrc}
-                  width={200}
-                  height={123}
-                ></Image>
-              </a>
+          {businessType !== "food" && (
+            <div className="flex h-1/2 w-full flex-initial flex-wrap items-center justify-center px-24 lg:h-full lg:w-1/2 xl:px-32 ">
+              <div className="flex w-full justify-center lg:w-auto">
+                <a href="https://global-rides-passenger.onelink.me/xNlo/globalhomepage">
+                  <Image
+                    alt="Logo Stores"
+                    src={imageSrc}
+                    width={200}
+                    height={123}
+                  ></Image>
+                </a>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </footer>

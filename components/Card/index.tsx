@@ -3,7 +3,7 @@ import Btn from "@/components/Btn";
 import Image from "next/image";
 import textHighlighter from "@/utils/textHighlighter";
 import { CardT } from "@/typings";
-
+import Link from "next/link";
 // @desc: card component for making columns or cards
 // @props: type drv/pax/none | link (normal btn) "url" | mode light/none | children: normal btn text
 
@@ -47,6 +47,7 @@ const Card = (props: CardT) => {
     titleStyles,
     titlePosition = "afterImage",
     descPosition = "beforeBtn",
+    pathname,
     isImageIcon,
   } = props;
 
@@ -60,6 +61,8 @@ const Card = (props: CardT) => {
     return str.length > n ? str.substring(0, n - 1) + "..." : str;
   };
 
+
+
   return (
     <div
       style={{ direction: dir }}
@@ -69,25 +72,42 @@ const Card = (props: CardT) => {
       {titlePosition === "beforeImage" && title && (
         <h4 className={`mb-4 text-xl font-bold lg:text-center ${titleStyles}`}>
           {hasTextHighlighter
-            ? textHighlighter(title as string, textHighlighterStyle)
-            : title}
+            ? textHighlighter(truncate(title, 50) as string, textHighlighterStyle)
+            : truncate(title, 50)
+          }
         </h4>
       )}
       <div>
-        {image && (
-          <Image
-            src={image.url}
-            alt={image.description}
-            className={`${imageStyle} ${
-              isImageIcon
-                ? "max-h-[80px] w-auto"
-                : "max-h-[250px] w-auto object-cover"
-            } max-w-full`}
-            width={isImageIcon ? 80 : 400}
-            height={isImageIcon ? 80 : 400}
-            quality={isImageIcon ? 10 : 70}
-          ></Image>
+        {pathname ? (
+          <>
+            <Link href={pathname}>
+              {image && (
+                <Image
+                  src={image.url}
+                  alt={image.description}
+                  className={`${imageStyle} ${isImageIcon ? "max-h-[80px] max-w-[150px]" : "max-h-[250px] w-auto object-contain max-w-full"
+                    }`}
+                  width={400}
+                  height={400}
+                ></Image>
+              )}
+            </Link>
+          </>
+        ) : (
+          <>
+            {image && (
+              <Image
+                src={image.url}
+                alt={image.description}
+                className={`${imageStyle} ${isImageIcon ? "max-h-[80px] max-w-[150px]" : "max-h-[250px] w-auto object-contain max-w-full"
+                  }`}
+                width={400}
+                height={400}
+              ></Image>
+            )}
+          </>
         )}
+
         {video && (
           <iframe
             className="h-56 w-full"
@@ -109,8 +129,8 @@ const Card = (props: CardT) => {
               className={`mb-4 text-xl font-bold lg:text-center ${titleStyles}`}
             >
               {hasTextHighlighter
-                ? textHighlighter(title as string, textHighlighterStyle)
-                : title}
+                ? textHighlighter(truncate(title, 50) as string, textHighlighterStyle)
+                : truncate(title, 50)}
             </h4>
           )}
           {desc && descPosition === "beforeBtn" && (

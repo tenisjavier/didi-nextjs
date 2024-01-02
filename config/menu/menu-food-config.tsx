@@ -44,8 +44,8 @@ const menuLinksFood: AllMenuInterface = {
           url: "/mx/food/restaurantes/kit-digital/",
         },
         {
-          text: "Promociones y Campañas",
-          url: "/mx/food/restaurantes/promociones-y-campanas/",
+          text: "Guías de uso de la app",
+          url: "/mx/food/restaurantes/guias/",
         },
       ],
     },
@@ -66,6 +66,10 @@ const menuLinksFood: AllMenuInterface = {
           text: "Repartidores FAQ",
           url: "/mx/food/repartidores/preguntas-frecuentes/",
         },
+        {
+          text: "Guías de uso de la app",
+          url: "/mx/food/repartidores/guias/",
+        },
       ],
     },
     {
@@ -73,6 +77,10 @@ const menuLinksFood: AllMenuInterface = {
       url: "/mx/food/acerca-didi-food/",
       icon: "menu-help",
       dropMenu: [
+        {
+          text: "Acerca",
+          url: "/mx/food/acerca-didi-food/",
+        },
         {
           text: "Preguntas Frecuentes",
           url: "/mx/food/preguntas-frecuentes/",
