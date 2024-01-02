@@ -202,6 +202,7 @@ const CTASection = (props: CTASectionT) => {
           alt={bgImage.description}
           className={bgImageStyle}
           fill
+          sizes="100vw"
         />
       )}
 
@@ -211,6 +212,7 @@ const CTASection = (props: CTASectionT) => {
           alt={mobileBgImage.description}
           className={mobileBgImageStyle}
           fill
+          sizes="100vw"
         />
       )}
 

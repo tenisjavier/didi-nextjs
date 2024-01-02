@@ -47,8 +47,8 @@ const Card = (props: CardT) => {
     titleStyles,
     titlePosition = "afterImage",
     descPosition = "beforeBtn",
-    isImageIcon = image?.url?.toLowerCase()?.includes("icon"),
     pathname,
+    isImageIcon,
   } = props;
 
   let dir: any = "ltr";
