@@ -47,7 +47,7 @@ const Card = (props: CardT) => {
     titleStyles,
     titlePosition = "afterImage",
     descPosition = "beforeBtn",
-    isImageIcon = image?.url?.toLowerCase()?.includes("icon"),
+    isImageIcon,
   } = props;
 
   let dir: any = "ltr";
@@ -79,10 +79,13 @@ const Card = (props: CardT) => {
             src={image.url}
             alt={image.description}
             className={`${imageStyle} ${
-              isImageIcon ? "max-h-[80px]" : "max-h-[250px] w-auto object-cover"
+              isImageIcon
+                ? "max-h-[80px] w-auto"
+                : "max-h-[250px] w-auto object-cover"
             } max-w-full`}
-            width={400}
-            height={400}
+            width={isImageIcon ? 80 : 400}
+            height={isImageIcon ? 80 : 400}
+            quality={isImageIcon ? 10 : 70}
           ></Image>
         )}
         {video && (
