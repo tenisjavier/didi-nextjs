@@ -106,7 +106,7 @@ const RichContent = ({ richContent }: any) => {
             node.data.uri.lastIndexOf("v=") + 2
           );
           return (
-            <div className="flex justify-center">
+            <span className="flex justify-center">
               <iframe
                 className="mt-8 w-full lg:w-1/2 h-72 "
                 src={`https://www.youtube.com/embed/${videoId}`}
@@ -115,7 +115,7 @@ const RichContent = ({ richContent }: any) => {
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               ></iframe>
-            </div>
+            </span>
           );
         }
         return (
@@ -187,13 +187,14 @@ const RichContent = ({ richContent }: any) => {
           height = 250;
         }
         return (
-          <div className="my-12 flex w-full justify-center mx-auto">
+          <div className="my-12 flex w-full justify-center mx-auto relative">
             <Image
               className="w-full h-auto md:max-w-4xl"
               src={image.url}
               alt={image.description}
               width={width}
               height={height}
+              // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             ></Image>
           </div>
         );

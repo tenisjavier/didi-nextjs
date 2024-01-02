@@ -38,7 +38,10 @@ const ListItem = ({ text, secondText, link, image }: ListItemT) => {
           className={
             "!absolute z-0 h-full w-full !block bg-cover brightness-50 object-cover"
           }
-          fill
+          quality={10}
+          height={126}
+          width={291}
+          sizes="(min-width: 1540px) 441px, (min-width: 1280px) 366px, (min-width: 1040px) 291px, (min-width: 780px) 348px, (min-width: 640px) 574px, calc(100vw - 34px)"
         ></Image>
       )}
       {item}

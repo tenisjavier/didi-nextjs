@@ -698,6 +698,7 @@ const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
             description
             url
           }
+          isImageIcon
           video
           btnType
           btnMode
