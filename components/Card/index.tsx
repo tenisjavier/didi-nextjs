@@ -85,8 +85,8 @@ const Card = (props: CardT) => {
                 <Image
                   src={image.url}
                   alt={image.description}
-                  className={`${imageStyle} ${isImageIcon ? "max-h-[80px]" : "max-h-[250px] w-auto object-contain"
-                    } max-w-full`}
+                  className={`${imageStyle} ${isImageIcon ? "max-h-[80px] max-w-[150px]" : "max-h-[250px] w-auto object-contain max-w-full"
+                    }`}
                   width={400}
                   height={400}
                 ></Image>
@@ -99,8 +99,8 @@ const Card = (props: CardT) => {
               <Image
                 src={image.url}
                 alt={image.description}
-                className={`${imageStyle} ${isImageIcon ? "max-h-[80px]" : "max-h-[250px] w-auto object-contain"
-                  } max-w-full`}
+                className={`${imageStyle} ${isImageIcon ? "max-h-[80px] max-w-[150px]" : "max-h-[250px] w-auto object-contain max-w-full"
+                  }`}
                 width={400}
                 height={400}
               ></Image>

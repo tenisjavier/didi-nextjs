@@ -54,6 +54,16 @@ const CountrySchema = z.object({
   englishName: z.string(),
   spanishName: z.string(),
   hostname: z.string(),
+  code: z.string(),
+});
+
+const ComponentsJSONSchema = z.object({
+  meta: z.array({
+    title: z.string(),
+    desc: z.string(),
+    bullets: z.array(z.string()),
+    image: ImageSchema.nullish(),
+  }),
 });
 
 //? Section Components Schemas
@@ -294,6 +304,19 @@ const PartnerSchema = z.object({
   category: z.enum(["creditCard", "didimas"]),
 });
 
+const FeaturesSchema = z.object({
+  name: z.string(),
+  description: z.string(),
+  slug: z.string(),
+  image: ImageSchema,
+  country: z.countryCodeSchema(),
+  content: z.any(),
+  category: z.enum(["driver", "pax", "food"]),
+  type: z.enum(["before", "during", "after"]),
+  components: ComponentsJSONSchema,
+  componentImages: z.array(ImageSchema),
+});
+
 export type CountryCode = z.infer<typeof CountryCodeSchema>;
 export type LanguageCode = z.infer<typeof languageCodeSchema>;
 export type BusinessType = z.infer<typeof BusinessSchema>;
@@ -318,5 +341,6 @@ export type GuideT = z.infer<typeof GuideSchema>;
 export type ArticleT = z.infer<typeof ArticleSchema>;
 export type LegalT = z.infer<typeof LegalSchema>;
 export type PartnerT = z.infer<typeof PartnerSchema>;
+export type FeaturesT = z.infer<typeof FeaturesSchema>;
 
 export type PageComponent = { id: string; __typename: string };

@@ -24,7 +24,7 @@ export let metadata: Metadata = {
 const Article = async ({ params: { slug } }: GuiasProps) => {
   const [article, suggestedArticles] = await Promise.all([
     fetchArticleBySlug(slug, "mx"),
-    fetchArticles("mx"),
+    fetchArticles("mx", 'pay'),
   ]);
 
   if (!article) return notFound();
@@ -92,7 +92,7 @@ const Article = async ({ params: { slug } }: GuiasProps) => {
 export default Article;
 
 export async function generateStaticParams() {
-  const articles = await fetchArticles("mx");
+  const articles = await fetchArticles("mx", "pay");
   const articlesSlugs = articles.map((article: ArticleT) => {
     slug: article.slug;
   });

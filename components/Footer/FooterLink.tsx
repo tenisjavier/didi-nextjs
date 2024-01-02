@@ -11,7 +11,7 @@ interface FooterLinkProps {
 
 const FooterLink = ({ countryCode, businessType }: FooterLinkProps) => {
   let links;
-  if (businessType === "mobility") links = getFooterLinks(countryCode);
+  if (businessType === "mobility" || businessType === "pay") links = getFooterLinks(countryCode);
   if (businessType === "food") links = getFooterLinksFood(countryCode);
 
   return (

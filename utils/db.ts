@@ -1,5 +1,5 @@
 //? Contentful fetches per content type, country and category
-import { City, Country, CountryCode, PartnerT } from "@/typings";
+import { City, Country, CountryCode, FeaturesT, PartnerT } from "@/typings";
 import { ImageType } from "@/typings";
 import { PageComponent } from "@/typings";
 import {
@@ -1221,6 +1221,110 @@ const fetchPartnerBySlug = async (
   return partner;
 };
 
+const fetchFeatureBySlug = async (
+  countryCode: CountryCode,
+  slug: string
+): Promise<FeaturesT> => {
+  const query = `query {
+    featureCollection (where: {country: {code:"${countryCode}"}, slug:"${slug}"} limit: 1) {
+      items {
+        name
+        slug
+        image{
+          url
+          width
+          height
+          description
+        }
+        description
+        components
+        componentImagesCollection{
+          items{
+            url
+            width
+            height
+            description
+          }
+        }
+        country{
+          code
+          name
+        }
+        category
+        content {
+          json
+          links {
+            assets {
+              block {
+                sys {
+                  id
+                }
+                title
+                description
+                url
+                width
+                height
+              }
+            }
+          }
+        }
+      }
+    }
+  }`;
+
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+    cache: "no-cache",
+  });
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch Feature");
+  }
+
+  const { data } = await res.json();
+  const feature: FeaturesT = data.featureCollection.items[0];
+
+  if (feature?.components?.meta) {
+    for (let i = 0; i < feature?.components?.meta?.length; i++) {
+      feature.components.meta[i].image =
+        feature.componentImagesCollection.items[i];
+      delete feature.componentImagesCollection;
+    }
+  }
+
+  return feature;
+};
+
+const fetchFeatureByCategory = async (
+  countryCode: CountryCode,
+  category: string
+): Promise<FeaturesT[]> => {
+  const query = `query {
+    featureCollection (where: {country: {code:"${countryCode}"}, category_contains_all:"${category}"}) {
+      items {
+        name
+        slug
+      }
+    }
+  }`;
+
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+    cache: "no-cache",
+  });
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch Feature");
+  }
+
+  const { data } = await res.json();
+  const feature = data.featureCollection.items;
+
+  return feature;
+};
+
 //? returns a object of images
 //* params: array of image names to fetch
 const fetchImages = async (imagesList: string[]): Promise<ImageType[]> => {
@@ -1284,4 +1388,6 @@ export {
   fetchLegalBySlug,
   fetchPartnerBySlug,
   fetchPartnersByCategory,
+  fetchFeatureBySlug,
+  fetchFeatureByCategory,
 };

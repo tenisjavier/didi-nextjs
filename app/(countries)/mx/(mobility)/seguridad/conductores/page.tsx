@@ -11,10 +11,10 @@ export const metadata: Metadata = {
 };
 
 
-const Conductor = async () => {
-  const components = await fetchPageComponents("/mx/ciudades/");
+const Seguridad = async () => {
+  const components = await fetchPageComponents("/mx/seguridad/conductores/");
   return <BuilderComponent components={components}></BuilderComponent>;
 };
 
-export default Conductor;
+export default Seguridad;
 
