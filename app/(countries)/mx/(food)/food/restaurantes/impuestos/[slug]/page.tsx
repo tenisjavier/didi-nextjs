@@ -12,7 +12,7 @@ interface FAQProps {
 
 export let metadata: Metadata;
 
-const Legal = async ({ params: { slug } }: FAQProps) => {
+const Page = async ({ params: { slug } }: FAQProps) => {
   const legal = await fetchLegalBySlug("mx", slug);
   if (!legal) return notFound();
   const content = legal.content.json.content[0].content[0].value;
@@ -29,4 +29,4 @@ const Legal = async ({ params: { slug } }: FAQProps) => {
   );
 };
 
-export default Legal;
+export default Page;
