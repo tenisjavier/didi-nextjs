@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 const Seguridad = async () => {
-  const components = await fetchPageComponents("/nz/safety/rider-safety");
+  const components = await fetchPageComponents("/nz/safety/rider-safety/");
   return <BuilderComponent components={components}></BuilderComponent>;
 };
 
