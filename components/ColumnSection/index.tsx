@@ -45,7 +45,7 @@ const ColumnsSection = (props: ColumnSectionT) => {
           ))}
 
         <div
-          className={`grid grid-cols-1 ${columns && columns?.length < 3 ? "" : "lg:grid-cols-" + gridCols}  ${"gap-" + gap
+          className={`grid grid-cols-1 ${columns && columns?.length < 3 ? columns?.length > 1 ? "grid-cols-2" : "" : "lg:grid-cols-" + gridCols}  ${"gap-" + gap
             } mt-10  lg:justify-around `}
         >
           {columns &&

@@ -4,20 +4,14 @@ import { fetchLegalBySlug } from "@/utils/db";
 import { notFound } from "next/navigation";
 import RichContent from "@/components/RichContent";
 
-interface FAQProps {
-  params: {
-    slug: string;
-  };
-}
-
 export let metadata: Metadata;
 
-const Legal = async ({ params: { slug } }: FAQProps) => {
-  const legal = await fetchLegalBySlug("co", slug);
+const Page = async () => {
+  const legal = await fetchLegalBySlug("mx", "terminos-y-condiciones");
   if (!legal) return notFound();
   const content = legal.content.json.content[0].content[0].value;
   metadata = {
-    title: "Términos y Condiciones DiDi | DiDi Colômbia", //! fix after migration
+    title: "Términos y Condiciones DiDi | DiDi México", //! fix after migration
     description: content.slice(0, 150),
   };
   return (
@@ -29,4 +23,4 @@ const Legal = async ({ params: { slug } }: FAQProps) => {
   );
 };
 
-export default Legal;
+export default Page;

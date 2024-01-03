@@ -16,22 +16,22 @@ interface GuiasProps {
 export let metadata: Metadata = {
   title: "Registrate como Socio Conductor DiDi",
   description:
-    "DiDi en Mexico, registrate como socio conductor en las categorías express y taxi ganando más y manejando menos. Si sos Socio Conductor llamános al +54 (11) 3987-6342",
+    "DiDi en Côlombia, registrate como socio conductor en las categorías express y taxi ganando más y manejando menos. Si sos Socio Conductor llamános al +54 (11) 3987-6342",
 };
 
-const Guide = async ({ params: { slug } }: GuiasProps) => {
-  const partner = await fetchPartnerBySlug("mx", slug);
-  const partners = (await fetchPartnersByCategory("mx", "didimas")).filter((partner: PartnerT) => partner.slug !== slug);
+const Page = async ({ params: { slug } }: GuiasProps) => {
+  const partner = await fetchPartnerBySlug("co", slug);
+  const partners = (await fetchPartnersByCategory("co", "didimas")).filter((partner: PartnerT) => partner.slug !== slug);
   if (!partner) return notFound();
 
   const heroProps = {
     title: partner.heroTitle,
     desc: partner.heroDesc,
-    bgColor: "bg-orange-primary",
-    textColor: "white",
+    bgColor: "bg-white",
+    textColor: "gray-primary",
     image: partner.logo,
     btnType: "drv",
-    btnMode: "light",
+    btnMode: "primary",
     brightness: "brightness-75",
     reverse: true,
     isHero: true,
@@ -55,7 +55,7 @@ const Guide = async ({ params: { slug } }: GuiasProps) => {
         title: partner.name,
         desc: partner.desc,
         image: partner.logo,
-        pathname: `/mx/didimas/${partner.slug}`,
+        pathname: `/co/didimas/${partner.slug}`,
       }
     }),
     bgColor: "bg-white",
@@ -78,10 +78,10 @@ const Guide = async ({ params: { slug } }: GuiasProps) => {
   );
 };
 
-export default Guide;
+export default Page;
 
 export async function generateStaticParams() {
-  const partners = await fetchPartnersByCategory("mx", "didimas")
+  const partners = await fetchPartnersByCategory("co", "didimas")
   const partnersSlugs = partners.map((city: PartnerT) => {
     return {
       slug: city.slug

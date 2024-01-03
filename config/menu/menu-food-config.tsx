@@ -187,7 +187,7 @@ const menuLinksFood: AllMenuInterface = {
           url: "https://www.didi-food.com/es-CO/store",
         },
         {
-          text: "Restaurantes FAQ",
+          text: "Preguntas Frecuentes",
           url: "/co/food/restaurantes/preguntas-frecuentes/",
         },
         {
@@ -195,8 +195,8 @@ const menuLinksFood: AllMenuInterface = {
           url: "/co/food/restaurantes/kit-digital/",
         },
         {
-          text: "Promociones y Campañas",
-          url: "/co/food/restaurantes/promociones-y-campanas/",
+          text: "Guías de uso de la app",
+          url: "/co/food/restaurantes/guias/",
         },
       ],
     },
@@ -217,6 +217,10 @@ const menuLinksFood: AllMenuInterface = {
           text: "Repartidores FAQ",
           url: "/co/food/repartidores/preguntas-frecuentes/",
         },
+        {
+          text: "Guías de uso de la app",
+          url: "/co/food/repartidores/guias/",
+        },
       ],
     },
     {
@@ -224,6 +228,10 @@ const menuLinksFood: AllMenuInterface = {
       url: "/co/food/acerca-didi-food/",
       icon: "menu-help",
       dropMenu: [
+        {
+          text: "Acerca",
+          url: "/co/food/acerca-didi-food/",
+        },
         {
           text: "Preguntas Frecuentes",
           url: "/co/food/preguntas-frecuentes/",

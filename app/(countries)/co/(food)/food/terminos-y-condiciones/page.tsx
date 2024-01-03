@@ -4,16 +4,10 @@ import { fetchLegalBySlug } from "@/utils/db";
 import { notFound } from "next/navigation";
 import RichContent from "@/components/RichContent";
 
-interface FAQProps {
-  params: {
-    slug: string;
-  };
-}
-
 export let metadata: Metadata;
 
-const Legal = async ({ params: { slug } }: FAQProps) => {
-  const legal = await fetchLegalBySlug("co", slug);
+const Page = async () => {
+  const legal = await fetchLegalBySlug("co", "terminos-y-condiciones");
   if (!legal) return notFound();
   const content = legal.content.json.content[0].content[0].value;
   metadata = {
@@ -29,4 +23,4 @@ const Legal = async ({ params: { slug } }: FAQProps) => {
   );
 };
 
-export default Legal;
+export default Page;
