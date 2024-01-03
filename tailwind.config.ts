@@ -14,6 +14,7 @@ const config: Config = {
     "bg-green-primary",
     "bg-white",
     "bg-blue-dark",
+    "bg-orange-500"
   ],
   theme: {
     fontFamily: {
