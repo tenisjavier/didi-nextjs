@@ -667,6 +667,10 @@ const menuLinks: Menu = {
           url: "/co/conductor/requisitos-para-conducir/",
         },
         {
+          text: "DiDi Confort",
+          url: "/co/conductor/didi-confort/",
+        },
+        {
           text: "DiDi Flex",
           url: "/co/conductor/didi-flex/",
         },
@@ -682,6 +686,10 @@ const menuLinks: Menu = {
           text: "Historias de Éxito",
           url: "/co/conductor/historias-de-exito/",
         },
+        {
+          text: "DiDi Amigo",
+          url: "/co/conductor/didi-amigo/",
+        }
       ],
     },
     {
@@ -692,6 +700,10 @@ const menuLinks: Menu = {
         {
           text: "DiDi Pasajero",
           url: "/co/pasajero/",
+        },
+        {
+          text: "DiDi Moto",
+          url: "/co/pasajero/moto/",
         },
         {
           text: "Descarga la App",
@@ -764,6 +776,10 @@ const menuLinks: Menu = {
       url: "/co/sobre-didi/",
       icon: "menu-help",
       dropMenu: [
+        {
+          text: "Sobre DiDi",
+          url: "/co/sobre-didi/",
+        },
         {
           text: "Seguridad",
           url: "/co/seguridad/",
