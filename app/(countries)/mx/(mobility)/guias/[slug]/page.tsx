@@ -20,7 +20,7 @@ export let metadata: Metadata = {
 };
 
 const Guide = async ({ params: { slug } }: GuiasProps) => {
-  const guide = await fetchGuideBySlug(slug, "mx");
+  const guide = await fetchGuideBySlug("mx", slug);
   if (!guide) return notFound();
 
   const suggestedGuides = await fetchGuidesByCategory("driver", "mx");
