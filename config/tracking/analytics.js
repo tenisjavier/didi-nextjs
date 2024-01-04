@@ -1,5 +1,5 @@
 // codigo de tracking didi SEO y WEB
-const insertBtnParams = () => {
+export default function insertBtnParams() {
   window.localStorage.removeItem("gatsby-i18next-language");
 
   const countryCode =
@@ -390,6 +390,4 @@ const insertBtnParams = () => {
       return newUrl.href;
     }
   }
-};
-
-insertBtnParams();
+}

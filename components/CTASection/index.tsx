@@ -44,18 +44,16 @@ const CTASection = (props: CTASectionT) => {
     brightness,
   } = props;
 
-  const bulletsCreditCard: SectionCreditCardCashBackBulletsProps = {
-    creditCardCashBackBullets: [],
-  }
-
   const isRtl = RTL ? "rtl" : "ltr";
   const textDir = RTL ? "text-right" : "text-left";
   const margin = RTL ? "ml-4" : "mr-4";
   const bgImageStyle = mobileBgImage
-    ? `hidden !absolute z-0 h-full w-full md:block object-cover ${brightness && brightness
-    }}`
-    : `!absolute z-0 h-full w-full md:block object-cover ${brightness && brightness
-    }`;
+    ? `hidden !absolute z-0 h-full w-full md:block object-cover ${
+        brightness && brightness
+      }}`
+    : `!absolute z-0 h-full w-full md:block object-cover ${
+        brightness && brightness
+      }`;
   const mobileBgImageStyle = `!absolute z-0 h-full w-full md:!hidden object-cover`;
   const imageStyle = "z-10 m-4 w-80 h-auto lg:w-100 " + rounded;
   const getTitleElement = () => {
@@ -109,21 +107,25 @@ const CTASection = (props: CTASectionT) => {
   return (
     <section
       style={{ direction: isRtl }}
-      className={`relative flex min-h-[44rem] w-full items-center justify-center overflow-hidden ${bgColor && bgColor
-        } ${borderColor && "border-solid border border-" + borderColor} `}
+      className={`relative flex min-h-[44rem] w-full items-center justify-center overflow-hidden ${
+        bgColor && bgColor
+      } ${borderColor && "border-solid border border-" + borderColor} `}
     >
       <div
-        className={`${whiteRight ? "white-right" : "container"
-          }  mx-auto flex w-full lg:flex-nowrap items-center justify-center py-12 ${reverse && isHero
+        className={`${
+          whiteRight ? "white-right" : "container"
+        }  mx-auto flex w-full lg:flex-nowrap items-center justify-center py-12 ${
+          reverse && isHero
             ? "flex-row-reverse flex-wrap-reverse pt-28 lg:pt-12 "
             : "flex-wrap "
-          } ${reverse ? "flex-row-reverse" : ""} 
-        ${image || imageRawRender || bulletsConfigColumn === "singleColumn"
+        } ${reverse ? "flex-row-reverse" : ""} 
+        ${
+          image || imageRawRender || bulletsConfigColumn === "singleColumn"
             ? whiteRight
               ? "lg:justify-center"
               : "lg:justify-between"
             : "lg:justify-start"
-          }`}
+        }`}
       >
         {image && (
           <Image
@@ -145,24 +147,26 @@ const CTASection = (props: CTASectionT) => {
           />
         )}
 
-        {bulletsCreditCard && bulletsConfigColumn === "singleColumn" && (
+        {/* {bulletsCreditCard && bulletsConfigColumn === "singleColumn" && (
           <SectionCreditCardCashBackBullets
             creditCardCashBackBullets={
               bulletsCreditCard.creditCardCashBackBullets
             }
           />
-        )}
+        )} */}
 
         {imageRawRender && imageRawRender}
 
         <div
-          className={`${mobileTitlePosition === "top" ? "absolute top-24 md:static" : ""
-            } w-11/12 mb-8 lg:mt-16 lg:w-1/2 text-${textColor} z-10 xl:${textDir}`}
+          className={`${
+            mobileTitlePosition === "top" ? "absolute top-24 md:static" : ""
+          } w-11/12 mb-8 lg:mt-16 lg:w-1/2 text-${textColor} z-10 xl:${textDir}`}
         >
           {getTitleElement()}
           <div
-            className={`flex ${descBeforeBullets ? "flex-col" : "flex-col-reverse"
-              }`}
+            className={`flex ${
+              descBeforeBullets ? "flex-col" : "flex-col-reverse"
+            }`}
           >
             {desc && renderSectionDesc()}
 
@@ -212,7 +216,6 @@ const CTASection = (props: CTASectionT) => {
           alt={mobileBgImage.description}
           className={mobileBgImageStyle}
           fill
-          sizes="100vw"
         />
       )}
 

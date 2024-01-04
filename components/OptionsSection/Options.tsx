@@ -33,8 +33,8 @@ const Options = ({ name, title, image, isActive, onClick }: OptionsProps) => {
         width={192}
         className={`${
           isActive
-            ? "lg:w-48 lg:h-44 md:w-48 md:h-44 w-32 h-28 mb-2"
-            : "lg:w-40 lg:h-36 md:w-40 md:h-36 w-24 h-[86px] mb-2"
+            ? "lg:w-48 h-auto md:w-48  w-32 mb-2"
+            : "lg:w-40  md:w-40 w-24 h-auto mb-2"
         }`}
       />
       <span className="">{title}</span>

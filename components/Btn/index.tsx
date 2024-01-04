@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { getBtnLinks } from "@/config/btn/btn-config";
-import gtmEvent from "@/config/tracking/gtm";
+import gtmEvent from "@/config/tracking/gtmEvent";
 import { FaSpinner } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 import { getCountryCode } from "@/utils/country";
@@ -106,36 +106,36 @@ const Btn = ({
     btnLink = btnLink || btnData.creditLink;
   }
 
-  // const handleClick = (e: any) => {
-  //   if (btnMode === "static") return;
-  //   if (notRedirectOutPage) {
-  //     if (download) {
-  //       setIsLoading(true);
-  //       setTimeout(() => {
-  //         setIsLoading(false);
-  //       }, 500);
-  //     }
-  //     return;
-  //   }
-  //   e.preventDefault();
-  //   const link = e.target.href;
-  //   let form;
-  //   const url = new URL(link);
-  //   let version = url.searchParams.get("ad_group_id")?.toString();
-  //   if (url.searchParams.get("c")?.toString().includes("/food"))
-  //     version = localStorage.getItem("t6")?.toString();
-  //   if (btnType === "drv")
-  //     form = link.includes("quickbolt") ? "quickbolt" : "h5";
-  //   gtmEvent(`click-btn`, {
-  //     btnType: btnType,
-  //     btnLink: link,
-  //     form: form,
-  //     versionName: version,
-  //     btnText: e.target.innerText,
-  //     countryCode: countryCode,
-  //   });
-  //   window.location.href = link;
-  // };
+  const handleClick = (e: any) => {
+    if (btnMode === "static") return;
+    if (notRedirectOutPage) {
+      if (download) {
+        setIsLoading(true);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 500);
+      }
+      return;
+    }
+    e.preventDefault();
+    const link = e.target.href;
+    let form;
+    const url = new URL(link);
+    let version = url.searchParams.get("ad_group_id")?.toString();
+    if (url.searchParams.get("c")?.toString().includes("/food"))
+      version = localStorage.getItem("t6")?.toString();
+    if (btnType === "drv")
+      form = link.includes("silver-bullet-online") ? "quickbolt" : "h5";
+    gtmEvent(`click-btn`, {
+      btnType: btnType,
+      btnLink: link,
+      form: form,
+      versionName: version,
+      btnText: e.target.innerText,
+      countryCode: countryCode,
+    });
+    window.location.href = link;
+  };
 
   return (
     <>
@@ -150,7 +150,7 @@ const Btn = ({
           <FaSpinner className="animate-spin px-8 py-3.5"></FaSpinner>
         ) : (
           <a
-            // onClick={(e) => handleClick(e)}
+            onClick={(e) => handleClick(e)}
             className={`block px-8 py-3 ${isLoading && ""} `}
             href={btnLink}
             target={`${notRedirectOutPage ? "_blank" : ""}`}

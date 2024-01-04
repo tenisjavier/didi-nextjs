@@ -1,7 +1,8 @@
 import "./globals.css";
 import localFont from "next/font/local";
 import Script from "next/script";
-
+import GTM from "@/config/tracking/gtm";
+import { Suspense } from "react";
 const aspira = localFont({
   src: [
     {
@@ -27,7 +28,7 @@ export default async function RootLayout({
     <html lang="en">
       <body className={`${aspira.variable} font-sans`}>
         {children}
-        <Script src="/scripts/analytics.js"></Script>
+        <GTM />
       </body>
     </html>
   );
