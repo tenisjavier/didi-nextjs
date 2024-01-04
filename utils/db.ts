@@ -356,6 +356,7 @@ const fetchColumnImageSectionById = async (
           desc
           textColor
           bgColor
+          isImageIcon
           image {
             title
             description
@@ -601,42 +602,87 @@ const fetchAccordionSectionById = async (
     }
   }
 
-query {
-accordionSection(id:"${id}") {
-  title
-  desc
-  textColor
-  bgColor
-  textAccordionColor
-  bgAccordionColor
-  isClosed
-  rtl
-  isFaq
-  itemsCollection(limit:4){
-    items{
-         ...faqFields
+  fragment productFields on Product {
+    name
+    requirement {
+      json
+      links {
+        assets {
+          block {
+            sys {
+              id
+            }
+            title
+            description
+            url
+            width
+            height
+          }
+        }
+      }
     }
   }
-}
-}`;
 
-  const res = await fetch(`${apiUrl}?query=${query}`, {
-    headers: headers,
-    cache: "no-cache",
-  });
+  query {
+    accordionSection(id:"${id}") {
+      title
+      desc
+      textColor
+      bgColor
+      textAccordionColor
+      bgAccordionColor
+      isClosed
+      rtl
+      isFaq
+      itemsCollection(limit:4){
+        items{
+             ...faqFields
+             ...productFields
+        }
+      }
+    }
+    }`;
 
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch accordionSection");
-  }
-  const { data } = await res.json();
-  const accordionSection = {
-    ...data.accordionSection,
-    items: data.accordionSection?.itemsCollection.items,
+    const res = await fetch(`${apiUrl}?query=${query}`, {
+      headers: headers,
+      cache: "no-cache",
+    });
+  
+    if (!res.ok) {
+      // This will activate the closest `error.js` Error Boundary
+      throw new Error("Failed to fetch accordionSection");
+    }
+    const { data } = await res.json();
+    const accordionSection = {
+      ...data.accordionSection,
+      items: data.accordionSection?.itemsCollection.items,
+    };
+  
+    if (
+      accordionSection?.items?.[0]?.name &&
+      accordionSection?.items?.[0]?.requirement
+    ) {
+      accordionSection.items.map((item: any) => {
+        if (item.name) {
+          item.title = item.name;
+          delete item.name;
+        }
+  
+        if (item.requirement) {
+          item.content = item.requirement;
+          delete item.requirement;
+        }
+  
+        return {
+          title: item.title,
+          content: item.content,
+        };
+      });
+    }
+  
+    delete accordionSection.itemsCollection;
+    return accordionSection;
   };
-  delete accordionSection.itemsCollection;
-  return accordionSection;
-};
 
 //? returns one Banner component by its Id
 //* params: id and type of the component
