@@ -767,7 +767,7 @@ const fetchListSectionById = async (id: string): Promise<ListSectionT> => {
     throw new Error("Failed to fetch listSection");
   }
   const { data } = await res.json();
-  console.log(data);
+
   //? fetch depending on the listType and productCategory
   if (data.listSection.listType === "city") {
     const cities = await fetchCities(
