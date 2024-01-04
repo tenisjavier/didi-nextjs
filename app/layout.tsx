@@ -1,8 +1,6 @@
 import "./globals.css";
 import localFont from "next/font/local";
-import Script from "next/script";
 import GTM from "@/config/tracking/gtm";
-import { Suspense } from "react";
 const aspira = localFont({
   src: [
     {
@@ -27,6 +25,10 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${aspira.variable} font-sans`}>
+        <div itemScope itemType="https://schema.org/WebSite">
+          <meta itemProp="url" content="https://web.didiglobal.com/" />
+          <meta itemProp="name" content="DiDi" />
+        </div>
         {children}
         <GTM />
       </body>
