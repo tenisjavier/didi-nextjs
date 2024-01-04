@@ -115,6 +115,7 @@ const ColumnSectionSchema = z.object({
   gridCols: z.number(),
   gap: z.number(),
   columns: z.array(CardSchema),
+  items: z.array(CardSchema),
 });
 
 const ColumnImageSchema = z.object({

@@ -643,46 +643,46 @@ const fetchAccordionSectionById = async (
     }
     }`;
 
-    const res = await fetch(`${apiUrl}?query=${query}`, {
-      headers: headers,
-      cache: "no-cache",
-    });
-  
-    if (!res.ok) {
-      // This will activate the closest `error.js` Error Boundary
-      throw new Error("Failed to fetch accordionSection");
-    }
-    const { data } = await res.json();
-    const accordionSection = {
-      ...data.accordionSection,
-      items: data.accordionSection?.itemsCollection.items,
-    };
-  
-    if (
-      accordionSection?.items?.[0]?.name &&
-      accordionSection?.items?.[0]?.requirement
-    ) {
-      accordionSection.items.map((item: any) => {
-        if (item.name) {
-          item.title = item.name;
-          delete item.name;
-        }
-  
-        if (item.requirement) {
-          item.content = item.requirement;
-          delete item.requirement;
-        }
-  
-        return {
-          title: item.title,
-          content: item.content,
-        };
-      });
-    }
-  
-    delete accordionSection.itemsCollection;
-    return accordionSection;
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+    cache: "no-cache",
+  });
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch accordionSection");
+  }
+  const { data } = await res.json();
+  const accordionSection = {
+    ...data.accordionSection,
+    items: data.accordionSection?.itemsCollection.items,
   };
+
+  if (
+    accordionSection?.items?.[0]?.name &&
+    accordionSection?.items?.[0]?.requirement
+  ) {
+    accordionSection.items.map((item: any) => {
+      if (item.name) {
+        item.title = item.name;
+        delete item.name;
+      }
+
+      if (item.requirement) {
+        item.content = item.requirement;
+        delete item.requirement;
+      }
+
+      return {
+        title: item.title,
+        content: item.content,
+      };
+    });
+  }
+
+  delete accordionSection.itemsCollection;
+  return accordionSection;
+};
 
 //? returns one Banner component by its Id
 //* params: id and type of the component
@@ -729,7 +729,36 @@ banner(id:"${id}") {
 //? returns one Column component by its ID
 //* params: id of the component
 const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
-  const query = `query {
+  const query = `
+  fragment partnerFields on Partner {
+    __typename
+    name
+    desc
+    slug
+    logo {
+      title
+      description
+      url
+      width
+      height
+    }
+  }
+
+  fragment guideFields on Guide {
+    __typename
+    title
+    excerpt
+    slug
+    featuredImage {
+      title
+      description
+      url
+      width
+      height
+    }
+  }
+
+  query {
     columnSection(id:"${id}"){
       name
       title
@@ -738,6 +767,12 @@ const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
       bgColor
       gridCols
   		gap
+      itemsCollection{
+        items{
+          ...partnerFields
+          ...guideFields
+        }
+      }
       columnsCollection{
         items{
           name
@@ -774,9 +809,54 @@ const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
   const { data } = await res.json();
   const columnSection = {
     ...data.columnSection,
-    columns: data.columnSection?.columnsCollection.items,
+    columns: data?.columnSection?.columnsCollection?.items,
+    items: [],
+    // items: data?.columnSection?.itemsCollection?.items,
   };
+
+  const partnersItems = data?.columnSection?.itemsCollection?.items?.filter(
+    (partner: any) => partner.__typename === "Partner"
+  );
+
+  const guidesItems = data?.columnSection?.itemsCollection?.items?.filter(
+    (guide: any) => guide.__typename === "Guide"
+  );
+
+  if (partnersItems && partnersItems?.length > 0) {
+    partnersItems.map((item: any) => {
+      item.title = item.name;
+      item.pathname = item.slug;
+      item.image = item.logo;
+      item.isImageIcon = true;
+
+      delete item.name;
+      delete item.slug;
+      delete item.logo;
+    });
+  }
+
+  if (guidesItems && guidesItems?.length > 0) {
+    guidesItems.map((item: any) => {
+      item.desc = item.excerpt;
+      item.image = item.featuredImage;
+      item.btnLink = item.slug;
+      item.btnType = "custom";
+      item.btnText = "Leer Artículo";
+      item.btnMode = "dark";
+      item.bgColor = "bg-white";
+      item.textColor = "gray-primary";
+
+      delete item.excerpt;
+      delete item.featuredImage;
+    });
+  }
+
   delete columnSection.columnsCollection;
+  delete columnSection.itemsCollection;
+
+  columnSection.items.push(...(partnersItems || []));
+  columnSection.items.push(...(guidesItems || []));
+
   return columnSection;
 };
 //? returns one List Section component by its ID

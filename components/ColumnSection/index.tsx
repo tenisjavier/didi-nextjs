@@ -6,6 +6,7 @@ import { ColumnSectionT } from "@/typings";
 const ColumnsSection = (props: ColumnSectionT) => {
   const {
     columns,
+    items,
     title,
     desc,
     bgColor,
@@ -44,15 +45,29 @@ const ColumnsSection = (props: ColumnSectionT) => {
             </p>
           ))}
 
-        <div
-          className={`grid grid-cols-1 ${columns && columns?.length < 3 ? columns?.length > 1 ? "grid-cols-2" : "" : "lg:grid-cols-" + gridCols}  ${"gap-" + gap
-            } mt-10  lg:justify-around `}
-        >
-          {columns &&
-            columns.map((col, index) => {
-              return <Card {...col} key={index}></Card>;
+        {columns && (
+          <div
+            className={`grid grid-cols-1 ${columns && columns?.length < 3 ? columns?.length > 1 ? "grid-cols-2" : "" : "lg:grid-cols-" + gridCols}  ${"gap-" + gap
+              } mt-10  lg:justify-around `}
+          >
+            {columns &&
+              columns.map((col, index) => {
+                return <Card {...col} key={index}></Card>;
+              })}
+          </div>
+        )}
+        {items && (
+          <div
+            className={`grid grid-cols-1 ${items && items?.length < 3 ? items?.length > 1 ? "grid-cols-2" : "" : "lg:grid-cols-" + gridCols}  ${"gap-" + gap
+              } mt-10  lg:justify-around `}
+          >
+
+            {items && items.map((item, index) => {
+              return <Card {...item} key={index}></Card>;
             })}
-        </div>
+
+          </div>
+        )}
       </div>
     </section>
   );

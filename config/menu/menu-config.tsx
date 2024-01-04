@@ -619,6 +619,10 @@ const menuLinks: Menu = {
       icon: "menu-help",
       dropMenu: [
         {
+          text: "Sobre DiDi",
+          url: "/pe/sobre-didi/",
+        },
+        {
           text: "Seguridad",
           url: "/pe/seguridad/",
         },
