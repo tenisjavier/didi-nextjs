@@ -127,7 +127,7 @@ const menuLinks: Menu = {
       dropMenu: [
         {
           text: "Argentina",
-          url: "/mx/",
+          url: "/ar/",
         },
         {
           text: "Australia",
