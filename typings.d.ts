@@ -116,6 +116,11 @@ const ColumnSectionSchema = z.object({
   gap: z.number(),
   columns: z.array(CardSchema),
   items: z.array(CardSchema),
+  pagination: z.object({
+    total: z.number(),
+    limit: z.number(),
+    skip: z.number(),
+  }),
 });
 
 const ColumnImageSchema = z.object({
@@ -270,14 +275,19 @@ const GuideSchema = z.object({
 });
 
 const ArticleSchema = z.object({
-  title: z.string(),
-  slug: z.string(),
-  seoTitle: z.string(),
-  seoDescription: z.string(),
-  featuredImage: z.ImageSchema(),
-  content: z.any(),
-  excerpt: z.string(),
-  country: z.countryCodeSchema(),
+  items: z.array({
+    title: z.string(),
+    slug: z.string(),
+    seoTitle: z.string(),
+    seoDescription: z.string(),
+    featuredImage: z.ImageSchema(),
+    content: z.any(),
+    excerpt: z.string(),
+    country: z.countryCodeSchema(),
+  }),
+  total: z.number(),
+  limit: z.number(),
+  skip: z.number(),
 });
 
 const LegalSchema = z.object({

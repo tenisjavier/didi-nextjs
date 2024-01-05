@@ -2,6 +2,8 @@ import React from "react";
 import Card from "@/components/Card";
 import textHighlighter from "@/utils/textHighlighter";
 import { ColumnSectionT } from "@/typings";
+import { fetchArticleByCategory, fetchGuidesByCategory } from "@/utils/db";
+import Pagination from "../Pagination";
 
 const ColumnsSection = (props: ColumnSectionT) => {
   const {
@@ -17,11 +19,36 @@ const ColumnsSection = (props: ColumnSectionT) => {
     textHighlightStyles,
     gridCols,
     gap,
+    pagination,
   } = props;
+
+  let itemsContent = items || []
+  // const [itemsContent, setItemsContent] = React.useState<any[]>(items || [])
+
   let dir: any = "ltr";
 
   if (RTL) {
     dir = "rtl";
+  }
+
+  const nextPage = async () => {
+    const res = await fetchArticleByCategory("mx", "ride", {
+      limit: 10,
+      skip: pagination.skip || 0 + 1,
+    })
+
+    console.log('nextPage', res)
+
+    itemsContent = res.items
+    console.log(res)
+  }
+
+  const prevPage = async () => {
+
+  }
+
+  const setPage = async (page: number) => {
+    console.log(page)
   }
 
   return (
@@ -56,18 +83,23 @@ const ColumnsSection = (props: ColumnSectionT) => {
               })}
           </div>
         )}
-        {items && (
+        {itemsContent && (
           <div
-            className={`grid grid-cols-1 ${items && items?.length < 3 ? items?.length > 1 ? "grid-cols-2" : "" : "lg:grid-cols-" + gridCols}  ${"gap-" + gap
+            className={`grid grid-cols-1 ${itemsContent && itemsContent?.length < 3 ? itemsContent?.length > 1 ? "grid-cols-2" : "" : "lg:grid-cols-" + gridCols}  ${"gap-" + gap
               } mt-10  lg:justify-around `}
           >
 
-            {items && items.map((item, index) => {
+            {itemsContent && itemsContent.map((item, index) => {
               return <Card {...item} key={index}></Card>;
             })}
 
           </div>
         )}
+
+        <Pagination
+          pagination={pagination}
+          itemsContent={itemsContent}
+        />
       </div>
     </section>
   );

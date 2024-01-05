@@ -1,5 +1,5 @@
 import React from "react";
-import { PageComponent } from "@/typings";
+import { CountryCode, PageComponent } from "@/typings";
 import {
   fetchCTASectionById,
   fetchColumnSectionById,

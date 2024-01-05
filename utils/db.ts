@@ -744,20 +744,6 @@ const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
     }
   }
 
-  fragment guideFields on Guide {
-    __typename
-    title
-    excerpt
-    slug
-    featuredImage {
-      title
-      description
-      url
-      width
-      height
-    }
-  }
-
   query {
     columnSection(id:"${id}"){
       name
@@ -767,10 +753,15 @@ const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
       bgColor
       gridCols
   		gap
+      itemType
+      guideCategory
+      articleCategory
+      country {
+        code
+      }
       itemsCollection{
         items{
           ...partnerFields
-          ...guideFields
         }
       }
       columnsCollection{
@@ -814,48 +805,83 @@ const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
     // items: data?.columnSection?.itemsCollection?.items,
   };
 
-  const partnersItems = data?.columnSection?.itemsCollection?.items?.filter(
-    (partner: any) => partner.__typename === "Partner"
-  );
+  if (columnSection?.itemType?.toLowerCase() === "partner") {
+    const partnersItems = data?.columnSection?.itemsCollection?.items?.filter(
+      (partner: any) => partner.__typename === "Partner"
+    );
 
-  const guidesItems = data?.columnSection?.itemsCollection?.items?.filter(
-    (guide: any) => guide.__typename === "Guide"
-  );
+    if (partnersItems && partnersItems?.length > 0) {
+      partnersItems.forEach((item: any) => {
+        item.title = item.name;
+        item.pathname = item.slug;
+        item.image = item.logo;
+        item.isImageIcon = true;
 
-  if (partnersItems && partnersItems?.length > 0) {
-    partnersItems.map((item: any) => {
-      item.title = item.name;
-      item.pathname = item.slug;
-      item.image = item.logo;
-      item.isImageIcon = true;
-
-      delete item.name;
-      delete item.slug;
-      delete item.logo;
-    });
+        delete item.name;
+        delete item.slug;
+        delete item.logo;
+      });
+      columnSection.items.push(...(partnersItems || []));
+    }
   }
 
-  if (guidesItems && guidesItems?.length > 0) {
-    guidesItems.map((item: any) => {
-      item.desc = item.excerpt;
-      item.image = item.featuredImage;
-      item.btnLink = item.slug;
-      item.btnType = "custom";
-      item.btnText = "Leer Artículo";
-      item.btnMode = "dark";
-      item.bgColor = "bg-white";
-      item.textColor = "gray-primary";
+  if (columnSection?.itemType?.toLowerCase() === "guide") {
+    if (columnSection?.country?.code && columnSection?.guideCategory?.[0]) {
+      const guides = await fetchGuidesByCategory(
+        columnSection?.guideCategory?.[0],
+        columnSection?.country?.code
+      );
 
-      delete item.excerpt;
-      delete item.featuredImage;
-    });
+      const items: ListItemT = guides.map((guide) => {
+        return {
+          title: guide.title,
+          desc: guide.excerpt,
+          image: guide.featuredImage,
+          pathname: guide.slug,
+          btnLink: guide.slug,
+          btnType: "custom",
+          btnText: "Leer Artículo",
+          btnMode: "dark",
+          bgColor: "bg-white",
+          textColor: "gray-primary",
+        };
+      });
+      columnSection.items = items;
+    }
+  }
+
+  if (columnSection?.itemType?.toLowerCase() === "article") {
+    if (columnSection?.country?.code && columnSection?.articleCategory?.[0]) {
+      const articles = await fetchArticleByCategory(
+        columnSection?.country?.code,
+        columnSection?.articleCategory?.[0]
+      );
+
+      const items: ListItemT = articles?.items?.map((article: any) => {
+        return {
+          title: article.title,
+          desc: article.excerpt,
+          image: article.featuredImage,
+          pathname: article.slug,
+          btnLink: article.slug,
+          btnType: "custom",
+          btnText: "Leer Artículo",
+          btnMode: "dark",
+          bgColor: "bg-white",
+          textColor: "gray-primary",
+        };
+      });
+      columnSection.items = items;
+      columnSection.pagination = {
+        total: articles?.total,
+        limit: articles?.limit,
+        skip: articles?.skip,
+      };
+    }
   }
 
   delete columnSection.columnsCollection;
   delete columnSection.itemsCollection;
-
-  columnSection.items.push(...(partnersItems || []));
-  columnSection.items.push(...(guidesItems || []));
 
   return columnSection;
 };
@@ -1099,6 +1125,81 @@ const fetchArticleBySlug = async (
   const articles = await res.json();
 
   return articles.data.articleCollection.items?.[0];
+};
+
+const fetchArticleByCategory = async (
+  countryCode: CountryCode,
+  category: string,
+  pagination?: {
+    skip: number;
+    limit?: number;
+  }
+): Promise<ArticleT> => {
+  console.log(countryCode);
+  console.log(category);
+  console.log(pagination);
+
+  const query = `query {
+    articleCollection(
+      where: {
+        country:{code: "${countryCode}"}, 
+        category_contains_all: "${category}"
+      }, 
+      limit: ${pagination?.limit || 10}, 
+      skip: ${pagination?.skip || 0}
+    ){
+      total
+      limit
+      skip
+      items{
+        title
+        slug
+        seoTitle
+        seoDescription
+        country {
+          code
+        }
+        excerpt
+        featuredImage {
+          title
+          description
+          url
+        }
+        content {
+          json
+          links {
+          assets {
+              block {
+                sys {
+                  id
+                }
+                title
+                description
+                url
+                width
+                height
+              }
+            }
+          }
+        }
+      }
+    }
+    }`;
+
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+    next: { revalidate: 60 },
+  });
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch article by category");
+  }
+  const articles = await res.json();
+
+  console.log(articles.data.articleCollection);
+
+  return articles.data.articleCollection;
 };
 
 const fetchArticles = async (
@@ -1517,4 +1618,5 @@ export {
   fetchPartnersByCategory,
   fetchFeatureBySlug,
   fetchFeatureByCategory,
+  fetchArticleByCategory,
 };

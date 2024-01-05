@@ -76,7 +76,6 @@ const ColumnImageSection = (props: ColumnImageT) => {
                         className={imageStyle}
                         width={image.width || 450}
                         height={image.height || 450}
-
                       />
                     )}
                   </div>
