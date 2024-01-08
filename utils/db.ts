@@ -643,46 +643,46 @@ const fetchAccordionSectionById = async (
     }
     }`;
 
-    const res = await fetch(`${apiUrl}?query=${query}`, {
-      headers: headers,
-      cache: "no-cache",
-    });
-  
-    if (!res.ok) {
-      // This will activate the closest `error.js` Error Boundary
-      throw new Error("Failed to fetch accordionSection");
-    }
-    const { data } = await res.json();
-    const accordionSection = {
-      ...data.accordionSection,
-      items: data.accordionSection?.itemsCollection.items,
-    };
-  
-    if (
-      accordionSection?.items?.[0]?.name &&
-      accordionSection?.items?.[0]?.requirement
-    ) {
-      accordionSection.items.map((item: any) => {
-        if (item.name) {
-          item.title = item.name;
-          delete item.name;
-        }
-  
-        if (item.requirement) {
-          item.content = item.requirement;
-          delete item.requirement;
-        }
-  
-        return {
-          title: item.title,
-          content: item.content,
-        };
-      });
-    }
-  
-    delete accordionSection.itemsCollection;
-    return accordionSection;
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+    cache: "no-cache",
+  });
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch accordionSection");
+  }
+  const { data } = await res.json();
+  const accordionSection = {
+    ...data.accordionSection,
+    items: data.accordionSection?.itemsCollection.items,
   };
+
+  if (
+    accordionSection?.items?.[0]?.name &&
+    accordionSection?.items?.[0]?.requirement
+  ) {
+    accordionSection.items.map((item: any) => {
+      if (item.name) {
+        item.title = item.name;
+        delete item.name;
+      }
+
+      if (item.requirement) {
+        item.content = item.requirement;
+        delete item.requirement;
+      }
+
+      return {
+        title: item.title,
+        content: item.content,
+      };
+    });
+  }
+
+  delete accordionSection.itemsCollection;
+  return accordionSection;
+};
 
 //? returns one Banner component by its Id
 //* params: id and type of the component
@@ -729,7 +729,22 @@ banner(id:"${id}") {
 //? returns one Column component by its ID
 //* params: id of the component
 const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
-  const query = `query {
+  const query = `
+  fragment partnerFields on Partner {
+    __typename
+    name
+    desc
+    slug
+    logo {
+      title
+      description
+      url
+      width
+      height
+    }
+  }
+
+  query {
     columnSection(id:"${id}"){
       name
       title
@@ -738,6 +753,17 @@ const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
       bgColor
       gridCols
   		gap
+      itemType
+      guideCategory
+      articleCategory
+      country {
+        code
+      }
+      itemsCollection{
+        items{
+          ...partnerFields
+        }
+      }
       columnsCollection{
         items{
           name
@@ -774,9 +800,94 @@ const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
   const { data } = await res.json();
   const columnSection = {
     ...data.columnSection,
-    columns: data.columnSection?.columnsCollection.items,
+    columns: data?.columnSection?.columnsCollection?.items,
+    items: [],
+    // items: data?.columnSection?.itemsCollection?.items,
   };
+
+  if (columnSection?.itemType?.toLowerCase() === "partner") {
+    const partnersItems = data?.columnSection?.itemsCollection?.items?.filter(
+      (partner: any) => partner.__typename === "Partner"
+    );
+
+    if (partnersItems && partnersItems?.length > 0) {
+      partnersItems.forEach((item: any) => {
+        item.title = item.name;
+        item.pathname = item.slug;
+        item.image = item.logo;
+        item.isImageIcon = true;
+
+        delete item.name;
+        delete item.slug;
+        delete item.logo;
+      });
+      columnSection.items.push(...(partnersItems || []));
+    }
+  }
+
+  if (columnSection?.itemType?.toLowerCase() === "guide") {
+    if (columnSection?.country?.code && columnSection?.guideCategory?.[0]) {
+      const guides = await fetchGuidesByCategory(
+        columnSection?.guideCategory?.[0],
+        columnSection?.country?.code
+      );
+
+      const items: ListItemT = guides?.items?.map((guide) => {
+        return {
+          title: guide.title,
+          desc: guide.excerpt,
+          image: guide.featuredImage,
+          pathname: guide.slug,
+          btnLink: guide.slug,
+          btnType: "custom",
+          btnText: "Leer Artículo",
+          btnMode: "dark",
+          bgColor: "bg-white",
+          textColor: "gray-primary",
+        };
+      });
+      columnSection.items = items;
+      columnSection.pagination = {
+        total: guides?.total,
+        limit: guides?.limit,
+        skip: guides?.skip,
+      };
+    }
+  }
+
+  if (columnSection?.itemType?.toLowerCase() === "article") {
+    if (columnSection?.country?.code && columnSection?.articleCategory?.[0]) {
+      const articles = await fetchArticleByCategory(
+        columnSection?.country?.code,
+        columnSection?.articleCategory?.[0]
+      );
+
+      const items: ListItemT = articles?.items?.map((article: any) => {
+        return {
+          title: article.title,
+          desc: article.excerpt,
+          image: article.featuredImage,
+          pathname: article.slug,
+          btnLink: article.slug,
+          btnType: "custom",
+          btnText: "Leer Artículo",
+          btnMode: "dark",
+          bgColor: "bg-white",
+          textColor: "gray-primary",
+        };
+      });
+      columnSection.items = items;
+      columnSection.pagination = {
+        total: articles?.total,
+        limit: articles?.limit,
+        skip: articles?.skip,
+      };
+    }
+  }
+
   delete columnSection.columnsCollection;
+  delete columnSection.itemsCollection;
+
   return columnSection;
 };
 //? returns one List Section component by its ID
@@ -921,18 +1032,24 @@ const fetchGuideBySlug = async (
 //* params: slug and countrycode
 const fetchGuidesByCategory = async (
   category: string,
-  countryCode: CountryCode
-): Promise<
-  {
-    title: string;
-    excerpt: string;
-    featuredImage: ImageType;
-    slug: string;
-    countryCode: CountryCode;
-  }[]
-> => {
+  countryCode: CountryCode,
+  pagination?: {
+    skip: number;
+    limit?: number;
+  }
+): Promise<GuideT> => {
   const query = `query {
-    guideCollection (where: {country: {code:"${countryCode}"}, category_contains_all:"${category}"} limit:10) {
+    guideCollection (
+      where: {
+        country: {code:"${countryCode}"}, 
+        category_contains_all:"${category}"
+      },
+      limit: ${pagination?.limit || 10}, 
+      skip: ${pagination?.skip || 0}
+      ) {
+      total
+      limit
+      skip
       items {
         slug
         title
@@ -960,7 +1077,7 @@ const fetchGuidesByCategory = async (
   }
   const { data } = await res.json();
 
-  const guides = data.guideCollection.items;
+  const guides = data.guideCollection;
 
   return guides;
 };
@@ -1019,6 +1136,77 @@ const fetchArticleBySlug = async (
   const articles = await res.json();
 
   return articles.data.articleCollection.items?.[0];
+};
+
+const fetchArticleByCategory = async (
+  countryCode: CountryCode,
+  category: string,
+  pagination?: {
+    skip: number;
+    limit?: number;
+  }
+): Promise<ArticleT> => {
+  const query = `query {
+    articleCollection(
+      where: {
+        country:{code: "${countryCode}"}, 
+        category_contains_all: "${category}"
+      }, 
+      limit: ${pagination?.limit || 10}, 
+      skip: ${pagination?.skip || 0}
+    ){
+      total
+      limit
+      skip
+      items{
+        title
+        slug
+        seoTitle
+        seoDescription
+        country {
+          code
+        }
+        excerpt
+        featuredImage {
+          title
+          description
+          url
+        }
+        content {
+          json
+          links {
+          assets {
+              block {
+                sys {
+                  id
+                }
+                title
+                description
+                url
+                width
+                height
+              }
+            }
+          }
+        }
+      }
+    }
+    }`;
+
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+    next: { revalidate: 60 },
+  });
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch article by category");
+  }
+  const articles = await res.json();
+
+  console.log(articles.data.articleCollection);
+
+  return articles.data.articleCollection;
 };
 
 const fetchArticles = async (
@@ -1437,4 +1625,5 @@ export {
   fetchPartnersByCategory,
   fetchFeatureBySlug,
   fetchFeatureByCategory,
+  fetchArticleByCategory,
 };

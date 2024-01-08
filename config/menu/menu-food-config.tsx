@@ -267,6 +267,10 @@ const menuLinksFood: AllMenuInterface = {
           text: "Kit Digital",
           url: "/pe/food/restaurantes/kit-digital/",
         },
+        {
+          text: "Guías de uso de la app",
+          url: "/pe/food/restaurantes/guias/",
+        },
       ],
     },
     {
@@ -285,6 +289,10 @@ const menuLinksFood: AllMenuInterface = {
         {
           text: "Repartidores FAQ",
           url: "/pe/food/repartidores/preguntas-frecuentes/",
+        },
+        {
+          text: "Guías de uso de la app",
+          url: "/pe/food/repartidores/guias/",
         },
       ],
     },

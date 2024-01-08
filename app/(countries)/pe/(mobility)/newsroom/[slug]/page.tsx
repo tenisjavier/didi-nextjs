@@ -1,35 +1,40 @@
 import React from "react";
-import { fetchArticleBySlug, fetchArticles } from "@/utils/db";
+import { fetchArticleBySlug, fetchArticles, fetchGuideBySlug, fetchGuidesByCategory } from "@/utils/db";
+import { Metadata } from "next";
+import Link from "next/link";
 import CTASection from "@/components/CTASection";
 import RichContent from "@/components/RichContent";
 import Banner from "@/components/Banner";
-import { notFound } from "next/navigation";
-import { ArticleT } from "@/typings";
 import ColumnsSection from "@/components/ColumnSection";
-import Link from "next/link";
+import { notFound } from "next/navigation";
+import { ArticleT, GuideT } from "@/typings";
 
-interface NewsroomProps {
+interface GuiasProps {
   params: {
     slug: string;
   };
 }
 
-// or Dynamic metadata
-export async function generateMetadata({ params: { slug } }: NewsroomProps) {
-  const article = await fetchArticleBySlug(slug, "co");
-  return {
-    title: article.seoTitle,
-    description: article.seoDescription,
-  };
-}
+export let metadata: Metadata = {
+  title: "Registrate como Socio Conductor DiDi",
+  description:
+    "DiDi en Mexico, registrate como socio conductor en las categorías express y taxi ganando más y manejando menos. Si sos Socio Conductor llamános al +54 (11) 3987-6342",
+};
 
-const Newsroom = async ({ params: { slug } }: NewsroomProps) => {
+const Article = async ({ params: { slug } }: GuiasProps) => {
   const [article, suggestedArticles] = await Promise.all([
-    fetchArticleBySlug(slug, "co"),
-    fetchArticles("co", "news"),
+    fetchArticleBySlug(slug, "pe"),
+    fetchArticles("pe", "news"),
   ]);
 
   if (!article) return notFound();
+
+  metadata = article.seoTitle
+    ? {
+      title: article.seoTitle,
+      description: article.seoDescription,
+    }
+    : metadata;
 
   const heroProps = {
     title: article.title,
@@ -42,8 +47,8 @@ const Newsroom = async ({ params: { slug } }: NewsroomProps) => {
     brightness: "brightness-75",
   };
   const bannerProps = {
-    title: "¿Quieres ser socio conductor en DiDi?",
-    desc: "Genera Dinero y maneja tus tiempos.",
+    title: "¿Querés ser conductor en DiDi?",
+    desc: "Generá Dinero y maneja tus tiempos",
     textColor: "white",
     bgColor: "bg-orange-primary",
     btnType: "drv",
@@ -59,7 +64,7 @@ const Newsroom = async ({ params: { slug } }: NewsroomProps) => {
     gap: 0,
     columns: suggestedArticles.map((article: ArticleT) => {
       return {
-        title: <Link href={`/co/newsroom/${article.slug}`}>{article.title}</Link>,
+        title: <Link href={`/pe/newsroom/${article.slug}`}>{article.title}</Link>,
         desc: article.excerpt,
         image: article.featuredImage,
         imageStyle: "object-cover h-56 w-full p-4",
@@ -68,11 +73,10 @@ const Newsroom = async ({ params: { slug } }: NewsroomProps) => {
         btnType: "custom",
         btnMode: "dark",
         btnText: "Leer Guía",
-        btnLink: `/co/newsroom/${article.slug}`,
+        btnLink: `/pe/newsroom/${article.slug}`,
       };
     }),
   };
-
   return (
     <>
       <CTASection {...heroProps}></CTASection>
@@ -80,15 +84,14 @@ const Newsroom = async ({ params: { slug } }: NewsroomProps) => {
         <RichContent richContent={article.content}></RichContent>
       </section>
       <Banner {...bannerProps}></Banner>
-      <ColumnsSection {...suggestedGuidesProps}></ColumnsSection>
     </>
   );
 };
 
-export default Newsroom;
+export default Article;
 
 export async function generateStaticParams() {
-  const articles = await fetchArticles("co", "news");
+  const articles = await fetchArticles("pe", "news");
   const articlesSlugs = articles.map((article: ArticleT) => {
     slug: article.slug;
   });

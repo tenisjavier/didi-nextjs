@@ -69,6 +69,9 @@ const Footer = async ({
                   case "ar":
                     countryName = c.arabicName;
                     break;
+                  case "en":
+                    countryName = c.englishName;
+                    break;
                   default:
                     return c.englishName;
                 }
