@@ -23,7 +23,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html>
       <body className={`${aspira.variable} font-sans`}>
         <div itemScope itemType="https://schema.org/WebSite">
           <meta itemProp="url" content="https://web.didiglobal.com/" />
