@@ -832,7 +832,7 @@ const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
         columnSection?.country?.code
       );
 
-      const items: ListItemT = guides.map((guide) => {
+      const items: ListItemT = guides?.items?.map((guide) => {
         return {
           title: guide.title,
           desc: guide.excerpt,
@@ -847,6 +847,11 @@ const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
         };
       });
       columnSection.items = items;
+      columnSection.pagination = {
+        total: guides?.total,
+        limit: guides?.limit,
+        skip: guides?.skip,
+      };
     }
   }
 
@@ -1027,18 +1032,24 @@ const fetchGuideBySlug = async (
 //* params: slug and countrycode
 const fetchGuidesByCategory = async (
   category: string,
-  countryCode: CountryCode
-): Promise<
-  {
-    title: string;
-    excerpt: string;
-    featuredImage: ImageType;
-    slug: string;
-    countryCode: CountryCode;
-  }[]
-> => {
+  countryCode: CountryCode,
+  pagination?: {
+    skip: number;
+    limit?: number;
+  }
+): Promise<GuideT> => {
   const query = `query {
-    guideCollection (where: {country: {code:"${countryCode}"}, category_contains_all:"${category}"} limit:10) {
+    guideCollection (
+      where: {
+        country: {code:"${countryCode}"}, 
+        category_contains_all:"${category}"
+      },
+      limit: ${pagination?.limit || 10}, 
+      skip: ${pagination?.skip || 0}
+      ) {
+      total
+      limit
+      skip
       items {
         slug
         title
@@ -1066,7 +1077,7 @@ const fetchGuidesByCategory = async (
   }
   const { data } = await res.json();
 
-  const guides = data.guideCollection.items;
+  const guides = data.guideCollection;
 
   return guides;
 };
@@ -1135,10 +1146,6 @@ const fetchArticleByCategory = async (
     limit?: number;
   }
 ): Promise<ArticleT> => {
-  console.log(countryCode);
-  console.log(category);
-  console.log(pagination);
-
   const query = `query {
     articleCollection(
       where: {

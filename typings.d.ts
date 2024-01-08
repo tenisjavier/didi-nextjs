@@ -121,6 +121,10 @@ const ColumnSectionSchema = z.object({
     limit: z.number(),
     skip: z.number(),
   }),
+  country: z.object(CountrySchema),
+  itemType: z.enum(["Article", "Guide", "Partner"]),
+  articleCategory: z.enum(["news"]),
+  guideCategory: z.enum(["driver", "delivery", "restaurant"]),
 });
 
 const ColumnImageSchema = z.object({
@@ -260,18 +264,23 @@ const FAQSchema = z.object({
 });
 
 const GuideSchema = z.object({
-  title: z.string(),
-  slug: z.string(),
-  excerpt: z.string(),
-  category: z.enum(["driver", "delivery", "restaurant"]),
-  country: z.countryCodeSchema(),
-  seoTitle: z.string(),
-  seoDescription: z.string(),
-  btnCustomText: z.string(),
-  btnCustomLink: z.string(),
-  featuredImage: z.ImageSchema(),
-  featuredImageMobile: z.ImageSchema(),
-  content: z.any(),
+  total: z.number(),
+  limit: z.number(),
+  skip: z.number(),
+  items: z.array({
+    title: z.string(),
+    slug: z.string(),
+    excerpt: z.string(),
+    category: z.enum(["driver", "delivery", "restaurant"]),
+    country: z.countryCodeSchema(),
+    seoTitle: z.string(),
+    seoDescription: z.string(),
+    btnCustomText: z.string(),
+    btnCustomLink: z.string(),
+    featuredImage: z.ImageSchema(),
+    featuredImageMobile: z.ImageSchema(),
+    content: z.any(),
+  })
 });
 
 const ArticleSchema = z.object({
