@@ -1,9 +1,9 @@
 import React from "react";
-import { Link } from "gatsby";
-import Image from "../../Image";
 import { faFacebook, faInstagram, faTiktok, faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import textHighlighter from "../../../util/textHighlighter";
+// import textHighlighter from "@/util/textHighlighter";
+import Link from "next/link";
+import Image from "next/image";
 
 
 export type iconsType = "facebook" | "instagram" | "tiktok" | "twitter";
@@ -24,21 +24,22 @@ const FooterItem: React.FC<FooterLinkProps> = ({ text, link, icon }) => {
   return (
     <>
       {link ? (
-        <Link className="w-fit underline underline-offset-8" to={link}>
+        <Link className="w-fit underline underline-offset-8" href={link}>
           {icon ? (
             <FontAwesomeIcon className="text-2xl" icon={icons[icon]} />
           ) : (
             <>
               {text}
-              <Image imageStyle="w-6" src="/icon/icon-arrow-link.svg" imageData={{
+              {/* <Image imageStyle="w-6" src="/icon/icon-arrow-link.svg" imageData={{
                 title: 'DiDi Credit',
                 description: 'DiDi Credit',
-              }} />
+              }} /> */}
             </>
           )}
         </Link>
       ) : (
-        <p>{textHighlighter(text, 'text-white block font-bold')}</p>
+        // <p>{textHighlighter(text, 'text-white block font-bold')}</p>
+        <p>{text}</p>
       )}
     </>
   );

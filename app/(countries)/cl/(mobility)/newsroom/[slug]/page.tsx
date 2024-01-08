@@ -13,7 +13,7 @@ interface NewsroomProps {
 
 // or Dynamic metadata
 export async function generateMetadata({ params: { slug } }: NewsroomProps) {
-  const article = await fetchArticleBySlug(slug, "cl");
+  const article = (await fetchArticleBySlug(slug, "cl")).items?.[0]
   return {
     title: article.seoTitle,
     description: article.seoDescription,
@@ -21,7 +21,7 @@ export async function generateMetadata({ params: { slug } }: NewsroomProps) {
 }
 
 const Newsroom = async ({ params: { slug } }: NewsroomProps) => {
-  const article = await fetchArticleBySlug(slug, "cl");
+  const article = await (await fetchArticleBySlug(slug, "cl")).items?.[0]
 
   if (!article) return notFound();
 

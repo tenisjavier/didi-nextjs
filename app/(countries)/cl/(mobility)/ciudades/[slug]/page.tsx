@@ -1,9 +1,7 @@
 import React from "react";
-import { fetchCitieBySlug, fetchCities, fetchGuideBySlug, fetchGuidesByCategory, fetchPageComponents } from "@/utils/db";
+import { fetchCitieBySlug, fetchCities, fetchPageComponents } from "@/utils/db";
 import { Metadata } from "next";
 import CTASection from "@/components/CTASection";
-import RichContent from "@/components/RichContent";
-import Banner from "@/components/Banner";
 import { notFound } from "next/navigation";
 import { City, GuideT } from "@/typings";
 import BuilderComponent from "@/components/BuilderComponent";

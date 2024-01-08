@@ -2,8 +2,6 @@ import React from "react";
 import {
   fetchArticleBySlug,
   fetchArticles,
-  fetchGuideBySlug,
-  fetchGuidesByCategory,
 } from "@/utils/db";
 import { Metadata } from "next";
 import Link from "next/link";
@@ -27,18 +25,20 @@ export let metadata: Metadata = {
 };
 
 const Article = async ({ params: { slug } }: GuiasProps) => {
-  const [article, suggestedArticles] = await Promise.all([
+  const [articleContent, suggestedArticles] = await Promise.all([
     fetchArticleBySlug(slug, "cr"),
     fetchArticles("cr", "food"),
   ]);
+
+  const article = articleContent?.items?.[0]
 
   if (!article) return notFound();
 
   metadata = article.seoTitle
     ? {
-        title: article.seoTitle,
-        description: article.seoDescription,
-      }
+      title: article.seoTitle,
+      description: article.seoDescription,
+    }
     : metadata;
 
   const heroProps = {
@@ -67,7 +67,7 @@ const Article = async ({ params: { slug } }: GuiasProps) => {
     textColor: "white",
     gridCols: 3,
     gap: 0,
-    columns: suggestedArticles.map((article: ArticleT) => {
+    columns: suggestedArticles.items?.map((article) => {
       return {
         title: (
           <Link href={`/pe/articulos/${article.slug}`}>{article.title}</Link>
@@ -100,7 +100,7 @@ export default Article;
 
 export async function generateStaticParams() {
   const articles = await fetchArticles("cr", "food");
-  const articlesSlugs = articles.map((article: ArticleT) => {
+  const articlesSlugs = articles.items.map((article) => {
     slug: article.slug;
   });
   return articlesSlugs;

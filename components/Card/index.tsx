@@ -71,9 +71,9 @@ const Card = (props: CardT) => {
         <h4 className={`mb-4 text-xl font-bold lg:text-center ${titleStyles}`}>
           {hasTextHighlighter
             ? textHighlighter(
-                truncate(title, 50) as string,
-                textHighlighterStyle
-              )
+              truncate(title, 50) as string,
+              textHighlighterStyle
+            )
             : truncate(title, 50)}
         </h4>
       )}
@@ -85,11 +85,10 @@ const Card = (props: CardT) => {
                 <Image
                   src={image.url}
                   alt={image.description}
-                  className={`${imageStyle} ${
-                    isImageIcon
+                  className={`${imageStyle} ${isImageIcon
                       ? "max-h-[80px]  w-auto"
                       : "max-h-[250px] w-auto object-contain max-w-full"
-                  }`}
+                    }`}
                   width={400}
                   height={400}
                 ></Image>
@@ -102,11 +101,10 @@ const Card = (props: CardT) => {
               <Image
                 src={image.url}
                 alt={image.description}
-                className={`${imageStyle} ${
-                  isImageIcon
+                className={`${imageStyle} ${isImageIcon
                     ? "max-h-[80px] w-auto"
                     : "max-h-[250px] w-auto object-cover max-w-full"
-                }`}
+                  }`}
                 width={400}
                 height={400}
               ></Image>
@@ -136,9 +134,9 @@ const Card = (props: CardT) => {
             >
               {hasTextHighlighter
                 ? textHighlighter(
-                    truncate(title, 50) as string,
-                    textHighlighterStyle
-                  )
+                  truncate(title, 50) as string,
+                  textHighlighterStyle
+                )
                 : truncate(title, 50)}
             </h4>
           )}

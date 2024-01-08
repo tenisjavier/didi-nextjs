@@ -5,7 +5,6 @@ import CTASection from "@/components/CTASection";
 import RichContent from "@/components/RichContent";
 import Banner from "@/components/Banner";
 import { notFound } from "next/navigation";
-import { GuideT } from "@/typings";
 
 interface GuiasProps {
   params: {
@@ -20,15 +19,15 @@ export let metadata: Metadata = {
 };
 
 const Guide = async ({ params: { slug } }: GuiasProps) => {
-  const guide = await fetchGuideBySlug("pe", slug);
+  const guide = await (await fetchGuideBySlug("pe", slug)).items?.[0]
   if (!guide) return notFound();
 
   const suggestedGuides = await fetchGuidesByCategory("driver", "pe");
   metadata = guide.seoTitle
     ? {
-        title: guide.seoTitle,
-        description: guide.seoDescription,
-      }
+      title: guide.seoTitle,
+      description: guide.seoDescription,
+    }
     : metadata;
 
   const heroProps = {
@@ -65,7 +64,7 @@ export default Guide;
 
 export async function generateStaticParams() {
   const guides = await fetchGuidesByCategory("driver", "pe");
-  const guidesSlugs = guides.map((guide: GuideT) => {
+  const guidesSlugs = guides.items.map((guide) => {
     slug: guide.slug;
   });
   return guidesSlugs;

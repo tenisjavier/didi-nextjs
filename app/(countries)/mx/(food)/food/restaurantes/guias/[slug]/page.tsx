@@ -20,7 +20,7 @@ export let metadata: Metadata = {
 };
 
 const Guide = async ({ params: { slug } }: GuiasProps) => {
-  const guide = await fetchGuideBySlug("mx", slug);
+  const guide = await (await fetchGuideBySlug("mx", slug)).items?.[0]
   if (!guide) return notFound();
 
   const suggestedGuides = await fetchGuidesByCategory("restaurant", "mx");
@@ -65,7 +65,7 @@ export default Guide;
 
 export async function generateStaticParams() {
   const guides = await fetchGuidesByCategory("restaurant", "mx");
-  const guidesSlugs = guides.map((guide: GuideT) => {
+  const guidesSlugs = guides.items.map((guide) => {
     slug: guide.slug;
   });
   return guidesSlugs;

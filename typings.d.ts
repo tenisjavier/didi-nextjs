@@ -115,16 +115,18 @@ const ColumnSectionSchema = z.object({
   gridCols: z.number(),
   gap: z.number(),
   columns: z.array(CardSchema),
-  items: z.array(CardSchema),
-  pagination: z.object({
-    total: z.number(),
-    limit: z.number(),
-    skip: z.number(),
-  }),
-  country: z.object(CountrySchema),
-  itemType: z.enum(["Article", "Guide", "Partner"]),
-  articleCategory: z.enum(["news"]),
-  guideCategory: z.enum(["driver", "delivery", "restaurant"]),
+  items: z.array(CardSchema).optional(),
+  pagination: z
+    .object({
+      total: z.number(),
+      limit: z.number(),
+      skip: z.number(),
+    })
+    .optional(),
+  country: z.object(CountrySchema).optional(),
+  itemType: z.enum(["Article", "Guide", "Partner"]).optional(),
+  articleCategory: z.enum(["news"]).optional(),
+  guideCategory: z.enum(["driver", "delivery", "restaurant"]).optional(),
 });
 
 const ColumnImageSchema = z.object({
@@ -155,6 +157,7 @@ const CarouselSectionSchema = z.object({
 });
 
 const AccordionSchema = z.object({
+  __typename: z.string().optional(),
   title: z.string(),
   content: z.any(),
   slug: z.string(),
@@ -263,6 +266,15 @@ const FAQSchema = z.object({
   relatedCity: z.string().nullish(),
 });
 
+const ProductShema = z.object({
+  name: z.string(),
+  slug: z.string(),
+  description: z.string(), //!FIX and rename category as other components
+  descriptionForPax: z.string(),
+  country: z.countryCodeSchema(),
+  requirement: z.any(),
+});
+
 const GuideSchema = z.object({
   total: z.number(),
   limit: z.number(),
@@ -280,7 +292,7 @@ const GuideSchema = z.object({
     featuredImage: z.ImageSchema(),
     featuredImageMobile: z.ImageSchema(),
     content: z.any(),
-  })
+  }),
 });
 
 const ArticleSchema = z.object({
@@ -362,5 +374,6 @@ export type ArticleT = z.infer<typeof ArticleSchema>;
 export type LegalT = z.infer<typeof LegalSchema>;
 export type PartnerT = z.infer<typeof PartnerSchema>;
 export type FeaturesT = z.infer<typeof FeaturesSchema>;
+export type ProductT = z.infer<typeof ProductShema>;
 
 export type PageComponent = { id: string; __typename: string };

@@ -6,7 +6,6 @@ import RichContent from "@/components/RichContent";
 import Banner from "@/components/Banner";
 import ColumnsSection from "@/components/ColumnSection";
 import { notFound } from "next/navigation";
-import { GuideT } from "@/typings";
 
 interface GuiasProps {
   params: {
@@ -16,7 +15,7 @@ interface GuiasProps {
 
 // or Dynamic metadata
 export async function generateMetadata({ params: { slug } }: GuiasProps) {
-  const guide = await fetchGuideBySlug("cl", slug);
+  const guide = (await fetchGuideBySlug("cl", slug)).items?.[0]
   return {
     title: guide.seoTitle,
     description: guide.seoDescription,
@@ -24,7 +23,7 @@ export async function generateMetadata({ params: { slug } }: GuiasProps) {
 }
 
 const Guide = async ({ params: { slug } }: GuiasProps) => {
-  const guide = await fetchGuideBySlug("cl", slug);
+  const guide = await (await fetchGuideBySlug("cl", slug))?.items?.[0]
   if (!guide) return notFound();
 
   const suggestedGuides = await fetchGuidesByCategory("driver", "cl");
@@ -55,7 +54,7 @@ const Guide = async ({ params: { slug } }: GuiasProps) => {
     textColor: "white",
     gridCols: 3,
     gap: 0,
-    columns: suggestedGuides.map((guide: GuideT) => {
+    columns: suggestedGuides?.items?.map((guide) => {
       return {
         title: <Link href={`/cl/guias/${guide.slug}`}>{guide.title}</Link>,
         desc: guide.excerpt,
@@ -85,8 +84,8 @@ const Guide = async ({ params: { slug } }: GuiasProps) => {
 export default Guide;
 
 export async function generateStaticParams() {
-  const guides = await fetchGuidesByCategory("driver", "cl");
-  const guidesSlugs = guides.map((guide: GuideT) => {
+  const guides = (await fetchGuidesByCategory("driver", "cl"))?.items?.[0]
+  const guidesSlugs = guides?.map((guide: { slug: string }) => {
     slug: guide.slug;
   });
   return guidesSlugs;

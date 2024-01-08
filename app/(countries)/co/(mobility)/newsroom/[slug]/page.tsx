@@ -16,7 +16,7 @@ interface NewsroomProps {
 
 // or Dynamic metadata
 export async function generateMetadata({ params: { slug } }: NewsroomProps) {
-  const article = await fetchArticleBySlug(slug, "co");
+  const article = (await fetchArticleBySlug(slug, "co")).items?.[0]
   return {
     title: article.seoTitle,
     description: article.seoDescription,
@@ -24,10 +24,12 @@ export async function generateMetadata({ params: { slug } }: NewsroomProps) {
 }
 
 const Newsroom = async ({ params: { slug } }: NewsroomProps) => {
-  const [article, suggestedArticles] = await Promise.all([
+  const [articleContent, suggestedArticles] = await Promise.all([
     fetchArticleBySlug(slug, "co"),
     fetchArticles("co", "news"),
   ]);
+
+  const article = articleContent?.items?.[0]
 
   if (!article) return notFound();
 
@@ -57,7 +59,7 @@ const Newsroom = async ({ params: { slug } }: NewsroomProps) => {
     textColor: "white",
     gridCols: 3,
     gap: 0,
-    columns: suggestedArticles.map((article: ArticleT) => {
+    columns: suggestedArticles.items.map((article) => {
       return {
         title: <Link href={`/co/newsroom/${article.slug}`}>{article.title}</Link>,
         desc: article.excerpt,
@@ -89,7 +91,7 @@ export default Newsroom;
 
 export async function generateStaticParams() {
   const articles = await fetchArticles("co", "news");
-  const articlesSlugs = articles.map((article: ArticleT) => {
+  const articlesSlugs = articles.items?.map((article) => {
     slug: article.slug;
   });
   return articlesSlugs;

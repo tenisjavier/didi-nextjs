@@ -1,5 +1,12 @@
 //? Contentful fetches per content type, country and category
-import { City, Country, CountryCode, FeaturesT, PartnerT } from "@/typings";
+import {
+  City,
+  Country,
+  CountryCode,
+  FeaturesT,
+  PartnerT,
+  ProductT,
+} from "@/typings";
 import { ImageType } from "@/typings";
 import { PageComponent } from "@/typings";
 import {
@@ -350,6 +357,7 @@ const fetchColumnImageSectionById = async (
         url
       }
       columnsCollection{
+
         items{
           name
           title
@@ -581,87 +589,104 @@ carouselSection(id:"${id}") {
 const fetchAccordionSectionById = async (
   id: string
 ): Promise<AccordionSectionT> => {
-  const query = `fragment faqFields on Faq {
-    title
-    content {
-      json
-      links {
-        assets {
-          block {
-            sys {
-              id
-            }
-            title
-            description
-            url
-            width
-            height
-          }
-        }
-      }
-    }
-  }
+  const itemsCollection: FAQT[] = [];
 
-  fragment productFields on Product {
-    name
-    requirement {
-      json
-      links {
-        assets {
-          block {
-            sys {
-              id
-            }
-            title
-            description
-            url
-            width
-            height
-          }
-        }
-      }
-    }
-  }
+  let accordionSection: Partial<AccordionSectionT> = {};
 
-  query {
-    accordionSection(id:"${id}") {
+  const handleFetch = async (skip: number, limit: number) => {
+    const query = `fragment faqFields on Faq {
       title
-      desc
-      textColor
-      bgColor
-      textAccordionColor
-      bgAccordionColor
-      isClosed
-      rtl
-      isFaq
-      itemsCollection(limit:4){
-        items{
-             ...faqFields
-             ...productFields
+      content {
+        json
+        links {
+          assets {
+            block {
+              sys {
+                id
+              }
+              title
+              description
+              url
+              width
+              height
+            }
+          }
         }
       }
     }
-    }`;
+  
+    fragment productFields on Product {
+      name
+      requirement {
+        json
+        links {
+          assets {
+            block {
+              sys {
+                id
+              }
+              title
+              description
+              url
+              width
+              height
+            }
+          }
+        }
+      }
+    }
+  
+    query {
+      accordionSection(id:"${id}") {
+        name
+        title
+        desc
+        textColor
+        bgColor
+        textAccordionColor
+        bgAccordionColor
+        isClosed
+        rtl
+        isFaq
+        itemsCollection(limit:${limit || 0}, skip: ${skip || 0}){
+          total
+          skip
+          limit
+          items{
+            __typename
+               ...faqFields
+               ...productFields
+          }
+        }
+      }
+      }`;
 
-  const res = await fetch(`${apiUrl}?query=${query}`, {
-    headers: headers,
-    cache: "no-cache",
-  });
+    const res = await fetch(`${apiUrl}?query=${query}`, {
+      headers: headers,
+      cache: "no-cache",
+    });
 
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch accordionSection");
-  }
-  const { data } = await res.json();
-  const accordionSection = {
-    ...data.accordionSection,
-    items: data.accordionSection?.itemsCollection.items,
+    const { data } = await res.json();
+
+    const total = data?.accordionSection?.itemsCollection?.total;
+    const totalPages = Math.ceil(total / limit);
+    const items = data?.accordionSection?.itemsCollection;
+    const skipPage = data?.accordionSection?.itemsCollection?.skip;
+
+    itemsCollection?.push(...items.items);
+
+    accordionSection = {
+      ...data.accordionSection,
+    };
+
+    if (totalPages > 1 && skipPage < total) {
+      handleFetch(skipPage + limit, limit);
+    }
   };
 
-  if (
-    accordionSection?.items?.[0]?.name &&
-    accordionSection?.items?.[0]?.requirement
-  ) {
+  await handleFetch(0, 10);
+
+  if (accordionSection?.items?.[0]?.__typename === "Product") {
     accordionSection.items.map((item: any) => {
       if (item.name) {
         item.title = item.name;
@@ -680,8 +705,12 @@ const fetchAccordionSectionById = async (
     });
   }
 
+  //@ts-ignore
+  accordionSection.items = itemsCollection;
+  //@ts-ignore
   delete accordionSection.itemsCollection;
-  return accordionSection;
+
+  return accordionSection as AccordionSectionT;
 };
 
 //? returns one Banner component by its Id
@@ -914,6 +943,8 @@ const fetchListSectionById = async (id: string): Promise<ListSectionT> => {
       }
     }`;
 
+  console.log("headers", headers);
+
   const res = await fetch(`${apiUrl}?query=${query}`, {
     headers: headers,
     cache: "no-cache",
@@ -970,6 +1001,9 @@ const fetchGuideBySlug = async (
 ): Promise<GuideT> => {
   const query = `query {
     guideCollection (where: {country: {code:"${countryCode}"}, slug:"${slug}"} limit:1) {
+      total
+      limit
+      skip
       items {
         slug
           title
@@ -1024,7 +1058,7 @@ const fetchGuideBySlug = async (
   }
   const { data } = await res.json();
 
-  const guide = data.guideCollection.items[0];
+  const guide = data.guideCollection;
 
   return guide;
 };
@@ -1089,6 +1123,9 @@ const fetchArticleBySlug = async (
 ): Promise<ArticleT> => {
   const query = `query {
     articleCollection(where: {country:{code: "${countryCode}"}, slug: "${slug}"}, limit: 1){
+      total
+      limit
+      skip
       items{
         title
         slug
@@ -1135,7 +1172,7 @@ const fetchArticleBySlug = async (
   }
   const articles = await res.json();
 
-  return articles.data.articleCollection.items?.[0];
+  return articles.data.articleCollection;
 };
 
 const fetchArticleByCategory = async (
@@ -1204,18 +1241,19 @@ const fetchArticleByCategory = async (
   }
   const articles = await res.json();
 
-  console.log(articles.data.articleCollection);
-
   return articles.data.articleCollection;
 };
 
 const fetchArticles = async (
   countryCode: CountryCode,
   category: string
-): Promise<ArticleT[]> => {
+): Promise<ArticleT> => {
   const query = `
   query {
     articleCollection(where: {country:{code: "${countryCode}"}, category_contains_all: "${category}"}){
+      total
+      limit
+      skip
       items{
         title
         slug
@@ -1247,7 +1285,7 @@ const fetchArticles = async (
 
   const articles = await res.json();
 
-  return articles.data.articleCollection.items;
+  return articles.data.articleCollection;
 };
 
 //? returns one FAQ component by its slug and country

@@ -1,5 +1,5 @@
 import React from "react";
-import { fetchArticleBySlug, fetchArticles, fetchGuideBySlug, fetchGuidesByCategory } from "@/utils/db";
+import { fetchArticleBySlug, fetchArticles } from "@/utils/db";
 import { Metadata } from "next";
 import Link from "next/link";
 import CTASection from "@/components/CTASection";
@@ -7,7 +7,6 @@ import RichContent from "@/components/RichContent";
 import Banner from "@/components/Banner";
 import ColumnsSection from "@/components/ColumnSection";
 import { notFound } from "next/navigation";
-import { ArticleT, GuideT } from "@/typings";
 
 interface GuiasProps {
   params: {
@@ -22,10 +21,12 @@ export let metadata: Metadata = {
 };
 
 const Article = async ({ params: { slug } }: GuiasProps) => {
-  const [article, suggestedArticles] = await Promise.all([
+  const [articleContent, suggestedArticles] = await Promise.all([
     fetchArticleBySlug(slug, "mx"),
     fetchArticles("mx", "food"),
   ]);
+
+  const article = articleContent.items?.[0]
 
   if (!article) return notFound();
 
@@ -62,7 +63,7 @@ const Article = async ({ params: { slug } }: GuiasProps) => {
     textColor: "white",
     gridCols: 3,
     gap: 0,
-    columns: suggestedArticles.map((article: ArticleT) => {
+    columns: suggestedArticles.items.map((article) => {
       return {
         title: <Link href={`/pe/articulos/${article.slug}`}>{article.title}</Link>,
         desc: article.excerpt,
@@ -93,7 +94,7 @@ export default Article;
 
 export async function generateStaticParams() {
   const articles = await fetchArticles("mx", "food");
-  const articlesSlugs = articles.map((article: ArticleT) => {
+  const articlesSlugs = articles.items.map((article) => {
     slug: article.slug;
   });
   return articlesSlugs;
