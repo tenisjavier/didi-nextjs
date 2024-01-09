@@ -22,7 +22,7 @@ const Guide = async ({ params: { slug } }: GuiasProps) => {
   const guide = await (await fetchGuideBySlug("ar", slug)).items?.[0];
   if (!guide) return notFound();
 
-  const suggestedGuides = await fetchGuidesByCategory("driver", "ar");
+  // const suggestedGuides = await fetchGuidesByCategory("driver", "ar");
 
   metadata = guide.seoTitle
     ? {
