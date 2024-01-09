@@ -1,4 +1,9 @@
-import { faAngleLeft, faAngleRight, faAnglesLeft, faAnglesRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAngleLeft,
+  faAngleRight,
+  faAnglesLeft,
+  faAnglesRight,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 
@@ -19,14 +24,13 @@ const Pagination: React.FC<PaginationProps> = ({
   prevPage,
   setPage,
 }) => {
-
   if (pagination) {
     const totalPage = Math.ceil(pagination.total / pagination.limit);
 
     const renderPageButton = (index: number) => (
       <li key={index} className="list-none">
         <button
-          onClick={() => setPage((index * pagination.limit) - 10)}
+          onClick={() => setPage(index * pagination.limit - pagination.limit)}
           disabled={pagination.skip / pagination.limit + 1 === index}
           className={`w-10 h-10 items-center justify-center px-2.5 py-2 text-gray-median bg-white border border-gray-light hover:cursor-pointer disabled:text-gray-light`}
         >
@@ -76,7 +80,12 @@ const Pagination: React.FC<PaginationProps> = ({
               <FontAwesomeIcon icon={faAngleRight} className="w-3" />
             </button>
             <button
-              onClick={() => setPage(Math.floor(pagination.total / 10) * 10)}
+              onClick={() =>
+                setPage(
+                  Math.floor(pagination.total / pagination.limit) *
+                    pagination.limit
+                )
+              }
               disabled={pagination.total - pagination.skip < pagination.limit}
               className="w-10 h-10 items-center justify-center px-2.5 py-2 text-gray-median bg-white border border-gray-light hover:cursor-pointer disabled:text-gray-light"
             >
@@ -88,7 +97,7 @@ const Pagination: React.FC<PaginationProps> = ({
     );
   }
 
-  return <></>
+  return <></>;
 };
 
 export default Pagination;

@@ -1,5 +1,11 @@
 import React from "react";
-import { fetchCitieBySlug, fetchCities, fetchGuideBySlug, fetchGuidesByCategory, fetchPageComponents } from "@/utils/db";
+import {
+  fetchCitieBySlug,
+  fetchCities,
+  fetchGuideBySlug,
+  fetchGuidesByCategory,
+  fetchPageComponents,
+} from "@/utils/db";
 import { Metadata } from "next";
 import CTASection from "@/components/CTASection";
 import RichContent from "@/components/RichContent";
@@ -50,12 +56,11 @@ const Guide = async ({ params: { slug } }: GuiasProps) => {
 export default Guide;
 
 export async function generateStaticParams() {
-  const cities = await fetchCities("eg", "driver")
+  const cities = await fetchCities("eg", "driver");
   const citiesSlugs = cities.map((city: City) => {
     return {
-      slug: city.slug
-    }
+      slug: city.slug,
+    };
   });
-  console.log("citiesSlugs", citiesSlugs);
   return citiesSlugs;
 }

@@ -126,8 +126,8 @@ const menuLinksFood: AllMenuInterface = {
           url: "/cr/food/restaurantes/kit-digital/",
         },
         {
-          text: "Promociones y Campañas",
-          url: "/cr/food/restaurantes/promociones-y-campanas/",
+          text: "Guías de uso de la app",
+          url: "/cr/food/restaurantes/guias/",
         },
       ],
     },
@@ -147,6 +147,10 @@ const menuLinksFood: AllMenuInterface = {
         {
           text: "Repartidores FAQ",
           url: "/cr/food/repartidores/preguntas-frecuentes/",
+        },
+        {
+          text: "Guías de uso de la app",
+          url: "/cr/food/repartidores/guias/",
         },
       ],
     },

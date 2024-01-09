@@ -10,13 +10,9 @@ export const metadata: Metadata = {
   description: "Elmejor",
 };
 
-
 const CentroDeAyuda = async ({ params }: { params: { slug: string } }) => {
-  console.log('params', params)
-
   const components = await fetchPageComponents("/cr/centro-de-ayuda/");
   return <BuilderComponent components={components}></BuilderComponent>;
 };
 
 export default CentroDeAyuda;
-

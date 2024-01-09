@@ -50,12 +50,11 @@ const Guide = async ({ params: { slug } }: GuiasProps) => {
 export default Guide;
 
 export async function generateStaticParams() {
-  const cities = await fetchCities("au", "driver")
+  const cities = await fetchCities("au", "driver");
   const citiesSlugs = cities.map((city: City) => {
     return {
-      slug: city.slug
-    }
+      slug: city.slug,
+    };
   });
-  console.log("citiesSlugs", citiesSlugs);
   return citiesSlugs;
 }

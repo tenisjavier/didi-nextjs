@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useState } from "react";
 import Card from "@/components/Card";
@@ -43,8 +43,8 @@ const ColumnsSection = (props: ColumnSectionT) => {
           code: country?.code,
           category: articleCategory?.[0] || guideCategory?.[0],
           itemType: itemType,
-          limit: 10,
-          skip: paginationContent?.skip + 10,
+          limit: paginationContent?.limit,
+          skip: Math.abs(paginationContent?.skip + paginationContent?.limit),
         }),
       });
       const { data } = await res.json();
@@ -94,7 +94,7 @@ const ColumnsSection = (props: ColumnSectionT) => {
           data.pagination = {
             total: data?.total,
             limit: data?.limit,
-            skip: paginationContent?.skip - 10,
+            skip: data?.skip,
           };
         }
       }
@@ -106,15 +106,14 @@ const ColumnsSection = (props: ColumnSectionT) => {
 
   const prevPage = async () => {
     if (paginationContent) {
-
       const res = await fetch("/api/pagination", {
         method: "POST",
         body: JSON.stringify({
           code: country?.code,
           category: articleCategory?.[0] || guideCategory?.[0],
           itemType: itemType,
-          limit: 10,
-          skip: paginationContent?.skip - 10,
+          limit: paginationContent?.limit,
+          skip: Math.abs(paginationContent?.skip - paginationContent?.limit),
         }),
       });
 
@@ -177,15 +176,14 @@ const ColumnsSection = (props: ColumnSectionT) => {
 
   const setPage = async (page: number) => {
     if (paginationContent) {
-      console.log('page', page)
       const res = await fetch("/api/pagination", {
         method: "POST",
         body: JSON.stringify({
           code: country?.code,
           category: articleCategory?.[0] || guideCategory?.[0],
           itemType: itemType,
-          limit: 10,
-          skip: page,
+          limit: paginationContent?.limit,
+          skip: Math.abs(page),
         }),
       });
 
@@ -269,12 +267,13 @@ const ColumnsSection = (props: ColumnSectionT) => {
 
         {columns && (
           <div
-            className={`grid grid-cols-1 ${columns && columns?.length < 3
-              ? columns?.length > 1
-                ? "grid-cols-2"
-                : ""
-              : "lg:grid-cols-" + gridCols
-              }  ${"gap-" + gap} mt-10  lg:justify-around `}
+            className={`grid grid-cols-1 ${
+              columns && columns?.length < 3
+                ? columns?.length > 1
+                  ? "grid-cols-2"
+                  : ""
+                : "lg:grid-cols-" + gridCols
+            }  ${"gap-" + gap} mt-10  lg:justify-around `}
           >
             {columns &&
               columns.map((col, index) => {
@@ -284,12 +283,13 @@ const ColumnsSection = (props: ColumnSectionT) => {
         )}
         {itemsContent && (
           <div
-            className={`grid grid-cols-1 ${itemsContent && itemsContent?.length < 3
-              ? itemsContent?.length > 1
-                ? "grid-cols-2"
-                : ""
-              : "lg:grid-cols-" + gridCols
-              }  ${"gap-" + gap} mt-10  lg:justify-around `}
+            className={`grid grid-cols-1 ${
+              itemsContent && itemsContent?.length < 3
+                ? itemsContent?.length > 1
+                  ? "grid-cols-2"
+                  : ""
+                : "lg:grid-cols-" + gridCols
+            }  ${"gap-" + gap} mt-10  lg:justify-around `}
           >
             {itemsContent &&
               itemsContent.map((item, index) => {

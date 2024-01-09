@@ -15,7 +15,7 @@ interface GuiasProps {
 
 // or Dynamic metadata
 export async function generateMetadata({ params: { slug } }: GuiasProps) {
-  const guide = (await fetchGuideBySlug("cl", slug)).items?.[0]
+  const guide = (await fetchGuideBySlug("cl", slug)).items?.[0];
   return {
     title: guide.seoTitle,
     description: guide.seoDescription,
@@ -23,7 +23,7 @@ export async function generateMetadata({ params: { slug } }: GuiasProps) {
 }
 
 const Guide = async ({ params: { slug } }: GuiasProps) => {
-  const guide = await (await fetchGuideBySlug("cl", slug))?.items?.[0]
+  const guide = await (await fetchGuideBySlug("cl", slug))?.items?.[0];
   if (!guide) return notFound();
 
   const suggestedGuides = await fetchGuidesByCategory("driver", "cl");
@@ -68,7 +68,6 @@ const Guide = async ({ params: { slug } }: GuiasProps) => {
       };
     }),
   };
-  console.log(suggestedGuides);
   return (
     <>
       <CTASection {...heroProps}></CTASection>
@@ -84,7 +83,7 @@ const Guide = async ({ params: { slug } }: GuiasProps) => {
 export default Guide;
 
 export async function generateStaticParams() {
-  const guides = (await fetchGuidesByCategory("driver", "cl"))?.items?.[0]
+  const guides = (await fetchGuidesByCategory("driver", "cl"))?.items?.[0];
   const guidesSlugs = guides?.map((guide: { slug: string }) => {
     slug: guide.slug;
   });

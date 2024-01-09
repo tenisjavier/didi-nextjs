@@ -19,15 +19,15 @@ export let metadata: Metadata = {
 };
 
 const Guide = async ({ params: { slug } }: GuiasProps) => {
-  const guide = await (await fetchGuideBySlug("mx", slug)).items?.[0]
+  const guide = await (await fetchGuideBySlug("mx", slug)).items?.[0];
   if (!guide) return notFound();
 
   const suggestedGuides = await fetchGuidesByCategory("delivery", "mx");
   metadata = guide.seoTitle
     ? {
-      title: guide.seoTitle,
-      description: guide.seoDescription,
-    }
+        title: guide.seoTitle,
+        description: guide.seoDescription,
+      }
     : metadata;
 
   const heroProps = {
@@ -48,7 +48,6 @@ const Guide = async ({ params: { slug } }: GuiasProps) => {
     btnType: "drv",
     btnMode: "light",
   };
-  console.log(suggestedGuides);
   return (
     <>
       <CTASection {...heroProps}></CTASection>

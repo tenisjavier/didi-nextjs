@@ -785,6 +785,8 @@ const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
       itemType
       guideCategory
       articleCategory
+      order
+      limitItemsPerPage
       country {
         code
       }
@@ -858,7 +860,9 @@ const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
     if (columnSection?.country?.code && columnSection?.guideCategory?.[0]) {
       const guides = await fetchGuidesByCategory(
         columnSection?.guideCategory?.[0],
-        columnSection?.country?.code
+        columnSection?.country?.code,
+        {limit: columnSection?.limitItemsPerPage},
+        columnSection?.order
       );
 
       const items: ListItemT = guides?.items?.map((guide) => {
@@ -888,7 +892,9 @@ const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
     if (columnSection?.country?.code && columnSection?.articleCategory?.[0]) {
       const articles = await fetchArticleByCategory(
         columnSection?.country?.code,
-        columnSection?.articleCategory?.[0]
+        columnSection?.articleCategory?.[0],
+        {limit: columnSection?.limitItemsPerPage},
+        columnSection?.order
       );
 
       const items: ListItemT = articles?.items?.map((article: any) => {
@@ -942,8 +948,6 @@ const fetchListSectionById = async (id: string): Promise<ListSectionT> => {
       }  
       }
     }`;
-
-  console.log("headers", headers);
 
   const res = await fetch(`${apiUrl}?query=${query}`, {
     headers: headers,
@@ -1068,9 +1072,10 @@ const fetchGuidesByCategory = async (
   category: string,
   countryCode: CountryCode,
   pagination?: {
-    skip: number;
+    skip?: number;
     limit?: number;
-  }
+  },
+  order?: string
 ): Promise<GuideT> => {
   const query = `query {
     guideCollection (
@@ -1079,7 +1084,8 @@ const fetchGuidesByCategory = async (
         category_contains_all:"${category}"
       },
       limit: ${pagination?.limit || 10}, 
-      skip: ${pagination?.skip || 0}
+      skip: ${pagination?.skip || 0},
+      ${order ? "order: sys_" + order : ""}
       ) {
       total
       limit
@@ -1179,9 +1185,10 @@ const fetchArticleByCategory = async (
   countryCode: CountryCode,
   category: string,
   pagination?: {
-    skip: number;
+    skip?: number;
     limit?: number;
-  }
+  },
+  order?: string
 ): Promise<ArticleT> => {
   const query = `query {
     articleCollection(
@@ -1190,7 +1197,8 @@ const fetchArticleByCategory = async (
         category_contains_all: "${category}"
       }, 
       limit: ${pagination?.limit || 10}, 
-      skip: ${pagination?.skip || 0}
+      skip: ${pagination?.skip || 0},
+      ${order ? "order: sys_" + order : ""}
     ){
       total
       limit
@@ -1380,7 +1388,6 @@ const fetchLegalBySlug = async (
   }
   const { data } = await res.json();
   const legal = data.legalCollection.items[0];
-  console.log(data);
   return legal;
 };
 
@@ -1415,7 +1422,6 @@ const fetchPartnersByCategory = async (
   }
   const { data } = await res.json();
   const partners = data.partnerCollection.items;
-  console.log(data);
   return partners;
 };
 
@@ -1490,7 +1496,6 @@ const fetchPartnerBySlug = async (
   }
   const { data } = await res.json();
   const partner = data.partnerCollection.items[0];
-  console.log(data);
   return partner;
 };
 

@@ -7,7 +7,6 @@ import RichContent from "@/components/RichContent";
 import Banner from "@/components/Banner";
 import ColumnsSection from "@/components/ColumnSection";
 import { notFound } from "next/navigation";
-import { ArticleT, GuideT } from "@/typings";
 
 interface GuiasProps {
   params: {
@@ -18,13 +17,13 @@ interface GuiasProps {
 export let metadata: Metadata = {
   title: "Registrate como Socio Conductor DiDi",
   description:
-    "DiDi en Costa Rica, registrate como socio conductor en las categorías express y taxi ganando más y manejando menos. Si sos Socio Conductor llamános al +54 (11) 3987-6342",
+    "DiDi en Perú, registrate como socio conductor en las categorías express y taxi ganando más y manejando menos. Si sos Socio Conductor llamános al +54 (11) 3987-6342",
 };
 
 const Article = async ({ params: { slug } }: GuiasProps) => {
   const [articleContent, suggestedArticles] = await Promise.all([
-    fetchArticleBySlug(slug, "cr"),
-    fetchArticles("cr", "food"),
+    fetchArticleBySlug(slug, "pe"),
+    fetchArticles("pe", "food"),
   ]);
 
   const article = articleContent?.items?.[0];
@@ -66,7 +65,7 @@ const Article = async ({ params: { slug } }: GuiasProps) => {
     gap: 0,
     columns: suggestedArticles.items?.map((article) => {
       return {
-        title: <Link href={`/cr/${article.slug}`}>{article.title}</Link>,
+        title: <Link href={`/pe/${article.slug}`}>{article.title}</Link>,
         desc: article.excerpt,
         image: article.featuredImage,
         imageStyle: "object-cover h-56 w-full p-4",
@@ -75,7 +74,7 @@ const Article = async ({ params: { slug } }: GuiasProps) => {
         btnType: "custom",
         btnMode: "dark",
         btnText: "Leer Guía",
-        btnLink: `/cr/${article.slug}`,
+        btnLink: `/pe/${article.slug}`,
       };
     }),
   };
@@ -94,7 +93,7 @@ const Article = async ({ params: { slug } }: GuiasProps) => {
 export default Article;
 
 export async function generateStaticParams() {
-  const articles = await fetchArticles("cr", "food");
+  const articles = await fetchArticles("pe", "food");
   const articlesSlugs = articles.items.map((article) => {
     slug: article.slug;
   });
