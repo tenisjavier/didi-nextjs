@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { FiMenu } from "react-icons/fi";
 import { getMenuLinks, SingleMenuItem } from "@/config/menu/menu-config";
 import { getMenuLinksFood } from "@/config/menu/menu-food-config";
@@ -49,9 +49,8 @@ const Menu = ({ countryCode, businessType }: MenuProps) => {
         }
       >
         <ul
-          className={`${
-            menuOpen && "min-h-[100vh] pb-20"
-          } m-0 p-0 flex flex-col items-center border-x-0 border-b-0  border-t border-solid border-orange-primary xl:bg-white bg-[#F2F2F2] lg:h-full lg:flex-row lg:border-0 lg:bg-transparent lg:px-5 gap-4`}
+          className={`${menuOpen && "min-h-[100vh] pb-20"
+            } m-0 p-0 flex flex-col items-center border-x-0 border-b-0  border-t border-solid border-orange-primary xl:bg-white bg-[#F2F2F2] lg:h-full lg:flex-row lg:border-0 lg:bg-transparent lg:px-5 gap-4`}
         >
           <NavList
             links={links}
