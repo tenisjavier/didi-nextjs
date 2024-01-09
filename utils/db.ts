@@ -686,8 +686,8 @@ const fetchAccordionSectionById = async (
 
   await handleFetch(0, 10);
 
-  if (accordionSection?.items?.[0]?.__typename === "Product") {
-    accordionSection.items.map((item: any) => {
+  if (itemsCollection?.[0]?.__typename === "Product") {
+    itemsCollection.map((item: any) => {
       if (item.name) {
         item.title = item.name;
         delete item.name;
