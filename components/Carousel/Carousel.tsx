@@ -1,10 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Slider, { Settings } from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import useScreenSize from "@/hooks/useScreenSize";
 import Banner from "@/components/Banner";
 import { CarouselT } from "@/typings";
 import Image from "next/image";
@@ -12,7 +11,7 @@ import CTASection from "../CTASection";
 
 function NextArrow(props: any) {
   const { onClick, arrow, arrowColor, hasArrow } = props;
-  if (!hasArrow) return <></>
+  if (!hasArrow) return <></>;
   return (
     <button
       className={`${arrowColor} before:content-[''] before:w-6 before:h-6 before:border-4 before:border-solid before:block before:border-l-0 before:border-b-0 before:rotate-45 before:rounded-bl-sm absolute z-50 right-5 top-1/2 transform -translate-y-1/2 text-4xl sm:text-2sm border-0 p-0 outline-0 bg-inherit cursor-pointer hover:font-bold m-0`}
@@ -23,7 +22,7 @@ function NextArrow(props: any) {
 
 function PrevArrow(props: any) {
   const { onClick, arrow, arrowColor, hasArrow } = props;
-  if (!hasArrow) return <></>
+  if (!hasArrow) return <></>;
   return (
     <button
       className={`${arrowColor} before:content-[''] before:w-6 before:h-6 before:border-4 before:border-solid before:block before:border-r-0 before:border-t-0 before:rotate-45 before:rounded-bl-sm absolute z-50 left-5 top-1/2 transform -translate-y-1/2 text-4xl sm:text-2sm border-0 p-0 outline-0 bg-inherit cursor-pointer hover:font-bold m-0`}
@@ -54,7 +53,13 @@ const Carousel = (props: CarouselT) => {
     title,
   } = props;
 
-  const screenSize = useScreenSize();
+  const [screenSize, setScreenSize] = useState(0);
+
+  const handleSize = () => {
+    setScreenSize(window.innerWidth);
+  };
+
+  window.addEventListener("resize", handleSize);
 
   const toShow = slidesToShow ? slidesToShow : 1;
   const toScroll = slidesToScroll ? slidesToShow : 1;
@@ -105,8 +110,20 @@ const Carousel = (props: CarouselT) => {
     slidesToScroll: toScroll,
     pauseOnHover: false,
     cssEase: "linear",
-    nextArrow: <NextArrow arrow={arrowNext} arrowColor={arrowColor} hasArrow={hasArrows} />,
-    prevArrow: <PrevArrow arrow={arrowPrev} arrowColor={arrowColor} hasArrow={hasArrows} />,
+    nextArrow: (
+      <NextArrow
+        arrow={arrowNext}
+        arrowColor={arrowColor}
+        hasArrow={hasArrows}
+      />
+    ),
+    prevArrow: (
+      <PrevArrow
+        arrow={arrowPrev}
+        arrowColor={arrowColor}
+        hasArrow={hasArrows}
+      />
+    ),
     dotsClass: "slick-dots flex justify-center z-50 !bottom-10",
 
     responsive: [

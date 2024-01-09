@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { FiMenu } from "react-icons/fi";
 import { getMenuLinks, SingleMenuItem } from "@/config/menu/menu-config";
 import { getMenuLinksFood } from "@/config/menu/menu-food-config";
@@ -26,6 +26,14 @@ const Menu = ({ countryCode, businessType }: MenuProps) => {
   if (businessType === "food") links = menuLinksFood;
   if (businessType === "pay") links = menuLinksPay;
   if (businessType === "card") links = menuLinksCard;
+
+  const handleSize = () => {
+    if (window.innerWidth > 1024 && menuOpen) {
+      setMenuOpen(false);
+    }
+  };
+
+  window.addEventListener("resize", handleSize);
 
   return (
     <div className="flex h-full items-center">

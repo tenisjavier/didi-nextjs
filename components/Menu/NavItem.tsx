@@ -18,7 +18,7 @@ const NavItem = ({ link, countryCode }: NavItemProps) => {
     e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
   ) => {
     if (dropMenu) {
-      e.preventDefault();
+      // e.preventDefault();
       setIsDropdownOpen((prev) => !prev);
     }
   };
