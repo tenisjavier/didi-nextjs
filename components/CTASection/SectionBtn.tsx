@@ -2,14 +2,13 @@ import React from "react";
 import Btn from "../Btn";
 import { BtnProps, BtnType } from "../Btn";
 
-interface SectionBtnProps extends BtnProps { }
+interface SectionBtnProps extends BtnProps {}
 
 const SectionBtn = ({
   btnType,
   btnMode,
   btnLink,
   btnText,
-  btnModeSecondary,
 }: SectionBtnProps) => {
   const btnGroup = {
     both: [
@@ -18,14 +17,12 @@ const SectionBtn = ({
         btnMode: btnMode,
         btnLink: btnLink,
         btnText: btnText,
-        btnModeSecondary,
       },
       {
         btnType: "drv",
         btnMode: btnMode,
         btnLink: btnLink,
         btnText: btnText,
-        btnModeSecondary,
       },
     ],
   };
@@ -34,14 +31,13 @@ const SectionBtn = ({
     btnType === "both"
       ? btnGroup[btnType]
       : [
-        {
-          btnType: btnType,
-          btnMode: btnMode,
-          btnLink: btnLink,
-          btnText: btnText,
-          btnModeSecondary
-        },
-      ];
+          {
+            btnType: btnType,
+            btnMode: btnMode,
+            btnLink: btnLink,
+            btnText: btnText,
+          },
+        ];
   return btns.map((btn: any, index: number) => (
     <span key={index}>
       <Btn
@@ -49,7 +45,6 @@ const SectionBtn = ({
         btnMode={btn.btnMode}
         btnLink={btn.btnLink}
         btnText={btn.btnText}
-        btnModeSecondary={btn.btnModeSecondary}
       ></Btn>
       <br></br>
     </span>
