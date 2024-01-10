@@ -390,9 +390,34 @@ const fetchCarouselById = async (id: string): Promise<CarouselT> => {
   const query = `query {
     carousel(id:"${id}"){
       name
+      type
       maxWidth
       title
+      desc
       arrowColor
+      cardsCollection{
+        items{
+          type
+          name
+          title
+          pathname
+          desc
+          subDesc
+          textColor
+          bgColor
+          image {
+            title
+            description
+            url
+          }
+          isImageIcon
+          video
+          btnType
+          btnMode
+          btnText
+          btnLink
+        }
+      }
       slidesCollection{
         items{
           title
@@ -491,11 +516,13 @@ const fetchCarouselById = async (id: string): Promise<CarouselT> => {
     images: data.carousel?.imagesCollection.items,
     imagesMobile: data.carousel?.imagesMobileCollection.items,
     slides: data.carousel?.slidesCollection.items,
+    cards: data.carousel?.cardsCollection.items,
   };
   delete carousel.ctaSectionCollection;
   delete carousel.imagesCollection;
   delete carousel.imagesMobileCollection;
   delete carousel.slidesCollection;
+  delete carousel.cardsCollection;
   return carousel;
 };
 
@@ -504,7 +531,8 @@ const fetchCarouselById = async (id: string): Promise<CarouselT> => {
 const fetchCarouselSectionById = async (
   id: string
 ): Promise<CarouselSectionT> => {
-  const query = `fragment ctaFields on CtaSection {
+  const query = `
+  fragment ctaFields on CtaSection {
     name
     isHero
     title
@@ -571,6 +599,7 @@ carouselSection(id:"${id}") {
     sections: data.carouselSection?.sectionsCollection.items,
     icons: data.carouselSection?.iconsCollection.items,
   };
+
   delete carouselSection.sectionsCollection;
   delete carouselSection.iconsCollection;
   return carouselSection;
@@ -1203,8 +1232,6 @@ const fetchArticleByCategory = async (
     throw new Error("Failed to fetch article by category");
   }
   const articles = await res.json();
-
-  console.log(articles.data.articleCollection);
 
   return articles.data.articleCollection;
 };

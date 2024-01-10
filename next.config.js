@@ -17,6 +17,12 @@ const nextConfig = {
         port: "",
         pathname: `/${process.env.CONTENTFUL_SPACE_ID}/**`,
       },
+      {
+        protocol: "https",
+        hostname: "s3-us01.didiglobal.com",
+        port: "",
+        pathname: `**`,
+      },
     ],
   },
   trailingSlash: true,
