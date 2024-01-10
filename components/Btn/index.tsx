@@ -49,7 +49,6 @@ export interface BtnProps {
   notRedirectOutPage?: boolean;
   download?: boolean;
   btnTextCenter?: boolean;
-  btnModeSecondary?: string;
 }
 const Btn = ({
   btnType,
@@ -59,7 +58,6 @@ const Btn = ({
   notRedirectOutPage,
   download,
   btnTextCenter,
-  btnModeSecondary,
 }: BtnProps) => {
   const countryCode = getCountryCode(usePathname());
   const btnData = getBtnLinks(countryCode);
@@ -144,8 +142,9 @@ const Btn = ({
       <div
         tabIndex={0}
         role="button"
-        className={`${btnTextCenter ? "text-center" : ""
-          } p-0 text-lg md:text-base my-2 btn-${btnMode} btn-${btnModeSecondary}`}
+        className={`${
+          btnTextCenter ? "text-center" : ""
+        } p-0 text-lg md:text-base my-2 btn-${btnMode}`}
       >
         {isLoading ? (
           <FaSpinner className="animate-spin px-8 py-3.5"></FaSpinner>

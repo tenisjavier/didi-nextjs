@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 import { CTASectionT } from "@/typings";
 import CTASection from "@/components/CTASection";
@@ -11,17 +11,16 @@ import { QRCodeSVG } from "qrcode.react";
 //   description: "Elmejor",
 // };
 
-const Legal = () => {
+const Store = () => {
   const CTAProps: CTASectionT = {
-    hero: false,
-    title: "Escaneá el QR con tu celular",
-    desc: "Descargá DiDi Pasajero escaneando el código con tu celular.",
+    isHero: true,
+    title: "Escanea el QR con tu celular",
+    desc: "Descarga DiDi Pasajero escaneando el código con tu celular.",
     textColor: "white",
     bgColor: "bg-orange-primary",
     imageStyle: "z-10 m-4 w-100 rounded",
-    btnMode: "light",
+    btnMode: "hidden",
     btnType: "pax",
-    btnModeSecondary: "hidden",
     reverse: true,
   };
   const [QRUrl, setQRUrl] = useState(
@@ -42,7 +41,8 @@ const Legal = () => {
     let url = new URL(window.location.href);
     let btnOneLink = new URL(
       document
-        .getElementsByClassName("btn-light")?.[0]?.getElementsByTagName("a")?.[0]?.href || ""
+        .getElementsByClassName("btn-hidden")?.[0]
+        ?.getElementsByTagName("a")?.[0]?.href || ""
     );
     //? only af params
     let pid = url.searchParams.get("pid");
@@ -65,8 +65,7 @@ const Legal = () => {
     <>
       <CTASection imageRawRender={qr} {...CTAProps}></CTASection>
     </>
-  )
+  );
 };
 
-export default Legal;
-
+export default Store;
