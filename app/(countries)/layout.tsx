@@ -1,15 +1,15 @@
-import "./globals.css";
+import "../globals.css";
 import localFont from "next/font/local";
 import GTM from "@/config/tracking/gtm";
 const aspira = localFont({
   src: [
     {
-      path: "../public/font/aspira-regular.woff2",
+      path: "../../public/font/aspira-regular.woff2",
       weight: "400",
       style: "normal",
     },
     {
-      path: "../public/font/aspira-bold.woff2",
+      path: "../../public/font/aspira-bold.woff2",
       weight: "700",
       style: "bold",
     },
