@@ -7,19 +7,24 @@ import Footer from "@/components/Footer";
 import CTASection from "@/components/CTASection";
 import Image from "next/image";
 import { CTASectionT } from "@/typings";
-
+import { hreflangs } from "@/config/seo/hreflang";
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
-  title: "Regístrate como Socio Conductor",
-  description: "Elmejor",
+  title: "DiDi Global - The World's Leader in Mobility Technology",
+  description:
+    "DiDi Global is the world's leading mobile transportation platform offering a full range of app-based services to users around the world.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/`,
+    languages: hreflangs.home,
+  },
 };
 
 const Contact = async () => {
   const components = await fetchPageComponents("/");
   const countries = await fetchCountries();
   const CTAProps = {
-    hero: true,
+    isHero: true,
     title: "Welcome to DiDi.",
     desc: "More than a Journey. The World‘s Leading Transportation Platform.",
     textColor: "white",
@@ -47,7 +52,7 @@ const Contact = async () => {
     alignItems: "center",
   };
   const AboutDiDiProps: CTASectionT = {
-    hero: false,
+    isHero: false,
     title: "DiDi Around the World",
     desc: "We connect more than 550 million users around the world with our mobility platform, serving their needs in food delivery, mobility, financial services and more.",
     textColor: "gray-primary",
@@ -55,7 +60,7 @@ const Contact = async () => {
     image: {
       url: "/images/AboutHero.png",
       description: "About Hero",
-      title: "About Hero"
+      title: "About Hero",
     },
     imageStyle: "z-10 m-4 w-100 rounded",
     list: countries.map((c) => {
@@ -64,18 +69,11 @@ const Contact = async () => {
   };
   return (
     <>
-      <Header countryCode="en" businessType="mobility"></Header>
       <CTASection {...CTAProps}></CTASection>
       <CTASection {...AboutDiDiProps}></CTASection>
       <BuilderComponent components={components}></BuilderComponent>
-      <Footer
-        countryCode="en"
-        businessType="mobility"
-        languageCode="en"
-      ></Footer>
     </>
   );
 };
 
 export default Contact;
-
