@@ -27,7 +27,7 @@ const Menu = ({ countryCode, businessType }: MenuProps) => {
   if (businessType === "card") links = menuLinksCard;
 
   const handleMenuClick = () => {
-    setMenuOpen(!menuOpen);
+    if (menuOpen) setMenuOpen(!menuOpen);
   };
 
   return (
@@ -35,7 +35,7 @@ const Menu = ({ countryCode, businessType }: MenuProps) => {
       <FiMenu
         className="m-4 cursor-pointer text-gray-primary lg:hidden w-6 "
         onClick={() => {
-          handleMenuClick();
+          setMenuOpen(!menuOpen);
         }}
         size={25}
       ></FiMenu>
