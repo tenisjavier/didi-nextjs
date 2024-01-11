@@ -32,7 +32,7 @@ const ColumnImageSection = (props: ColumnImageT) => {
   if (imageAlignment === "center") indexImage = 1;
   if (imageAlignment === "right") indexImage = 2;
 
-  const imageStyle = "z-10 m-4 w-80 h-80 lg:w-auto lg:h-120 " + rounded;
+  const imageStyle = "z-10 m-4 w-60 h-auto lg:w-80 " + rounded;
 
   return (
     <section className={`${bgColor} text-${textColor} py-12`}>
@@ -45,7 +45,11 @@ const ColumnImageSection = (props: ColumnImageT) => {
         {desc && <p className="text-center">{desc}</p>}
 
         <div
-          className={`mt-10 ${gap ? 'gap-' + gap : 'gap-2'} ${gridCols ? 'grid-cols-1 md:grid-cols-' + gridCols : 'grid-cols-1 md:grid-cols-3'}  md:grid  align-center justify-center `}
+          className={`mt-10 ${gap ? "gap-" + gap : "gap-2"} ${
+            gridCols
+              ? "grid-cols-1 md:grid-cols-" + gridCols
+              : "grid-cols-1 md:grid-cols-3"
+          }  md:grid  align-center justify-center `}
         >
           {columns.map((col, index) => {
             if (index === 0)
