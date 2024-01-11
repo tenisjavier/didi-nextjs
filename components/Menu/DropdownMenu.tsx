@@ -7,12 +7,14 @@ interface DropdownMenuProps {
   links: SingleDropMenuItem[];
   countryCode: CountryCode;
   isDropdownOpen: boolean;
+  handleMenuClick: () => void;
 }
 
 const DropdownMenu = ({
   links,
   countryCode,
   isDropdownOpen,
+  handleMenuClick,
 }: DropdownMenuProps) => {
   return (
     <div
@@ -26,6 +28,7 @@ const DropdownMenu = ({
           url={link.url}
           text={link.text}
           countryCode={countryCode}
+          handleMenuClick={handleMenuClick}
         />
       ))}
     </div>

@@ -4,29 +4,7 @@ import Image from "next/image";
 import textHighlighter from "@/utils/textHighlighter";
 import { CardT } from "@/typings";
 import Link from "next/link";
-// @desc: card component for making columns or cards
-// @props: type drv/pax/none | link (normal btn) "url" | mode light/none | children: normal btn text
-
-// export interface CardProps extends BtnProps {
-//   title: ReactNode | string;
-//   desc?: string;
-//   bgColor: string;
-//   textColor: string;
-//   image: any;
-//   imageStyle?: string;
-//   isImage?: boolean;
-//   height?: string;
-//   width?: string;
-//   index?: number;
-//   RTL?: boolean;
-//   rounded?: string;
-//   reverse?: boolean;
-//   hasTextHighlighter?: boolean;
-//   textHighlighterStyle?: string;
-//   titleStyles?: string;
-//   titlePosition?: "beforeImage" | "afterImage";
-//   descPosition?: "beforeBtn" | "afterBtn";
-// }
+//? @desc: card component for making columns or cards
 
 const Card = (props: CardT) => {
   const {
