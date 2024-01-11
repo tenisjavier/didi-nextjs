@@ -14,8 +14,8 @@ const QrCode = ({
 }: QrCodeProps) => {
   const CTAProps: CTASectionT = {
     isHero: true,
-    title: title || "Escaneá el QR con tu celular",
-    desc: desc || "Descargá DiDi Pasajero escaneando el código con tu celular.",
+    title: title || "Escanea el QR con tu celular",
+    desc: desc || "Descarga DiDi Pasajero escaneando el código con tu celular.",
     textColor: "white",
     bgColor: "bg-orange-primary",
     imageStyle: "z-10 m-4 w-100 rounded",
