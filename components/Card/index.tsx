@@ -66,7 +66,7 @@ const Card = (props: CardT) => {
                   className={`${imageStyle} ${
                     isImageIcon
                       ? "max-h-[80px]  w-auto"
-                      : "max-h-[250px] w-auto object-contain max-w-full"
+                      : "max-h-[250px] object-cover max-w-full"
                   }`}
                   width={400}
                   height={400}
@@ -83,7 +83,7 @@ const Card = (props: CardT) => {
                 className={`${imageStyle} ${
                   isImageIcon
                     ? "max-h-[80px] w-auto"
-                    : "max-h-[250px] w-auto object-cover max-w-full"
+                    : "max-h-[250px]  object-cover max-w-full"
                 }`}
                 width={400}
                 height={400}
