@@ -417,6 +417,7 @@ const fetchColumnImageSectionById = async (
         description
         url
       }
+      imageAlignment
       columnsCollection{
 
         items{

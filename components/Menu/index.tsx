@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useState } from "react";
 import { FiMenu } from "react-icons/fi";
 import { getMenuLinks, SingleMenuItem } from "@/config/menu/menu-config";
 import { getMenuLinksFood } from "@/config/menu/menu-food-config";
