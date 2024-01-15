@@ -78,18 +78,22 @@ const CTASectionSchema = z.object({
   bgImage: ImageSchema.nullish(),
   mobileBgImage: ImageSchema.nullish(),
   image: ImageSchema.nullish(),
+  imageRawRender: z.any(),
   rounded: z.enum(["rounded", "rounded-full"]),
   btnType: BtnType.nullish(),
   btnMode: BtnMode.nullish(),
   btnText: BtnType.min(5).max(30).nullish(),
   btnLink: BtnMode.nullish(),
+  btnModeSecondary: z.string().optional(),
   reverse: z.boolean().nullish(),
 });
 
 const CardSchema = z.object({
   name: z.string(),
+  type: z.enum(["default", "press", "review"]),
   title: z.union([z.string(), React.ReactNode]),
   desc: z.string().nullish(),
+  subDesc: z.string().optional(),
   textColor: z.string(),
   bgColor: z.string(),
   image: z.union([ImageSchema.nullish(), React.ReactNode]),
@@ -221,10 +225,13 @@ const OptionsSectionSchema = z.object({
 
 const CarouselSchema = z.object({
   title: z.string(),
+  desc: z.string().optional(),
+  type: z.enum(["default", "pay"]),
   slides: z.array(BannerSchema),
+  cards: z.array(CardSchema),
   images: z.array(ImageSchema),
   ctaSection: z.array(CTASectionSchema),
-  carouselType: z.enum(["Banner", "Images", "CTASection"]),
+  carouselType: z.enum(["Banner", "Images", "CTASection", "Card"]),
   slidesToShow: z.number(),
   slidesToScroll: z.number(),
   arrowNext: z.string(),
@@ -349,6 +356,29 @@ const FeaturesSchema = z.object({
   componentImages: z.array(ImageSchema),
 });
 
+const CardPaySchema = z.object({
+  name: z.string(),
+  type: z.enum(["default", "press", "review"]),
+  typeOfCard: z.enum(["Default", "Pay"]),
+  title: z.union([z.string(), React.ReactNode]),
+  desc: z.string().nullish(),
+  subDesc: z.string().optional(),
+  textColor: z.string(),
+  bgColor: z.string(),
+  image: z.union([ImageSchema.nullish(), React.ReactNode]),
+  video: z.string().nullish(),
+  btnType: BtnType.nullish(),
+  btnMode: BtnMode.nullish(),
+  btnText: BtnType.min(5).max(30).nullish(),
+  btnLink: BtnMode.nullish(),
+  isImageIcon: z.boolean().nullish(),
+  pathname: z.string().nullish(),
+  reviewAuthor: z.string().optional(),
+  reviewRole: z.string().optional(),
+  reviewGeo: z.string().optional(),
+  reviewDate: z.string().optional(),
+});
+
 export type CountryCode = z.infer<typeof CountryCodeSchema>;
 export type LanguageCode = z.infer<typeof languageCodeSchema>;
 export type BusinessType = z.infer<typeof BusinessSchema>;
@@ -375,5 +405,6 @@ export type LegalT = z.infer<typeof LegalSchema>;
 export type PartnerT = z.infer<typeof PartnerSchema>;
 export type FeaturesT = z.infer<typeof FeaturesSchema>;
 export type ProductT = z.infer<typeof ProductShema>;
+export type CardPayT = z.infer<typeof CardPaySchema>;
 
 export type PageComponent = { id: string; __typename: string };
