@@ -4,7 +4,9 @@ import Image from "next/image";
 import textHighlighter from "@/utils/textHighlighter";
 import { CardT } from "@/typings";
 import Link from "next/link";
+
 //? @desc: card component for making columns or cards
+
 
 const Card = (props: CardT) => {
   const {
@@ -43,15 +45,15 @@ const Card = (props: CardT) => {
     <div
       style={{ direction: dir }}
       className={`max-w-xs
-       rounded ${bgColor} text-${textColor} my-3 text-center lg:mx-4 pb-4`}
+       rounded flex flex-col items-center ${bgColor} text-${textColor} my-3 text-center lg:mx-4 pb-4`}
     >
       {titlePosition === "beforeImage" && title && (
         <h4 className={`mb-4 text-xl font-bold lg:text-center ${titleStyles}`}>
           {hasTextHighlighter
             ? textHighlighter(
-                truncate(title, 50) as string,
-                textHighlighterStyle
-              )
+              truncate(title, 50) as string,
+              textHighlighterStyle
+            )
             : truncate(title, 50)}
         </h4>
       )}
@@ -63,11 +65,13 @@ const Card = (props: CardT) => {
                 <Image
                   src={image.url}
                   alt={image.description}
+
                   className={`${imageStyle} ${
                     isImageIcon
                       ? "max-h-[80px]  w-auto"
                       : "max-h-[250px] object-cover max-w-full"
                   }`}
+
                   width={400}
                   height={400}
                 ></Image>
@@ -114,9 +118,9 @@ const Card = (props: CardT) => {
             >
               {hasTextHighlighter
                 ? textHighlighter(
-                    truncate(title, 50) as string,
-                    textHighlighterStyle
-                  )
+                  truncate(title, 50) as string,
+                  textHighlighterStyle
+                )
                 : truncate(title, 50)}
             </h4>
           )}

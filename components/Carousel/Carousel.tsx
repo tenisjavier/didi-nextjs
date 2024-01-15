@@ -1,13 +1,17 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import Slider, { Settings } from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Banner from "@/components/Banner";
 import { CarouselT } from "@/typings";
 import Image from "next/image";
-import CTASection from "@/components/CTASection";
+import CTASection from "../CTASection";
+import Card from "../Card";
+import CardPay from "../CardPay";
+import { reviewPrestamos } from "@/config/reviews/prestamos";
+
 
 function NextArrow(props: any) {
   const { onClick, arrow, arrowColor, hasArrow } = props;
@@ -50,7 +54,16 @@ const Carousel = (props: CarouselT) => {
     hasArrows,
     maxWidth,
     title,
+    cards,
+    type,
+    desc
   } = props;
+
+
+  let sliderRef = useRef<Slider>(null);
+
+  const screenSize = useScreenSize();
+
 
   const toShow = slidesToShow ? slidesToShow : 1;
   const toScroll = slidesToScroll ? slidesToShow : 1;
@@ -96,6 +109,25 @@ const Carousel = (props: CarouselT) => {
     sliderContent = ctaSection?.map((cta, index) => {
       return <CTASection key={index} {...cta}></CTASection>;
     });
+  } else if (carouselType === "Card") {
+
+    if (type === "pay" && cards?.length === 0) {
+      sliderContent = reviewPrestamos?.map((sld, index) => (
+        <CardPay key={index} {...sld}></CardPay>
+      ))
+    } else {
+      sliderContent = cards?.map((sld, index) => {
+        if (type === "pay") {
+          return (
+            <CardPay key={index} {...sld}></CardPay>
+          )
+        }
+        return (
+          <Card key={index} {...sld}></Card>
+        );
+      });
+    }
+
   }
 
   var settings: Settings = {
@@ -136,19 +168,37 @@ const Carousel = (props: CarouselT) => {
     ],
   };
 
+  const next = () => {
+    sliderRef?.current?.slickNext();
+  };
+  const previous = () => {
+    sliderRef?.current?.slickPrev();
+  };
+
+
+
   return (
     <div
-      // className="py-12"
       style={{
         maxWidth: `${maxWidth}px`,
         margin: "auto",
       }}
     >
-      {title && (
-        <h2 className="text-3xl md:text-4xl font-bold text-center">{title}</h2>
+      <div className="flex justify-between items-center">
+        {title && (
+          <h2 className={`${type === 'pay' ? "text-left" : "text-center"} text-3xl md:text-4xl font-bold `}>{title}</h2>
+        )}
+
+        <div className="hidden lg:flex">
+          <button className="m-4 text-4xl border-0 p-0 outline-0 bg-inherit cursor-pointer hover:font-bold" onClick={previous}>←</button>
+          <button className="m-4 text-4xl border-0 p-0 outline-0 bg-inherit cursor-pointer hover:font-bold" onClick={next}>→</button>
+        </div>
+      </div>
+      {desc && (
+        <p className={`${type === 'pay' ? "text-left" : "text-center"} text-base`}>{desc}</p>
       )}
-      <Slider {...settings}>{sliderContent && sliderContent}</Slider>
-      <Slider {...settings}>
+      <Slider ref={sliderRef} {...settings}>{sliderContent && sliderContent}</Slider>
+      <Slider ref={sliderRef} {...settings}>
         {sliderContentMobile && sliderContentMobile}
       </Slider>
     </div>
