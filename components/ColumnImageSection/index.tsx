@@ -3,16 +3,6 @@ import Card from "../Card";
 import { ColumnImageT } from "@/typings";
 import Image from "next/image";
 
-// interface ColumnImageProps {
-//   columns: any[];
-//   bgColor?: string;
-//   title: string | React.ReactNode;
-//   desc?: string;
-//   textColor?: string;
-//   image?: any;
-//   imageAlignment?: string;
-// }
-
 const ColumnImageSection = (props: ColumnImageT) => {
   const {
     columns,
