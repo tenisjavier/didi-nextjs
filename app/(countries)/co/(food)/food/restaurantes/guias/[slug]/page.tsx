@@ -20,15 +20,15 @@ export let metadata: Metadata = {
 };
 
 const Guide = async ({ params: { slug } }: GuiasProps) => {
-  const guide = await fetchGuideBySlug("mx", slug);
+  const guide = await (await fetchGuideBySlug("mx", slug))?.items?.[0];
   if (!guide) return notFound();
 
   const suggestedGuides = await fetchGuidesByCategory("restaurant", "co");
   metadata = guide.seoTitle
     ? {
-      title: guide.seoTitle,
-      description: guide.seoDescription,
-    }
+        title: guide.seoTitle,
+        description: guide.seoDescription,
+      }
     : metadata;
 
   const heroProps = {
@@ -49,7 +49,6 @@ const Guide = async ({ params: { slug } }: GuiasProps) => {
     btnType: "drv",
     btnMode: "light",
   };
-  console.log(suggestedGuides);
   return (
     <>
       <CTASection {...heroProps}></CTASection>
@@ -65,7 +64,7 @@ export default Guide;
 
 export async function generateStaticParams() {
   const guides = await fetchGuidesByCategory("restaurant", "co");
-  const guidesSlugs = guides.map((guide: GuideT) => {
+  const guidesSlugs = guides.items.map((guide) => {
     slug: guide.slug;
   });
   return guidesSlugs;

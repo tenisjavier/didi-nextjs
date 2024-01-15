@@ -26,13 +26,8 @@ const ColumnsSection = (props: ColumnSectionT) => {
     guideCategory,
     itemType,
   } = props;
-  console.log("articleCategory", articleCategory);
-  console.log("guideCategory", guideCategory);
-  console.log("itemType", itemType);
-  console.log("pagination", pagination);
-
   const [itemsContent, setItemsContent] = useState(items || []);
-  const [paginationContent, setPaginationContent] = useState(pagination || []);
+  const [paginationContent, setPaginationContent] = useState(pagination);
 
   let dir: any = "ltr";
 
@@ -41,207 +36,212 @@ const ColumnsSection = (props: ColumnSectionT) => {
   }
 
   const nextPage = async () => {
-    const res = await fetch("/api/pagination", {
-      method: "POST",
-      body: JSON.stringify({
-        code: country.code,
-        category: articleCategory?.[0] || guideCategory?.[0],
-        itemType: itemType,
-        limit: 10,
-        skip: paginationContent?.skip + 1,
-      }),
-    });
+    if (paginationContent) {
+      const res = await fetch("/api/pagination", {
+        method: "POST",
+        body: JSON.stringify({
+          code: country?.code,
+          category: articleCategory?.[0] || guideCategory?.[0],
+          itemType: itemType,
+          limit: paginationContent?.limit,
+          skip: Math.abs(paginationContent?.skip + paginationContent?.limit),
+        }),
+      });
+      const { data } = await res.json();
 
-    const { data } = await res.json();
-
-    if (itemType?.toLowerCase() === "article") {
-      if (country?.code && articleCategory?.[0]) {
-        const items: ListItemT = data?.items?.map((article: any) => {
-          return {
-            title: article.title,
-            desc: article.excerpt,
-            image: article.featuredImage,
-            pathname: article.slug,
-            btnLink: article.slug,
-            btnType: "custom",
-            btnText: "Leer Artículo",
-            btnMode: "dark",
-            bgColor: "bg-white",
-            textColor: "gray-primary",
+      if (itemType?.toLowerCase() === "article") {
+        if (country?.code && articleCategory?.[0]) {
+          const items: ListItemT = data?.items?.map((article: any) => {
+            return {
+              title: article.title,
+              desc: article.excerpt,
+              image: article.featuredImage,
+              pathname: article.slug,
+              btnLink: article.slug,
+              btnType: "custom",
+              btnText: "Leer Artículo",
+              btnMode: "dark",
+              bgColor: "bg-white",
+              textColor: "gray-primary",
+            };
+          });
+          data.items = items;
+          data.pagination = {
+            total: data?.total,
+            limit: data?.limit,
+            skip: data?.skip,
           };
-        });
-        data.items = items;
-        data.pagination = {
-          total: data?.total,
-          limit: data?.limit,
-          skip: data?.skip,
-        };
+        }
       }
-    }
 
-    if (itemType?.toLowerCase() === "guide") {
-      if (country?.code && guideCategory?.[0]) {
-        const items: ListItemT = data?.items?.map((guide: any) => {
-          return {
-            title: guide.title,
-            desc: guide.excerpt,
-            image: guide.featuredImage,
-            pathname: guide.slug,
-            btnLink: guide.slug,
-            btnType: "custom",
-            btnText: "Leer Artículo",
-            btnMode: "dark",
-            bgColor: "bg-white",
-            textColor: "gray-primary",
+      if (itemType?.toLowerCase() === "guide") {
+        if (country?.code && guideCategory?.[0]) {
+          const items: ListItemT = data?.items?.map((guide: any) => {
+            return {
+              title: guide.title,
+              desc: guide.excerpt,
+              image: guide.featuredImage,
+              pathname: guide.slug,
+              btnLink: guide.slug,
+              btnType: "custom",
+              btnText: "Leer Artículo",
+              btnMode: "dark",
+              bgColor: "bg-white",
+              textColor: "gray-primary",
+            };
+          });
+          data.items = items;
+          data.pagination = {
+            total: data?.total,
+            limit: data?.limit,
+            skip: data?.skip,
           };
-        });
-        data.items = items;
-        data.pagination = {
-          total: data?.total,
-          limit: data?.limit,
-          skip: data?.skip,
-        };
+        }
       }
-    }
 
-    setItemsContent(data.items);
-    setPaginationContent(data.pagination);
+      setItemsContent(data.items);
+      setPaginationContent(data.pagination);
+    }
   };
 
   const prevPage = async () => {
-    const res = await fetch("/api/pagination", {
-      method: "POST",
-      body: JSON.stringify({
-        code: country.code,
-        category: articleCategory?.[0] || guideCategory?.[0],
-        itemType: itemType,
-        limit: 10,
-        skip: paginationContent?.skip - 1,
-      }),
-    });
+    if (paginationContent) {
+      const res = await fetch("/api/pagination", {
+        method: "POST",
+        body: JSON.stringify({
+          code: country?.code,
+          category: articleCategory?.[0] || guideCategory?.[0],
+          itemType: itemType,
+          limit: paginationContent?.limit,
+          skip: Math.abs(paginationContent?.skip - paginationContent?.limit),
+        }),
+      });
 
-    const { data } = await res.json();
+      const { data } = await res.json();
 
-    if (itemType?.toLowerCase() === "article") {
-      if (country?.code && articleCategory?.[0]) {
-        const items: ListItemT = data?.items?.map((article: any) => {
-          return {
-            title: article.title,
-            desc: article.excerpt,
-            image: article.featuredImage,
-            pathname: article.slug,
-            btnLink: article.slug,
-            btnType: "custom",
-            btnText: "Leer Artículo",
-            btnMode: "dark",
-            bgColor: "bg-white",
-            textColor: "gray-primary",
+      if (itemType?.toLowerCase() === "article") {
+        if (country?.code && articleCategory?.[0]) {
+          const items: ListItemT = data?.items?.map((article: any) => {
+            return {
+              title: article.title,
+              desc: article.excerpt,
+              image: article.featuredImage,
+              pathname: article.slug,
+              btnLink: article.slug,
+              btnType: "custom",
+              btnText: "Leer Artículo",
+              btnMode: "dark",
+              bgColor: "bg-white",
+              textColor: "gray-primary",
+            };
+          });
+          data.items = items;
+          data.pagination = {
+            total: data?.total,
+            limit: data?.limit,
+            skip: data?.skip,
           };
-        });
-        data.items = items;
-        data.pagination = {
-          total: data?.total,
-          limit: data?.limit,
-          skip: data?.skip,
-        };
+        }
       }
-    }
 
-    if (itemType?.toLowerCase() === "guide") {
-      if (country?.code && guideCategory?.[0]) {
-        const items: ListItemT = data?.items?.map((guide: any) => {
-          return {
-            title: guide.title,
-            desc: guide.excerpt,
-            image: guide.featuredImage,
-            pathname: guide.slug,
-            btnLink: guide.slug,
-            btnType: "custom",
-            btnText: "Leer Artículo",
-            btnMode: "dark",
-            bgColor: "bg-white",
-            textColor: "gray-primary",
+      if (itemType?.toLowerCase() === "guide") {
+        if (country?.code && guideCategory?.[0]) {
+          const items: ListItemT = data?.items?.map((guide: any) => {
+            return {
+              title: guide.title,
+              desc: guide.excerpt,
+              image: guide.featuredImage,
+              pathname: guide.slug,
+              btnLink: guide.slug,
+              btnType: "custom",
+              btnText: "Leer Artículo",
+              btnMode: "dark",
+              bgColor: "bg-white",
+              textColor: "gray-primary",
+            };
+          });
+          data.items = items;
+          data.pagination = {
+            total: data?.total,
+            limit: data?.limit,
+            skip: data?.skip,
           };
-        });
-        data.items = items;
-        data.pagination = {
-          total: data?.total,
-          limit: data?.limit,
-          skip: data?.skip,
-        };
+        }
       }
-    }
 
-    setItemsContent(data.items);
-    setPaginationContent(data.pagination);
+      setItemsContent(data.items);
+      setPaginationContent(data.pagination);
+    }
   };
 
   const setPage = async (page: number) => {
-    const res = await fetch("/api/pagination", {
-      method: "POST",
-      body: JSON.stringify({
-        code: country.code,
-        category: articleCategory?.[0] || guideCategory?.[0],
-        itemType: itemType,
-        limit: 10,
-        skip: page - 1,
-      }),
-    });
+    if (paginationContent) {
+      const res = await fetch("/api/pagination", {
+        method: "POST",
+        body: JSON.stringify({
+          code: country?.code,
+          category: articleCategory?.[0] || guideCategory?.[0],
+          itemType: itemType,
+          limit: paginationContent?.limit,
+          skip: Math.abs(page),
+        }),
+      });
 
-    const { data } = await res.json();
+      const { data } = await res.json();
 
-    if (itemType?.toLowerCase() === "article") {
-      if (country?.code && articleCategory?.[0]) {
-        const items: ListItemT = data?.items?.map((article: any) => {
-          return {
-            title: article.title,
-            desc: article.excerpt,
-            image: article.featuredImage,
-            pathname: article.slug,
-            btnLink: article.slug,
-            btnType: "custom",
-            btnText: "Leer Artículo",
-            btnMode: "dark",
-            bgColor: "bg-white",
-            textColor: "gray-primary",
+      if (itemType?.toLowerCase() === "article") {
+        if (country?.code && articleCategory?.[0]) {
+          const items: ListItemT = data?.items?.map((article: any) => {
+            return {
+              title: article.title,
+              desc: article.excerpt,
+              image: article.featuredImage,
+              pathname: article.slug,
+              btnLink: article.slug,
+              btnType: "custom",
+              btnText: "Leer Artículo",
+              btnMode: "dark",
+              bgColor: "bg-white",
+              textColor: "gray-primary",
+            };
+          });
+          data.items = items;
+          data.pagination = {
+            total: data?.total,
+            limit: data?.limit,
+            skip: data?.skip,
           };
-        });
-        data.items = items;
-        data.pagination = {
-          total: data?.total,
-          limit: data?.limit,
-          skip: data?.skip,
-        };
+        }
       }
-    }
 
-    if (itemType?.toLowerCase() === "guide") {
-      if (country?.code && guideCategory?.[0]) {
-        const items: ListItemT = data?.items?.map((guide: any) => {
-          return {
-            title: guide.title,
-            desc: guide.excerpt,
-            image: guide.featuredImage,
-            pathname: guide.slug,
-            btnLink: guide.slug,
-            btnType: "custom",
-            btnText: "Leer Artículo",
-            btnMode: "dark",
-            bgColor: "bg-white",
-            textColor: "gray-primary",
+      if (itemType?.toLowerCase() === "guide") {
+        if (country?.code && guideCategory?.[0]) {
+          const items: ListItemT = data?.items?.map((guide: any) => {
+            return {
+              title: guide.title,
+              desc: guide.excerpt,
+              image: guide.featuredImage,
+              pathname: guide.slug,
+              btnLink: guide.slug,
+              btnType: "custom",
+              btnText: "Leer Artículo",
+              btnMode: "dark",
+              bgColor: "bg-white",
+              textColor: "gray-primary",
+            };
+          });
+          data.items = items;
+          data.pagination = {
+            total: data?.total,
+            limit: data?.limit,
+            skip: data?.skip,
           };
-        });
-        data.items = items;
-        data.pagination = {
-          total: data?.total,
-          limit: data?.limit,
-          skip: data?.skip,
-        };
+        }
       }
-    }
 
-    setItemsContent(data.items);
-    setPaginationContent(data.pagination);
+      setItemsContent(data.items);
+      setPaginationContent(data.pagination);
+    }
   };
 
   return (

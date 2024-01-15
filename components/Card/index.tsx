@@ -49,12 +49,13 @@ const Card = (props: CardT) => {
         <h4 className={`mb-4 text-xl font-bold lg:text-center ${titleStyles}`}>
           {hasTextHighlighter
             ? textHighlighter(
-                truncate(title, 50) as string,
-                textHighlighterStyle
-              )
+              truncate(title, 50) as string,
+              textHighlighterStyle
+            )
             : truncate(title, 50)}
         </h4>
       )}
+
 
       {pathname ? (
         <>
@@ -113,9 +114,9 @@ const Card = (props: CardT) => {
             >
               {hasTextHighlighter
                 ? textHighlighter(
-                    truncate(title, 50) as string,
-                    textHighlighterStyle
-                  )
+                  truncate(title, 50) as string,
+                  textHighlighterStyle
+                )
                 : truncate(title, 50)}
             </h4>
           )}

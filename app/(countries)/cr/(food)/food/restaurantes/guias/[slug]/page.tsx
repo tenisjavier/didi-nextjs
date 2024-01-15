@@ -5,6 +5,7 @@ import CTASection from "@/components/CTASection";
 import RichContent from "@/components/RichContent";
 import Banner from "@/components/Banner";
 import { notFound } from "next/navigation";
+import { GuideT } from "@/typings";
 
 interface GuiasProps {
   params: {
@@ -15,14 +16,14 @@ interface GuiasProps {
 export let metadata: Metadata = {
   title: "Registrate como Socio Conductor DiDi",
   description:
-    "DiDi en Colômbia, registrate como socio conductor en las categorías express y taxi ganando más y manejando menos. Si sos Socio Conductor llamános al +54 (11) 3987-6342",
+    "DiDi en Costa Rica, registrate como socio conductor en las categorías express y taxi ganando más y manejando menos. Si sos Socio Conductor llamános al +54 (11) 3987-6342",
 };
 
 const Guide = async ({ params: { slug } }: GuiasProps) => {
-  const guide = (await fetchGuideBySlug("co", slug))?.items?.[0];
+  const guide = await (await fetchGuideBySlug("cr", slug)).items?.[0];
   if (!guide) return notFound();
 
-  const suggestedGuides = await fetchGuidesByCategory("delivery", "co");
+  const suggestedGuides = await fetchGuidesByCategory("restaurant", "cr");
   metadata = guide.seoTitle
     ? {
         title: guide.seoTitle,
@@ -62,8 +63,8 @@ const Guide = async ({ params: { slug } }: GuiasProps) => {
 export default Guide;
 
 export async function generateStaticParams() {
-  const guides = await fetchGuidesByCategory("delivery", "co");
-  const guidesSlugs = guides?.items?.map((guide) => {
+  const guides = await fetchGuidesByCategory("restaurant", "cr");
+  const guidesSlugs = guides.items.map((guide) => {
     slug: guide.slug;
   });
   return guidesSlugs;

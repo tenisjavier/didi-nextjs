@@ -16,7 +16,7 @@ interface ArticleProps {
 
 // or Dynamic metadata
 export async function generateMetadata({ params: { slug } }: ArticleProps) {
-  const article = await fetchArticleBySlug(slug, "cl");
+  const article = (await fetchArticleBySlug(slug, "cl")).items?.[0]
   return {
     title: article.seoTitle,
     description: article.seoDescription,
@@ -26,17 +26,19 @@ export async function generateMetadata({ params: { slug } }: ArticleProps) {
 // SSG approach for this pages
 export async function generateStaticParams() {
   const articles = await fetchArticles("cl", "rides");
-  const articlesSlugs = articles.map((article: ArticleT) => {
+  const articlesSlugs = articles.items.map((article) => {
     slug: article.slug;
   });
   return articlesSlugs;
 }
 
 const Article = async ({ params: { slug } }: ArticleProps) => {
-  const [article, suggestedArticles] = await Promise.all([
+  const [articleContent, suggestedArticles] = await Promise.all([
     fetchArticleBySlug(slug, "cl"),
     fetchArticles("cl", "rides"),
   ]);
+
+  const article = articleContent?.items?.[0]
 
   if (!article) return notFound();
 
@@ -67,7 +69,7 @@ const Article = async ({ params: { slug } }: ArticleProps) => {
     textColor: "white",
     gridCols: 3,
     gap: 0,
-    columns: suggestedArticles.map((article: ArticleT) => {
+    columns: suggestedArticles.items.map((article) => {
       return {
         title: (
           <Link href={`/cl/articulos/${article.slug}`}>{article.title}</Link>

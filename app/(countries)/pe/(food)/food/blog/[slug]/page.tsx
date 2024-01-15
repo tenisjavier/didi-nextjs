@@ -1,8 +1,5 @@
 import React from "react";
-import {
-  fetchArticleBySlug,
-  fetchArticles,
-} from "@/utils/db";
+import { fetchArticleBySlug, fetchArticles } from "@/utils/db";
 import { Metadata } from "next";
 import Link from "next/link";
 import CTASection from "@/components/CTASection";
@@ -10,7 +7,6 @@ import RichContent from "@/components/RichContent";
 import Banner from "@/components/Banner";
 import ColumnsSection from "@/components/ColumnSection";
 import { notFound } from "next/navigation";
-import { ArticleT, GuideT } from "@/typings";
 
 interface GuiasProps {
   params: {
@@ -27,18 +23,18 @@ export let metadata: Metadata = {
 const Article = async ({ params: { slug } }: GuiasProps) => {
   const [articleContent, suggestedArticles] = await Promise.all([
     fetchArticleBySlug(slug, "pe"),
-    fetchArticles("pe", "rides"),
+    fetchArticles("pe", "food"),
   ]);
 
-  const article = articleContent?.items?.[0]
+  const article = articleContent?.items?.[0];
 
   if (!article) return notFound();
 
   metadata = article.seoTitle
     ? {
-      title: article.seoTitle,
-      description: article.seoDescription,
-    }
+        title: article.seoTitle,
+        description: article.seoDescription,
+      }
     : metadata;
 
   const heroProps = {
@@ -67,11 +63,9 @@ const Article = async ({ params: { slug } }: GuiasProps) => {
     textColor: "white",
     gridCols: 3,
     gap: 0,
-    columns: suggestedArticles.items.map((article) => {
+    columns: suggestedArticles.items?.map((article) => {
       return {
-        title: (
-          <Link href={`/pe/articulos/${article.slug}`}>{article.title}</Link>
-        ),
+        title: <Link href={`/pe/${article.slug}`}>{article.title}</Link>,
         desc: article.excerpt,
         image: article.featuredImage,
         imageStyle: "object-cover h-56 w-full p-4",
@@ -80,7 +74,7 @@ const Article = async ({ params: { slug } }: GuiasProps) => {
         btnType: "custom",
         btnMode: "dark",
         btnText: "Leer Guía",
-        btnLink: `/pe/articulos/${article.slug}`,
+        btnLink: `/pe/${article.slug}`,
       };
     }),
   };
@@ -99,7 +93,7 @@ const Article = async ({ params: { slug } }: GuiasProps) => {
 export default Article;
 
 export async function generateStaticParams() {
-  const articles = await fetchArticles("pe", "rides");
+  const articles = await fetchArticles("pe", "food");
   const articlesSlugs = articles.items.map((article) => {
     slug: article.slug;
   });
