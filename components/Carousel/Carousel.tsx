@@ -12,7 +12,6 @@ import Card from "../Card";
 import CardPay from "../CardPay";
 import { reviewPrestamos } from "@/config/reviews/prestamos";
 
-
 function NextArrow(props: any) {
   const { onClick, arrow, arrowColor, hasArrow } = props;
   if (!hasArrow) return <></>;
@@ -56,14 +55,10 @@ const Carousel = (props: CarouselT) => {
     title,
     cards,
     type,
-    desc
+    desc,
   } = props;
 
-
   let sliderRef = useRef<Slider>(null);
-
-  const screenSize = useScreenSize();
-
 
   const toShow = slidesToShow ? slidesToShow : 1;
   const toScroll = slidesToScroll ? slidesToShow : 1;
@@ -110,24 +105,18 @@ const Carousel = (props: CarouselT) => {
       return <CTASection key={index} {...cta}></CTASection>;
     });
   } else if (carouselType === "Card") {
-
     if (type === "pay" && cards?.length === 0) {
       sliderContent = reviewPrestamos?.map((sld, index) => (
         <CardPay key={index} {...sld}></CardPay>
-      ))
+      ));
     } else {
       sliderContent = cards?.map((sld, index) => {
         if (type === "pay") {
-          return (
-            <CardPay key={index} {...sld}></CardPay>
-          )
+          return <CardPay key={index} {...sld}></CardPay>;
         }
-        return (
-          <Card key={index} {...sld}></Card>
-        );
+        return <Card key={index} {...sld}></Card>;
       });
     }
-
   }
 
   var settings: Settings = {
@@ -175,8 +164,6 @@ const Carousel = (props: CarouselT) => {
     sliderRef?.current?.slickPrev();
   };
 
-
-
   return (
     <div
       style={{
@@ -186,18 +173,42 @@ const Carousel = (props: CarouselT) => {
     >
       <div className="flex justify-between items-center">
         {title && (
-          <h2 className={`${type === 'pay' ? "text-left" : "text-center"} text-3xl md:text-4xl font-bold `}>{title}</h2>
+          <h2
+            className={`${
+              type === "pay" ? "text-left" : "text-center"
+            } text-3xl md:text-4xl font-bold `}
+          >
+            {title}
+          </h2>
         )}
 
         <div className="hidden lg:flex">
-          <button className="m-4 text-4xl border-0 p-0 outline-0 bg-inherit cursor-pointer hover:font-bold" onClick={previous}>←</button>
-          <button className="m-4 text-4xl border-0 p-0 outline-0 bg-inherit cursor-pointer hover:font-bold" onClick={next}>→</button>
+          <button
+            className="m-4 text-4xl border-0 p-0 outline-0 bg-inherit cursor-pointer hover:font-bold"
+            onClick={previous}
+          >
+            ←
+          </button>
+          <button
+            className="m-4 text-4xl border-0 p-0 outline-0 bg-inherit cursor-pointer hover:font-bold"
+            onClick={next}
+          >
+            →
+          </button>
         </div>
       </div>
       {desc && (
-        <p className={`${type === 'pay' ? "text-left" : "text-center"} text-base`}>{desc}</p>
+        <p
+          className={`${
+            type === "pay" ? "text-left" : "text-center"
+          } text-base`}
+        >
+          {desc}
+        </p>
       )}
-      <Slider ref={sliderRef} {...settings}>{sliderContent && sliderContent}</Slider>
+      <Slider ref={sliderRef} {...settings}>
+        {sliderContent && sliderContent}
+      </Slider>
       <Slider ref={sliderRef} {...settings}>
         {sliderContentMobile && sliderContentMobile}
       </Slider>

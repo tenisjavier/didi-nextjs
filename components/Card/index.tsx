@@ -7,7 +7,6 @@ import Link from "next/link";
 
 //? @desc: card component for making columns or cards
 
-
 const Card = (props: CardT) => {
   const {
     title,
@@ -15,7 +14,6 @@ const Card = (props: CardT) => {
     bgColor,
     textColor,
     image,
-    imageStyle,
     video,
     btnLink,
     btnMode,
@@ -45,82 +43,79 @@ const Card = (props: CardT) => {
     <div
       style={{ direction: dir }}
       className={`max-w-xs
-       rounded flex flex-col items-center ${bgColor} text-${textColor} my-3 text-center lg:mx-4 pb-4`}
+       rounded flex flex-col items-center ${bgColor} text-${textColor} my-3 text-center lg:mx-4`}
     >
       {titlePosition === "beforeImage" && title && (
         <h4 className={`mb-4 text-xl font-bold lg:text-center ${titleStyles}`}>
           {hasTextHighlighter
             ? textHighlighter(
-              truncate(title, 50) as string,
-              textHighlighterStyle
-            )
+                truncate(title, 50) as string,
+                textHighlighterStyle
+              )
             : truncate(title, 50)}
         </h4>
       )}
-      <div>
-        {pathname ? (
-          <>
-            <Link href={pathname}>
-              {image && (
-                <Image
-                  src={image.url}
-                  alt={image.description}
 
-                  className={`${imageStyle} ${
-                    isImageIcon
-                      ? "max-h-[80px]  w-auto"
-                      : "max-h-[250px] object-cover max-w-full"
-                  }`}
-
-                  width={400}
-                  height={400}
-                ></Image>
-              )}
-            </Link>
-          </>
-        ) : (
-          <>
+      {pathname ? (
+        <>
+          <Link href={pathname}>
             {image && (
               <Image
                 src={image.url}
                 alt={image.description}
-                className={`${imageStyle} ${
+                className={`${
                   isImageIcon
-                    ? "max-h-[80px] w-auto"
-                    : "max-h-[250px]  object-cover max-w-full"
+                    ? "w-14  h-auto"
+                    : "max-h-64 object-cover h-full w-full"
                 }`}
                 width={400}
                 height={400}
               ></Image>
             )}
-          </>
-        )}
+          </Link>
+        </>
+      ) : (
+        <>
+          {image && (
+            <Image
+              src={image.url}
+              alt={image.description}
+              className={`${
+                isImageIcon
+                  ? "w-14  h-auto"
+                  : "max-h-64 object-contain h-full w-full"
+              }`}
+              width={400}
+              height={400}
+            ></Image>
+          )}
+        </>
+      )}
 
-        {video && (
-          <iframe
-            className="h-56 w-full"
-            src={video}
-            title="YouTube video player"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
-        )}
-      </div>
+      {video && (
+        <iframe
+          className="h-56 w-full"
+          src={video}
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        ></iframe>
+      )}
 
       <div
-        className={` flex h-80 flex-col items-center justify-between px-6 py-4 text-center`}
+        className={` flex flex-col items-center justify-between px-6 py-4 text-center`}
       >
         <div>
           {titlePosition === "afterImage" && title && (
             <h4
-              className={`mb-4 text-xl font-bold lg:text-center ${titleStyles}`}
+              className={`mb-4 text-xl font-semibold lg:text-center ${titleStyles}`}
             >
               {hasTextHighlighter
                 ? textHighlighter(
-                  truncate(title, 50) as string,
-                  textHighlighterStyle
-                )
+                    truncate(title, 50) as string,
+                    textHighlighterStyle
+                  )
                 : truncate(title, 50)}
             </h4>
           )}
