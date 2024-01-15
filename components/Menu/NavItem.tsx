@@ -8,9 +8,10 @@ import { CountryCode } from "@/typings";
 interface NavItemProps {
   link: any;
   countryCode: CountryCode;
+  handleMenuClick: () => void;
 }
 
-const NavItem = ({ link, countryCode }: NavItemProps) => {
+const NavItem = ({ link, countryCode, handleMenuClick }: NavItemProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { text, url, icon, dropMenu } = link;
 
@@ -56,6 +57,7 @@ const NavItem = ({ link, countryCode }: NavItemProps) => {
           links={dropMenu}
           isDropdownOpen={isDropdownOpen}
           countryCode={countryCode}
+          handleMenuClick={handleMenuClick}
         />
       )}
     </li>

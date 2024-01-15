@@ -5,6 +5,7 @@ import textHighlighter from "@/utils/textHighlighter";
 import { CardT } from "@/typings";
 import Link from "next/link";
 
+//? @desc: card component for making columns or cards
 
 
 const Card = (props: CardT) => {
@@ -64,10 +65,13 @@ const Card = (props: CardT) => {
                 <Image
                   src={image.url}
                   alt={image.description}
-                  className={`${imageStyle} ${isImageIcon
-                    ? "max-h-[80px]  w-auto"
-                    : "max-h-[250px] w-auto object-contain max-w-full"
-                    }`}
+
+                  className={`${imageStyle} ${
+                    isImageIcon
+                      ? "max-h-[80px]  w-auto"
+                      : "max-h-[250px] object-cover max-w-full"
+                  }`}
+
                   width={400}
                   height={400}
                 ></Image>
@@ -80,10 +84,11 @@ const Card = (props: CardT) => {
               <Image
                 src={image.url}
                 alt={image.description}
-                className={`${imageStyle} ${isImageIcon
-                  ? "max-h-[80px] w-auto"
-                  : "max-h-[250px] w-auto object-cover max-w-full"
-                  }`}
+                className={`${imageStyle} ${
+                  isImageIcon
+                    ? "max-h-[80px] w-auto"
+                    : "max-h-[250px]  object-cover max-w-full"
+                }`}
                 width={400}
                 height={400}
               ></Image>

@@ -78,11 +78,13 @@ const CTASectionSchema = z.object({
   bgImage: ImageSchema.nullish(),
   mobileBgImage: ImageSchema.nullish(),
   image: ImageSchema.nullish(),
+  imageRawRender: z.any(),
   rounded: z.enum(["rounded", "rounded-full"]),
   btnType: BtnType.nullish(),
   btnMode: BtnMode.nullish(),
   btnText: BtnType.min(5).max(30).nullish(),
   btnLink: BtnMode.nullish(),
+  btnModeSecondary: z.string().optional(),
   reverse: z.boolean().nullish(),
 });
 

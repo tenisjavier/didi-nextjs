@@ -20,12 +20,15 @@ const Menu = ({ countryCode, businessType }: MenuProps) => {
   const menuLinksFood: SingleMenuItem[] = getMenuLinksFood(countryCode);
   const menuLinksPay: SingleMenuItem[] = getMenuLinksPay(countryCode);
   const menuLinksCard: SingleMenuItem[] = getMenuLinksCard(countryCode);
-  // the journey menu: const menuLinksPr: SingleMenuItem[] = getMenuLinksPr(countryCode);
 
   let links = menuLinks;
   if (businessType === "food") links = menuLinksFood;
   if (businessType === "pay") links = menuLinksPay;
   if (businessType === "card") links = menuLinksCard;
+
+  const handleMenuClick = () => {
+    if (menuOpen) setMenuOpen(!menuOpen);
+  };
 
   return (
     <div className="flex h-full items-center">
@@ -50,7 +53,11 @@ const Menu = ({ countryCode, businessType }: MenuProps) => {
             menuOpen && "min-h-[100vh] pb-20"
           } m-0 p-0 flex flex-col items-center border-x-0 border-b-0  border-t border-solid border-orange-primary xl:bg-white bg-[#F2F2F2] lg:h-full lg:flex-row lg:border-0 lg:bg-transparent lg:px-5 gap-4`}
         >
-          <NavList links={links} countryCode={countryCode} />
+          <NavList
+            links={links}
+            countryCode={countryCode}
+            handleMenuClick={handleMenuClick}
+          />
         </ul>
       </div>
     </div>

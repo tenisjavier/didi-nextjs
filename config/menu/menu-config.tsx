@@ -162,10 +162,6 @@ const menuLinks: Menu = {
           url: "/eg/",
         },
         {
-          text: "Japan",
-          url: "https://didimobility.co.jp/",
-        },
-        {
           text: "Mexico",
           url: "/mx/",
         },
@@ -697,7 +693,7 @@ const menuLinks: Menu = {
         {
           text: "DiDi Amigo",
           url: "/co/conductor/didi-amigo/",
-        }
+        },
       ],
     },
     {

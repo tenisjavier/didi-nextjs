@@ -1369,7 +1369,6 @@ const fetchLegalBySlug = async (
   }
   const { data } = await res.json();
   const legal = data.legalCollection.items[0];
-  console.log(data);
   return legal;
 };
 
@@ -1404,7 +1403,6 @@ const fetchPartnersByCategory = async (
   }
   const { data } = await res.json();
   const partners = data.partnerCollection.items;
-  console.log(data);
   return partners;
 };
 
@@ -1479,7 +1477,7 @@ const fetchPartnerBySlug = async (
   }
   const { data } = await res.json();
   const partner = data.partnerCollection.items[0];
-  console.log(data);
+
   return partner;
 };
 
