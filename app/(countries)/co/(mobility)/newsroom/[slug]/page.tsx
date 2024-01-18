@@ -59,6 +59,11 @@ const Newsroom = async ({ params: { slug } }: NewsroomProps) => {
     textColor: "white",
     gridCols: 3,
     gap: 0,
+    pagination: {
+      total: suggestedArticles.total,
+      limit: suggestedArticles.limit,
+      skip: suggestedArticles.skip,
+    },
     columns: suggestedArticles.items.map((article) => {
       return {
         title: <Link href={`/co/newsroom/${article.slug}`}>{article.title}</Link>,

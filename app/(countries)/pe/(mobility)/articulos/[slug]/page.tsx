@@ -9,8 +9,7 @@ import CTASection from "@/components/CTASection";
 import RichContent from "@/components/RichContent";
 import Banner from "@/components/Banner";
 import ColumnsSection from "@/components/ColumnSection";
-import { notFound } from "next/navigation";
-import { ArticleT, GuideT } from "@/typings";
+import { notFound, useSearchParams } from "next/navigation";
 
 interface GuiasProps {
   params: {
@@ -25,10 +24,15 @@ export let metadata: Metadata = {
 };
 
 const Article = async ({ params: { slug } }: GuiasProps) => {
+
+  const { get } = useSearchParams()
+
   const [articleContent, suggestedArticles] = await Promise.all([
     fetchArticleBySlug(slug, "pe"),
     fetchArticles("pe", "rides"),
   ]);
+
+  const currentSkipPage = (Number(get('page')?.[0]) * suggestedArticles.limit) - suggestedArticles.limit
 
   const article = articleContent?.items?.[0]
 
@@ -67,6 +71,11 @@ const Article = async ({ params: { slug } }: GuiasProps) => {
     textColor: "white",
     gridCols: 3,
     gap: 0,
+    pagination: {
+      total: suggestedArticles.total,
+      limit: suggestedArticles.limit,
+      skip: suggestedArticles.skip,
+    },
     columns: suggestedArticles.items.map((article) => {
       return {
         title: (

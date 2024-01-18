@@ -1,58 +1,34 @@
 import React from "react";
-import { fetchArticleBySlug } from "@/utils/db";
-import CTASection from "@/components/CTASection";
-import RichContent from "@/components/RichContent";
-import Banner from "@/components/Banner";
-import { notFound } from "next/navigation";
+import ArticlePage, { generateArticleMetadata, generateArticleStaticParams } from "@/components/Sections/Articles";
 
-interface NewsroomProps {
+interface ArticleProps {
   params: {
     slug: string;
   };
 }
 
-// or Dynamic metadata
-export async function generateMetadata({ params: { slug } }: NewsroomProps) {
-  const article = (await fetchArticleBySlug(slug, "cl")).items?.[0]
-  return {
-    title: article.seoTitle,
-    description: article.seoDescription,
-  };
+export async function generateMetadata({ params: { slug } }: ArticleProps) {
+  const article = await generateArticleMetadata(slug, 'cl')
+
+  return article
 }
 
-const Newsroom = async ({ params: { slug } }: NewsroomProps) => {
-  const article = await (await fetchArticleBySlug(slug, "cl")).items?.[0]
+export async function generateStaticParams() {
+  const articlesSlugs = await generateArticleStaticParams('cl', 'news');
 
-  if (!article) return notFound();
+  return articlesSlugs;
+}
 
-  const heroProps = {
-    title: article.title,
-    desc: article.excerpt,
-    bgColor: "bg-white",
-    textColor: "white",
-    bgImage: article.featuredImage,
-    btnType: "drv",
-    btnMode: "light",
-    brightness: "brightness-75",
-  };
-  const bannerProps = {
-    title: "¿Quieres ser socio conductor en DiDi?",
-    desc: "Genera Dinero y maneja tus tiempos.",
-    textColor: "white",
-    bgColor: "bg-orange-primary",
-    btnType: "drv",
-    btnMode: "light",
-  };
-
+const Article = async ({ params: { slug } }: ArticleProps) => {
   return (
-    <>
-      <CTASection {...heroProps}></CTASection>
-      <section className="container mx-auto mb-32 text-gray-primary md:px-28 mt-16">
-        <RichContent richContent={article.content}></RichContent>
-      </section>
-      <Banner {...bannerProps}></Banner>
-    </>
-  );
-};
+    <ArticlePage params={{
+      slug,
+      articleCategory: 'news',
+      countryCode: 'cl'
+    }}
+    />
+  )
+}
 
-export default Newsroom;
+
+export default Article;

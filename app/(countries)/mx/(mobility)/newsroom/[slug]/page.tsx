@@ -6,8 +6,8 @@ import CTASection from "@/components/CTASection";
 import RichContent from "@/components/RichContent";
 import Banner from "@/components/Banner";
 import ColumnsSection from "@/components/ColumnSection";
-import { notFound } from "next/navigation";
-import { ArticleT } from "@/typings";
+import { notFound, useSearchParams } from "next/navigation";
+import { ArticleT, ColumnSectionT } from "@/typings";
 
 interface GuiasProps {
   params: {
@@ -57,16 +57,26 @@ const Article = async ({ params: { slug } }: GuiasProps) => {
     btnMode: "light",
   };
 
-  const suggestedGuidesProps = {
+  const suggestedGuidesProps: ColumnSectionT = {
     name: "Suggested Articles",
     title: "DiDi Artículos de Lugares para Visitar en Mexico",
     bgColor: "bg-blue-primary",
     textColor: "white",
     gridCols: 3,
     gap: 0,
+    articleCategory: ['news'] as any,
+    itemType: 'Article',
+    country: {
+      code: 'mx'
+    },
+    pagination: {
+      total: suggestedArticles.total,
+      limit: suggestedArticles.limit,
+      skip: suggestedArticles.skip,
+    },
     columns: suggestedArticles.items.map((article) => {
       return {
-        title: <Link href={`/mx/articulos/${article.slug}`}>{article.title}</Link>,
+        title: <Link href={`/mx/newsroom/${article.slug}`}>{article.title}</Link>,
         desc: article.excerpt,
         image: article.featuredImage,
         imageStyle: "object-cover h-56 w-full p-4",
@@ -75,7 +85,7 @@ const Article = async ({ params: { slug } }: GuiasProps) => {
         btnType: "custom",
         btnMode: "dark",
         btnText: "Leer Guía",
-        btnLink: `/mx/articulos/${article.slug}`,
+        btnLink: `/mx/newsroom/${article.slug}`,
       };
     }),
   };

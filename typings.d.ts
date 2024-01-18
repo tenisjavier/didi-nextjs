@@ -27,6 +27,19 @@ const BusinessSchema = z.enum([
   "drive",
 ]);
 
+const ArticleCategotySchema = z.enum([
+  "rides",
+  "food",
+  "news",
+  "pay",
+  "pr",
+  "loan",
+  "food-courier",
+  "prestamos",
+]);
+
+const GuideCategotySchema = z.enum(["driver", "delivery", "restaurant"]);
+
 const ImageSchema = z.object({
   title: z.string(),
   url: z.string(),
@@ -48,6 +61,7 @@ const CitySchema = z.object({
   }),
   image: ImageSchema,
 });
+
 const CountrySchema = z.object({
   name: z.string(),
   arabicName: z.string(),
@@ -129,8 +143,8 @@ const ColumnSectionSchema = z.object({
     .optional(),
   country: z.object(CountrySchema).optional(),
   itemType: z.enum(["Article", "Guide", "Partner"]).optional(),
-  articleCategory: z.enum(["news"]).optional(),
-  guideCategory: z.enum(["driver", "delivery", "restaurant"]).optional(),
+  articleCategory: z.object(ArticleCategotySchema).optional(),
+  guideCategory: z.object(GuideCategotySchema).optional(),
 });
 
 const ColumnImageSchema = z.object({
@@ -382,6 +396,8 @@ const CardPaySchema = z.object({
 export type CountryCode = z.infer<typeof CountryCodeSchema>;
 export type LanguageCode = z.infer<typeof languageCodeSchema>;
 export type BusinessType = z.infer<typeof BusinessSchema>;
+export type ArticleType = z.infer<typeof ArticleCategotySchema>;
+export type GuideType = z.infer<typeof GuideCategotySchema>;
 export type ImageType = z.infer<typeof ImageSchema>;
 export type City = z.infer<typeof CitySchema>;
 export type Country = z.infer<typeof CountrySchema>;

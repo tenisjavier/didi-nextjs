@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Card from "@/components/Card";
 import textHighlighter from "@/utils/textHighlighter";
 import { ColumnSectionT, ListItemT } from "@/typings";
 import Pagination from "../Pagination";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const ColumnsSection = (props: ColumnSectionT) => {
   const {
@@ -14,7 +15,6 @@ const ColumnsSection = (props: ColumnSectionT) => {
     desc,
     bgColor,
     textColor,
-    // sectionID,
     RTL,
     hasTextHighlight,
     textHighlightStyles,
@@ -26,8 +26,27 @@ const ColumnsSection = (props: ColumnSectionT) => {
     guideCategory,
     itemType,
   } = props;
+
+  const { push, replace  } = useRouter()
+  const params = useSearchParams()
+
+  const lastPage = Number(params.getAll('page')?.[0])
+
+  const [currentPage, setCurrangePage] = useState<number>(lastPage || 1)
   const [itemsContent, setItemsContent] = useState(items || []);
+
   const [paginationContent, setPaginationContent] = useState(pagination);
+
+  useEffect(() => {
+    if (currentPage === 1) {
+      replace(`${window.location.pathname}`);
+    } else if (currentPage !== 1) {
+      replace(`?page=${currentPage}`);
+    }
+
+  }, [currentPage, push, replace])
+
+  const columnRef = useRef<HTMLOptionElement>(null)
 
   let dir: any = "ltr";
 
@@ -47,6 +66,8 @@ const ColumnsSection = (props: ColumnSectionT) => {
           skip: Math.abs(paginationContent?.skip + paginationContent?.limit),
         }),
       });
+
+      setCurrangePage(currentPage + 1)
       const { data } = await res.json();
 
       if (itemType?.toLowerCase() === "article") {
@@ -101,6 +122,7 @@ const ColumnsSection = (props: ColumnSectionT) => {
 
       setItemsContent(data.items);
       setPaginationContent(data.pagination);
+      columnRef.current?.scrollIntoView()
     }
   };
 
@@ -117,6 +139,8 @@ const ColumnsSection = (props: ColumnSectionT) => {
         }),
       });
 
+
+      setCurrangePage(currentPage - 1)
       const { data } = await res.json();
 
       if (itemType?.toLowerCase() === "article") {
@@ -171,6 +195,7 @@ const ColumnsSection = (props: ColumnSectionT) => {
 
       setItemsContent(data.items);
       setPaginationContent(data.pagination);
+      columnRef.current?.scrollIntoView()
     }
   };
 
@@ -241,13 +266,26 @@ const ColumnsSection = (props: ColumnSectionT) => {
 
       setItemsContent(data.items);
       setPaginationContent(data.pagination);
+      columnRef.current?.scrollIntoView();
     }
   };
+
+
+  useEffect(() => {
+    if (currentPage !== 1 && paginationContent) {
+      const lastPageTransformToSkip = currentPage * paginationContent.limit
+
+      setPage(lastPageTransformToSkip - paginationContent.limit)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <section
       style={{ direction: dir }}
       className={`${bgColor} text-${textColor} py-12`}
+      id={'columnSection'}
+      ref={columnRef}
     >
       <div className="container mx-auto flex flex-col flex-wrap justify-center items-center md:justify-around">
         {title &&
@@ -267,13 +305,12 @@ const ColumnsSection = (props: ColumnSectionT) => {
 
         {columns && (
           <div
-            className={`grid grid-cols-1 ${
-              columns && columns?.length < 3
-                ? columns?.length > 1
-                  ? "grid-cols-2"
-                  : ""
-                : "lg:grid-cols-" + gridCols
-            }  ${"gap-" + gap} mt-10  lg:justify-around `}
+            className={`grid grid-cols-1 ${columns && columns?.length < 3
+              ? columns?.length > 1
+                ? "grid-cols-2"
+                : ""
+              : "lg:grid-cols-" + gridCols
+              }  ${"gap-" + gap} mt-10  lg:justify-around `}
           >
             {columns &&
               columns.map((col, index) => {
@@ -283,13 +320,12 @@ const ColumnsSection = (props: ColumnSectionT) => {
         )}
         {itemsContent && (
           <div
-            className={`grid grid-cols-1 ${
-              itemsContent && itemsContent?.length < 3
-                ? itemsContent?.length > 1
-                  ? "grid-cols-2"
-                  : ""
-                : "lg:grid-cols-" + gridCols
-            }  ${"gap-" + gap} mt-10  lg:justify-around `}
+            className={`grid grid-cols-1 ${itemsContent && itemsContent?.length < 3
+              ? itemsContent?.length > 1
+                ? "grid-cols-2"
+                : ""
+              : "lg:grid-cols-" + gridCols
+              }  ${"gap-" + gap} mt-10  lg:justify-around `}
           >
             {itemsContent &&
               itemsContent.map((item, index) => {
@@ -303,6 +339,7 @@ const ColumnsSection = (props: ColumnSectionT) => {
           nextPage={nextPage}
           prevPage={prevPage}
           setPage={setPage}
+          setCurrangePage={setCurrangePage}
         />
       </div>
     </section>
