@@ -58,7 +58,8 @@ const Carousel = (props: CarouselT) => {
     desc,
   } = props;
 
-  let sliderRef = useRef<Slider>(null);
+  let sliderRefMain = useRef<Slider>(null);
+  let sliderRefMobile = useRef<Slider>(null);
 
   const toShow = slidesToShow ? slidesToShow : 1;
   const toScroll = slidesToScroll ? slidesToShow : 1;
@@ -134,14 +135,14 @@ const Carousel = (props: CarouselT) => {
       <NextArrow
         arrow={arrowNext}
         arrowColor={arrowColor}
-        hasArrow={hasArrows}
+        hasArrow={hasArrows && type !== 'pay'}
       />
     ),
     prevArrow: (
       <PrevArrow
         arrow={arrowPrev}
         arrowColor={arrowColor}
-        hasArrow={hasArrows}
+        hasArrow={hasArrows && type !== 'pay'}
       />
     ),
     dotsClass: "slick-dots flex justify-center z-50 !bottom-10",
@@ -158,10 +159,10 @@ const Carousel = (props: CarouselT) => {
   };
 
   const next = () => {
-    sliderRef?.current?.slickNext();
+    sliderRefMain?.current?.slickNext();
   };
   const previous = () => {
-    sliderRef?.current?.slickPrev();
+    sliderRefMain?.current?.slickPrev();
   };
 
   return (
@@ -174,42 +175,41 @@ const Carousel = (props: CarouselT) => {
       <div className="flex justify-between items-center">
         {title && (
           <h2
-            className={`${
-              type === "pay" ? "text-left" : "text-center"
-            } text-3xl md:text-4xl font-bold `}
+            className={`${type === "pay" ? "text-left" : "text-center"
+              } text-3xl md:text-4xl font-bold `}
           >
             {title}
           </h2>
         )}
-
-        <div className="hidden lg:flex">
-          <button
-            className="m-4 text-4xl border-0 p-0 outline-0 bg-inherit cursor-pointer hover:font-bold"
-            onClick={previous}
-          >
-            ←
-          </button>
-          <button
-            className="m-4 text-4xl border-0 p-0 outline-0 bg-inherit cursor-pointer hover:font-bold"
-            onClick={next}
-          >
-            →
-          </button>
-        </div>
+        {hasArrows && type === 'pay' && (
+          <div className="hidden lg:flex">
+            <button
+              className="m-4 text-4xl border-0 p-0 outline-0 bg-inherit cursor-pointer hover:font-bold"
+              onClick={next}
+            >
+              ←
+            </button>
+            <button
+              className="m-4 text-4xl border-0 p-0 outline-0 bg-inherit cursor-pointer hover:font-bold"
+              onClick={previous}
+            >
+              →
+            </button>
+          </div>
+        )}
       </div>
       {desc && (
         <p
-          className={`${
-            type === "pay" ? "text-left" : "text-center"
-          } text-base`}
+          className={`${type === "pay" ? "text-left" : "text-center"
+            } text-base`}
         >
           {desc}
         </p>
       )}
-      <Slider ref={sliderRef} {...settings}>
+      <Slider ref={sliderRefMain}  {...settings} >
         {sliderContent && sliderContent}
       </Slider>
-      <Slider ref={sliderRef} {...settings}>
+      <Slider ref={sliderRefMobile} {...settings}>
         {sliderContentMobile && sliderContentMobile}
       </Slider>
     </div>

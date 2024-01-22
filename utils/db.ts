@@ -890,7 +890,7 @@ const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
       const guides = await fetchGuidesByCategory(
         columnSection?.guideCategory?.[0],
         columnSection?.country?.code,
-        {limit: columnSection?.limitItemsPerPage},
+        { limit: columnSection?.limitItemsPerPage },
         columnSection?.order
       );
 
@@ -922,7 +922,7 @@ const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
       const articles = await fetchArticleByCategory(
         columnSection?.country?.code,
         columnSection?.articleCategory?.[0],
-        {limit: columnSection?.limitItemsPerPage},
+        { limit: columnSection?.limitItemsPerPage },
         columnSection?.order
       );
 
@@ -1044,6 +1044,7 @@ const fetchGuideBySlug = async (
               category
               country {
                 code
+                name
               }
               seoTitle
               seoDescription
@@ -1112,7 +1113,7 @@ const fetchGuidesByCategory = async (
         country: {code:"${countryCode}"}, 
         category_contains_all:"${category}"
       },
-      limit: ${pagination?.limit || 10}, 
+      limit: ${pagination?.limit || 12}, 
       skip: ${pagination?.skip || 0},
       ${order ? "order: sys_" + order : ""}
       ) {
@@ -1168,6 +1169,7 @@ const fetchArticleBySlug = async (
         seoDescription
         country {
           code
+          name
         }
         excerpt
         featuredImage {
@@ -1225,7 +1227,7 @@ const fetchArticleByCategory = async (
         country:{code: "${countryCode}"}, 
         category_contains_all: "${category}"
       }, 
-      limit: ${pagination?.limit || 10}, 
+      limit: ${pagination?.limit || 12}, 
       skip: ${pagination?.skip || 0},
       ${order ? "order: sys_" + order : ""}
     ){
@@ -1245,23 +1247,6 @@ const fetchArticleByCategory = async (
           title
           description
           url
-        }
-        content {
-          json
-          links {
-          assets {
-              block {
-                sys {
-                  id
-                }
-                title
-                description
-                url
-                width
-                height
-              }
-            }
-          }
         }
       }
     }
@@ -1283,11 +1268,18 @@ const fetchArticleByCategory = async (
 
 const fetchArticles = async (
   countryCode: CountryCode,
-  category: string
+  category: string,
+  pagination?: {
+    limit?: number;
+    skip?: number;
+  }
 ): Promise<ArticleT> => {
   const query = `
   query {
-    articleCollection(where: {country:{code: "${countryCode}"}, category_contains_all: "${category}"}){
+    articleCollection(where: {country:{code: "${countryCode}"}, category_contains_all: "${category}"}, 
+    limit: ${pagination?.limit || 12}, 
+    skip: ${pagination?.skip || 0}
+    ){
       total
       limit
       skip

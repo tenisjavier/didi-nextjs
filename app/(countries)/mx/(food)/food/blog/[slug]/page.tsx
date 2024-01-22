@@ -63,6 +63,11 @@ const Article = async ({ params: { slug } }: GuiasProps) => {
     textColor: "white",
     gridCols: 3,
     gap: 0,
+    pagination: {
+      total: suggestedArticles.total,
+      limit: suggestedArticles.limit,
+      skip: suggestedArticles.skip,
+    },
     columns: suggestedArticles.items.map((article) => {
       return {
         title: <Link href={`/pe/articulos/${article.slug}`}>{article.title}</Link>,

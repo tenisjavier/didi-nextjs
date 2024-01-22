@@ -16,6 +16,7 @@ interface PaginationProps {
   nextPage: () => Promise<void>;
   prevPage: () => Promise<void>;
   setPage: (page: number) => Promise<void>;
+  setCurrangePage: (currentPage: number) => void;
 }
 
 const Pagination: React.FC<PaginationProps> = ({
@@ -23,6 +24,7 @@ const Pagination: React.FC<PaginationProps> = ({
   nextPage,
   prevPage,
   setPage,
+  setCurrangePage
 }) => {
   if (pagination) {
     const totalPage = Math.ceil(pagination.total / pagination.limit);
@@ -30,13 +32,16 @@ const Pagination: React.FC<PaginationProps> = ({
     const renderPageButton = (index: number) => (
       <li key={index} className="list-none">
         <button
-          onClick={() => setPage(index * pagination.limit - pagination.limit)}
+          onClick={() => {
+            setPage(index * pagination.limit - pagination.limit)
+            setCurrangePage(index)
+          }}
           disabled={pagination.skip / pagination.limit + 1 === index}
           className={`w-10 h-10 items-center justify-center px-2.5 py-2 text-gray-median bg-white border border-gray-light hover:cursor-pointer disabled:text-gray-light`}
         >
           {index}
         </button>
-      </li>
+      </li >
     );
 
     const renderPageButtons = () => {
@@ -56,7 +61,10 @@ const Pagination: React.FC<PaginationProps> = ({
         {pagination && (
           <div className="w-full flex gap-2 justify-center items-center mt-10">
             <button
-              onClick={() => setPage(0)}
+              onClick={() => {
+                setPage(0)
+                setCurrangePage(1)
+              }}
               disabled={pagination.skip === 0}
               className="w-10 h-10 items-center justify-center px-2.5 py-2 text-gray-median bg-white border border-gray-light hover:cursor-pointer disabled:text-gray-light"
             >
@@ -80,12 +88,13 @@ const Pagination: React.FC<PaginationProps> = ({
               <FontAwesomeIcon icon={faAngleRight} className="w-3" />
             </button>
             <button
-              onClick={() =>
+              onClick={() => {
                 setPage(
                   Math.floor(pagination.total / pagination.limit) *
-                    pagination.limit
+                  pagination.limit
                 )
-              }
+                setCurrangePage(Math.floor(pagination.total / pagination.limit) + 1)
+              }}
               disabled={pagination.total - pagination.skip < pagination.limit}
               className="w-10 h-10 items-center justify-center px-2.5 py-2 text-gray-median bg-white border border-gray-light hover:cursor-pointer disabled:text-gray-light"
             >
