@@ -1,7 +1,15 @@
 import React from "react";
-import { fetchCitieBySlug, fetchCities, fetchPageComponents } from "@/utils/db";
+import {
+  fetchCitieBySlug,
+  fetchCities,
+  fetchGuideBySlug,
+  fetchGuidesByCategory,
+  fetchPageComponents,
+} from "@/utils/db";
 import { Metadata } from "next";
 import CTASection from "@/components/CTASection";
+import RichContent from "@/components/RichContent";
+import Banner from "@/components/Banner";
 import { notFound } from "next/navigation";
 import { City, GuideT } from "@/typings";
 import BuilderComponent from "@/components/BuilderComponent";
@@ -15,16 +23,16 @@ interface GuiasProps {
 export let metadata: Metadata = {
   title: "Registrate como Socio Conductor DiDi",
   description:
-    "DiDi en Panamá, registrate como socio conductor en las categorías express y taxi ganando más y manejando menos. Si sos Socio Conductor llamános al +54 (11) 3987-6342",
+    "DiD, registrate como socio conductor en las categorías express y taxi ganando más y manejando menos. Si sos Socio Conductor llamános al +54 (11) 3987-6342",
 };
 
 const Guide = async ({ params: { slug } }: GuiasProps) => {
-  const city = await fetchCitieBySlug("cl", slug);
+  const city = await fetchCitieBySlug("eg", slug);
   if (!city) return notFound();
 
   const heroProps = {
-    title: `Socios Conductores en ${city.name}`,
-    desc: `¿Quieres convertirte en Socio Conductor DiDi en ${city.name}? Regístrate online y comienza a generar ingresos de manera segura y flexible.`,
+    title: `انضم لعائلة دي دي ${city.name}`,
+    desc: `ابدأ في تحقيق دخل متميز مع رسوم الخدمة التنافسية والدعم المحلي وميزات السلامة الرائدة.`,
     bgColor: "bg-blue-primary",
     textColor: "white",
     image: city.image,
@@ -33,9 +41,10 @@ const Guide = async ({ params: { slug } }: GuiasProps) => {
     brightness: "brightness-75",
     reverse: true,
     isHero: true,
+    // RTL: true
   };
 
-  const components = await fetchPageComponents("/cl/conductor/");
+  const components = await fetchPageComponents("/eg/driver/");
 
   return (
     <>
@@ -48,7 +57,7 @@ const Guide = async ({ params: { slug } }: GuiasProps) => {
 export default Guide;
 
 export async function generateStaticParams() {
-  const cities = await fetchCities("pa", "driver");
+  const cities = await fetchCities("eg", "driver");
   const citiesSlugs = cities.map((city: City) => {
     return {
       slug: city.slug,

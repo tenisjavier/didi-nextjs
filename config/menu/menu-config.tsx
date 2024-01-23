@@ -204,7 +204,7 @@ const menuLinks: Menu = {
         },
         {
           text: "Ciudades Operativas",
-          url: "/cl/ciudades/",
+          url: "/cl/conductor/ciudades/",
         },
       ],
     },
@@ -317,7 +317,7 @@ const menuLinks: Menu = {
         },
         {
           text: "Ciudades Disponibles",
-          url: "/mx/ciudades/",
+          url: "/mx/conductor/ciudades/",
         },
       ],
     },
@@ -460,7 +460,7 @@ const menuLinks: Menu = {
         },
         {
           text: "Ciudades Operativas",
-          url: "/ar/ciudades/",
+          url: "/ar/conductor/ciudades/",
         },
       ],
     },
@@ -567,7 +567,7 @@ const menuLinks: Menu = {
         },
         {
           text: "Ciudades Operativas",
-          url: "/pe/ciudades/",
+          url: "/pe/conductor/ciudades/",
         },
       ],
     },
@@ -684,7 +684,7 @@ const menuLinks: Menu = {
         },
         {
           text: "Ciudades Disponibles",
-          url: "/co/ciudades/",
+          url: "/co/conductor/ciudades/",
         },
         {
           text: "Historias de Éxito",
@@ -838,7 +838,7 @@ const menuLinks: Menu = {
         },
         {
           text: "Cities",
-          url: "/au/cities/",
+          url: "/au/driver/cities/",
         },
       ],
     },
@@ -1011,7 +1011,7 @@ const menuLinks: Menu = {
         },
         {
           text: "Ciudades Operativas",
-          url: "/cr/ciudades/",
+          url: "/cr/conductor/ciudades/",
         },
       ],
     },
@@ -1119,7 +1119,7 @@ const menuLinks: Menu = {
         },
         {
           text: "Ciudades Operativas",
-          url: "/do/ciudades/",
+          url: "/do/conductor/ciudades/",
         },
       ],
     },
@@ -1185,7 +1185,7 @@ const menuLinks: Menu = {
         },
         {
           text: "Ciudades Operativas",
-          url: "/ec/ciudades/",
+          url: "/ec/conductor/ciudades/",
         },
       ],
     },
@@ -1251,7 +1251,7 @@ const menuLinks: Menu = {
         },
         {
           text: "Cities",
-          url: "/nz/cities/",
+          url: "/nz/driver/cities/",
         },
       ],
     },
