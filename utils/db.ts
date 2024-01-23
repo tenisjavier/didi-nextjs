@@ -996,10 +996,20 @@ const fetchListSectionById = async (id: string): Promise<ListSectionT> => {
       data.listSection.productCategory
     );
     const items: ListItemT = cities.map((city) => {
+      let link = `/${city.country.code}/conductor/ciudades/${city.slug}/`;
+      console.log(city);
+      if (
+        data.listSection.country.code === "nz" ||
+        data.listSection.country.code === "au" ||
+        data.listSection.country.code === "eg"
+      ) {
+        link = `/${city.country.code}/driver/cities/${city.slug}/`;
+      }
+
       return {
         text: city.name,
         image: city.image,
-        link: `/${city.country.code}/conductor/ciudades/${city.slug}/`,
+        link,
       };
     });
     data.listSection.items = items;

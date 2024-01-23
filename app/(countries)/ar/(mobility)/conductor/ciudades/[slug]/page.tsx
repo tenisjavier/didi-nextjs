@@ -2,6 +2,8 @@ import React from "react";
 import { fetchCitieBySlug, fetchCities, fetchPageComponents } from "@/utils/db";
 import { Metadata } from "next";
 import CTASection from "@/components/CTASection";
+import RichContent from "@/components/RichContent";
+import Banner from "@/components/Banner";
 import { notFound } from "next/navigation";
 import { City, GuideT } from "@/typings";
 import BuilderComponent from "@/components/BuilderComponent";
@@ -15,11 +17,11 @@ interface GuiasProps {
 export let metadata: Metadata = {
   title: "Registrate como Socio Conductor DiDi",
   description:
-    "DiDi en Perú, registrate como socio conductor en las categorías express y taxi ganando más y manejando menos. Si sos Socio Conductor llamános al +54 (11) 3987-6342",
+    "DiDi en Argentina, registrate como socio conductor en las categorías express y taxi ganando más y manejando menos. Si sos Socio Conductor llamános al +54 (11) 3987-6342",
 };
 
 const Guide = async ({ params: { slug } }: GuiasProps) => {
-  const city = await fetchCitieBySlug("pe", slug);
+  const city = await fetchCitieBySlug("ar", slug);
   if (!city) return notFound();
 
   const heroProps = {
@@ -35,7 +37,7 @@ const Guide = async ({ params: { slug } }: GuiasProps) => {
     isHero: true,
   };
 
-  const components = await fetchPageComponents("/pe/conductor/");
+  const components = await fetchPageComponents("/ar/conductor/");
 
   return (
     <>
@@ -48,11 +50,11 @@ const Guide = async ({ params: { slug } }: GuiasProps) => {
 export default Guide;
 
 export async function generateStaticParams() {
-  const cities = await fetchCities("pe", "driver")
+  const cities = await fetchCities("ar", "driver");
   const citiesSlugs = cities.map((city: City) => {
     return {
-      slug: city.slug
-    }
+      slug: city.slug,
+    };
   });
   return citiesSlugs;
 }
