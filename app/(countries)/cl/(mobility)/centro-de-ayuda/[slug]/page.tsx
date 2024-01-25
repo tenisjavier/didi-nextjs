@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import AccordionSection from "@/components/AccordionSection/";
 import CTASection from "@/components/CTASection";
 import { CTASectionT } from "@/typings";
-import { block } from "sharp";
 
 interface FAQProps {
   params: {
@@ -63,11 +62,6 @@ const CentroDeAyuda = async ({ params: { slug } }: FAQProps) => {
       },
     ],
   };
-
-  const primerParrafo = faq.content.json.content.find(
-    (block: any) => block.nodeType == "paragraph"
-  ).content[0].value;
-  console.log(primerParrafo);
 
   return (
     <>

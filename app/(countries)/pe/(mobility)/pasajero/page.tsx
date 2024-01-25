@@ -8,7 +8,7 @@ import { fetchPageComponents } from "@/utils/db";
 export const metadata: Metadata = {
   title: "DiDi Pasajero - Bája la App y Viaja Seguro | DiDi Perú",
   description:
-    "Pasajero. DiDi en Perú, regístrate como socio conductor en la categoría express. Gana Dinero extra manejando con DiDi.",
+    "DiDi Pasajero. DiDi en Perú, regístrate como socio conductor en la categoría express. Gana Dinero extra manejando con DiDi.",
 };
 
 const Pasajero = async () => {
