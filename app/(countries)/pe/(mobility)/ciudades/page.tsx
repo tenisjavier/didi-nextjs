@@ -6,10 +6,10 @@ import { fetchPageComponents } from "@/utils/db";
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
-  title: "Regístrate como Socio Conductor",
-  description: "Elmejor",
+  title: "Servicios de DiDi por Ciudad. | DiDi Perú",
+  description:
+    "Conoce que servicios DiDi se encuentran en tu ciudad. Si quieres ser socio conductor revisa los requisitos.",
 };
-
 
 const Ciudades = async () => {
   const components = await fetchPageComponents("/pe/ciudades/");
@@ -17,4 +17,3 @@ const Ciudades = async () => {
 };
 
 export default Ciudades;
-
