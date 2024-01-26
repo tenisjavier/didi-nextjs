@@ -7,9 +7,9 @@ import { fetchPageComponents } from "@/utils/db";
 
 export const metadata: Metadata = {
   title:
-    "Artículos de interés sobre lugares que puedes ir a visitar con DiDi. | DiDi Chile",
+    "Artículos de interés sobre lugares que puedes ir a visitar con DiDi. | DiDi Argentina",
   description:
-    "Artículos sobre parques, restaurantes, lugares turísticos, etc. Lee sobre distintos destinos.",
+    "Artículos sobre parques, restaurantes, lugares turísticos, etc. Leé sobre distintos destinos.",
 };
 
 const Articulos = async () => {
