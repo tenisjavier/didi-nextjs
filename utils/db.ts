@@ -997,7 +997,7 @@ const fetchListSectionById = async (id: string): Promise<ListSectionT> => {
     );
     const items: ListItemT = cities.map((city) => {
       let link = `/${city.country.code}/conductor/ciudades/${city.slug}/`;
-      console.log(city);
+
       if (
         data.listSection.country.code === "nz" ||
         data.listSection.country.code === "au" ||
