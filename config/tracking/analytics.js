@@ -8,19 +8,21 @@ export default function insertBtnParams() {
       ? window.location.pathname.split("/")[1]
       : "br";
 
+  const thisDomain = countryCode === "br" ? "99app.com" : "didiglobal.com";
+
   var referrer = document.referrer;
   var gaReferral = {
     source: "(direct)",
     medium: "(none)",
     campaign: "none",
   };
-  var thisHostname = document.location.hostname;
-  var thisDomain = getDomain_(thisHostname);
+
   var referringDomain = getDomain_(referrer);
-  // search is the parameters complete string without ?
+  console.log(referringDomain);
+  //? search is the parameters complete string without ?
   var search = window.location.search.slice(1);
 
-  // if does not have utms or gclid should be organic traffic
+  //? if does not have utms or gclid should be organic traffic
   if (search.indexOf("utm") === -1 && search.indexOf("gclid") === -1) {
     if (
       thisDomain !== referringDomain &&
@@ -47,31 +49,6 @@ export default function insertBtnParams() {
     }
   } else {
     localStorage.setItem("urlSearch", search);
-  }
-
-  var ga_id = getCookie("_gid");
-  var gcl_au = getCookie("_gcl_au");
-
-  function getCookie(name) {
-    var arr,
-      reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
-    if ((arr = document.cookie.match(reg))) {
-      return decodeURIComponent(arr[2]);
-    } else {
-      return null;
-    }
-  }
-
-  if (ga_id) {
-    if (search.indexOf("ga_id=") === -1) {
-      search = search + "&d_ga_id=" + ga_id;
-    }
-  }
-
-  if (gcl_au) {
-    if (search.indexOf("gcl_au=") === -1) {
-      search = search + "&d_gcl_au=" + gcl_au;
-    }
   }
 
   document.querySelectorAll("a").forEach(function (c) {
@@ -103,23 +80,27 @@ export default function insertBtnParams() {
   });
 
   // function to get domain
-
   function getDomain_(url) {
-    if (!url) return;
-
-    var a = document.createElement("a");
-    a.href = url;
-
+    if (!url) return null;
+    console.log(url);
     try {
-      return a.hostname.match(/[^.]*\.[^.]{2,3}(?:\.[^.]{2,3})?$/)[0];
-    } catch (squelch) {}
+      let parsedUrl = new URL(url);
+      let hostname = parsedUrl.hostname;
+      let parts = hostname.split(".");
+      if (parts.length > 2) {
+        return parts.slice(-2).join(".");
+      } else {
+        return hostname;
+      }
+    } catch (e) {
+      console.error("Invalid URL:", e);
+      return null;
+    }
   }
-
-  // function for get correct organic medium and source
 
   function parseGaReferrer(referrer) {
     var values = {};
-    // if referrer is "" is direct
+    //? is referrer empty? then direct
     if (!referrer) {
       values.source = "(direct)";
       values.medium = "(none)";
@@ -127,7 +108,7 @@ export default function insertBtnParams() {
       return values;
     }
 
-    //if not, is seo or web referral
+    //?if not, is seo or web referral
     var searchEngines = {
       "yahoo.com": {
         p: "p",
@@ -151,26 +132,21 @@ export default function insertBtnParams() {
       },
     };
     var a = document.createElement("a");
-    var searchEngine, termRegex, term;
+    var searchEngine;
 
     a.href = referrer;
 
-    // Shim for the billion google search engines
+    //? Shim for the billion google search engines
     if (a.hostname.indexOf("google") > -1) {
       referringDomain = "google";
     }
 
     if (searchEngines[referringDomain]) {
       searchEngine = searchEngines[referringDomain];
-      termRegex = new RegExp(searchEngine.p + "=.*?([^&#]*|$)", "gi");
-      term = a.search.match(termRegex);
-
       values.source = searchEngine.n;
       values.medium = "organic";
-
-      values.term = (term ? term[0].split("=")[1] : "") || "(not provided)";
     } else if (referringDomain !== thisDomain) {
-      values.source = a.hostname;
+      values.source = referringDomain;
       values.medium = "referral";
     }
 
@@ -265,27 +241,33 @@ export default function insertBtnParams() {
         : "website_direct";
     }
 
-    // if is SEO, Direct or Web Referral -> Attricampaign will be the pathname
+    //? if is SEO, Direct or Web Referral -> Attricampaign will be the pathname
 
-    if (channelId === 14 || channelId === 17 || channelId === 19) {
+    if (
+      channelId === 14 ||
+      channelId === "website_direct" ||
+      channelId === 17 ||
+      channelId === "website_referral" ||
+      channelId === 19 ||
+      channelId === "website_seo"
+    ) {
       campaign = "refpage_" + window.location.pathname;
       c = "refpage_" + window.location.pathname;
       campaignId = "refpage_" + window.location.pathname;
 
       //? EXPERIMENT A/B other code in Layout
-      console.log(countryCode);
-      if (
-        ["mx", "cl", "pe", "ar", "co", "ec", "do", "cr", "pa"].includes(
-          countryCode
-        )
-      ) {
-        const test_version = window.localStorage.getItem("t8");
-        adgroupId = test_version;
-      }
+      // console.log(countryCode);
+      // if (
+      //   ["mx", "cl", "pe", "ar", "co", "ec", "do", "cr", "pa"].includes(
+      //     countryCode
+      //   )
+      // ) {
+      //   const test_version = window.localStorage.getItem("t8");
+      //   adgroupId = test_version;
+      // }
     }
 
     //? if referral? save referral source
-
     if (
       channelId === 17 &&
       (referringDomain === "" ||
@@ -294,10 +276,11 @@ export default function insertBtnParams() {
     ) {
       channelId = 19;
       pid = "website_seo";
+    }
+    if (channelId === 17 || channelId === "website_referral") {
       campaign = referringDomain;
       c = referringDomain;
     }
-
     let countryLang = countriesLanguage[countryCode] || ["MX", "es-MX"];
     newUrl.searchParams.set("location_country", countryLang[0]);
     newUrl.searchParams.set("country", country);
