@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "Servicios de DiDi por Ciudad. | DiDi Argentina",
   description:
     "Conocé que servicios DiDi se encuentran en tu ciudad. Si querés ser socio conductor revisá los requisitos.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/ar/conductor/ciudades/`,
+  },
 };
 
 const Cities = async () => {

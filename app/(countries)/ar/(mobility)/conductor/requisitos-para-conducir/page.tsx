@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "Requisitos para Conducir y empezar a Ganar Dinero | DiDi Argentina",
   description:
     "Requisitos para Conducir en DiDi. Regístrate como socio conductor en las categorías express, taxi y moto, ganando más y manejando menos",
+  alternates: {
+    canonical: `https://web.didiglobal.com/ar/conductor/requisitos-para-conducir/`,
+  },
 };
 
 const Conductor = async () => {

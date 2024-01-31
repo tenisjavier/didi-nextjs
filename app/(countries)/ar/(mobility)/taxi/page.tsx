@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "DiDi Taxi - Generá Ingresos Extra con DiDi | DiDi Argentina",
   description:
     "DiDi Taxi. Revisá los requisitos y registrate como socio taxista DiDi, ganando más y manejando menos. Si sos Socio Conductor llamános al +54 (11) 3987-6342",
+  alternates: {
+    canonical: `https://web.didiglobal.com/ar/taxi/`,
+  },
 };
 
 const Taxi = async () => {

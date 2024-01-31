@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "Términos y Condiciones y Políticas de Privacidad. | DiDi Argentina",
   description:
     "Conocé nuestros términos y condiciones para el uso del sitio web además de nuestras políticas de privacidad.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/ar/legal/`,
+  },
 };
 
 const Legal = async () => {

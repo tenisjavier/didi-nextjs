@@ -10,6 +10,9 @@ export const metadata: Metadata = {
     "DiDi Amigo Argentina: Registrate, referí posibles conductores y ganá. | DiDi Argentina",
   description:
     "Con nuestro programa de referidos DiDi Amigos puedes referir personas que les gustaría conducir con DiDi y ganás dinero si lo hacen.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/ar/conductor/didi-amigo/`,
+  },
 };
 
 const Conductor = async () => {
