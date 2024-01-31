@@ -393,6 +393,11 @@ const CardPaySchema = z.object({
   reviewDate: z.string().optional(),
 });
 
+const ABtestSchema = z.object({
+  name: z.string(),
+  pagesCollection: z.any(), //! arreglar
+});
+
 export type CountryCode = z.infer<typeof CountryCodeSchema>;
 export type LanguageCode = z.infer<typeof languageCodeSchema>;
 export type BusinessType = z.infer<typeof BusinessSchema>;
@@ -422,5 +427,6 @@ export type PartnerT = z.infer<typeof PartnerSchema>;
 export type FeaturesT = z.infer<typeof FeaturesSchema>;
 export type ProductT = z.infer<typeof ProductShema>;
 export type CardPayT = z.infer<typeof CardPaySchema>;
+export type ABtestT = z.infer<typeof ABtestSchema>;
 
 export type PageComponent = { id: string; __typename: string };

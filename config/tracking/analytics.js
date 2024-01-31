@@ -1,4 +1,5 @@
 // codigo de tracking didi SEO y WEB
+
 export default function insertBtnParams() {
   window.localStorage.removeItem("gatsby-i18next-language");
 
@@ -256,15 +257,18 @@ export default function insertBtnParams() {
       campaignId = "refpage_" + window.location.pathname;
 
       //? EXPERIMENT A/B other code in Layout
-      // console.log(countryCode);
-      // if (
-      //   ["mx", "cl", "pe", "ar", "co", "ec", "do", "cr", "pa"].includes(
-      //     countryCode
-      //   )
-      // ) {
-      //   const test_version = window.localStorage.getItem("t8");
-      //   adgroupId = test_version;
-      // }
+      function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(";").shift();
+      }
+      const abName = getCookie("abName");
+      const abVersion = getCookie("abVersion");
+
+      if (abName && abVersion) {
+        const test_version = getCookie("abName") + "-" + getCookie("abVersion");
+        adgroupId = test_version;
+      }
     }
 
     //? if referral? save referral source

@@ -28,7 +28,6 @@ interface BuilderComponentProps {
 //? return the JSX array of components to show on the opage
 const BuilderComponent = async ({ components }: BuilderComponentProps) => {
   const JSXComponents = [];
-  console.log("components", components);
   for (const c of components) {
     const component = await fetchComponent(c.__typename, c.id);
     JSXComponents.push(component);
@@ -39,7 +38,6 @@ const BuilderComponent = async ({ components }: BuilderComponentProps) => {
 
 //? function that return the correct component from db fetch depending on type
 const fetchComponent = async (type: string, id: string) => {
-  console.log(type);
   switch (type) {
     case "CtaSection":
       const ctaSectionProps = await fetchCTASectionById(id);
