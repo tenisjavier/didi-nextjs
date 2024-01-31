@@ -23,6 +23,7 @@ import {
   ListItemT,
   GuideT,
   FAQT,
+  ABtestT,
 } from "@/typings";
 
 //? Contentful API URL and Token from .env.local
@@ -127,6 +128,40 @@ const fetchCountries = async (): Promise<Country[]> => {
   }
   const countries = await res.json();
   return countries.data.countryCollection.items;
+};
+
+//? returns a object of pages and there ids
+//* params: the slug of the ABtest ex: "/mx/food/"
+const fetchABtest = async (pathname: string): Promise<ABtestT> => {
+  const query = `
+  query {
+    abtestCollection(where: { pathname: "${pathname}"}) {
+      items{
+        name
+        pagesCollection{
+          items{
+            name
+            pathname
+            sys{
+              id
+            }
+          }
+        }
+      }
+    }
+  }`;
+
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+    cache: "no-cache",
+  });
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch abtest ");
+  }
+  const abtest = await res.json();
+  return abtest?.data.abtestCollection?.items?.[0];
 };
 
 //? returns a object of components of a page
@@ -1677,6 +1712,7 @@ const fetchImages = async (imagesList: string[]): Promise<ImageType[]> => {
 export {
   fetchCities,
   fetchCountries,
+  fetchABtest,
   fetchPageComponents,
   fetchCTASectionById,
   fetchColumnSectionById,
