@@ -3,6 +3,7 @@ import BuilderComponent from "@/components/BuilderComponent";
 import { Metadata } from "next";
 import { fetchPageComponents } from "@/utils/db";
 import { hreflangs } from "@/config/seo/hreflang";
+import { ABinit } from "@/config/testing/ab";
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
@@ -16,6 +17,8 @@ export const metadata: Metadata = {
 };
 
 const Conductor = async () => {
+  let pathname = "/cl/conductor/";
+  pathname = (await ABinit(pathname)) || pathname;
   const components = await fetchPageComponents("/cl/conductor/");
   return <BuilderComponent components={components}></BuilderComponent>;
 };
