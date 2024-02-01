@@ -1,7 +1,7 @@
 import React from "react";
 import BuilderComponent from "@/components/BuilderComponent";
 import { Metadata } from "next";
-import { fetchPageComponents, fetchABtest } from "@/utils/db";
+import { fetchPageComponents } from "@/utils/db";
 import { hreflangs } from "@/config/seo/hreflang";
 import { ABinit } from "@/config/testing/ab";
 
@@ -19,9 +19,7 @@ export const metadata: Metadata = {
 
 const page = async () => {
   let pathname = "/cl/";
-
-  const abtest = await fetchABtest(pathname);
-  if (abtest.name) pathname = ABinit(abtest) || pathname;
+  pathname = (await ABinit(pathname)) || pathname;
   const components = await fetchPageComponents(pathname);
   return <BuilderComponent components={components}></BuilderComponent>;
 };
