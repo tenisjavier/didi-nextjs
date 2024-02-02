@@ -138,6 +138,7 @@ const fetchABtest = async (pathname: string): Promise<ABtestT> => {
     abtestCollection(where: { pathname: "${pathname}"}) {
       items{
         name
+        pathname
         pagesCollection{
           items{
             name

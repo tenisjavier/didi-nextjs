@@ -1,5 +1,5 @@
 // codigo de tracking didi SEO y WEB
-
+import gtmEvent from "./gtmEvent";
 export default function insertBtnParams() {
   window.localStorage.removeItem("gatsby-i18next-language");
 
@@ -264,10 +264,16 @@ export default function insertBtnParams() {
       }
       const abName = getCookie("abName");
       const abVersion = getCookie("abVersion");
-
+      const abPathname = decodeURIComponent(getCookie("abPathname"));
       if (abName && abVersion) {
         const test_version = getCookie("abName") + "-" + getCookie("abVersion");
         adgroupId = test_version;
+        if (abPathname === window.location.pathname) {
+          gtmEvent("ab-landing", {
+            version: abVersion,
+            versionName: abName,
+          });
+        }
       }
     }
 

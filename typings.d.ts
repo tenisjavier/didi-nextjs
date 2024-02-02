@@ -395,6 +395,7 @@ const CardPaySchema = z.object({
 
 const ABtestSchema = z.object({
   name: z.string(),
+  pathname: z.string(),
   pagesCollection: z.any(), //! arreglar
 });
 

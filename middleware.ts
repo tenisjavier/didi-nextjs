@@ -18,13 +18,13 @@ export const config = {
     "/:path*/centro-de-ayuda/:path*",
   ],
 };
+
 export async function middleware(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
-  const abtest = await fetchABtest("/cl/");
+  const abtest = await fetchABtest(request.nextUrl.pathname);
   if (abtest) {
     const name = abtest.name;
     const test_version = request.cookies.get("abName")?.value;
-
     //? if is a new user with no cookies
     if (test_version !== name) {
       let group = Math.random();
@@ -39,6 +39,7 @@ export async function middleware(request: NextRequest) {
         });
         response.cookies.set("abVersion", "b");
         response.cookies.set("abName", name);
+        response.cookies.set("abPathname", abtest.pathname);
         return response;
       } else {
         requestHeaders.set("x-ab-version", "a");
@@ -49,8 +50,10 @@ export async function middleware(request: NextRequest) {
             headers: requestHeaders,
           },
         });
+
         response.cookies.set("abVersion", "a");
         response.cookies.set("abName", name);
+        response.cookies.set("abPathname", abtest.pathname);
         return response;
       }
     }
