@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "Requisitos para Conducir y empezar a Ganar Dinero | DiDi Perú",
   description:
     "Requisitos para Conducir en DiDi. Regístrate como socio conductor, ganando más y manejando menos",
+  alternates: {
+    canonical: `https://web.didiglobal.com/pe/conductor/requisitos-para-conducir/`,
+  },
 };
 
 const Conductor = async () => {

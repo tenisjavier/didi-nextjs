@@ -10,6 +10,9 @@ export const metadata: Metadata = {
     "Artículos de interés sobre lugares que puedes ir a visitar con DiDi. | DiDi Argentina",
   description:
     "Artículos sobre parques, restaurantes, lugares turísticos, etc. Leé sobre distintos destinos.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/ar/articulos/`,
+  },
 };
 
 const Articulos = async () => {

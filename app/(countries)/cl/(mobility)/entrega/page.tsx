@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "DiDi Entrega: Envía cosas grandes o chicas | DiDi Chile",
   description:
     "DiDi Entrega en Chile. Realiza envíos en los autos registrados en la app. Si cabe en la maleta del auto, te lo enviamos.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/cl/entrega/`,
+  },
 };
 
 const Entrega = async () => {

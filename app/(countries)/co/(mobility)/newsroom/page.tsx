@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "Noticias sobre DiDi en Panamá | DiDi Panamá",
   description:
     "Noticias de DiDi en Panamá. En esta sección se publicarán las últimas noticias de la App Nº1 del mundo en mobilidad.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/co/newsroom/`,
+  },
 };
 
 const Newsroom = async () => {

@@ -10,6 +10,9 @@ export const metadata: Metadata = {
     "DiDi Noticias - Aquí te contamos de novedades sobre DiDi | DiDi Ecuador",
   description:
     "DiDi Noticias en Ecuador, regístrate como socio conductor en las categorías express, taxi y fleet ganando más y manejando menos. La App nº1 en movilidad llegó.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/`,
+  },
 };
 
 const Newsroom = async () => {

@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "DiDi Taxi - Baja la App y Viaja Seguro | DiDi Panamá",
   description:
     "DiDi Taxi. Viaja seguro, barato y rápido. DiDi Express y DiDi Moto están activos en Panamá. Elige la mejor opción.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/co/taxi/`,
+  },
 };
 
 const Pasajero = async () => {

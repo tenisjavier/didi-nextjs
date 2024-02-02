@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "Guías para Conductores DiDi. | DiDi Argentina",
   description:
     "Guías educativas para conductores. Enterate de distintos asociados a conducción de un vehículo.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/ar/guias/`,
+  },
 };
 
 const Guias = async () => {

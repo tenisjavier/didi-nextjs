@@ -8,13 +8,16 @@ import { fetchPageComponents } from "@/utils/db";
 export const metadata: Metadata = {
   title: "Regístrate como Socio Conductor",
   description: "Elmejor",
+  alternates: {
+    canonical: `https://web.didiglobal.com/co/conductor/requisitos-para-conducir/`,
+  },
 };
 
-
 const Conductor = async () => {
-  const components = await fetchPageComponents("/co/conductor/requisitos-para-conducir/");
+  const components = await fetchPageComponents(
+    "/co/conductor/requisitos-para-conducir/"
+  );
   return <BuilderComponent components={components}></BuilderComponent>;
 };
 
 export default Conductor;
-
