@@ -1,5 +1,13 @@
-// codigo de tracking didi SEO y WEB
 import gtmEvent from "./gtmEvent";
+
+//? get cookie function
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(";").shift();
+}
+
+//? script for the btn params
 export default function insertBtnParams() {
   window.localStorage.removeItem("gatsby-i18next-language");
 
@@ -52,6 +60,16 @@ export default function insertBtnParams() {
     localStorage.setItem("urlSearch", search);
   }
 
+  //? GTM AB Landing if abtest
+  const abPathname = decodeURIComponent(getCookie("abPathname"));
+  if (abPathname === window.location.pathname) {
+    const abName = getCookie("abName");
+    const abVersion = getCookie("abVersion");
+    gtmEvent("ab-landing", {
+      version: abVersion,
+      versionName: abName + "-" + abVersion,
+    });
+  }
   document.querySelectorAll("a").forEach(function (c) {
     let url = c.getAttribute("href");
     url = url + "?" + search;
@@ -257,23 +275,12 @@ export default function insertBtnParams() {
       campaignId = "refpage_" + window.location.pathname;
 
       //? EXPERIMENT A/B other code in Layout
-      function getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(";").shift();
-      }
       const abName = getCookie("abName");
       const abVersion = getCookie("abVersion");
-      const abPathname = decodeURIComponent(getCookie("abPathname"));
+
       if (abName && abVersion) {
         const test_version = getCookie("abName") + "-" + getCookie("abVersion");
         adgroupId = test_version;
-        if (abPathname === window.location.pathname) {
-          gtmEvent("ab-landing", {
-            version: abVersion,
-            versionName: abName,
-          });
-        }
       }
     }
 
