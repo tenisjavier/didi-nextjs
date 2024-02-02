@@ -10,10 +10,15 @@ export const metadata: Metadata = {
     "En DiDi tu Seguridad es nuestra prioridad conoce más acá | DiDi Panamá",
   description:
     "Conoce aquí las funcionalidades y medidas de seguridad que hemos tomado para que en tu próximo viajes lo disfrutes al máximo.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/au/safety/fatigue-prevention-feature/`,
+  },
 };
 
 const Seguridad = async () => {
-  const components = await fetchPageComponents("/au/safety/fatigue-prevention-feature/");
+  const components = await fetchPageComponents(
+    "/au/safety/fatigue-prevention-feature/"
+  );
   return <BuilderComponent components={components}></BuilderComponent>;
 };
 

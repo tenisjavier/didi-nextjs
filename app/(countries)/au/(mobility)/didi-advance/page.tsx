@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "DiDi Conductor - Maneja y Genera Dinero | DiDi Panamá",
   description:
     "DiDi Conductor. Revisa los requisitos. Regístrate como socio conductor en las categorías express y moto, ganando más y manejando menos.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/au/didi-advance/`,
+  },
 };
 
 const Conductor = async () => {
