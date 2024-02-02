@@ -10,6 +10,9 @@ export const metadata: Metadata = {
     "En DiDi tu Seguridad es nuestra prioridad conoce más acá | DiDi Ecuador",
   description:
     "Conoce aquí las funcionalidades y medidas de seguridad que hemos tomado para que en tu próximo viajes lo disfrutes al máximo.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/ec/seguridad/`,
+  },
 };
 
 const Seguridad = async () => {
