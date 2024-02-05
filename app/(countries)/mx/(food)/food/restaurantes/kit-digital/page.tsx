@@ -11,8 +11,10 @@ export const metadata: Metadata = {
 };
 
 const page = async () => {
-  const components = await fetchPageComponents("/mx/food/restaurantes/kit-digital/");
-  console.log('components', components)
+  const components = await fetchPageComponents(
+    "/mx/food/restaurantes/kit-digital/"
+  );
+
   return <BuilderComponent components={components}></BuilderComponent>;
 };
 

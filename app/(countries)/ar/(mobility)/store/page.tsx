@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import QrCode from "@/components/Qr";
 
 //? builder will return the array of components fetch by db by pathname
@@ -14,8 +14,8 @@ const Store = () => {
     <>
       <QrCode
         title={"Escaneá el QR con tu celular"}
-        desc={"Descargá DiDi Pasajero escaneando el código con tu celular."}>
-      </QrCode>
+        desc={"Descargá DiDi Pasajero escaneando el código con tu celular."}
+      />
     </>
   );
 };
