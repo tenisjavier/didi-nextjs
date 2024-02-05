@@ -6,9 +6,9 @@ import { fetchPageComponents } from "@/utils/db";
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
-  title: "DiDi Conductor - Maneja y Genera Dinero | DiDi Panamá",
+  title: "DiDi Driver - Drive and earn with DiDi | DiDi Australia",
   description:
-    "DiDi Conductor. Revisa los requisitos. Regístrate como socio conductor en las categorías express y moto, ganando más y manejando menos.",
+    "Start earning today as a driver-partner with industry-leading safety features and low service fees.",
 };
 
 const Conductor = async () => {
