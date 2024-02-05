@@ -11,8 +11,10 @@ export const metadata: Metadata = {
 };
 
 const page = async () => {
-  const components = await fetchPageComponents("/cr/food/repartidores/preguntas-frecuentes/");
-  console.log('components', components)
+  const components = await fetchPageComponents(
+    "/cr/food/repartidores/preguntas-frecuentes/"
+  );
+
   return <BuilderComponent components={components}></BuilderComponent>;
 };
 

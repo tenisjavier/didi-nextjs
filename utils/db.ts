@@ -310,7 +310,6 @@ const fetchCTASectionById = async (id: string): Promise<CTASectionT> => {
 
   const res = await fetch(`${apiUrl}?query=${query}`, {
     headers: headers,
-    cache: "no-cache",
   });
 
   if (!res.ok) {

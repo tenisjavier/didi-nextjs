@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 const Store = () => {
   return (
     <>
-      <QrCode></QrCode>
+      <QrCode />
     </>
   );
 };

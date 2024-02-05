@@ -11,8 +11,10 @@ export const metadata: Metadata = {
 };
 
 const page = async () => {
-  const components = await fetchPageComponents("/mx/didipay/tarjetas-de-regalo/");
-  console.log('components', components)
+  const components = await fetchPageComponents(
+    "/mx/didipay/tarjetas-de-regalo/"
+  );
+
   return <BuilderComponent components={components}></BuilderComponent>;
 };
 
