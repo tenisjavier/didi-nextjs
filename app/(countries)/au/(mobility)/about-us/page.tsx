@@ -10,11 +10,9 @@ export const metadata: Metadata = {
   description: "Elmejor",
 };
 
-
 const SobreDiDi = async () => {
-  const components = await fetchPageComponents("/au/about-didi/");
+  const components = await fetchPageComponents("/au/about-us/");
   return <BuilderComponent components={components}></BuilderComponent>;
 };
 
 export default SobreDiDi;
-

@@ -258,6 +258,10 @@ const menuLinks: Menu = {
           text: "Centro de Ayuda",
           url: "/cl/centro-de-ayuda/",
         },
+        {
+          text: "Sobre DiDi",
+          url: "/cl/sobre-didi/",
+        },
       ],
     },
     {
@@ -528,6 +532,10 @@ const menuLinks: Menu = {
         {
           text: "Contacto",
           url: "/ar/contacto/",
+        },
+        {
+          text: "Sobre DiDi",
+          url: "/ar/sobre-didi/",
         },
       ],
     },
@@ -900,6 +908,10 @@ const menuLinks: Menu = {
         {
           text: "Contact",
           url: "/au/contact/",
+        },
+        {
+          text: "About DiDi",
+          url: "/au/about-us/",
         },
       ],
     },
