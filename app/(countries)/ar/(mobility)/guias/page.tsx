@@ -6,10 +6,13 @@ import { fetchPageComponents } from "@/utils/db";
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
-  title: "Regístrate como Socio Conductor",
-  description: "Elmejor",
+  title: "Guías para Conductores DiDi. | DiDi Argentina",
+  description:
+    "Guías educativas para conductores. Enterate de distintos asociados a conducción de un vehículo.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/ar/guias/`,
+  },
 };
-
 
 const Guias = async () => {
   const components = await fetchPageComponents("/ar/guias/");
@@ -17,4 +20,3 @@ const Guias = async () => {
 };
 
 export default Guias;
-

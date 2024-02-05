@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "DiDi Taxi en Chile - Genera Ingresos Extra | DiDi Chile",
   description:
     "DiDi Taxi en Chile, regístrate como socio conductor en las categorías express, taxi y fleet ganando más y manejando menos. La App nº1 en movilidad llegó.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/cl/taxi/`,
+  },
 };
 
 const Taxi = async () => {

@@ -17,7 +17,10 @@ interface GuiasProps {
 }
 
 // or Dynamic metadata
-export async function generateGuideMetadata(slug: string, countryCode: CountryCode) {
+export async function generateGuideMetadata(
+  slug: string,
+  countryCode: CountryCode
+) {
   const guide = (await fetchGuideBySlug(countryCode, slug)).items?.[0];
   return {
     title: guide.seoTitle,
@@ -26,27 +29,30 @@ export async function generateGuideMetadata(slug: string, countryCode: CountryCo
 }
 
 // SSG approach for this pages
-export async function generateGuideStaticParams(countryCode: CountryCode, category: string) {
-  const guides = (await fetchGuidesByCategory(category, countryCode))?.items
+export async function generateGuideStaticParams(
+  countryCode: CountryCode,
+  category: string
+) {
+  const guides = (await fetchGuidesByCategory(category, countryCode))?.items;
   const guidesSlugs = guides?.map((guide: { slug: string }) => {
     slug: guide.slug;
   });
   return guidesSlugs;
 }
 
-const GuidePage = async ({ params: { slug, guideCategory, countryCode } }: GuiasProps) => {
-
+const GuidePage = async ({
+  params: { slug, guideCategory, countryCode },
+}: GuiasProps) => {
   const [guideContent, suggestedGuides] = await Promise.all([
     fetchGuideBySlug(countryCode, slug),
     fetchGuidesByCategory(guideCategory, countryCode),
   ]);
 
-  const guide = guideContent?.items?.[0]
+  const guide = guideContent?.items?.[0];
 
   if (!guide) return notFound();
 
-
-  const countryName = guide?.country?.name
+  const countryName = guide?.country?.name;
 
   const heroProps = {
     title: guide.title,
@@ -74,7 +80,7 @@ const GuidePage = async ({ params: { slug, guideCategory, countryCode } }: Guias
     textColor: "white",
     gridCols: 3,
     gap: 0,
-    itemType: 'Guide',
+    itemType: "Guide",
     guideCategory: [guideCategory],
     pagination: {
       total: suggestedGuides.total,
@@ -84,7 +90,9 @@ const GuidePage = async ({ params: { slug, guideCategory, countryCode } }: Guias
     columns: suggestedGuides.items.map((guide) => {
       return {
         title: (
-          <Link href={`/${countryCode}/guias/${guide.slug}`}>{guide.title}</Link>
+          <Link href={`/${countryCode}/guias/${guide.slug}`}>
+            {guide.title}
+          </Link>
         ),
         desc: guide.excerpt,
         image: guide.featuredImage,
@@ -111,5 +119,3 @@ const GuidePage = async ({ params: { slug, guideCategory, countryCode } }: Guias
 };
 
 export default GuidePage;
-
-

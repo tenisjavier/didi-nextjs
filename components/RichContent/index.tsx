@@ -79,7 +79,7 @@ const RichContent = ({ richContent }: any) => {
                             className="border-2 border-gray-light border-solid p-4"
                           >
                             {cell.content[0].content.length > 1 &&
-                              cell.content[0].content[1].nodeType ===
+                            cell.content[0].content[1].nodeType ===
                               "hyperlink" ? (
                               <a
                                 href={cell.content[0].content[1].data.uri}
@@ -195,7 +195,7 @@ const RichContent = ({ richContent }: any) => {
               alt={image.description}
               width={width}
               height={height}
-            // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             ></Image>
           </div>
         );

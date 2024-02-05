@@ -6,13 +6,17 @@ import { fetchPageComponents } from "@/utils/db";
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
-  title: "Regístrate como Socio Conductor",
-  description: "Elmejor",
+  title: "DiDi Food Perú: Pide comida a Domicilio | DiDi Food Perú",
+  description:
+    "Pide comida a domicilio de tus restaurantes favoritos. Es rápido, cómodo y barato. Descarga gratis la app de DiDi Food ¡Recibe tu pedido en minutos!",
+  alternates: {
+    canonical: `https://web.didiglobal.com/pe/food/`,
+  },
 };
 
 const page = async () => {
   const components = await fetchPageComponents("/pe/food/");
-  console.log('components', components)
+  console.log("components", components);
   return <BuilderComponent components={components}></BuilderComponent>;
 };
 
