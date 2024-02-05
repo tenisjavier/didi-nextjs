@@ -36,8 +36,7 @@ export type BtnMode =
   | "light"
   | "green"
   | "hidden"
-  | "whatsapp"
-  | "static";
+  | "whatsapp";
 
 export interface BtnProps {
   btnType: BtnType;
@@ -107,7 +106,7 @@ const Btn = ({
   }
 
   const handleClick = (e: any) => {
-    if (btnMode === "static") return;
+    if (btnType === "custom") return;
     if (notRedirectOutPage) {
       if (download) {
         setIsLoading(true);
@@ -119,18 +118,13 @@ const Btn = ({
     }
     e.preventDefault();
     const link = e.target.href;
-    let form;
     const url = new URL(link);
-    let version = url.searchParams.get("ad_group_id")?.toString();
-    if (url.searchParams.get("c")?.toString().includes("/food"))
-      version = localStorage.getItem("t6")?.toString();
-    if (btnType === "drv")
-      form = link.includes("silver-bullet-online") ? "quickbolt" : "h5";
+    let versionName = url.searchParams.get("ad_group_id")?.toString();
     gtmEvent(`click-btn`, {
       btnType: btnType,
       btnLink: link,
-      form: form,
-      versionName: version,
+      versionName: versionName,
+      version: versionName?.slice(-1),
       btnText: e.target.innerText,
       countryCode: countryCode,
     });
@@ -165,3 +159,10 @@ const Btn = ({
 };
 
 export default Btn;
+
+//? get cookie function
+function getCookie(name: string) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts?.pop()?.split(";").shift();
+}
