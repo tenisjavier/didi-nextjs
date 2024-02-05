@@ -49,7 +49,7 @@ const ColumnImageSection = (props: ColumnImageT) => {
                       <Image
                         src={image.url}
                         alt={image.description}
-                        className={imageStyle}
+                        className={imageStyle + " w-80 h-auto"}
                         width={image.width || 450}
                         height={image.height || 450}
                       />

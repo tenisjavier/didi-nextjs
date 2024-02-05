@@ -311,6 +311,9 @@ const fetchCTASectionById = async (id: string): Promise<CTASectionT> => {
       bullets
       textColor
       bgColor
+      type
+      bulletsConfigColumn
+      whiteRight
       bgImage {
         title
         description

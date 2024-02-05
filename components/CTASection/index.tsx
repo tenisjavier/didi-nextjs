@@ -1,12 +1,9 @@
 import React from "react";
 import Image from "next/image";
-import Btn from "@/components/Btn";
 import SectionBullets from "@/components/CTASection/SectionBullets";
 import SectionList from "@/components/CTASection/SectionList";
 import SectionBtn from "./SectionBtn";
-import SectionCreditCardCashBackBullets, {
-  SectionCreditCardCashBackBulletsProps,
-} from "@/components/CTASection/SectionCreditCardCashBackBullets";
+import SectionCreditCardCashBackBullets from "@/components/CTASection/SectionCreditCardCashBackBullets";
 import textHighlighter from "@/utils/textHighlighter";
 import { CTASectionT } from "@/typings";
 
@@ -34,38 +31,34 @@ const CTASection = (props: CTASectionT) => {
     reverse,
     RTL,
     descBeforeBullets = true,
-    // bulletsCreditCard,
     bulletsConfigColumn = "default",
     borderColor,
     textHighlighterConfig,
-    hasTextHighlighterBullets,
     whiteRight,
     mobileTitlePosition,
     brightness,
+    type,
   } = props;
 
   const isRtl = RTL ? "rtl" : "ltr";
   const textDir = RTL ? "text-right" : "text-left";
   const margin = RTL ? "ml-4" : "mr-4";
   const bgImageStyle = mobileBgImage
-    ? `hidden !absolute z-0 h-full w-full md:block object-cover ${
-        brightness && brightness
-      }}`
-    : `!absolute z-0 h-full w-full md:block object-cover ${
-        brightness && brightness
-      }`;
+    ? `hidden !absolute z-0 h-full w-full md:block object-cover ${brightness && brightness
+    }}`
+    : `!absolute z-0 h-full w-full md:block object-cover ${brightness && brightness
+    }`;
   const mobileBgImageStyle = `!absolute z-0 h-full w-full md:!hidden object-cover`;
   const imageStyle = "z-10 m-4 w-80 h-auto lg:w-100 " + rounded;
+
   const getTitleElement = () => {
     if (isHero) {
       return (
         <h1 className={`text-4xl font-bold md:text-5xl mt-0`}>
           {title &&
-            title.split("\n").map((str, index) => (
+            title.split("\\n").map((str, index) => (
               <span key={index}>
-                {textHighlighterConfig?.hasTextHighlighter
-                  ? textHighlighter(str, textHighlighterConfig.style)
-                  : str}
+                {textHighlighter(str, textHighlighterConfig?.style || '')}
                 <br />
               </span>
             ))}
@@ -75,11 +68,9 @@ const CTASection = (props: CTASectionT) => {
       return (
         <h2 className="font-bold text-3xl md:text-4xl">
           {title &&
-            title.split("\n").map((str, index) => (
+            title.split("\\n").map((str, index) => (
               <span key={index}>
-                {textHighlighterConfig?.hasTextHighlighter
-                  ? textHighlighter(str, textHighlighterConfig.style)
-                  : str}
+                {textHighlighter(str, textHighlighterConfig?.style || '')}
                 <br />
               </span>
             ))}
@@ -89,17 +80,20 @@ const CTASection = (props: CTASectionT) => {
   };
 
   const renderSectionDesc = () => {
+
     return (
-      <p className={`mb-10 text-lg`}>
+      <p className={`mb-10 text-lg ${bulletsConfigColumn === "singleColumn" ? 'w-11/12 lg:w-1/2' : ''}`}>
         {desc &&
-          desc.split("\n").map((str, index) => (
-            <span key={index}>
-              {textHighlighterConfig?.hasTextHighlighter
-                ? textHighlighter(str, textHighlighterConfig.style)
-                : str}
-              <br />
-            </span>
-          ))}
+          desc.split("\\n").map((str, index) => {
+            return (
+              <span key={index}>
+                {textHighlighterConfig?.hasTextHighlighter
+                  ? textHighlighter(str, textHighlighterConfig.style)
+                  : str}
+                <br />
+              </span>
+            )
+          })}
       </p>
     );
   };
@@ -107,25 +101,21 @@ const CTASection = (props: CTASectionT) => {
   return (
     <section
       style={{ direction: isRtl }}
-      className={`relative flex min-h-[44rem] w-full items-center justify-center overflow-hidden ${
-        bgColor && bgColor
-      } ${borderColor && "border-solid border border-" + borderColor} `}
+      className={`relative flex min-h-[44rem] w-full items-center justify-center overflow-hidden ${bgColor && bgColor
+        } ${borderColor && "border-solid border border-" + borderColor} `}
     >
       <div
-        className={`${
-          whiteRight ? "white-right" : "container"
-        }  mx-auto flex w-full lg:flex-nowrap items-center justify-center py-12 ${
-          reverse && isHero
+        className={`${whiteRight ? "white-right" : "container"
+          }  mx-auto flex w-full lg:flex-nowrap items-center justify-center py-12 ${reverse && isHero
             ? "flex-row-reverse flex-wrap-reverse pt-28 lg:pt-12 "
             : "flex-wrap "
-        } ${reverse ? "flex-row-reverse" : ""} 
-        ${
-          image || imageRawRender || bulletsConfigColumn === "singleColumn"
+          } ${reverse ? "flex-row-reverse" : ""} ${bulletsConfigColumn === "singleColumn" ? "flex-col-reverse lg:flex-row-reverse" : ""}
+        ${image || imageRawRender || bulletsConfigColumn === "singleColumn"
             ? whiteRight
               ? "lg:justify-center"
               : "lg:justify-between"
             : "lg:justify-start"
-        }`}
+          } text-${textColor}`}
       >
         {image && (
           <Image
@@ -136,67 +126,66 @@ const CTASection = (props: CTASectionT) => {
             height={450}
           />
         )}
-        {bullets && bulletsConfigColumn === "singleColumn" && (
+        {type !== "cashback" && bullets && bulletsConfigColumn === "singleColumn" && (
           <SectionBullets
             bullets={bullets}
             customBulletIcon={customBulletIcon}
             margin={margin}
             textDir={textDir}
             icon={icon}
-            hasTextHighlighter={hasTextHighlighterBullets}
           />
         )}
 
-        {/* {bulletsCreditCard && bulletsConfigColumn === "singleColumn" && (
+        {type === "cashback" && bulletsConfigColumn === "singleColumn" && (
           <SectionCreditCardCashBackBullets
-            creditCardCashBackBullets={
-              bulletsCreditCard.creditCardCashBackBullets
-            }
+            bullets={bullets}
           />
-        )} */}
+        )}
 
         {imageRawRender && imageRawRender}
 
         <div
-          className={`${
-            mobileTitlePosition === "top" ? "absolute top-24 md:static" : ""
-          } w-11/12 mb-8 lg:mt-16 lg:w-1/2 text-${textColor} z-10 xl:${textDir}`}
+          className={`${mobileTitlePosition === "top" ? "absolute top-24 md:static" : ""
+            } w-11/12 mb-8 lg:mt-16 lg:w-1/2 text-${textColor} z-10 xl:${textDir}`}
         >
           {getTitleElement()}
           <div
-            className={`flex ${
-              descBeforeBullets ? "flex-col" : "flex-col-reverse"
-            }`}
+            className={`flex ${descBeforeBullets ? "flex-col" : "flex-col-reverse"
+              }`}
           >
             {desc && renderSectionDesc()}
 
-            {bullets && bulletsConfigColumn === "default" && (
+            {type !== "cashback" && bullets && bulletsConfigColumn !== "singleColumn" && (
               <SectionBullets
                 bullets={bullets}
                 customBulletIcon={customBulletIcon}
                 margin={margin}
                 textDir={textDir}
                 icon={icon}
-                hasTextHighlighter={hasTextHighlighterBullets}
               />
             )}
-            {/* {bulletsCreditCard && bulletsConfigColumn === "default" && (
+
+            {type === "cashback" && bulletsConfigColumn !== "singleColumn" && (
               <SectionCreditCardCashBackBullets
-                creditCardCashBackBullets={
-                  bulletsCreditCard.creditCardCashBackBullets
-                }
+                bullets={bullets}
               />
-            )} */}
+            )}
+
           </div>
           {list && <SectionList list={list} />}
-          <div className="text-center lg:text-left">
-            <SectionBtn
-              btnType={btnType}
-              btnMode={btnMode}
-              btnLink={btnLink}
-              btnText={btnText}
-            ></SectionBtn>
-          </div>
+
+          {btnType || btnMode || btnLink || btnText ? (
+            <div className="text-center lg:text-left">
+              <SectionBtn
+                btnType={btnType}
+                btnMode={btnMode}
+                btnLink={btnLink}
+                btnText={btnText}
+              ></SectionBtn>
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
 

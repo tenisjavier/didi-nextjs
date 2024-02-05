@@ -112,6 +112,9 @@ const CTASectionSchema = z.object({
   btnLink: BtnMode.nullish(),
   btnModeSecondary: z.string().optional(),
   reverse: z.boolean().nullish(),
+  type: z.enum(["default", "cashback"]),
+  bulletsConfigColumn: z.enum(["default", "singleColumn"]),
+  whiteRight: z.boolean().nullish(),
 });
 
 const CardSchema = z.object({

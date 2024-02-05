@@ -2,6 +2,7 @@ import React from "react";
 import Btn from "@/components/Btn";
 import Image from "next/image";
 import { BannerT } from "@/typings";
+import textHighlighter from "@/utils/textHighlighter";
 
 const Banner = ({
   title,
@@ -25,8 +26,8 @@ const Banner = ({
           className={` py-4  px-4 lg:px-0  ${image ? "text-left" : "text-center"
             }`}
         >
-          <h3 className={`mb-2 text-3xl lg:text-4xl  font-bold `}>{title}</h3>
-          {desc && <p className="text-lg ">{desc}</p>}
+          <h3 className={`mb-2 text-3xl lg:text-4xl  font-bold `}>{textHighlighter(title)}</h3>
+          {desc && <p className="text-lg ">{textHighlighter(desc)}</p>}
           {video && (
             <p className="text-lg ">
               <iframe
