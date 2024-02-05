@@ -8,8 +8,10 @@ import { fetchPageComponents } from "@/utils/db";
 export const metadata: Metadata = {
   title: "Regístrate como Socio Conductor",
   description: "Elmejor",
+  alternates: {
+    canonical: `https://web.didiglobal.com/mx/didi-fleet/`,
+  },
 };
-
 
 const Fleet = async () => {
   const components = await fetchPageComponents("/mx/didi-fleet/");
@@ -17,4 +19,3 @@ const Fleet = async () => {
 };
 
 export default Fleet;
-

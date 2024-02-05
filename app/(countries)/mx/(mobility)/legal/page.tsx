@@ -9,13 +9,15 @@ import RichContent from "@/components/RichContent";
 export const metadata: Metadata = {
   title: "Regístrate como Socio Conductor",
   description: "Elmejor",
+  alternates: {
+    canonical: `https://web.didiglobal.com/mx/legal/`,
+  },
 };
-
 
 const Legal = async () => {
   const components = await fetchPageComponents("/mx/legal/");
 
-  const legal = await fetchLegalBySlug("mx", 'legal-mexico');
+  const legal = await fetchLegalBySlug("mx", "legal-mexico");
 
   return (
     <>
@@ -30,4 +32,3 @@ const Legal = async () => {
 };
 
 export default Legal;
-
