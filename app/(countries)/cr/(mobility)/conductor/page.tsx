@@ -6,10 +6,10 @@ import { fetchPageComponents } from "@/utils/db";
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
-  title: "Regístrate como Socio Conductor",
-  description: "Elmejor",
+  title: "DiDi Conductor - Manejá y Generá Dinero | DiDi Costa Rica",
+  description:
+    "DiDi Conductor. Revisá los requisitos. Registrate como socio conductor en la categoría express ganando más y conduciendo menos.",
 };
-
 
 const Conductor = async () => {
   const components = await fetchPageComponents("/cr/conductor/");
@@ -17,4 +17,3 @@ const Conductor = async () => {
 };
 
 export default Conductor;
-

@@ -6,13 +6,15 @@ import { fetchPageComponents } from "@/utils/db";
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
-  title: "Regístrate como Socio Conductor",
-  description: "Elmejor",
+  title:
+    "DiDi Food: Contactá nuestro Servicio al Cliente | DiDi Food Costa Rica",
+  description:
+    "Si sos repartidor, restaurante o usuario podés escribirnos por cualquier problema que tengas con DiDi Food.",
 };
 
 const page = async () => {
   const components = await fetchPageComponents("/cr/food/contacto/");
-  console.log('components', components)
+  console.log("components", components);
   return <BuilderComponent components={components}></BuilderComponent>;
 };
 
