@@ -15,7 +15,6 @@ interface FAQProps {
 export async function generateMetadata({ params: { slug } }: FAQProps) {
   const faq = await fetchFAQBySlug("pe", slug);
   const content = faq.content.json.content[0].content[0].value;
-  console.log(content);
   return {
     title: `${faq.title} | DiDi Perú `,
     description: content.slice(0, 150) + "...",
