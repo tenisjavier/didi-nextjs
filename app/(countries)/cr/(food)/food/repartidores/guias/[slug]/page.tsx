@@ -48,7 +48,6 @@ const Guide = async ({ params: { slug } }: GuiasProps) => {
     btnType: "drv",
     btnMode: "light",
   };
-  console.log(suggestedGuides);
   return (
     <>
       <CTASection {...heroProps}></CTASection>
