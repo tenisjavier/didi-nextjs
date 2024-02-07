@@ -6,9 +6,9 @@ import { fetchPageComponents } from "@/utils/db";
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
-  title: "DiDi Taxi - Baja la App y Viaja Seguro | DiDi Panamá",
+  title: "DiDi Taxi - Genera Ingresos Extra con DiDi | DiDi Colombia",
   description:
-    "DiDi Taxi. Viaja seguro, barato y rápido. DiDi Express y DiDi Moto están activos en Panamá. Elige la mejor opción.",
+    "DiDi Taxi en Colombia, regístrate como socio conductor en las categorías express, taxi y fleet ganando más y manejando menos. La App nº1 en movilidad llegó.",
   alternates: {
     canonical: `https://web.didiglobal.com/co/taxi/`,
   },

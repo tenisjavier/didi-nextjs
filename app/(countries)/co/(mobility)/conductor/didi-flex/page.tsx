@@ -6,8 +6,9 @@ import { fetchPageComponents } from "@/utils/db";
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
-  title: "Regístrate como Socio Conductor",
-  description: "Elmejor",
+  title: "DiDi Flex: Elige el precio sin afectar tu seguridad | DiDi Colombia",
+  description:
+    "Descubre cómo se calculan las tarifas y cuánto puedes ganar como conductor registrado en DiDi Flex Colombia. Considerando retenciones de impuestos como ISR e IVA.",
   alternates: {
     canonical: `https://web.didiglobal.com/co/conductor/didi-flex/`,
   },
