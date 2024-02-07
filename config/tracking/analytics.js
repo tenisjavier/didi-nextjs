@@ -27,7 +27,7 @@ export default function insertBtnParams() {
   };
 
   var referringDomain = getDomain_(referrer);
-  console.log(referringDomain);
+
   //? search is the parameters complete string without ?
   var search = window.location.search.slice(1);
 
@@ -101,7 +101,7 @@ export default function insertBtnParams() {
   // function to get domain
   function getDomain_(url) {
     if (!url) return null;
-    console.log(url);
+
     try {
       let parsedUrl = new URL(url);
       let hostname = parsedUrl.hostname;
