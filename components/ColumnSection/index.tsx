@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import React, { useEffect, useRef, useState } from "react";
 import Card from "@/components/Card";
@@ -26,6 +26,7 @@ const ColumnsSection = (props: ColumnSectionT) => {
     guideCategory,
     itemType,
   } = props;
+
 
   const { push, replace  } = useRouter()
   const params = useSearchParams()
@@ -56,75 +57,79 @@ const ColumnsSection = (props: ColumnSectionT) => {
 
   const nextPage = async () => {
     if (paginationContent) {
-      const res = await fetch("/api/pagination", {
-        method: "POST",
-        body: JSON.stringify({
-          code: country?.code,
-          category: articleCategory?.[0] || guideCategory?.[0],
-          itemType: itemType,
-          limit: paginationContent?.limit,
-          skip: Math.abs(paginationContent?.skip + paginationContent?.limit),
-        }),
-      });
-
-      setCurrangePage(currentPage + 1)
-      const { data } = await res.json();
-
-      if (itemType?.toLowerCase() === "article") {
-        if (country?.code && articleCategory?.[0]) {
-          const items: ListItemT = data?.items?.map((article: any) => {
-            return {
-              title: article.title,
-              desc: article.excerpt,
-              image: article.featuredImage,
-              pathname: article.slug,
-              btnLink: article.slug,
-              btnType: "custom",
-              btnText: "Leer Artículo",
-              btnMode: "dark",
-              bgColor: "bg-white",
-              textColor: "gray-primary",
+      try {
+        const res = await fetch("/api/pagination", {
+          method: "POST",
+          body: JSON.stringify({
+            code: country?.code,
+            category: articleCategory?.[0] || guideCategory?.[0],
+            itemType: itemType,
+            limit: paginationContent?.limit,
+            skip: Math.abs(paginationContent?.skip + paginationContent?.limit),
+          }),
+        });
+  
+        setCurrangePage(currentPage + 1)
+        const { data } = await res.json();
+  
+        if (itemType?.toLowerCase() === "article") {
+          if (country?.code && articleCategory?.[0]) {
+            const items: ListItemT = data?.items?.map((article: any) => {
+              return {
+                title: article.title,
+                desc: article.excerpt,
+                image: article.featuredImage,
+                pathname: article.slug,
+                btnLink: article.slug,
+                btnType: "custom",
+                btnText: "Leer Artículo",
+                btnMode: "dark",
+                bgColor: "bg-white",
+                textColor: "gray-primary",
+              };
+            });
+            data.items = items;
+            data.pagination = {
+              total: data?.total,
+              limit: data?.limit,
+              skip: data?.skip,
             };
-          });
-          data.items = items;
-          data.pagination = {
-            total: data?.total,
-            limit: data?.limit,
-            skip: data?.skip,
-          };
+          }
         }
-      }
-
-      if (itemType?.toLowerCase() === "guide") {
-        if (country?.code && guideCategory?.[0]) {
-          const items: ListItemT = data?.items?.map((guide: any) => {
-            return {
-              title: guide.title,
-              desc: guide.excerpt,
-              image: guide.featuredImage,
-              pathname: guide.slug,
-              btnLink: guide.slug,
-              btnType: "custom",
-              btnText: "Leer Artículo",
-              btnMode: "dark",
-              bgColor: "bg-white",
-              textColor: "gray-primary",
+  
+        if (itemType?.toLowerCase() === "guide") {
+          if (country?.code && guideCategory?.[0]) {
+            const items: ListItemT = data?.items?.map((guide: any) => {
+              return {
+                title: guide.title,
+                desc: guide.excerpt,
+                image: guide.featuredImage,
+                pathname: guide.slug,
+                btnLink: guide.slug,
+                btnType: "custom",
+                btnText: "Leer Artículo",
+                btnMode: "dark",
+                bgColor: "bg-white",
+                textColor: "gray-primary",
+              };
+            });
+            data.items = items;
+            data.pagination = {
+              total: data?.total,
+              limit: data?.limit,
+              skip: data?.skip,
             };
-          });
-          data.items = items;
-          data.pagination = {
-            total: data?.total,
-            limit: data?.limit,
-            skip: data?.skip,
-          };
+          }
         }
+  
+        setItemsContent(data.items);
+        setPaginationContent(data.pagination);
+        columnRef.current?.scrollIntoView()
+      } catch (error) {
+        console.error(error);
       }
-
-      setItemsContent(data.items);
-      setPaginationContent(data.pagination);
-      columnRef.current?.scrollIntoView()
-    }
-  };
+  }
+}
 
   const prevPage = async () => {
     if (paginationContent) {
@@ -281,6 +286,7 @@ const ColumnsSection = (props: ColumnSectionT) => {
   }, [])
 
   return (
+    <React.Suspense fallback={<div>Loading...</div>}>
     <section
       style={{ direction: dir }}
       className={`${bgColor} text-${textColor} py-12`}
@@ -343,6 +349,7 @@ const ColumnsSection = (props: ColumnSectionT) => {
         />
       </div>
     </section>
+    </React.Suspense>
   );
 };
 
