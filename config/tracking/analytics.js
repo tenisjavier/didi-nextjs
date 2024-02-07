@@ -364,7 +364,7 @@ export default function insertBtnParams() {
     ) {
       newUrl.searchParams.set(
         "af_web_dp",
-        `${document.location.origin}/${countryCode}/store-fleet/`
+        `${document.location.origin}/${countryCode}/didi-fleet/store/`
       );
       return newUrl.href;
     } else if (url.href.indexOf("onelink.me/Zkxc/") > -1) {
