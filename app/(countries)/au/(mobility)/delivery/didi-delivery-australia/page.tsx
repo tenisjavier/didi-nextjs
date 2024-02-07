@@ -12,7 +12,9 @@ export const metadata: Metadata = {
 };
 
 const Conductor = async () => {
-  const components = await fetchPageComponents("/au/driver/didi-delivery-australia/");
+  const components = await fetchPageComponents(
+    "/au/driver/didi-delivery-australia/"
+  );
   return <BuilderComponent components={components}></BuilderComponent>;
 };
 
