@@ -154,7 +154,6 @@ const fetchABtest = async (pathname: string): Promise<ABtestT> => {
 
   const res = await fetch(`${apiUrl}?query=${query}`, {
     headers: headers,
-    cache: "no-cache",
   });
 
   if (!res.ok) {
@@ -253,7 +252,6 @@ const fetchPageComponents = async (
 
   const res = await fetch(`${apiUrl}?query=${query}`, {
     headers: headers,
-    cache: "no-cache",
   });
 
   if (!res.ok) {
@@ -356,7 +354,6 @@ const fetchOptionsSectionById = async (
 
   const res = await fetch(`${apiUrl}?query=${query}`, {
     headers: headers,
-    cache: "no-cache",
   });
 
   if (!res.ok) {
@@ -411,7 +408,6 @@ const fetchColumnImageSectionById = async (
   }`;
   const res = await fetch(`${apiUrl}?query=${query}`, {
     headers: headers,
-    cache: "no-cache",
   });
 
   if (!res.ok) {
@@ -544,7 +540,6 @@ const fetchCarouselById = async (id: string): Promise<CarouselT> => {
 
   const res = await fetch(`${apiUrl}?query=${query}`, {
     headers: headers,
-    cache: "no-cache",
   });
 
   if (!res.ok) {
@@ -629,7 +624,6 @@ carouselSection(id:"${id}") {
 
   const res = await fetch(`${apiUrl}?query=${query}`, {
     headers: headers,
-    cache: "no-cache",
   });
 
   if (!res.ok) {
@@ -727,7 +721,6 @@ const fetchAccordionSectionById = async (
 
     const res = await fetch(`${apiUrl}?query=${query}`, {
       headers: headers,
-      cache: "no-cache",
     });
 
     const { data } = await res.json();
@@ -808,7 +801,6 @@ banner(id:"${id}") {
 
   const res = await fetch(`${apiUrl}?query=${query}`, {
     headers: headers,
-    cache: "no-cache",
   });
 
   if (!res.ok) {
@@ -885,7 +877,6 @@ const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
 
   const res = await fetch(`${apiUrl}?query=${query}`, {
     headers: headers,
-    cache: "no-cache",
   });
 
   if (!res.ok) {
@@ -1015,7 +1006,6 @@ const fetchListSectionById = async (id: string): Promise<ListSectionT> => {
 
   const res = await fetch(`${apiUrl}?query=${query}`, {
     headers: headers,
-    cache: "no-cache",
   });
 
   if (!res.ok) {
@@ -1400,7 +1390,6 @@ const fetchFAQBySlug = async (
 
   const res = await fetch(`${apiUrl}?query=${query}`, {
     headers: headers,
-    cache: "no-cache",
   });
 
   if (!res.ok) {
@@ -1445,7 +1434,6 @@ const fetchLegalBySlug = async (
 
   const res = await fetch(`${apiUrl}?query=${query}`, {
     headers: headers,
-    cache: "no-cache",
   });
 
   if (!res.ok) {
@@ -1479,7 +1467,6 @@ const fetchPartnersByCategory = async (
 
   const res = await fetch(`${apiUrl}?query=${query}`, {
     headers: headers,
-    cache: "no-cache",
   });
 
   if (!res.ok) {
@@ -1553,7 +1540,6 @@ const fetchPartnerBySlug = async (
 
   const res = await fetch(`${apiUrl}?query=${query}`, {
     headers: headers,
-    cache: "no-cache",
   });
 
   if (!res.ok) {
@@ -1618,7 +1604,6 @@ const fetchFeatureBySlug = async (
 
   const res = await fetch(`${apiUrl}?query=${query}`, {
     headers: headers,
-    cache: "no-cache",
   });
 
   if (!res.ok) {
@@ -1655,7 +1640,6 @@ const fetchFeatureByCategory = async (
 
   const res = await fetch(`${apiUrl}?query=${query}`, {
     headers: headers,
-    cache: "no-cache",
   });
 
   if (!res.ok) {
