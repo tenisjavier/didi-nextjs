@@ -6,10 +6,11 @@ import { fetchPageComponents } from "@/utils/db";
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
-  title: "Regístrate como Socio Conductor",
-  description: "Elmejor",
+  title:
+    "¿Tienes Preguntas sobre DiDi? Revisa las Respuestas | DiDi Republica Dominicana",
+  description:
+    "Tanto si eres conductor o usuario de DiDi revisa las principales dudas que el resto de las personas tienen. Así tendrás una mejor experiencia.",
 };
-
 
 const SobreDiDi = async () => {
   const components = await fetchPageComponents("/do/sobre-didi/");
@@ -17,4 +18,3 @@ const SobreDiDi = async () => {
 };
 
 export default SobreDiDi;
-
