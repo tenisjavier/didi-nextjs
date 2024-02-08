@@ -5,11 +5,10 @@ import CTASection from "@/components/CTASection";
 import { QRCodeSVG } from "qrcode.react";
 interface QrCodeProps {
   title?: string,
-  desc?: string,
-  QRUrl?: string,
+  desc?: string
 }
 
-const QrCode = ({
+const QrCodeFleet = ({
   title,
   desc,
 }: QrCodeProps) => {
@@ -25,7 +24,7 @@ const QrCode = ({
     reverse: true,
   };
   const [QRUrl, setQRUrl] = useState(
-    "https://global-rides-passenger.onelink.me/xNlo"
+    "http://onelink.to/s88fxw"
   );
   const qr = (
     <QRCodeSVG
@@ -69,4 +68,4 @@ const QrCode = ({
   );
 };
 
-export default QrCode;
+export default QrCodeFleet;
