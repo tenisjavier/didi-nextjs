@@ -6,7 +6,7 @@ import CTASection from "@/components/CTASection";
 import RichContent from "@/components/RichContent";
 import Banner from "@/components/Banner";
 import ColumnsSection from "@/components/ColumnSection";
-import { notFound, useSearchParams } from "next/navigation";
+import { notFound } from "next/navigation";
 import { ArticleT, ColumnSectionT } from "@/typings";
 
 interface GuiasProps {
@@ -27,15 +27,15 @@ const Article = async ({ params: { slug } }: GuiasProps) => {
     fetchArticles("mx", "news"),
   ]);
 
-  const article = articleContent?.items?.[0]
+  const article = articleContent?.items?.[0];
 
   if (!article) return notFound();
 
   metadata = article.seoTitle
     ? {
-      title: article.seoTitle,
-      description: article.seoDescription,
-    }
+        title: article.seoTitle,
+        description: article.seoDescription,
+      }
     : metadata;
 
   const heroProps = {
@@ -64,10 +64,10 @@ const Article = async ({ params: { slug } }: GuiasProps) => {
     textColor: "white",
     gridCols: 3,
     gap: 0,
-    articleCategory: ['news'] as any,
-    itemType: 'Article',
+    articleCategory: ["news"] as any,
+    itemType: "Article",
     country: {
-      code: 'mx'
+      code: "mx",
     },
     pagination: {
       total: suggestedArticles.total,
@@ -76,7 +76,9 @@ const Article = async ({ params: { slug } }: GuiasProps) => {
     },
     columns: suggestedArticles.items.map((article) => {
       return {
-        title: <Link href={`/mx/newsroom/${article.slug}`}>{article.title}</Link>,
+        title: (
+          <Link href={`/mx/newsroom/${article.slug}`}>{article.title}</Link>
+        ),
         desc: article.excerpt,
         image: article.featuredImage,
         imageStyle: "object-cover h-56 w-full p-4",

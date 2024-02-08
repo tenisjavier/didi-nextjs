@@ -18,7 +18,7 @@ const page = async () => {
   const components = await fetchPageComponents(
     "/pe/food/restaurantes/kit-digital/"
   );
-  console.log("components", components);
+
   return <BuilderComponent components={components}></BuilderComponent>;
 };
 

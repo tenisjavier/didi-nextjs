@@ -14,8 +14,8 @@ const Store = () => {
     <>
       <QrCode
         title={"Download DiDi Rides by scanning the QR code"}
-        desc={"Get safe, fast and affordable rides"}>
-      </QrCode>
+        desc={"Get safe, fast and affordable rides"}
+      />
     </>
   );
 };
