@@ -45,12 +45,12 @@ CarouselSectionT) => {
                   <Image
                     src={icon.url}
                     alt={icon.description}
-                    className="w-12 lg:w-14"
-                    width={48}
+                    className="w-12 lg:w-14 h-auto"
+                    width={52}
                     height={48}
                   ></Image>
                 </div>
-                <div className="mt-2 text-center h-8 lg:h-4 text-xs lg:text-sm px-2">
+                <div className="mt-2 text-center text-xs lg:text-sm px-2">
                   {menu[index]}
                 </div>
               </div>
