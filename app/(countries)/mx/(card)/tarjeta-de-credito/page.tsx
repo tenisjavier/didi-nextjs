@@ -6,10 +6,10 @@ import { fetchPageComponents } from "@/utils/db";
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
-  title: "Regístrate como Socio Conductor",
-  description: "Elmejor",
+  title: "Tarjeta de Crédito - DiDi Card | DiDi México",
+  description:
+    "La nueva tarjeta con beneficios diarios y sin comisiones ocultas. Pídela en 5 minutos",
 };
-
 
 const Page = async () => {
   const components = await fetchPageComponents("/mx/tarjeta-de-credito/");
@@ -17,4 +17,3 @@ const Page = async () => {
 };
 
 export default Page;
-
