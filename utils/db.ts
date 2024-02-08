@@ -154,6 +154,7 @@ const fetchABtest = async (pathname: string): Promise<ABtestT> => {
 
   const res = await fetch(`${apiUrl}?query=${query}`, {
     headers: headers,
+    next: { revalidate: 60 },
   });
 
   if (!res.ok) {
