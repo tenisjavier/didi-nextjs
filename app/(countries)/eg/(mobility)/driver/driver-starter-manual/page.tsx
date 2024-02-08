@@ -9,11 +9,13 @@ import CTASection from "@/components/CTASection";
 export let metadata: Metadata;
 
 const Page = async () => {
-  const guide = await (await fetchGuideBySlug("eg", "driver-starter-manual")).items?.[0]
+  const guide = await (
+    await fetchGuideBySlug("eg", "driver-starter-manual")
+  ).items?.[0];
   if (!guide) return notFound();
   const content = guide.content.json.content[0].content[0].value;
   metadata = {
-    title: "Términos y Condiciones DiDi | DiDi México", //! fix after migration
+    title: "دليل بدء شريك دي دي | DiDi Egypt", //! fix after migration
     description: content.slice(0, 150),
   };
 
