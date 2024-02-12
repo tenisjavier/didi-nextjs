@@ -14,8 +14,13 @@ export const metadata: Metadata = {
 };
 
 const Legal = async () => {
-  const components = await fetchPageComponents("/ec/legal/");
-  return <BuilderComponent components={components}></BuilderComponent>;
+  try {
+    const components = await fetchPageComponents("/ec/legal/");
+    return <BuilderComponent components={components}></BuilderComponent>;
+  } catch (error) {
+    console.log('Page Error: /ec/legal/ ===>', error);
+    return <></>
+  }
 };
 
 export default Legal;

@@ -894,6 +894,10 @@ const menuLinks: Menu = {
           text: "Fatigue Prevention Driver",
           url: "/au/safety/fatigue-prevention-feature/",
         },
+        {
+          text: "Law Enforcement",
+          url: "/au/safety/law-enforcement-portal/",
+        },
       ],
     },
     {
@@ -1279,6 +1283,10 @@ const menuLinks: Menu = {
         {
           text: "Rider Safety",
           url: "/nz/safety/rider-safety/",
+        },
+        {
+          text: "Law Enforcement",
+          url: "/nz/safety/law-enforcement-portal/",
         },
       ],
     },

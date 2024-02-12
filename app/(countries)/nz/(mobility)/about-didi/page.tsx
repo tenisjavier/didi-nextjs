@@ -11,8 +11,13 @@ export const metadata: Metadata = {
 };
 
 const SobreDiDi = async () => {
-  const components = await fetchPageComponents("/nz/about-us/");
-  return <BuilderComponent components={components}></BuilderComponent>;
+  try {
+    const components = await fetchPageComponents("/nz/about-us/");
+    return <BuilderComponent components={components}></BuilderComponent>;
+  } catch (error) {
+    console.log("Page Error: ", error);
+    return <></>;
+  }
 };
 
 export default SobreDiDi;
