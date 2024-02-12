@@ -6,9 +6,9 @@ import { fetchPageComponents } from "@/utils/db";
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
-  title: "DiDi Conductor - Maneja y Genera Dinero | DiDi Panamá",
+  title: "DiDi Advance Driver Program | DiDi Australia",
   description:
-    "DiDi Conductor. Revisa los requisitos. Regístrate como socio conductor en las categorías express y moto, ganando más y manejando menos.",
+    "Learn more about our DiDi Advance earnings program for driver-partners.",
   alternates: {
     canonical: `https://web.didiglobal.com/au/didi-advance/`,
   },

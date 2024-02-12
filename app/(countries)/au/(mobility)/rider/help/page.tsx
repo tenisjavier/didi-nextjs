@@ -6,9 +6,8 @@ import { fetchPageComponents } from "@/utils/db";
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
-  title: "DiDi Pasajero - Baja la App y Viaja Seguro | DiDi Panamá",
-  description:
-    "DiDi Pasajero. Viaja seguro, barato y rápido. DiDi Express y DiDi Moto están activos en Panamá. Elige la mejor opción.",
+  title: "Ride Help & DiDi FAQs | DiDi Australia",
+  description: "Need help? Have questions? We're here to assist you!",
   alternates: {
     canonical: `https://web.didiglobal.com/au/rider/help/`,
   },

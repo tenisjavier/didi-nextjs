@@ -6,8 +6,9 @@ import { fetchPageComponents } from "@/utils/db";
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
-  title: "Regístrate como Socio Conductor",
-  description: "Elmejor",
+  title: "Funcionalidades de DiDi Card | DiDi México",
+  description:
+    "La nueva tarjeta con beneficios diarios y sin comisiones ocultas. Pídela en 5 minutos",
   alternates: {
     canonical: `https://web.didiglobal.com/mx/tarjeta-de-credito/funciones/`,
   },

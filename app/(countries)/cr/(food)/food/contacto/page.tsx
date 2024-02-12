@@ -6,8 +6,10 @@ import { fetchPageComponents } from "@/utils/db";
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
-  title: "Regístrate como Socio Conductor",
-  description: "Elmejor",
+  title:
+    "DiDi Food: Contactá nuestro Servicio al Cliente | DiDi Food Costa Rica",
+  description:
+    "Si sos repartidor, restaurante o usuario podés escribirnos por cualquier problema que tengas con DiDi Food.",
   alternates: {
     canonical: `https://web.didiglobal.com/cr/food/contacto/`,
   },

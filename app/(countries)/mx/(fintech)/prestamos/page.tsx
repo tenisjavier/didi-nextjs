@@ -6,8 +6,9 @@ import { fetchPageComponents } from "@/utils/db";
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
-  title: "Regístrate como Socio Conductor",
-  description: "Elmejor",
+  title: "DiDi Préstamos - Rápido, Fácil y Seguro. | DiDi México",
+  description:
+    "DiDi Préstamos. Con DiDi Préstamos obtén hasta $30,000 m.n rápido, fácil y seguro.Tasas de interés competitiva desde un 5% al 12%. En solo 5 minutos.",
   alternates: {
     canonical: `https://web.didiglobal.com/mx/prestamos/`,
   },

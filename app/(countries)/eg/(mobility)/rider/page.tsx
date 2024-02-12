@@ -7,9 +7,8 @@ import { hreflangs } from "@/config/seo/hreflang";
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
-  title: "DiDi Pasajero - Baja la App y Viaja Seguro | DiDi Panamá",
-  description:
-    "DiDi Pasajero. Viaja seguro, barato y rápido. DiDi Express y DiDi Moto están activos en Panamá. Elige la mejor opción.",
+  title: "احجز مشوارك مع  دي دي | DiDi Egypt",
+  description: " مشاوير أكثر أمانًا ويعتمد عليها وبأجرة منخفضة.",
   alternates: {
     canonical: `https://web.didiglobal.com/eg/rider/`,
     languages: hreflangs.pax,

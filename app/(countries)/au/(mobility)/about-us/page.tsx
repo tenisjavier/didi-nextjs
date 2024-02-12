@@ -6,8 +6,8 @@ import { fetchPageComponents } from "@/utils/db";
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
-  title: "Regístrate como Socio Conductor",
-  description: "Elmejor",
+  title: "About Us | DiDi Australia",
+  description: "Learn more about DiDi, the world's leading mobility platform.",
   alternates: {
     canonical: `https://web.didiglobal.com/au/about-didi/`,
   },

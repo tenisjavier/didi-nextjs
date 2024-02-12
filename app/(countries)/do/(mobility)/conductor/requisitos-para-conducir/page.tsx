@@ -6,8 +6,10 @@ import { fetchPageComponents } from "@/utils/db";
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
-  title: "Regístrate como Socio Conductor",
-  description: "Elmejor",
+  title:
+    "Requisitos para Conducir y empezar a Ganar Dinero | DiDi Republica Dominicana",
+  description:
+    "Requisitos para Conducir en DiDi. Regístrate como socio conductor en las categorías express y moto, ganando más y manejando menos",
   alternates: {
     canonical: `https://web.didiglobal.com/do/conductor/requisitos-para-conducir/`,
   },

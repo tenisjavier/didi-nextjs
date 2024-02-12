@@ -6,8 +6,9 @@ import { fetchPageComponents } from "@/utils/db";
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
-  title: "Regístrate como Socio Conductor",
-  description: "Elmejor",
+  title: "DiDi Entrega: Envía cosas grandes o chicas | DiDi Colombia",
+  description:
+    "DiDi Entrega en Colombia. Realiza envíos en los carros registrados en la app. Si cabe en la cajuela del carro, te lo enviamos.",
   alternates: {
     canonical: `https://web.didiglobal.com/co/entrega/`,
   },

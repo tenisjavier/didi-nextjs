@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title:
     "DiDi Pasajero - Baja la App y Viaja Seguro | DiDi República Dominicana",
   description:
-    "DiDi Pasajero. Viaja seguro, barato y rápido. DiDi Express y DiDi Moto están activos en Panamá. Elige la mejor opción.",
+    "DiDi Pasajero. Viaja seguro, barato y rápido. DiDi Express y DiDi Moto están activos en República Dominicana. Elige la mejor opción.",
   alternates: {
     canonical: `https://web.didiglobal.com/do/pasajero/`,
     languages: hreflangs.pax,

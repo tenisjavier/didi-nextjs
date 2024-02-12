@@ -7,8 +7,9 @@ import { hreflangs } from "@/config/seo/hreflang";
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
-  title: "Regístrate como Socio Conductor",
-  description: "Elmejor",
+  title: "DiDi Pasajero - Baja la App y Viaja Seguro | DiDi México",
+  description:
+    "DiDi Pasajero. Viaja seguro, barato y rápido. DiDi Express, DiDi Taxi, DiDi Delivery y DiDi Economy están activos en México. Elige la mejor opción.",
   alternates: {
     canonical: `https://web.didiglobal.com/mx/pasajero/`,
     languages: hreflangs.pax,

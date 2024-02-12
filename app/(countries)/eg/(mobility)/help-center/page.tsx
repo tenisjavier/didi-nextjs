@@ -7,7 +7,7 @@ import { hreflangs } from "@/config/seo/hreflang";
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
-  title: "Centro de Ayuda DiDi - App nº1 en movilidad del mundo | DiDi Panamá",
+  title: "مساعدة الشريك السائق | DiDi Egypt",
   description:
     "Conoce aquí las funcionalidades y medidas de seguridad que hemos tomado para que en tu próximo viajes lo disfrutes al máximo.",
   alternates: {

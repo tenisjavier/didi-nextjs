@@ -20,7 +20,7 @@ export let metadata: Metadata = {
 };
 
 const Guide = async ({ params: { slug } }: GuiasProps) => {
-  const guide = await (await fetchGuideBySlug("mx", slug))?.items?.[0];
+  const guide = await (await fetchGuideBySlug("co", slug))?.items?.[0];
   if (!guide) return notFound();
 
   const suggestedGuides = await fetchGuidesByCategory("restaurant", "co");

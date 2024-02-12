@@ -7,8 +7,9 @@ import { hreflangs } from "@/config/seo/hreflang";
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
-  title: "Regístrate como Socio Conductor",
-  description: "Elmejor",
+  title: "DiDi Conductor - Manejá y Generá Dinero | DiDi Costa Rica",
+  description:
+    "DiDi Conductor. Revisá los requisitos. Registrate como socio conductor en la categoría express ganando más y conduciendo menos.",
   alternates: {
     canonical: `https://web.didiglobal.com/cr/conductor/`,
     languages: hreflangs.drv,
