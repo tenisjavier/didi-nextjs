@@ -8,8 +8,10 @@ import { fetchPageComponents } from "@/utils/db";
 export const metadata: Metadata = {
   title: "Regístrate como Socio Conductor",
   description: "Elmejor",
+  alternates: {
+    canonical: `https://web.didiglobal.com/nz/about-didi/`,
+  },
 };
-
 
 const SobreDiDi = async () => {
   try {
@@ -22,4 +24,3 @@ const SobreDiDi = async () => {
 };
 
 export default SobreDiDi;
-

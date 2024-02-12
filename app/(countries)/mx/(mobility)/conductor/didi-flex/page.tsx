@@ -8,8 +8,10 @@ import { fetchPageComponents } from "@/utils/db";
 export const metadata: Metadata = {
   title: "Regístrate como Socio Conductor",
   description: "Elmejor",
+  alternates: {
+    canonical: `https://web.didiglobal.com/mx/conductor/didi-flex/`,
+  },
 };
-
 
 const Flex = async () => {
   const components = await fetchPageComponents("/mx/conductor/didi-flex/");
@@ -17,4 +19,3 @@ const Flex = async () => {
 };
 
 export default Flex;
-

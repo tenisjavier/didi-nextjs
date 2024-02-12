@@ -8,6 +8,9 @@ import { fetchPageComponents } from "@/utils/db";
 export const metadata: Metadata = {
   title: "Regístrate como Socio Conductor",
   description: "Elmejor",
+  alternates: {
+    canonical: `https://web.didiglobal.com/mx/food/`,
+  },
 };
 
 const page = async () => {

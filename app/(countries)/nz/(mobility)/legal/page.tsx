@@ -8,8 +8,10 @@ import { fetchPageComponents } from "@/utils/db";
 export const metadata: Metadata = {
   title: "Regístrate como Socio Conductor",
   description: "Elmejor",
+  alternates: {
+    canonical: `https://web.didiglobal.com/nz/legal/`,
+  },
 };
-
 
 const Legal = async () => {
   const components = await fetchPageComponents("/nz/legal/");
@@ -17,4 +19,3 @@ const Legal = async () => {
 };
 
 export default Legal;
-

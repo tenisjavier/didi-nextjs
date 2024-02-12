@@ -8,13 +8,16 @@ import { fetchPageComponents } from "@/utils/db";
 export const metadata: Metadata = {
   title: "Regístrate como Socio Conductor",
   description: "Elmejor",
+  alternates: {
+    canonical: `https://web.didiglobal.com/mx/tarjeta-de-credito/funciones/`,
+  },
 };
 
-
 const Page = async () => {
-  const components = await fetchPageComponents("/mx/tarjeta-de-credito/funciones/");
+  const components = await fetchPageComponents(
+    "/mx/tarjeta-de-credito/funciones/"
+  );
   return <BuilderComponent components={components}></BuilderComponent>;
 };
 
 export default Page;
-
