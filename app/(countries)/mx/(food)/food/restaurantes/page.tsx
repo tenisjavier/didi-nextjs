@@ -10,6 +10,9 @@ export const metadata: Metadata = {
     "Registra tu Tienda o Restaurante y crece con DiDi Food | DiDi Food México",
   description:
     "Inscribe tu Tienda o Restaurante en DiDi Food y empieza a generar ventas fuera de tu local físico. Expande tu negocio. Es rápido, cómodo y barato. Descarga gratis la app de DiDi Food ¡Recibe tu pedido en minutos!",
+  alternates: {
+    canonical: `https://web.didiglobal.com/mx/food/restaurantes/`,
+  },
 };
 
 const page = async () => {

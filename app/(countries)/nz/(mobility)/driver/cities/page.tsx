@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "Cities | DiDi New Zealand",
   description:
     "Learn about which cities DiDi New Zealand services are available in.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/nz/driver/cities/`,
+  },
 };
 
 const Ciudades = async () => {

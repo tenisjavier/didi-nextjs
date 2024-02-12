@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "Requisitos para Conducir y empezar a Ganar Dinero | DiDi México",
   description:
     "Requisitos para Conducir en DiDi. Regístrate como socio conductor en las categorías express, taxi, moto y delivery, ganando más y manejando menos.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/mx/conductor/requisitos-para-conducir/`,
+  },
 };
 
 const Conductor = async () => {

@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "DiDi Delivery Help & FAQs | DiDi Australia",
   description:
     "DiDi Delivery Help. Need help? Have questions? We're here to assist you!",
+  alternates: {
+    canonical: `https://web.didiglobal.com/au/delivery/help/`,
+  },
 };
 
 const Contact = async () => {

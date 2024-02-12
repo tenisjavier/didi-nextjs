@@ -8,6 +8,9 @@ import { fetchPageComponents } from "@/utils/db";
 export const metadata: Metadata = {
   title: "نبذة عنا | DiDi Egypt",
   description: "إننا شركة دي دي، منصة التنقل الرائدة عالميًا.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/eg/about-us/`,
+  },
 };
 
 const SobreDiDi = async () => {

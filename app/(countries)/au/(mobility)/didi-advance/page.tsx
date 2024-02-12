@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "DiDi Advance Driver Program | DiDi Australia",
   description:
     "Learn more about our DiDi Advance earnings program for driver-partners.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/au/didi-advance/`,
+  },
 };
 
 const Conductor = async () => {

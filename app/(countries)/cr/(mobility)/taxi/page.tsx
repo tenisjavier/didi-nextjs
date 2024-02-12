@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "DiDi Taxi en Costa Rica - Generá Ingresos Extra | DiDi Costa Rica",
   description:
     "DiDi Taxi en Costa Rica, registrate como socio conductor en las categorías express, taxi y fleet ganando más y manejando menos. La App nº1 en movilidad llegó.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/cr/taxi/`,
+  },
 };
 
 const Taxi = async () => {

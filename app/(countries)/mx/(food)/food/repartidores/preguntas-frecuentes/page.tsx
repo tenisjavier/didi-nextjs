@@ -10,6 +10,9 @@ export const metadata: Metadata = {
     "Preguntas Frecuentes para Repartidores de DiDi Food | DiDi Food México",
   description:
     "Como repartidor controlas tus tiempos. Genera ingresos de una manera confiable. Es rápido, cómodo y barato. Descarga gratis la app de DiDi Food ¡Recibe tu pedido en minutos!",
+  alternates: {
+    canonical: `https://web.didiglobal.com/mx/food/repartidores/preguntas-frecuentes/`,
+  },
 };
 
 const page = async () => {

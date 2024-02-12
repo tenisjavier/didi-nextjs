@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "Fatigue Prevention Feature | DiDi Australia",
   description:
     "It is recommended that you have frequent breaks throughout the day. Just remember to tap “Go Offline” when you do. ",
+  alternates: {
+    canonical: `https://web.didiglobal.com/au/safety/fatigue-prevention-feature/`,
+  },
 };
 
 const Seguridad = async () => {

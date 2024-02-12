@@ -8,6 +8,9 @@ import { fetchPageComponents } from "@/utils/db";
 export const metadata: Metadata = {
   title: "Legal | DiDi New Zealand",
   description: "Review our privacy policy and other terms and conditions.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/nz/legal/`,
+  },
 };
 
 const Legal = async () => {

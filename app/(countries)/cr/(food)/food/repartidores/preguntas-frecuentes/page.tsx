@@ -10,13 +10,15 @@ export const metadata: Metadata = {
     "Preguntas Frecuentes para Repartidores de DiDi Food | DiDi Food Costa Rica",
   description:
     "Como repartidor controlas tus tiempos. Genera ingresos de una manera confiable. Es rápido, cómodo y barato. Descarga gratis la app de DiDi Food ¡Recibe tu pedido en minutos!",
+  alternates: {
+    canonical: `https://web.didiglobal.com/cr/food/repartidores/preguntas-frecuentes/`,
+  },
 };
 
 const page = async () => {
   const components = await fetchPageComponents(
     "/cr/food/repartidores/preguntas-frecuentes/"
   );
-
   return <BuilderComponent components={components}></BuilderComponent>;
 };
 

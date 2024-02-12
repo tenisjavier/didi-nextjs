@@ -10,6 +10,9 @@ export const metadata: Metadata = {
     "¿Tienes Preguntas sobre DiDi? Revisa las Respuestas | DiDi Republica Dominicana",
   description:
     "Tanto si eres conductor o usuario de DiDi revisa las principales dudas que el resto de las personas tienen. Así tendrás una mejor experiencia.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/do/sobre-didi/`,
+  },
 };
 
 const SobreDiDi = async () => {
@@ -17,8 +20,8 @@ const SobreDiDi = async () => {
     const components = await fetchPageComponents("/do/sobre-didi/");
     return <BuilderComponent components={components}></BuilderComponent>;
   } catch (error) {
-    console.log('Page Error: ', error);
-    return <></>
+    console.log("Page Error: ", error);
+    return <></>;
   }
 };
 

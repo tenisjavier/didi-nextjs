@@ -8,6 +8,9 @@ import { fetchPageComponents } from "@/utils/db";
 export const metadata: Metadata = {
   title: "DiDi Entrega: Envía cosas grandes o chicas. | DiDi México",
   description: "DiDi Entrega.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/mx/entrega/`,
+  },
 };
 
 const Entrega = async () => {

@@ -17,6 +17,9 @@ const Page = async () => {
   metadata = {
     title: "دليل بدء شريك دي دي | DiDi Egypt", //! fix after migration
     description: content.slice(0, 150),
+    alternates: {
+      canonical: `https://web.didiglobal.com/eg/driver/driver-starter-manual/`,
+    },
   };
 
   const heroProps: CTASectionT = {

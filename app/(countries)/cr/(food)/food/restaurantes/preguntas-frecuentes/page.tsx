@@ -9,13 +9,15 @@ export const metadata: Metadata = {
   title: "Términos y Condiciones y Políticas de Privacidad. | DiDi Costa Rica",
   description:
     "Conocé nuestros términos y condiciones para el uso del sitio web además de nuestras políticas de privacidad.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/cr/food/restaurantes/preguntas-frecuentes/`,
+  },
 };
 
 const page = async () => {
   const components = await fetchPageComponents(
     "/cr/food/restaurantes/preguntas-frecuentes/"
   );
-
   return <BuilderComponent components={components}></BuilderComponent>;
 };
 

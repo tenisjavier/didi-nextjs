@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "Restaurantes - Preguntas Frecuentes | DiDi Food México",
   description:
     "Restaurantes - Preguntas Frecuentes. Lee y conoce lugares ricos para ir a comer. Consejos de cocina y más con DiDi Food Blog.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/mx/food/restaurantes/preguntas-frecuentes/`,
+  },
 };
 
 const page = async () => {

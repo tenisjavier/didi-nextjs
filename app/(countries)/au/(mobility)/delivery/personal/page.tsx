@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "DiDi Delivery - Personal | DiDi Australia",
   description:
     "DiDi Delivery is an on-demand delivery service allowing Australians to send and receive parcels – all delivered by DiDi drivers.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/au/delivery/personal/`,
+  },
 };
 
 const Contact = async () => {

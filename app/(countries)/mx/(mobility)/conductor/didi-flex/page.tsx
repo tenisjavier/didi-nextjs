@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "DiDi Flex: Negocia tu precio sin afectar tu seguridad | DiDi México",
   description:
     "Descubre cómo se calculan las tarifas y cuánto puedes ganar como conductor registrado en DiDi Flex México. Considerando retenciones de impuestos como ISR e IVA.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/mx/conductor/didi-flex/`,
+  },
 };
 
 const Flex = async () => {

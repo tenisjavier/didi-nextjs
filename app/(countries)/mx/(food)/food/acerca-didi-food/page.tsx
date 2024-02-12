@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "La App de Comida Más Confiable | DiDi Food México",
   description:
     "Pide comida a domicilio de tus restaurantes favoritos. Es rápido, cómodo y barato. Descarga gratis la app de DiDi Food ¡Recibe tu pedido en minutos!",
+  alternates: {
+    canonical: `https://web.didiglobal.com/mx/food/acerca-didi-food/`,
+  },
 };
 
 const page = async () => {

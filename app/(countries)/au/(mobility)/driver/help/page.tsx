@@ -8,6 +8,9 @@ import { fetchPageComponents } from "@/utils/db";
 export const metadata: Metadata = {
   title: "Driver Help & FAQs | DiDi Australia",
   description: "Need help? Have questions? We're here to assist you!",
+  alternates: {
+    canonical: `https://web.didiglobal.com/au/driver/help/`,
+  },
 };
 
 const Pasajero = async () => {

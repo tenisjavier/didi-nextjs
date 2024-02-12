@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "Seguridad para Conductores en DiDi | DiDi México",
   description:
     "Conoce aquí las funcionalidades y medidas de seguridad que hemos tomado para que puedas manejar con DiDi de manera segura y confiable.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/mx/seguridad/conductores/`,
+  },
 };
 
 const Seguridad = async () => {

@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "Seguridad para Pasajeros en DiDi | DiDi México",
   description:
     "Conoce aquí las funcionalidades y medidas de seguridad que hemos tomado para que puedas vivir la experiencia de viajar en DiDi de manera segura y confiable.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/mx/seguridad/pasajeros/`,
+  },
 };
 
 const Seguridad = async () => {

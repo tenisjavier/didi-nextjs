@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   title: "Términos y Condiciones y Políticas de Privacidad. | DiDi México",
   description:
     "Conoce nuestros términos y condiciones para el uso del sitio web además de nuestras políticas de privacidad.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/mx/legal/`,
+  },
 };
 
 const Legal = async () => {

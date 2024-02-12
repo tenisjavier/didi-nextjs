@@ -10,6 +10,9 @@ export const metadata: Metadata = {
     "DiDi Food: Contactá nuestro Servicio al Cliente | DiDi Food Costa Rica",
   description:
     "Si sos repartidor, restaurante o usuario podés escribirnos por cualquier problema que tengas con DiDi Food.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/cr/food/contacto/`,
+  },
 };
 
 const page = async () => {

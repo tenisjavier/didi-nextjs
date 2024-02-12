@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "DiDi Aeropuerto | DiDi México",
   description:
     "Conoce nuestros términos y condiciones para el uso del sitio web además de nuestras políticas de privacidad.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/mx/aeropuerto/`,
+  },
 };
 
 const Page = async () => {

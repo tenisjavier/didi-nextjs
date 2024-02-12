@@ -2,6 +2,7 @@ import React from "react";
 import BuilderComponent from "@/components/BuilderComponent";
 import { Metadata } from "next";
 import { fetchPageComponents } from "@/utils/db";
+import { hreflangs } from "@/config/seo/hreflang";
 
 //? builder will return the array of components fetch by db by pathname
 
@@ -9,6 +10,10 @@ export const metadata: Metadata = {
   title: "DiDi Conductor - Manejá y Generá Dinero | DiDi Costa Rica",
   description:
     "DiDi Conductor. Revisá los requisitos. Registrate como socio conductor en la categoría express ganando más y conduciendo menos.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/cr/conductor/`,
+    languages: hreflangs.drv,
+  },
 };
 
 const Conductor = async () => {

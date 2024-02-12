@@ -10,6 +10,9 @@ export const metadata: Metadata = {
     "Blog DiDi Food: Temas de Comida, Restaurantes y Gastronomía Mexicana | DiDi Food México",
   description:
     "En el blog de DiDi Food encontrarás recomendaciones sobre restaurantes de moda, platillos, rutas gastronómicas y tendencias del sector. Descubrenos",
+  alternates: {
+    canonical: `https://web.didiglobal.com/mx/food/blog/`,
+  },
 };
 
 const page = async () => {

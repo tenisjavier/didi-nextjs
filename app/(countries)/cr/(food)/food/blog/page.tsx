@@ -9,11 +9,13 @@ export const metadata: Metadata = {
   title: "Artículos de Comida y Restaurantes | DiDi Food Costa Rica",
   description:
     "Leé y conocé lugares ricos para ir a comer. Consejos de cocina y más con DiDi Food Blog.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/cr/food/blog/`,
+  },
 };
 
 const page = async () => {
   const components = await fetchPageComponents("/cr/food/blog/");
-
   return <BuilderComponent components={components}></BuilderComponent>;
 };
 

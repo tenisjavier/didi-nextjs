@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "DiDi Delivery for Drivers - Next Steps | DiDi Australia",
   description:
     "Earn money delivering goods for stores and people around your city.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/au/driver/didi-delivery-australia/`,
+  },
 };
 
 const Conductor = async () => {

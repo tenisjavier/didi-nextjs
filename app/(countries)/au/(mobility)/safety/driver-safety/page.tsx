@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "Driver Safety | DiDi Australia",
   description:
     "Your safety comes first. Learn more about our industry-leading safety features for drivers.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/au/safety/driver-safety/`,
+  },
 };
 
 const Seguridad = async () => {

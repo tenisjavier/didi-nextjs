@@ -8,6 +8,9 @@ import { fetchPageComponents } from "@/utils/db";
 export const metadata: Metadata = {
   title: "About Us | DiDi New Zealand",
   description: "Learn more about DiDi, the world's leading mobility platform.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/nz/about-us/`,
+  },
 };
 
 const SobreDiDi = async () => {
@@ -15,8 +18,8 @@ const SobreDiDi = async () => {
     const components = await fetchPageComponents("/nz/about-us/");
     return <BuilderComponent components={components}></BuilderComponent>;
   } catch (error) {
-    console.log('Page Error: ', error);
-    return <></>
+    console.log("Page Error: ", error);
+    return <></>;
   }
 };
 

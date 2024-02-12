@@ -8,6 +8,9 @@ import { fetchPageComponents } from "@/utils/db";
 export const metadata: Metadata = {
   title: "About Us | DiDi Australia",
   description: "Learn more about DiDi, the world's leading mobility platform.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/au/about-didi/`,
+  },
 };
 
 const SobreDiDi = async () => {

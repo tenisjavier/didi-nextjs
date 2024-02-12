@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "Stay safe with DiDi Sal, your in-trip pal | DiDi Australia",
   description:
     "DiDi Sal sends helpful safety messages and alerts during your trip to check if everything’s A-OK.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/au/features/didisal/`,
+  },
 };
 
 const Contact = async () => {

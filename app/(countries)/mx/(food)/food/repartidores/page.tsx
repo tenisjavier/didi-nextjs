@@ -10,6 +10,9 @@ export const metadata: Metadata = {
     "Inscríbete como Repartidor y Gana Dinero en DiDi Food | DiDi Food México",
   description:
     "Como repartidor controlas tus tiempos. Genera ingresos de una manera confiable. Es rápido, cómodo y barato. Descarga gratis la app de DiDi Food ¡Recibe tu pedido en minutos!",
+  alternates: {
+    canonical: `https://web.didiglobal.com/mx/food/repartidores/`,
+  },
 };
 
 const page = async () => {

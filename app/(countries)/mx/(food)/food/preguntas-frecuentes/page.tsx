@@ -9,13 +9,15 @@ export const metadata: Metadata = {
   title: "Preguntas Frecuentes DiDi Food México | DiDi Food México",
   description:
     "¿Tienes dudas sobre DiDi Food? Consulta nuestra sección de preguntas frecuentes a continuación:",
+  alternates: {
+    canonical: `https://web.didiglobal.com/mx/food/preguntas-frecuentes/`,
+  },
 };
 
 const page = async () => {
   const components = await fetchPageComponents(
     "/mx/food/preguntas-frecuentes/"
   );
-
   return <BuilderComponent components={components}></BuilderComponent>;
 };
 

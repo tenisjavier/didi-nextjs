@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "DiDi Food: Contacta nuestro Servicio al Cliente | DiDi Food México",
   description:
     "Si eres repartidor, restaurante o usuario puedes escribirnos por cualquier problema que tengas con DiDi Food.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/mx/food/contacto/`,
+  },
 };
 
 const page = async () => {

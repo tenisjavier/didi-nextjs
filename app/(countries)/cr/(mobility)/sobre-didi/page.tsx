@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "¿Tenés Preguntas sobre DiDi? Revisá las Respuestas | DiDi Costa Rica",
   description:
     "Tanto si sos conductor o usuario de DiDi revisá las principales dudas que el resto de las personas tienen. Así tendrás una mejor experiencia.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/cr/sobre-didi/`,
+  },
 };
 
 const SobreDiDi = async () => {

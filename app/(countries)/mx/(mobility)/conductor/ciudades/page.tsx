@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "Servicios de DiDi por Ciudad. | DiDi México",
   description:
     "Conoce que servicios DiDi se encuentran en tu ciudad. Si quieres ser socio conductor revisa los requisitos.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/mx/conductor/ciudades/`,
+  },
 };
 
 const Conductor = async () => {

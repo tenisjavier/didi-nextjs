@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "DiDi Fleet - Genera Dinero Rentando tus Autos | DiDi México",
   description:
     "DiDi Fleet. Si tienes uno o más autos que quieras rentabilizar, súbelos a la app de DiDi Fleet y podrás asociar conductores a tus autos. Gana dinero de manera pasiva con DiDi Fleet.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/mx/didi-fleet/`,
+  },
 };
 
 const Fleet = async () => {

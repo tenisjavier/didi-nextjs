@@ -10,6 +10,9 @@ export const metadata: Metadata = {
     "¿Cuánto dinero pueden ganar los conductores a través de DiDi? | DiDi México",
   description:
     "Descubre cómo se calculan las tarifas y cuánto puedes ganar como conductor registrado en DiDi México. Considerando retenciones de impuestos como ISR e IVA",
+  alternates: {
+    canonical: `https://web.didiglobal.com/mx/conductor/calcula-tus-ganancias/`,
+  },
 };
 
 const Conductor = async () => {
