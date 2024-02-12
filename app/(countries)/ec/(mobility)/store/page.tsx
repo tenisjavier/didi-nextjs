@@ -12,7 +12,7 @@ import QrCode from "@/components/Qr";
 const Store = () => {
   return (
     <>
-      <QrCode></QrCode>
+      <QrCode />
     </>
   );
 };

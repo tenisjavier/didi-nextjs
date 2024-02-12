@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 
 const page = async () => {
   const components = await fetchPageComponents("/co/food/acerca-didi-food/");
-  console.log("components", components);
+
   return <BuilderComponent components={components}></BuilderComponent>;
 };
 

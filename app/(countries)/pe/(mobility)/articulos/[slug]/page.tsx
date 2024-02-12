@@ -9,7 +9,7 @@ import CTASection from "@/components/CTASection";
 import RichContent from "@/components/RichContent";
 import Banner from "@/components/Banner";
 import ColumnsSection from "@/components/ColumnSection";
-import { notFound, useSearchParams } from "next/navigation";
+import { notFound } from "next/navigation";
 
 interface GuiasProps {
   params: {
@@ -25,14 +25,10 @@ export let metadata: Metadata = {
 
 const Article = async ({ params: { slug } }: GuiasProps) => {
 
-  const { get } = useSearchParams()
-
   const [articleContent, suggestedArticles] = await Promise.all([
     fetchArticleBySlug(slug, "pe"),
     fetchArticles("pe", "rides"),
   ]);
-
-  const currentSkipPage = (Number(get('page')?.[0]) * suggestedArticles.limit) - suggestedArticles.limit
 
   const article = articleContent?.items?.[0]
 

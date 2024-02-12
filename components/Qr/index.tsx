@@ -5,12 +5,13 @@ import CTASection from "@/components/CTASection";
 import { QRCodeSVG } from "qrcode.react";
 interface QrCodeProps {
   title?: string,
-  desc?: string
+  desc?: string,
+  QRUrl?: string,
 }
 
 const QrCode = ({
   title,
-  desc
+  desc,
 }: QrCodeProps) => {
   const CTAProps: CTASectionT = {
     isHero: true,

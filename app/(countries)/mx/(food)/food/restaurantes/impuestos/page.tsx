@@ -15,7 +15,7 @@ const page = async () => {
   const components = await fetchPageComponents(
     "/mx/food/restaurantes/impuestos/"
   );
-  console.log("components", components);
+
   return <BuilderComponent components={components}></BuilderComponent>;
 };
 

@@ -27,7 +27,7 @@ export default function insertBtnParams() {
   };
 
   var referringDomain = getDomain_(referrer);
-  console.log(referringDomain);
+
   //? search is the parameters complete string without ?
   var search = window.location.search.slice(1);
 
@@ -101,7 +101,7 @@ export default function insertBtnParams() {
   // function to get domain
   function getDomain_(url) {
     if (!url) return null;
-    console.log(url);
+
     try {
       let parsedUrl = new URL(url);
       let hostname = parsedUrl.hostname;
@@ -364,7 +364,7 @@ export default function insertBtnParams() {
     ) {
       newUrl.searchParams.set(
         "af_web_dp",
-        `${document.location.origin}/${countryCode}/store-fleet/`
+        `${document.location.origin}/${countryCode}/didi-fleet/store/`
       );
       return newUrl.href;
     } else if (url.href.indexOf("onelink.me/Zkxc/") > -1) {

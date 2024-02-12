@@ -1,5 +1,9 @@
 import React from "react";
-import { fetchCities, fetchFeatureByCategory, fetchFeatureBySlug } from "@/utils/db";
+import {
+  fetchCities,
+  fetchFeatureByCategory,
+  fetchFeatureBySlug,
+} from "@/utils/db";
 import { Metadata } from "next";
 import CTASection from "@/components/CTASection";
 import RichContent from "@/components/RichContent";
@@ -35,9 +39,6 @@ const Page = async ({ params: { slug } }: GuiasProps) => {
     isHero: true,
   };
 
-
-
-
   const ctaProps: CTASectionT[] = [];
 
   feature.components?.meta?.forEach((meta) => {
@@ -50,11 +51,8 @@ const Page = async ({ params: { slug } }: GuiasProps) => {
       brightness: "brightness-75",
       reverse: true,
       isHero: false,
-    })
+    });
   });
-
-  console.log(feature.components?.meta);
-
 
   return (
     <>
@@ -66,8 +64,7 @@ const Page = async ({ params: { slug } }: GuiasProps) => {
         <section className="container mx-auto mb-32 text-gray-primary md:px-28 mt-16">
           <RichContent richContent={feature.content}></RichContent>
         </section>
-      )
-      }
+      )}
     </>
   );
 };
@@ -75,11 +72,11 @@ const Page = async ({ params: { slug } }: GuiasProps) => {
 export default Page;
 
 export async function generateStaticParams() {
-  const features = await fetchFeatureByCategory("mx", "pax")
+  const features = await fetchFeatureByCategory("mx", "pax");
   const featuresSlugs = features.map((feature: FeaturesT) => {
     return {
-      slug: feature.slug
-    }
+      slug: feature.slug,
+    };
   });
   return featuresSlugs;
 }
