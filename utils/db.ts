@@ -115,6 +115,7 @@ const fetchCountries = async (): Promise<Country[]> => {
         spanishName
         chineseName
         hostname
+        path
       }
     }
     }`;

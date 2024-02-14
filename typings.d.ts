@@ -68,6 +68,7 @@ const CountrySchema = z.object({
   englishName: z.string(),
   spanishName: z.string(),
   hostname: z.string(),
+  path: z.string(),
   code: z.string(),
 });
 

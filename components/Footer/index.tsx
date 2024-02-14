@@ -83,7 +83,7 @@ const Footer = async ({
                   <span key={index} className="text-white">
                     {index !== 0 ? " • " : null}
                     <Link
-                      href={c.hostname}
+                      href={businessType === "food" ? `${c.path}food/` : c.path}
                       className="text-sm text-yellow-500 hover:text-yellow-300"
                     >
                       {countryName}
