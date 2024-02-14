@@ -10,16 +10,9 @@ export const metadata: Metadata = {
   description: "Elmejor",
 };
 
-
 const SobreDiDi = async () => {
-  try {
-    const components = await fetchPageComponents("/nz/about-us/");
-    return <BuilderComponent components={components}></BuilderComponent>;
-  } catch (error) {
-    console.log('Page Error: ', error);
-    return <></>
-  }
+  const components = await fetchPageComponents("/nz/about-us/");
+  return <BuilderComponent components={components}></BuilderComponent>;
 };
 
 export default SobreDiDi;
-

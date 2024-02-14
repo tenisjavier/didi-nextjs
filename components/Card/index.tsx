@@ -49,14 +49,12 @@ const Card = (props: CardT) => {
         <h4 className={`mb-4 text-xl font-bold lg:text-center ${titleStyles}`}>
           {hasTextHighlighter
             ? textHighlighter(
-              truncate(title, 50) as string,
-              textHighlighterStyle
-            )
+                truncate(title, 50) as string,
+                textHighlighterStyle
+              )
             : truncate(title, 50)}
         </h4>
       )}
-
-
       {pathname ? (
         <>
           <Link href={pathname}>
@@ -84,7 +82,7 @@ const Card = (props: CardT) => {
               className={`${
                 isImageIcon
                   ? "w-14  h-auto"
-                  : "max-h-64 object-contain h-full w-full"
+                  : "max-h-64 object-cover h-full w-full"
               }`}
               width={400}
               height={400}
@@ -114,9 +112,9 @@ const Card = (props: CardT) => {
             >
               {hasTextHighlighter
                 ? textHighlighter(
-                  truncate(title, 50) as string,
-                  textHighlighterStyle
-                )
+                    truncate(title, 50) as string,
+                    textHighlighterStyle
+                  )
                 : truncate(title, 50)}
             </h4>
           )}

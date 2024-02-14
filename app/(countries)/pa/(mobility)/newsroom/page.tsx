@@ -11,9 +11,21 @@ export const metadata: Metadata = {
     "Noticias de DiDi en Panamá. En esta sección se publicarán las últimas noticias de la App Nº1 del mundo en mobilidad.",
 };
 
-const Newsroom = async () => {
+const Newsroom = async ({
+  params,
+  searchParams,
+}: {
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+}) => {
   const components = await fetchPageComponents("/pa/newsroom/");
-  return <BuilderComponent components={components}></BuilderComponent>;
+  return (
+    <BuilderComponent
+      components={components}
+      params={params.slug}
+      searchParams={searchParams}
+    ></BuilderComponent>
+  );
 };
 
 export default Newsroom;

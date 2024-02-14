@@ -11,13 +11,8 @@ export const metadata: Metadata = {
 };
 
 const page = async () => {
-  try {
-    const components = await fetchPageComponents("/mx/food/impuesto/");
-    return <BuilderComponent components={components}></BuilderComponent>;
-  } catch (error) {
-    console.log('Page Error: ', error);
-    return <></>
-  }
+  const components = await fetchPageComponents("/mx/food/impuesto/");
+  return <BuilderComponent components={components}></BuilderComponent>;
 };
 
 export default page;

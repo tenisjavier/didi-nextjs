@@ -1,5 +1,5 @@
 import React from "react";
-import { fetchGuideBySlug, fetchGuidesByCategory } from "@/utils/db";
+import { fetchGuideBySlug, fetchGuides } from "@/utils/db";
 import CTASection from "@/components/CTASection";
 import RichContent from "@/components/RichContent";
 import Banner from "@/components/Banner";
@@ -33,7 +33,7 @@ export async function generateGuideStaticParams(
   countryCode: CountryCode,
   category: string
 ) {
-  const guides = (await fetchGuidesByCategory(category, countryCode))?.items;
+  const guides = (await fetchGuides(countryCode, category, 0, 12))?.items;
   const guidesSlugs = guides?.map((guide: { slug: string }) => {
     slug: guide.slug;
   });
@@ -45,7 +45,7 @@ const GuidePage = async ({
 }: GuiasProps) => {
   const [guideContent, suggestedGuides] = await Promise.all([
     fetchGuideBySlug(countryCode, slug),
-    fetchGuidesByCategory(guideCategory, countryCode),
+    fetchGuides(countryCode, guideCategory, 0, 12),
   ]);
 
   const guide = guideContent?.items?.[0];
@@ -80,17 +80,16 @@ const GuidePage = async ({
     textColor: "white",
     gridCols: 3,
     gap: 0,
-    itemType: "Guide",
-    guideCategory: [guideCategory],
-    pagination: {
-      total: suggestedGuides.total,
-      limit: suggestedGuides.limit,
-      skip: suggestedGuides.skip,
-    },
     columns: suggestedGuides.items.map((guide) => {
+      const link = `/${countryCode}/guias/${guide.slug}/`;
+
+      const typeOflink = {
+        restaurant: `/${countryCode}/food/restaurantes/guias/${guide.slug}/`,
+        delivery: `/${countryCode}/food/repartidores/guias/${guide.slug}/`,
+      } as any;
       return {
         title: (
-          <Link href={`/${countryCode}/guias/${guide.slug}`}>
+          <Link href={`${typeOflink[guideCategory] || link}`}>
             {guide.title}
           </Link>
         ),
@@ -101,7 +100,7 @@ const GuidePage = async ({
         btnType: "custom",
         btnMode: "dark",
         btnText: "Leer Artículo",
-        btnLink: `/${countryCode}/guias/${guide.slug}`,
+        btnLink: `${typeOflink[guideCategory] || link}`,
       };
     }),
   };

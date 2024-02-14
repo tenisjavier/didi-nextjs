@@ -1,102 +1,37 @@
 import React from "react";
-import { fetchArticleBySlug, fetchArticles } from "@/utils/db";
-import { Metadata } from "next";
-import Link from "next/link";
-import CTASection from "@/components/CTASection";
-import RichContent from "@/components/RichContent";
-import Banner from "@/components/Banner";
-import ColumnsSection from "@/components/ColumnSection";
-import { notFound } from "next/navigation";
-import { ArticleT, GuideT } from "@/typings";
+import ArticlePage, {
+  generateArticleMetadata,
+  generateArticleStaticParams,
+} from "@/components/Sections/Articles";
 
-interface GuiasProps {
+interface ArticleProps {
   params: {
     slug: string;
   };
 }
 
-export let metadata: Metadata = {
-  title: "Registrate como Socio Conductor DiDi",
-  description:
-    "DiDi en Costa Rica, registrate como socio conductor en las categorías express y taxi ganando más y manejando menos. Si sos Socio Conductor llamános al +54 (11) 3987-6342",
-};
+export async function generateMetadata({ params: { slug } }: ArticleProps) {
+  const article = await generateArticleMetadata(slug, "co");
 
-const Article = async ({ params: { slug } }: GuiasProps) => {
-  const [articleContent, suggestedArticles] = await Promise.all([
-    fetchArticleBySlug(slug, "cr"),
-    fetchArticles("cr", "food"),
-  ]);
+  return article;
+}
 
-  const article = articleContent?.items?.[0];
+export async function generateStaticParams() {
+  const articlesSlugs = await generateArticleStaticParams("co", "food");
 
-  if (!article) return notFound();
+  return articlesSlugs;
+}
 
-  metadata = article.seoTitle
-    ? {
-        title: article.seoTitle,
-        description: article.seoDescription,
-      }
-    : metadata;
-
-  const heroProps = {
-    title: article.title,
-    desc: article.excerpt,
-    bgColor: "bg-white",
-    textColor: "white",
-    bgImage: article.featuredImage,
-    btnType: "drv",
-    btnMode: "light",
-    brightness: "brightness-75",
-  };
-  const bannerProps = {
-    title: "¿Querés ser conductor en DiDi?",
-    desc: "Generá Dinero y maneja tus tiempos",
-    textColor: "white",
-    bgColor: "bg-orange-primary",
-    btnType: "drv",
-    btnMode: "light",
-  };
-
-  const suggestedGuidesProps = {
-    name: "Suggested Articles",
-    title: "DiDi Artículos de Lugares para Visitar en Perú",
-    bgColor: "bg-blue-primary",
-    textColor: "white",
-    gridCols: 3,
-    gap: 0,
-    columns: suggestedArticles.items?.map((article) => {
-      return {
-        title: <Link href={`/cr/${article.slug}`}>{article.title}</Link>,
-        desc: article.excerpt,
-        image: article.featuredImage,
-        imageStyle: "object-cover h-56 w-full p-4",
-        bgColor: "bg-white",
-        textColor: "gray-primary",
-        btnType: "custom",
-        btnMode: "dark",
-        btnText: "Leer Guía",
-        btnLink: `/cr/${article.slug}`,
-      };
-    }),
-  };
+const Article = async ({ params: { slug } }: ArticleProps) => {
   return (
-    <>
-      <CTASection {...heroProps}></CTASection>
-      <section className="container mx-auto mb-32 text-gray-primary md:px-28 mt-16">
-        <RichContent richContent={article.content}></RichContent>
-      </section>
-      <Banner {...bannerProps}></Banner>
-      <ColumnsSection {...suggestedGuidesProps}></ColumnsSection>
-    </>
+    <ArticlePage
+      params={{
+        slug,
+        articleCategory: "food",
+        countryCode: "co",
+      }}
+    />
   );
 };
 
 export default Article;
-
-export async function generateStaticParams() {
-  const articles = await fetchArticles("cr", "food");
-  const articlesSlugs = articles.items.map((article) => {
-    slug: article.slug;
-  });
-  return articlesSlugs;
-}

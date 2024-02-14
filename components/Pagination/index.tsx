@@ -1,53 +1,41 @@
-import {
-  faAngleLeft,
-  faAngleRight,
-  faAnglesLeft,
-  faAnglesRight,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-
+import Link from "next/link";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 interface PaginationProps {
-  pagination?: {
-    skip: number;
-    total: number;
-    limit: number;
-  };
-  nextPage: () => Promise<void>;
-  prevPage: () => Promise<void>;
-  setPage: (page: number) => Promise<void>;
-  setCurrangePage: (currentPage: number) => void;
+  page: number;
+  limit: number;
+  total: number;
 }
 
-const Pagination: React.FC<PaginationProps> = ({
-  pagination,
-  nextPage,
-  prevPage,
-  setPage,
-  setCurrangePage
-}) => {
-  if (pagination) {
-    const totalPage = Math.ceil(pagination.total / pagination.limit);
+const Pagination: React.FC<PaginationProps> = ({ page, limit, total }) => {
+  if (total > limit) {
+    const totalPage = Math.ceil(total / limit);
+    const skip = (page - 1) * limit;
 
-    const renderPageButton = (index: number) => (
-      <li key={index} className="list-none">
-        <button
-          onClick={() => {
-            setPage(index * pagination.limit - pagination.limit)
-            setCurrangePage(index)
-          }}
-          disabled={pagination.skip / pagination.limit + 1 === index}
-          className={`w-10 h-10 items-center justify-center px-2.5 py-2 text-gray-median bg-white border border-gray-light hover:cursor-pointer disabled:text-gray-light`}
-        >
-          {index}
-        </button>
-      </li >
-    );
+    //? render Links with numbers
+    const renderPageButton = (index: number) => {
+      const btnToogle =
+        page === index
+          ? "bg-gray-primary text-white"
+          : " text-gray-primary bg-gray-light";
+      const pageParam = index === 1 ? "./" : `?page=${index}`;
+      return (
+        <li key={index} className="list-none">
+          <Link
+            href={`${pageParam}`}
+            className={`w-10 items-center justify-center px-3.5 py-2.5 border border-gray-light hover:cursor-pointer ${btnToogle} hover:bg-gray-primary hover:text-white`}
+          >
+            {index}
+          </Link>
+        </li>
+      );
+    };
 
+    //? calculate how many buttons we need
     const renderPageButtons = () => {
       const buttons = [];
-      const start = Math.max(1, pagination.skip / pagination.limit - 1);
-      const end = Math.min(totalPage, start + 3);
+      const start = Math.max(1, skip / limit - 1);
+      const end = Math.min(totalPage, start + 5);
 
       for (let i = start; i <= end; i++) {
         buttons.push(renderPageButton(i));
@@ -55,53 +43,25 @@ const Pagination: React.FC<PaginationProps> = ({
 
       return buttons;
     };
-
+    const previousPageParam = page > 2 ? `?page=${page - 1}` : "./";
+    const nextPageParam = `?page=${page + 1}`;
     return (
       <>
-        {pagination && (
-          <div className="w-full flex gap-2 justify-center items-center mt-10">
-            <button
-              onClick={() => {
-                setPage(0)
-                setCurrangePage(1)
-              }}
-              disabled={pagination.skip === 0}
-              className="w-10 h-10 items-center justify-center px-2.5 py-2 text-gray-median bg-white border border-gray-light hover:cursor-pointer disabled:text-gray-light"
-            >
-              <FontAwesomeIcon icon={faAnglesLeft} className="w-3 " />
-            </button>
-            <button
-              onClick={prevPage}
-              disabled={pagination.skip === 0}
-              className="w-10 h-10 items-center justify-center px-2.5 py-2 text-gray-median bg-white border border-gray-light hover:cursor-pointer disabled:text-gray-light"
-            >
-              <FontAwesomeIcon icon={faAngleLeft} className="w-3" />
-            </button>
-
-            {renderPageButtons()}
-
-            <button
-              onClick={nextPage}
-              disabled={pagination.total - pagination.skip < pagination.limit}
-              className="w-10 h-10 items-center justify-center px-2.5 py-2 text-gray-median bg-white border border-gray-light hover:cursor-pointer disabled:text-gray-light"
-            >
-              <FontAwesomeIcon icon={faAngleRight} className="w-3" />
-            </button>
-            <button
-              onClick={() => {
-                setPage(
-                  Math.floor(pagination.total / pagination.limit) *
-                  pagination.limit
-                )
-                setCurrangePage(Math.floor(pagination.total / pagination.limit) + 1)
-              }}
-              disabled={pagination.total - pagination.skip < pagination.limit}
-              className="w-10 h-10 items-center justify-center px-2.5 py-2 text-gray-median bg-white border border-gray-light hover:cursor-pointer disabled:text-gray-light"
-            >
-              <FontAwesomeIcon icon={faAnglesRight} className="w-3" />
-            </button>
-          </div>
-        )}
+        <div className="w-full flex gap-2 justify-center items-center mt-10">
+          <Link
+            href={`${previousPageParam}`}
+            className="w-10 flex items-center justify-center px-2.5 py-2 text-gray-primary bg-gray-light border border-gray-light hover:cursor-pointer  hover:bg-gray-primary hover:text-white disabled:text-gray-light"
+          >
+            <FaArrowLeft />
+          </Link>
+          {renderPageButtons()}
+          <Link
+            href={`${nextPageParam}`}
+            className="w-10 flex items-center justify-center px-2.5 py-2 text-gray-primary bg-gray-light border border-gray-light hover:cursor-pointer  hover:bg-gray-primary hover:text-white disabled:text-gray-light"
+          >
+            <FaArrowRight />
+          </Link>
+        </div>
       </>
     );
   }
