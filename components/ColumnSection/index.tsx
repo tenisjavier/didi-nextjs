@@ -70,7 +70,7 @@ const ColumnsSection = (props: ColumnSectionT) => {
             className={`grid grid-cols-1 ${
               items && items?.length < 3
                 ? items?.length > 1
-                  ? "grid-cols-2"
+                  ? "lg:grid-cols-2"
                   : ""
                 : "lg:grid-cols-" + gridCols
             }  ${"gap-" + gap} mt-10  lg:justify-around `}
