@@ -64,7 +64,7 @@ const Card = (props: CardT) => {
                 alt={image.description}
                 className={`${
                   isImageIcon
-                    ? "w-14  h-auto"
+                    ? "w-44  h-auto"
                     : "max-h-64 object-cover h-full w-full"
                 }`}
                 width={400}
@@ -81,8 +81,8 @@ const Card = (props: CardT) => {
               alt={image.description}
               className={`${
                 isImageIcon
-                  ? "w-14  h-auto"
-                  : "max-h-64 object-cover h-full w-full"
+                  ? "w-20  h-auto"
+                  : "max-h-64 object-contain h-full w-full"
               }`}
               width={400}
               height={400}
