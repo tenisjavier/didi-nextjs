@@ -292,6 +292,10 @@ const menuLinks: Menu = {
           url: "/mx/conductor/",
         },
         {
+          text: "DiDi Moto",
+          url: "/mx/conductor/moto/",
+        },
+        {
           text: "Regístrate Online",
           url: "https://ssa-rides-driver.onelink.me/mbwy/mxdriverhero",
         },
