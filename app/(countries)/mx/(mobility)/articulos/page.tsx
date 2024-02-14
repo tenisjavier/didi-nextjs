@@ -14,10 +14,21 @@ export const metadata: Metadata = {
     canonical: `https://web.didiglobal.com/mx/articulos/`,
   },
 };
-
-const Articulos = async () => {
+const Articulos = async ({
+  params,
+  searchParams,
+}: {
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+}) => {
   const components = await fetchPageComponents("/mx/articulos/");
-  return <BuilderComponent components={components}></BuilderComponent>;
+  return (
+    <BuilderComponent
+      components={components}
+      params={params.slug}
+      searchParams={searchParams}
+    ></BuilderComponent>
+  );
 };
 
 export default Articulos;

@@ -814,7 +814,10 @@ banner(id:"${id}") {
 
 //? returns one Column component by its ID
 //* params: id of the component
-const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
+const fetchColumnSectionById = async (
+  id: string,
+  pagination: { page: number; limit: number }
+): Promise<ColumnSectionT> => {
   const query = `
   fragment partnerFields on Partner {
     __typename
@@ -914,20 +917,19 @@ const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
 
   if (columnSection?.itemType?.toLowerCase() === "guide") {
     if (columnSection?.country?.code && columnSection?.guideCategory?.[0]) {
-      const guides = await fetchGuidesByCategory(
-        columnSection?.guideCategory?.[0],
+      const guides = await fetchGuides(
         columnSection?.country?.code,
-        { limit: columnSection?.limitItemsPerPage },
-        columnSection?.order
+        columnSection?.guideCategory?.[0],
+        pagination.page,
+        pagination.limit
       );
-
       const items: ListItemT = guides?.items?.map((guide) => {
         return {
           title: guide.title,
           desc: guide.excerpt,
           image: guide.featuredImage,
           pathname: guide.slug,
-          btnLink: guide.slug,
+          btnLink: guide.slug + "/",
           btnType: "custom",
           btnText: "Leer Artículo",
           btnMode: "dark",
@@ -938,19 +940,19 @@ const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
       columnSection.items = items;
       columnSection.pagination = {
         total: guides?.total,
-        limit: guides?.limit,
-        skip: guides?.skip,
+        limit: pagination.limit,
+        page: pagination.page,
       };
     }
   }
 
   if (columnSection?.itemType?.toLowerCase() === "article") {
     if (columnSection?.country?.code && columnSection?.articleCategory?.[0]) {
-      const articles = await fetchArticleByCategory(
+      const articles = await fetchArticles(
         columnSection?.country?.code,
         columnSection?.articleCategory?.[0],
-        { limit: columnSection?.limitItemsPerPage },
-        columnSection?.order
+        pagination.page,
+        pagination.limit
       );
 
       const items: ListItemT = articles?.items?.map((article: any) => {
@@ -959,7 +961,7 @@ const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
           desc: article.excerpt,
           image: article.featuredImage,
           pathname: article.slug,
-          btnLink: article.slug,
+          btnLink: article.slug + "/",
           btnType: "custom",
           btnText: "Leer Artículo",
           btnMode: "dark",
@@ -970,8 +972,8 @@ const fetchColumnSectionById = async (id: string): Promise<ColumnSectionT> => {
       columnSection.items = items;
       columnSection.pagination = {
         total: articles?.total,
-        limit: articles?.limit,
-        skip: articles?.skip,
+        limit: pagination.limit,
+        page: pagination.page,
       };
     }
   }
@@ -1132,61 +1134,6 @@ const fetchGuideBySlug = async (
 
   return guide;
 };
-//? returns one Guide component by its SLUG and COUNTRYCODE
-//* params: slug and countrycode
-const fetchGuidesByCategory = async (
-  category: string,
-  countryCode: CountryCode,
-  pagination?: {
-    skip?: number;
-    limit?: number;
-  },
-  order?: string
-): Promise<GuideT> => {
-  const query = `query {
-    guideCollection (
-      where: {
-        country: {code:"${countryCode}"}, 
-        category_contains_all:"${category}"
-      },
-      limit: ${pagination?.limit || 12}, 
-      skip: ${pagination?.skip || 0},
-      ${order ? "order: sys_" + order : ""}
-      ) {
-      total
-      limit
-      skip
-      items {
-        slug
-        title
-        excerpt
-        country {
-          code
-        }
-        featuredImage {
-            title
-            description
-            url
-        }
-      }
-    }
-    }`;
-
-  const res = await fetch(`${apiUrl}?query=${query}`, {
-    headers: headers,
-    next: { revalidate: 60 },
-  });
-
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch Guides by Category");
-  }
-  const { data } = await res.json();
-
-  const guides = data.guideCollection;
-
-  return guides;
-};
 
 //* params: country code from the country to fetch the cities
 const fetchArticleBySlug = async (
@@ -1248,73 +1195,21 @@ const fetchArticleBySlug = async (
   return articles.data.articleCollection;
 };
 
-const fetchArticleByCategory = async (
-  countryCode: CountryCode,
-  category: string,
-  pagination?: {
-    skip?: number;
-    limit?: number;
-  },
-  order?: string
-): Promise<ArticleT> => {
-  const query = `query {
-    articleCollection(
-      where: {
-        country:{code: "${countryCode}"}, 
-        category_contains_all: "${category}"
-      }, 
-      limit: ${pagination?.limit || 12}, 
-      skip: ${pagination?.skip || 0},
-      ${order ? "order: sys_" + order : ""}
-    ){
-      total
-      limit
-      skip
-      items{
-        title
-        slug
-        seoTitle
-        seoDescription
-        country {
-          code
-        }
-        excerpt
-        featuredImage {
-          title
-          description
-          url
-        }
-      }
-    }
-    }`;
-
-  const res = await fetch(`${apiUrl}?query=${query}`, {
-    headers: headers,
-    next: { revalidate: 60 },
-  });
-
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch article by category");
-  }
-  const articles = await res.json();
-
-  return articles.data.articleCollection;
-};
-
+//? returns Articles by Category and Country with Page and Limit
+//* params: countryCode, category of the article, page and limit.
 const fetchArticles = async (
   countryCode: CountryCode,
   category: string,
-  pagination?: {
-    limit?: number;
-    skip?: number;
-  }
+  page: number,
+  limit: number
+  //order?: stri g
 ): Promise<ArticleT> => {
+  const skip = (page - 1) * limit;
   const query = `
   query {
     articleCollection(where: {country:{code: "${countryCode}"}, category_contains_all: "${category}"}, 
-    limit: ${pagination?.limit || 12}, 
-    skip: ${pagination?.skip || 0}
+    limit: ${limit}, 
+    skip: ${skip}
     ){
       total
       limit
@@ -1340,7 +1235,6 @@ const fetchArticles = async (
 
   const res = await fetch(`${apiUrl}?query=${query}`, {
     headers: headers,
-    next: { revalidate: 60 },
   });
 
   if (!res.ok) {
@@ -1351,6 +1245,57 @@ const fetchArticles = async (
   const articles = await res.json();
 
   return articles.data.articleCollection;
+};
+
+//? returns Guide by Category and Country with Page and Limit
+//* params: countryCode, category of the article, page and limit.
+const fetchGuides = async (
+  countryCode: CountryCode,
+  category: string,
+  page: number,
+  limit: number
+  //order?: stri g
+): Promise<GuideT> => {
+  const skip = (page - 1) * limit;
+  const query = `
+  query {
+    guideCollection(where: {country:{code: "${countryCode}"}, category_contains_all: "${category}"}, 
+    limit: ${limit}, 
+    skip: ${skip}
+    ){
+      total
+      limit
+      skip
+      items{
+        title
+        slug
+        seoTitle
+        seoDescription
+        country {
+          code
+        }
+        excerpt
+        featuredImage {
+          title
+          description
+          url
+        }
+      }
+    }
+  }
+`;
+
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+  });
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch guides");
+  }
+
+  const guides = await res.json();
+  return guides.data.guideCollection;
 };
 
 //? returns one FAQ component by its slug and country
@@ -1711,14 +1656,13 @@ export {
   fetchListSectionById,
   fetchFAQBySlug,
   fetchGuideBySlug,
-  fetchGuidesByCategory,
   fetchCitieBySlug,
   fetchArticleBySlug,
   fetchArticles,
+  fetchGuides,
   fetchLegalBySlug,
   fetchPartnerBySlug,
   fetchPartnersByCategory,
   fetchFeatureBySlug,
   fetchFeatureByCategory,
-  fetchArticleByCategory,
 };

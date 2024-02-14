@@ -17,7 +17,10 @@ interface ArticleProps {
 }
 
 // or Dynamic metadata
-export async function generateArticleMetadata(slug: string, countryCode: CountryCode) {
+export async function generateArticleMetadata(
+  slug: string,
+  countryCode: CountryCode
+) {
   const article = (await fetchArticleBySlug(slug, countryCode)).items?.[0];
   return {
     title: article.seoTitle,
@@ -26,23 +29,28 @@ export async function generateArticleMetadata(slug: string, countryCode: Country
 }
 
 // SSG approach for this pages
-export async function generateArticleStaticParams(countryCode: CountryCode, category: string) {
-  const articles = (await fetchArticles(countryCode, category)).items
+export async function generateArticleStaticParams(
+  countryCode: CountryCode,
+  category: string
+) {
+  const articles = (await fetchArticles(countryCode, category, 0, 10)).items;
   const articlesSlugs = articles.map((article: any) => {
     slug: article.slug;
   });
   return articlesSlugs;
 }
 
-const ArticlePage = async ({ params: { slug, countryCode, articleCategory } }: ArticleProps) => {
+const ArticlePage = async ({
+  params: { slug, countryCode, articleCategory },
+}: ArticleProps) => {
   const [articleContent, suggestedArticles] = await Promise.all([
     fetchArticleBySlug(slug, countryCode),
-    fetchArticles(countryCode, articleCategory),
+    fetchArticles(countryCode, articleCategory, 0, 12),
   ]);
 
   const article = articleContent?.items?.[0];
 
-  const countryName = article?.country?.name
+  const countryName = article?.country?.name;
 
   if (!article) return notFound();
 
@@ -57,7 +65,7 @@ const ArticlePage = async ({ params: { slug, countryCode, articleCategory } }: A
     btnMode: "light",
     brightness: "brightness-75",
   };
-  
+
   const bannerProps = {
     title: "¿Querés ser conductor en DiDi?",
     desc: "Generá Dinero y maneja tus tiempos",
@@ -74,24 +82,20 @@ const ArticlePage = async ({ params: { slug, countryCode, articleCategory } }: A
     textColor: "white",
     gridCols: 3,
     gap: 0,
-    itemType: 'Article',
-    articleCategory: [articleCategory],
-    pagination: {
-      total: suggestedArticles.total,
-      limit: suggestedArticles.limit,
-      skip: suggestedArticles.skip,
-    },
     columns: suggestedArticles.items.map((article) => {
-      const link = `/${countryCode}/articulos/${article.slug}`
+      const link = `/${countryCode}/articulos/${article.slug}/`;
 
       const typeOflink = {
-        news: `/${countryCode}/newsroom/${article.slug}`,
-        food: `/${countryCode}/food/article/${article.slug}` 
+        news: `/${countryCode}/newsroom/${article.slug}/`,
+        food: `/${countryCode}/food/blog/${article.slug}/`,
+        pay: `/${countryCode}/didipay/blog/${article.slug}/`,
       } as any;
 
       return {
         title: (
-          <Link href={`${typeOflink[articleCategory] || link}`}>{article.title}</Link>
+          <Link href={`${typeOflink[articleCategory] || link}`}>
+            {article.title}
+          </Link>
         ),
         desc: article.excerpt,
         image: article.featuredImage,
