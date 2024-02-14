@@ -37,12 +37,15 @@ const Footer = async ({
         alt="DiDi Food"
         width={180}
         height={83}
+        className="h-12 w-auto"
       />
     );
 
-    countries = countries.filter((c: Country) => c.code === "mx" || c.code === "pe" || c.code === "cr" || c.code === "co");
+    countries = countries.filter(
+      (c: Country) =>
+        c.code === "mx" || c.code === "pe" || c.code === "cr" || c.code === "co"
+    );
   }
-
 
   return (
     <footer className="pb-36 lg:pb-0 bg-gray-primary">
