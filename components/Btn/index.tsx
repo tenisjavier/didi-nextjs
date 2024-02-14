@@ -12,6 +12,7 @@ import { getCountryCode } from "@/utils/country";
 export type BtnType =
   | "both"
   | "drv"
+  | "moto"
   | "drvWhatsapp"
   | "pax"
   | "fleet"
@@ -64,6 +65,9 @@ const Btn = ({
   if (btnType === "drv") {
     btnLink = btnData.drvLinkQB || btnData.drvLink;
     btnText = btnText || btnData.drvText;
+  } else if (btnType === "moto") {
+    btnLink = btnData.motoLinkQB;
+    btnText = btnText || btnData.motoText;
   } else if (btnType === "drvWhatsapp") {
     btnLink = btnData.drvWhatsappLink;
     btnText = btnText || btnData.drvWhatsappText;
