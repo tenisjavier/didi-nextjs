@@ -14,10 +14,21 @@ export const metadata: Metadata = {
   },
 };
 
-const page = async () => {
+const Guias = async ({
+  params,
+  searchParams,
+}: {
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+}) => {
   const components = await fetchPageComponents("/pe/food/restaurantes/guias/");
-
-  return <BuilderComponent components={components}></BuilderComponent>;
+  return (
+    <BuilderComponent
+      components={components}
+      params={params.slug}
+      searchParams={searchParams}
+    ></BuilderComponent>
+  );
 };
 
-export default page;
+export default Guias;

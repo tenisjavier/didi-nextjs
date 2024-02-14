@@ -1,7 +1,7 @@
 import "../globals.css";
 import localFont from "next/font/local";
 import GTM from "@/config/tracking/gtm";
-import React from "react";
+import React, { Suspense } from "react";
 const aspira = localFont({
   src: [
     {
@@ -30,10 +30,10 @@ export default async function RootLayout({
           <meta itemProp="url" content="https://web.didiglobal.com/" />
           <meta itemProp="name" content="DiDi" />
         </div>
-        <React.Suspense fallback={<div>Loading...</div>}>
         {children}
-        <GTM />
-        </React.Suspense>
+        <Suspense fallback={"....LOADING"}>
+          <GTM />
+        </Suspense>
       </body>
     </html>
   );

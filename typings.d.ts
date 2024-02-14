@@ -136,15 +136,11 @@ const ColumnSectionSchema = z.object({
   items: z.array(CardSchema).optional(),
   pagination: z
     .object({
-      total: z.number(),
-      limit: z.number(),
-      skip: z.number(),
+      page: z.string().optional(),
+      limit: z.string().optional(),
+      total: z.string().optional(),
     })
     .optional(),
-  country: z.object(CountrySchema).optional(),
-  itemType: z.enum(["Article", "Guide", "Partner"]).optional(),
-  articleCategory: z.object(ArticleCategotySchema).optional(),
-  guideCategory: z.object(GuideCategotySchema).optional(),
 });
 
 const ColumnImageSchema = z.object({

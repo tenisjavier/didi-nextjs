@@ -10,11 +10,21 @@ export const metadata: Metadata = {
   description: "Elmejor",
 };
 
-
-const Newsroom = async () => {
+const Newsroom = async ({
+  params,
+  searchParams,
+}: {
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+}) => {
   const components = await fetchPageComponents("/mx/newsroom/");
-  return <BuilderComponent components={components}></BuilderComponent>;
+  return (
+    <BuilderComponent
+      components={components}
+      params={params.slug}
+      searchParams={searchParams}
+    ></BuilderComponent>
+  );
 };
 
 export default Newsroom;
-

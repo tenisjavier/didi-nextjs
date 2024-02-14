@@ -11,13 +11,13 @@ interface ArticleProps {
 }
 
 export async function generateMetadata({ params: { slug } }: ArticleProps) {
-  const article = await generateArticleMetadata(slug, "cl");
+  const article = await generateArticleMetadata(slug, "do");
 
   return article;
 }
 
 export async function generateStaticParams() {
-  const articlesSlugs = await generateArticleStaticParams("cl", "rides");
+  const articlesSlugs = await generateArticleStaticParams("do", "news");
 
   return articlesSlugs;
 }
@@ -27,8 +27,8 @@ const Article = async ({ params: { slug } }: ArticleProps) => {
     <ArticlePage
       params={{
         slug,
-        articleCategory: "rides",
-        countryCode: "cl",
+        articleCategory: "news",
+        countryCode: "do",
       }}
     />
   );

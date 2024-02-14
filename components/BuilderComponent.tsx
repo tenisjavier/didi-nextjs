@@ -1,5 +1,5 @@
 import React from "react";
-import { CountryCode, PageComponent } from "@/typings";
+import { PageComponent } from "@/typings";
 import {
   fetchCTASectionById,
   fetchColumnSectionById,
@@ -23,13 +23,24 @@ import ListSection from "@/components/ListSection";
 
 interface BuilderComponentProps {
   components: PageComponent[];
+  params?: string | undefined;
+  searchParams?: { [key: string]: string | string[] | undefined };
 }
 
 //? return the JSX array of components to show on the opage
-const BuilderComponent = async ({ components }: BuilderComponentProps) => {
+const BuilderComponent = async ({
+  components,
+  params,
+  searchParams,
+}: BuilderComponentProps) => {
   const JSXComponents = [];
   for (const c of components) {
-    const component = await fetchComponent(c.__typename, c.id);
+    const component = await fetchComponent(
+      c.__typename,
+      c.id,
+      params,
+      searchParams
+    );
     JSXComponents.push(component);
   }
 
@@ -37,13 +48,23 @@ const BuilderComponent = async ({ components }: BuilderComponentProps) => {
 };
 
 //? function that return the correct component from db fetch depending on type
-const fetchComponent = async (type: string, id: string) => {
+const fetchComponent = async (
+  type: string,
+  id: string,
+  params: string | undefined,
+  searchParams: { [key: string]: string | string[] | undefined } | undefined
+) => {
   switch (type) {
     case "CtaSection":
       const ctaSectionProps = await fetchCTASectionById(id);
       return <CTASection {...ctaSectionProps}></CTASection>;
     case "ColumnSection":
-      const columnSectionProps = await fetchColumnSectionById(id);
+      const page =
+        typeof searchParams?.page === "string" ? Number(searchParams.page) : 1;
+      const columnSectionProps = await fetchColumnSectionById(id, {
+        page: page,
+        limit: 12,
+      });
       return <ColumnSection {...columnSectionProps}></ColumnSection>;
     case "ColumnImageSection":
       const columnImageProps = await fetchColumnImageSectionById(id);

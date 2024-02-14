@@ -4,7 +4,7 @@ import GTM from "@/config/tracking/gtm";
 import SmartBanner from "@/components/SmartBanner";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import React from "react";
+import React, { Suspense } from "react";
 const aspira = localFont({
   src: [
     {
@@ -34,7 +34,6 @@ export default async function HomeLayout({
           <meta itemProp="url" content="https://web.didiglobal.com/" />
           <meta itemProp="name" content="DiDi" />
         </div>
-        <React.Suspense fallback={<div>Loading...</div>}>
         {children}
         <SmartBanner
           countryCode="en"
@@ -47,12 +46,13 @@ export default async function HomeLayout({
           textColor="gray-primary"
           bgColor="bg-white"
         ></SmartBanner>
-        <GTM />
         <Footer
           countryCode="en"
           businessType="mobility"
           languageCode="en"
         ></Footer>
+        <React.Suspense fallback={<div>Loading...</div>}>
+          <GTM />
         </React.Suspense>
       </body>
     </html>

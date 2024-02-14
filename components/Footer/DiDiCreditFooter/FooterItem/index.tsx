@@ -1,32 +1,28 @@
 import React from "react";
-import { faFacebook, faInstagram, faTiktok, faTwitter } from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FaFacebook, FaInstagram, FaTiktok, FaTwitter } from "react-icons/fa";
 // import textHighlighter from "@/util/textHighlighter";
 import Link from "next/link";
-import Image from "next/image";
-
 
 export type iconsType = "facebook" | "instagram" | "tiktok" | "twitter";
 
 interface FooterLinkProps {
   text?: string;
   link?: string;
-  icon?: iconsType
+  icon?: iconsType;
 }
 
 const FooterItem: React.FC<FooterLinkProps> = ({ text, link, icon }) => {
-  const icons = {
-    facebook: faFacebook,
-    instagram: faInstagram,
-    tiktok: faTiktok,
-    twitter: faTwitter,
-  }
   return (
     <>
       {link ? (
         <Link className="w-fit underline underline-offset-8" href={link}>
           {icon ? (
-            <FontAwesomeIcon className="text-2xl" icon={icons[icon]} />
+            <>
+              <FaFacebook className="text-2xl" />
+              <FaInstagram className="text-2xl" />
+              <FaTiktok className="text-2xl" />
+              <FaTwitter className="text-2xl" />
+            </>
           ) : (
             <>
               {text}
@@ -43,6 +39,6 @@ const FooterItem: React.FC<FooterLinkProps> = ({ text, link, icon }) => {
       )}
     </>
   );
-}
+};
 
 export default FooterItem;
