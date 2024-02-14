@@ -6,13 +6,17 @@ import { fetchPageComponents } from "@/utils/db";
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
-  title: "Regístrate como Socio Conductor",
-  description: "Elmejor",
+  title:
+    "Inscribite como Repartidor y Ganá Dinero en DiDi Food | DiDi Food Costa Rica",
+  description:
+    "Como repartidor controlás tus tiempos. Generá ingresos de una manera confiable. Es rápido, cómodo y barato. Descargá gratis la app de DiDi Food ¡Recibí tu pedido en minutos!",
+  alternates: {
+    canonical: `https://web.didiglobal.com/cr/food/repartidores/`,
+  },
 };
 
 const page = async () => {
   const components = await fetchPageComponents("/cr/food/repartidores/");
-
   return <BuilderComponent components={components}></BuilderComponent>;
 };
 

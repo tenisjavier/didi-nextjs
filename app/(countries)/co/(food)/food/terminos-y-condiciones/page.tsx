@@ -11,7 +11,7 @@ const Page = async () => {
   if (!legal) return notFound();
   const content = legal.content.json.content[0].content[0].value;
   metadata = {
-    title: "Términos y Condiciones DiDi | DiDi Colômbia", //! fix after migration
+    title: "Términos y Condiciones DiDi | DiDi Colombia", //! fix after migration
     description: content.slice(0, 150),
     alternates: {
       canonical: `https://web.didiglobal.com/co/food/terminos-y-condiciones/`,

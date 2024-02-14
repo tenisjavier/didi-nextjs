@@ -6,10 +6,12 @@ import { fetchPageComponents } from "@/utils/db";
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
-  title:
-    "En DiDi tu Seguridad es nuestra prioridad conoce más acá | DiDi Panamá",
+  title: "Driver Safety | DiDi Australia",
   description:
-    "Conoce aquí las funcionalidades y medidas de seguridad que hemos tomado para que en tu próximo viajes lo disfrutes al máximo.",
+    "Your safety comes first. Learn more about our industry-leading safety features for drivers.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/au/safety/driver-safety/`,
+  },
 };
 
 const Seguridad = async () => {

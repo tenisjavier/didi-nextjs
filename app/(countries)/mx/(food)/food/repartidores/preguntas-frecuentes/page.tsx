@@ -6,8 +6,13 @@ import { fetchPageComponents } from "@/utils/db";
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
-  title: "Regístrate como Socio Conductor",
-  description: "Elmejor",
+  title:
+    "Preguntas Frecuentes para Repartidores de DiDi Food | DiDi Food México",
+  description:
+    "Como repartidor controlas tus tiempos. Genera ingresos de una manera confiable. Es rápido, cómodo y barato. Descarga gratis la app de DiDi Food ¡Recibe tu pedido en minutos!",
+  alternates: {
+    canonical: `https://web.didiglobal.com/mx/food/repartidores/preguntas-frecuentes/`,
+  },
 };
 
 const page = async () => {

@@ -6,9 +6,11 @@ import { fetchPageComponents } from "@/utils/db";
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
-  title: "DiDi Pasajero - Baja la App y Viaja Seguro | DiDi",
-  description:
-    "DiDi Pasajero. Viaja seguro, barato y rápido. DiDi Express y DiDi Moto están activos en Panamá. Elige la mejor opción.",
+  title: "Driver Help & FAQs | DiDi Australia",
+  description: "Need help? Have questions? We're here to assist you!",
+  alternates: {
+    canonical: `https://web.didiglobal.com/au/driver/help/`,
+  },
 };
 
 const Pasajero = async () => {

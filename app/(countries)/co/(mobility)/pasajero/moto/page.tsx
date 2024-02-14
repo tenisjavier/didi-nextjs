@@ -6,9 +6,9 @@ import { fetchPageComponents } from "@/utils/db";
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
-  title: "DiDi Pasajero - Baja la App y Viaja Seguro | DiDi Panamá",
+  title: "Pide un DiDi Moto - Llega antes pagando menos | DiDi Colombia",
   description:
-    "DiDi Pasajero. Viaja seguro, barato y rápido. DiDi Express y DiDi Moto están activos en Panamá. Elige la mejor opción.",
+    "DiDi Moto, precios justos, llega antes pagando menos. Siempre utiliza un casco de correctamente ajustado.Es muy importante que mantengas la postura correcta durante todo el viaje.",
   alternates: {
     canonical: `https://web.didiglobal.com/co/pasajero/moto/`,
   },

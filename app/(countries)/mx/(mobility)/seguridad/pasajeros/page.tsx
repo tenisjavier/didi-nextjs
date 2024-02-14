@@ -6,10 +6,13 @@ import { fetchPageComponents } from "@/utils/db";
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
-  title: "Regístrate como Socio Conductor",
-  description: "Elmejor",
+  title: "Seguridad para Pasajeros en DiDi | DiDi México",
+  description:
+    "Conoce aquí las funcionalidades y medidas de seguridad que hemos tomado para que puedas vivir la experiencia de viajar en DiDi de manera segura y confiable.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/mx/seguridad/pasajeros/`,
+  },
 };
-
 
 const Seguridad = async () => {
   const components = await fetchPageComponents("/mx/seguridad/pasajeros/");
@@ -17,4 +20,3 @@ const Seguridad = async () => {
 };
 
 export default Seguridad;
-

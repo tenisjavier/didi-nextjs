@@ -6,8 +6,13 @@ import { fetchPageComponents } from "@/utils/db";
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
-  title: "Regístrate como Socio Conductor",
-  description: "Elmejor",
+  title:
+    "Blog DiDi Food: Temas de Comida, Restaurantes y Gastronomía Mexicana | DiDi Food México",
+  description:
+    "En el blog de DiDi Food encontrarás recomendaciones sobre restaurantes de moda, platillos, rutas gastronómicas y tendencias del sector. Descubrenos",
+  alternates: {
+    canonical: `https://web.didiglobal.com/mx/food/blog/`,
+  },
 };
 
 const page = async ({

@@ -2,13 +2,18 @@ import React from "react";
 import BuilderComponent from "@/components/BuilderComponent";
 import { Metadata } from "next";
 import { fetchPageComponents } from "@/utils/db";
+import { hreflangs } from "@/config/seo/hreflang";
 
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
-  title: "Regístrate como Socio Conductor | DiDi Panamá",
+  title: "DiDi Australia - Ride Hailing & Delivery | DiDi Australia",
   description:
-    "DiDi en Panamá, regístrate como socio conductor en las categorías express, taxi y fleet ganando más y manejando menos.",
+    "DiDi Australia offers a full range of app-based transportation services to users across Australia and New Zealand.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/au/`,
+    languages: hreflangs.home,
+  },
 };
 
 const page = async () => {

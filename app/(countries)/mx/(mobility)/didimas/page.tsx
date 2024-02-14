@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "DiDiMás+ Beneficios para conductores | DiDi México",
   description:
     "Beneficios para Conductores DiDiMás+. DiDi en México, regístrate como socio conductor en las categorías express, taxi y fleet ganando más y manejando menos. ",
+  alternates: {
+    canonical: `https://web.didiglobal.com/mx/didimas/`,
+  },
 };
 
 const DiDiMas = async () => {

@@ -6,10 +6,13 @@ import { fetchPageComponents } from "@/utils/db";
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
-  title: "Regístrate como Socio Conductor",
-  description: "Elmejor",
+  title: "Contact Our Costumer Support Center | DiDi Australia",
+  description:
+    "DiDi Customer Support can assist you with any enquiries, issues, or questions you have with DiDi.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/au/contact/`,
+  },
 };
-
 
 const Contact = async () => {
   const components = await fetchPageComponents("/au/contact/");
@@ -17,4 +20,3 @@ const Contact = async () => {
 };
 
 export default Contact;
-

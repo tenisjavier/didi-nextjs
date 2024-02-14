@@ -6,10 +6,13 @@ import { fetchPageComponents } from "@/utils/db";
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
-  title: "Regístrate como Socio Conductor",
-  description: "Elmejor",
+  title: "DiDi Fleet - Genera Dinero Rentando tus Autos | DiDi México",
+  description:
+    "DiDi Fleet. Si tienes uno o más autos que quieras rentabilizar, súbelos a la app de DiDi Fleet y podrás asociar conductores a tus autos. Gana dinero de manera pasiva con DiDi Fleet.",
+  alternates: {
+    canonical: `https://web.didiglobal.com/mx/didi-fleet/`,
+  },
 };
-
 
 const Fleet = async () => {
   const components = await fetchPageComponents("/mx/didi-fleet/");
@@ -17,4 +20,3 @@ const Fleet = async () => {
 };
 
 export default Fleet;
-

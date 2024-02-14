@@ -13,6 +13,7 @@ const Store = () => {
   return (
     <>
       <QrCode
+        QRUrl="http://fleet.onelink.me/tLtr/fleetmacregion"
         title={"Escaneá el QR con tu celular"}
         desc={"Descargá DiDi Pasajero escaneando el código con tu celular."}
       />

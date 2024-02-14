@@ -7,9 +7,9 @@ import { hreflangs } from "@/config/seo/hreflang";
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
-  title: "DiDi Conductor - Maneja y Genera Dinero | DiDi Panamá",
+  title: "DiDi Conductor - Maneja y Genera Ingresos Extra | DiDi Colombia",
   description:
-    "DiDi Conductor. Revisa los requisitos. Regístrate como socio conductor en las categorías express y moto, ganando más y manejando menos.",
+    "DiDi Conductor en Colombia. Revisa los requisitos para convertirte en socio conductor. Regístrate como socio conductor en la categoría express, ganando más y manejando menos.",
   alternates: {
     canonical: `https://web.didiglobal.com/co/conductor/`,
     languages: hreflangs.drv,
