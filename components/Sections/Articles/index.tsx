@@ -75,9 +75,15 @@ const ArticlePage = async ({
     btnMode: "light",
   };
 
+  const suggestedArticlesTitle = {
+    news: `DiDi Artículos de Lugares para Visitar en ${countryName}`,
+    food: "Lee nuestros artículos de comida y restaurantes.",
+    pay: "Lee nuestros artículos financieros.",
+  } as any;
+
   const suggestedArticlesProps: ColumnSectionT = {
     name: "Suggested Articles",
-    title: `DiDi Artículos de Lugares para Visitar en ${countryName}`,
+    title: suggestedArticlesTitle[articleCategory],
     bgColor: "bg-blue-primary",
     textColor: "white",
     gridCols: 3,

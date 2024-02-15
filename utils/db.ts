@@ -1,4 +1,5 @@
 //? Contentful fetches per content type, country and category
+import Pagination from "@/components/Pagination";
 import {
   City,
   Country,
@@ -1640,6 +1641,34 @@ const fetchImages = async (imagesList: string[]): Promise<ImageType[]> => {
   return images.data.assetCollection.items;
 };
 
+const fetchSuggestedArticlesColumnSection = async (countryCode: CountryCode, articleCategory: string) => {
+  const query = `query {
+    columnSectionCollection(where: { country: {code: "mx"}, itemType: "Article", articleCategory_contains_all: "pay"}) {
+     items {
+       sys {
+         id
+       }
+     }
+   }
+ }`;
+
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+  });
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch Feature");
+  }
+
+  const { data } = await res.json();
+  const { id } = data.columnSectionCollection.items[0].sys;
+
+  const columnSection = await fetchColumnSectionById(id, { page: 1, limit: 12});
+
+  return columnSection;
+}
+
 export {
   fetchCities,
   fetchCountries,
@@ -1666,4 +1695,5 @@ export {
   fetchPartnersByCategory,
   fetchFeatureBySlug,
   fetchFeatureByCategory,
+  fetchSuggestedArticlesColumnSection,
 };
