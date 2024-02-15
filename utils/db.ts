@@ -1,5 +1,4 @@
 //? Contentful fetches per content type, country and category
-import Pagination from "@/components/Pagination";
 import {
   City,
   Country,
@@ -1643,7 +1642,7 @@ const fetchImages = async (imagesList: string[]): Promise<ImageType[]> => {
 
 const fetchSuggestedArticlesColumnSection = async (countryCode: CountryCode, articleCategory: string) => {
   const query = `query {
-    columnSectionCollection(where: { country: {code: "mx"}, itemType: "Article", articleCategory_contains_all: "pay"}) {
+    columnSectionCollection(where: { country: {code: ${countryCode}}, itemType: "Article", articleCategory_contains_all: ${articleCategory}}) {
      items {
        sys {
          id
