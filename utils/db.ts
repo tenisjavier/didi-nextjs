@@ -4,6 +4,7 @@ import {
   Country,
   CountryCode,
   FeaturesT,
+  ItemType,
   PartnerT,
 } from "@/typings";
 import { ImageType } from "@/typings";
@@ -1660,12 +1661,12 @@ const fetchImages = async (imagesList: string[]): Promise<ImageType[]> => {
   return images.data.assetCollection.items;
 };
 
-const fetchSuggestedColumnSection = async (countryCode: CountryCode, itemType: string, articleCategory: string) => {
+const fetchSuggestedColumnSection = async (countryCode: CountryCode, itemType: ItemType, category: string) => {
 
   const categoryAttribute = itemType === "Article" ? "articleCategory" : "guideCategory"; 
 
   const query = `query {
-    columnSectionCollection(where: { country: {code: "${countryCode}"}, itemType: "${itemType}", ${categoryAttribute}_contains_all: "${articleCategory}"}) {
+    columnSectionCollection(where: { country: {code: "${countryCode}"}, itemType: "${itemType}", ${categoryAttribute}_contains_all: "${category}"}) {
      items {
        sys {
          id
@@ -1686,7 +1687,7 @@ const fetchSuggestedColumnSection = async (countryCode: CountryCode, itemType: s
   const { data } = await res.json();
   const { id } = data.columnSectionCollection.items[0].sys;
 
-  const columnSection = await fetchColumnSectionById(id, { page: 1, limit: 12});
+  const columnSection = await fetchColumnSectionById(id, { page: 0, limit: 12});
 
   delete columnSection.pagination;
 
