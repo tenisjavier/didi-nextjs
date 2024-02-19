@@ -957,12 +957,23 @@ const fetchColumnSectionById = async (
       );
 
       const items: ListItemT = articles?.items?.map((article: any) => {
+
+        const countryCode = columnSection.country.code;
+
+        const link = `/${countryCode}/articulos/${article.slug}/`;
+
+        const typeOflink = {
+          news: `/${countryCode}/newsroom/${article.slug}/`,
+          food: `/${countryCode}/food/blog/${article.slug}/`,
+          pay: `/${countryCode}/didipay/blog/${article.slug}/`,
+        } as any;
+
         return {
           title: article.title,
           desc: article.excerpt,
           image: article.featuredImage,
           pathname: article.slug,
-          btnLink: article.slug + "/",
+          btnLink: typeOflink[columnSection.articleCategory] || link,
           btnType: "custom",
           btnText: "Leer Artículo",
           btnMode: "dark",
@@ -1642,7 +1653,7 @@ const fetchImages = async (imagesList: string[]): Promise<ImageType[]> => {
 
 const fetchSuggestedArticlesColumnSection = async (countryCode: CountryCode, articleCategory: string) => {
   const query = `query {
-    columnSectionCollection(where: { country: {code: ${countryCode}}, itemType: "Article", articleCategory_contains_all: ${articleCategory}}) {
+    columnSectionCollection(where: { country: {code: "${countryCode}"}, itemType: "Article", articleCategory_contains_all: "${articleCategory}"}) {
      items {
        sys {
          id
