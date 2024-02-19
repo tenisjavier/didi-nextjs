@@ -4,8 +4,8 @@ import {
   Country,
   CountryCode,
   FeaturesT,
+  ItemType,
   PartnerT,
-  ProductT,
 } from "@/typings";
 import { ImageType } from "@/typings";
 import { PageComponent } from "@/typings";
@@ -917,7 +917,10 @@ const fetchColumnSectionById = async (
   }
 
   if (columnSection?.itemType?.toLowerCase() === "guide") {
-    if (columnSection?.country?.code && columnSection?.guideCategory?.[0]) {
+
+    const countryCode = columnSection?.country?.code;
+    
+    if (countryCode && columnSection?.guideCategory?.[0]) {
       const guides = await fetchGuides(
         columnSection?.country?.code,
         columnSection?.guideCategory?.[0],
@@ -925,12 +928,19 @@ const fetchColumnSectionById = async (
         pagination.limit
       );
       const items: ListItemT = guides?.items?.map((guide) => {
+        const link = `/${countryCode}/guias/${guide.slug}/`;
+
+        const typeOflink = {
+          restaurant: `/${countryCode}/food/restaurantes/guias/${guide.slug}/`,
+          delivery: `/${countryCode}/food/repartidores/guias/${guide.slug}/`,
+        } as any;
+
         return {
           title: guide.title,
           desc: guide.excerpt,
           image: guide.featuredImage,
-          pathname: guide.slug,
-          btnLink: guide.slug + "/",
+          pathname: typeOflink[columnSection.category] || link,
+          btnLink: typeOflink[columnSection.category] || link,
           btnType: "custom",
           btnText: "Leer Artículo",
           btnMode: "dark",
@@ -957,12 +967,23 @@ const fetchColumnSectionById = async (
       );
 
       const items: ListItemT = articles?.items?.map((article: any) => {
+
+        const countryCode = columnSection.country.code;
+
+        const link = `/${countryCode}/articulos/${article.slug}/`;
+
+        const typeOflink = {
+          news: `/${countryCode}/newsroom/${article.slug}/`,
+          food: `/${countryCode}/food/blog/${article.slug}/`,
+          pay: `/${countryCode}/didipay/blog/${article.slug}/`,
+        } as any;
+
         return {
           title: article.title,
           desc: article.excerpt,
           image: article.featuredImage,
-          pathname: article.slug,
-          btnLink: article.slug + "/",
+          pathname: typeOflink[columnSection.articleCategory] || link,
+          btnLink: typeOflink[columnSection.articleCategory] || link,
           btnType: "custom",
           btnText: "Leer Artículo",
           btnMode: "dark",
@@ -1640,6 +1661,39 @@ const fetchImages = async (imagesList: string[]): Promise<ImageType[]> => {
   return images.data.assetCollection.items;
 };
 
+const fetchSuggestedColumnSection = async (countryCode: CountryCode, itemType: ItemType, category: string) => {
+
+  const categoryAttribute = itemType === "Article" ? "articleCategory" : "guideCategory"; 
+
+  const query = `query {
+    columnSectionCollection(where: { country: {code: "${countryCode}"}, itemType: "${itemType}", ${categoryAttribute}_contains_all: "${category}"}) {
+     items {
+       sys {
+         id
+       }
+     }
+   }
+ }`;
+
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+  });
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch Feature");
+  }
+
+  const { data } = await res.json();
+  const { id } = data.columnSectionCollection.items[0].sys;
+
+  const columnSection = await fetchColumnSectionById(id, { page: 0, limit: 12});
+
+  delete columnSection.pagination;
+
+  return columnSection;
+}
+
 export {
   fetchCities,
   fetchCountries,
@@ -1666,4 +1720,5 @@ export {
   fetchPartnersByCategory,
   fetchFeatureBySlug,
   fetchFeatureByCategory,
+  fetchSuggestedColumnSection,
 };

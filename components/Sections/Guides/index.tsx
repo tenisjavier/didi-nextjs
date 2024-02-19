@@ -1,11 +1,14 @@
 import React from "react";
-import { fetchGuideBySlug, fetchGuides } from "@/utils/db";
+import {
+  fetchGuideBySlug,
+  fetchGuides,
+  fetchSuggestedColumnSection,
+} from "@/utils/db";
 import CTASection from "@/components/CTASection";
 import RichContent from "@/components/RichContent";
 import Banner from "@/components/Banner";
 import { notFound } from "next/navigation";
 import { ColumnSectionT, CountryCode, GuideType } from "@/typings";
-import Link from "next/link";
 import ColumnsSection from "@/components/ColumnSection";
 
 interface GuiasProps {
@@ -22,6 +25,7 @@ export async function generateGuideMetadata(
   countryCode: CountryCode
 ) {
   const guide = (await fetchGuideBySlug(countryCode, slug)).items?.[0];
+
   return {
     title: guide.seoTitle,
     description: guide.seoDescription,
@@ -52,8 +56,6 @@ const GuidePage = async ({
 
   if (!guide) return notFound();
 
-  const countryName = guide?.country?.name;
-
   const heroProps = {
     title: guide.title,
     desc: guide.excerpt,
@@ -73,37 +75,8 @@ const GuidePage = async ({
     btnMode: "light",
   };
 
-  const suggestedGuidesProps: ColumnSectionT = {
-    name: "Suggested Guides",
-    title: `Guías para Socios Conductores en ${countryName}`,
-    bgColor: "bg-blue-primary",
-    textColor: "white",
-    gridCols: 3,
-    gap: 0,
-    columns: suggestedGuides.items.map((guide) => {
-      const link = `/${countryCode}/guias/${guide.slug}/`;
-
-      const typeOflink = {
-        restaurant: `/${countryCode}/food/restaurantes/guias/${guide.slug}/`,
-        delivery: `/${countryCode}/food/repartidores/guias/${guide.slug}/`,
-      } as any;
-      return {
-        title: (
-          <Link href={`${typeOflink[guideCategory] || link}`}>
-            {guide.title}
-          </Link>
-        ),
-        desc: guide.excerpt,
-        image: guide.featuredImage,
-        bgColor: "bg-white",
-        textColor: "gray-primary",
-        btnType: "custom",
-        btnMode: "dark",
-        btnText: "Leer Artículo",
-        btnLink: `${typeOflink[guideCategory] || link}`,
-      };
-    }),
-  };
+  const suggestedGuidesProps: ColumnSectionT =
+    await fetchSuggestedColumnSection(countryCode, "Guide", guideCategory);
 
   return (
     <>
