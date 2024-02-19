@@ -4,6 +4,7 @@ import {
   Country,
   CountryCode,
   FeaturesT,
+  PageT,
   PartnerT,
   ProductT,
 } from "@/typings";
@@ -80,6 +81,7 @@ const fetchCitieBySlug = async (
         slug
         country {
           code
+          name
         }
         image {
           title
@@ -166,6 +168,31 @@ const fetchABtest = async (pathname: string): Promise<ABtestT> => {
   return abtest?.data.abtestCollection?.items?.[0];
 };
 
+const fetchPages = async (): Promise<PageT[]> => {
+  const query = `
+  query {
+    pageCollection(limit: 1000){
+      items {
+        pathname
+        sys{
+          publishedAt
+        }
+      }
+    }
+  }`;
+
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+  });
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch page components");
+  }
+  const pageComponents = await res.json();
+  return pageComponents.data.pageCollection.items;
+};
+
 //? returns a object of components of a page
 //* params: the pathname of the page ex: "/mx/food/"
 const fetchPageComponents = async (
@@ -237,7 +264,7 @@ const fetchPageComponents = async (
       items {
         componentsCollection(limit:15) {
           items {
-           ...ctaFields
+            ...ctaFields
             ...columnFields
             ...carouselSectionFields
             ...accordionFields
@@ -1024,6 +1051,9 @@ const fetchListSectionById = async (id: string): Promise<ListSectionT> => {
       data.listSection.country.code,
       data.listSection.productCategory
     );
+
+    console.log("cities", data);
+
     const items: ListItemT = cities.map((city) => {
       let link = `/${city.country.code}/conductor/ciudades/${city.slug}/`;
 
@@ -1033,6 +1063,10 @@ const fetchListSectionById = async (id: string): Promise<ListSectionT> => {
         data.listSection.country.code === "eg"
       ) {
         link = `/${city.country.code}/driver/cities/${city.slug}/`;
+      }
+
+      if (data.listSection.productCategory?.includes("food")) {
+        link = `/${city.country.code}/food/ciudad/${city.slug}/`;
       }
 
       return {
@@ -1666,4 +1700,5 @@ export {
   fetchPartnersByCategory,
   fetchFeatureBySlug,
   fetchFeatureByCategory,
+  fetchPages,
 };
