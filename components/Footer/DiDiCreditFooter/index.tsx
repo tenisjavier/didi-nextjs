@@ -1,7 +1,6 @@
 import React from "react";
 import FooterColumn from "./FooterColumn";
 import { getFooterTarjetaDeCreditoLinks } from "@/config/footer/footer-tarjeta-de-credito-config";
-import FooterItem from "./FooterItem";
 import Image from "next/image";
 
 interface DiDiCreditFooterProps { }
@@ -28,14 +27,13 @@ const DiDiCreditFooter: React.FC<DiDiCreditFooterProps> = ({ }) => {
         </div>
         <div className="flex lg:flex-row flex-col justify-between items-center lg:gap-24 w-full">
           <div>
-            {/* <Image
-              src="/mx/tarjeta-de-credito/logo_DiDi_White.png"
-              imageData={{
-                title: "DiDi Credit",
-                description: "DiDi Credit",
-              }}
-              imageStyle="w-[168px]"
-            /> */}
+            <Image
+              src="/images/logos/didi-logo-card-white.png"
+              alt="DiDi Credit"
+              className="max-w-[168px] h-auto"
+              width={168}
+              height={168}
+            />
             <p>
               © 2020 Regigold, S.A. DE C.V., SOFOM, E.N.R. (DiDi Card) es una
               entidad financiera <br /> registrada y supervisada por la Comisión
@@ -44,15 +42,6 @@ const DiDiCreditFooter: React.FC<DiDiCreditFooterProps> = ({ }) => {
               Valores.
             </p>
           </div>
-          <FooterItem
-            link="https://privacy-center.didiglobal.com/MX/privacy-notice/6e82a0c4e8becd1ab7788c1978c2f719/Mexico"
-            text="Consulta Términos y Condiciones generales aquí"
-          ></FooterItem>
-          <br></br>
-          <FooterItem
-            link="/mx/legal/consulta-costos-y-comisiones"
-            text="Consulta costos y comisiones"
-          ></FooterItem>
         </div>
       </div>
       <div className="w-full bg-orange-primary text-center py-6 px-6">

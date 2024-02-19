@@ -895,6 +895,7 @@ const fetchColumnSectionById = async (
           desc
           textColor
           bgColor
+          type
           image {
             title
             description

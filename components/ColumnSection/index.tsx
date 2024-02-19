@@ -37,27 +37,24 @@ const ColumnsSection = (props: ColumnSectionT) => {
         {title &&
           title.split("\n").map((str, index) => (
             <h2 key={index} className="text-left lg:text-center text-4xl">
-              {hasTextHighlight
-                ? textHighlighter(str, textHighlightStyles)
-                : str}
+              {textHighlighter(str, textHighlightStyles)}
             </h2>
           ))}
         {desc &&
           desc.split("\n").map((str, index) => (
             <p key={index} className="text-left lg:text-center text-lg">
-              {str}
+              {textHighlighter(str, textHighlightStyles)}
             </p>
           ))}
 
         {columns && (
           <div
-            className={`grid grid-cols-1 ${
-              columns && columns?.length < 3
-                ? columns?.length > 1
-                  ? "grid-cols-2"
-                  : ""
-                : "lg:grid-cols-" + gridCols
-            }  ${"gap-" + gap} mt-10  lg:justify-around `}
+            className={`grid grid-cols-1 ${columns && columns?.length < 3
+              ? columns?.length > 1
+                ? "grid-cols-2"
+                : ""
+              : "lg:grid-cols-" + gridCols
+              }  ${"gap-" + gap} mt-10  lg:justify-around `}
           >
             {columns &&
               columns.map((col, index) => {
@@ -67,13 +64,12 @@ const ColumnsSection = (props: ColumnSectionT) => {
         )}
         {items && (
           <div
-            className={`grid grid-cols-1 ${
-              items && items?.length < 3
-                ? items?.length > 1
-                  ? "lg:grid-cols-2"
-                  : ""
-                : "lg:grid-cols-" + gridCols
-            }  ${"gap-" + gap} mt-10  lg:justify-around `}
+            className={`grid grid-cols-1 ${items && items?.length < 3
+              ? items?.length > 1
+                ? "lg:grid-cols-2"
+                : ""
+              : "lg:grid-cols-" + gridCols
+              }  ${"gap-" + gap} mt-10  lg:justify-around `}
           >
             {items &&
               items.map((item, index) => {

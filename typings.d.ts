@@ -119,7 +119,7 @@ const CTASectionSchema = z.object({
 
 const CardSchema = z.object({
   name: z.string(),
-  type: z.enum(["default", "press", "review"]),
+  type: z.enum(["default", "press", "review", "creditCard"]),
   title: z.union([z.string(), React.ReactNode]),
   desc: z.string().nullish(),
   subDesc: z.string().optional(),
