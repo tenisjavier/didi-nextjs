@@ -581,6 +581,10 @@ const menuLinks: Menu = {
           text: "Ciudades Operativas",
           url: "/pe/conductor/ciudades/",
         },
+        {
+          text: "DiDi Pon tu Precio",
+          url: "/pe/conductor/didi-pontuprecio/",
+        },
       ],
     },
     {
