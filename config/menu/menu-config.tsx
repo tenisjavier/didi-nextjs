@@ -313,7 +313,7 @@ const menuLinks: Menu = {
         },
         {
           text: "DiDi Pon tu Precio",
-          url: "/mx/conductor/didi-pontuprecio/",
+          url: "/mx/conductor/didi-pon-tu-precio/",
         },
         {
           text: "DiDiMás+",
@@ -583,7 +583,7 @@ const menuLinks: Menu = {
         },
         {
           text: "DiDi Pon tu Precio",
-          url: "/pe/conductor/didi-pontuprecio/",
+          url: "/pe/conductor/didi-pon-tu-precio/",
         },
       ],
     },
@@ -692,7 +692,7 @@ const menuLinks: Menu = {
         },
         {
           text: "DiDi Pon tu Precio",
-          url: "/co/conductor/didi-pontuprecio/",
+          url: "/co/conductor/didi-pon-tu-precio/",
         },
         {
           text: "DiDiMás+",
