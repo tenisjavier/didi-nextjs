@@ -312,8 +312,8 @@ const menuLinks: Menu = {
           url: "/mx/didi-fleet/",
         },
         {
-          text: "DiDi Flex",
-          url: "/mx/conductor/didi-flex/",
+          text: "DiDi Pon tu Precio",
+          url: "/mx/conductor/didi-pon-tu-precio/",
         },
         {
           text: "DiDiMás+",
@@ -581,6 +581,10 @@ const menuLinks: Menu = {
           text: "Ciudades Operativas",
           url: "/pe/conductor/ciudades/",
         },
+        {
+          text: "DiDi Pon tu Precio",
+          url: "/pe/conductor/didi-pon-tu-precio/",
+        },
       ],
     },
     {
@@ -687,8 +691,8 @@ const menuLinks: Menu = {
           url: "/co/conductor/didi-confort/",
         },
         {
-          text: "DiDi Flex",
-          url: "/co/conductor/didi-flex/",
+          text: "DiDi Pon tu Precio",
+          url: "/co/conductor/didi-pon-tu-precio/",
         },
         {
           text: "DiDiMás+",
