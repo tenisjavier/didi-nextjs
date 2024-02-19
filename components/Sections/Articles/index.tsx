@@ -2,9 +2,8 @@ import React from "react";
 import {
   fetchArticleBySlug,
   fetchArticles,
-  fetchSuggestedArticlesColumnSection,
+  fetchSuggestedColumnSection,
 } from "@/utils/db";
-import Link from "next/link";
 import CTASection from "@/components/CTASection";
 import RichContent from "@/components/RichContent";
 import Banner from "@/components/Banner";
@@ -54,8 +53,6 @@ const ArticlePage = async ({
 
   const article = articleContent?.items?.[0];
 
-  const countryName = article?.country?.name;
-
   if (!article) return notFound();
 
   const heroProps = {
@@ -80,7 +77,8 @@ const ArticlePage = async ({
   };
 
   const suggestedArticlesProps: ColumnSectionT =
-    await fetchSuggestedArticlesColumnSection(countryCode, articleCategory);
+    await fetchSuggestedColumnSection(countryCode, "Article", articleCategory);
+
   return (
     <>
       <CTASection {...heroProps}></CTASection>

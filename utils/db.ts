@@ -5,7 +5,6 @@ import {
   CountryCode,
   FeaturesT,
   PartnerT,
-  ProductT,
 } from "@/typings";
 import { ImageType } from "@/typings";
 import { PageComponent } from "@/typings";
@@ -917,7 +916,10 @@ const fetchColumnSectionById = async (
   }
 
   if (columnSection?.itemType?.toLowerCase() === "guide") {
-    if (columnSection?.country?.code && columnSection?.guideCategory?.[0]) {
+
+    const countryCode = columnSection?.country?.code;
+    
+    if (countryCode && columnSection?.guideCategory?.[0]) {
       const guides = await fetchGuides(
         columnSection?.country?.code,
         columnSection?.guideCategory?.[0],
@@ -925,12 +927,19 @@ const fetchColumnSectionById = async (
         pagination.limit
       );
       const items: ListItemT = guides?.items?.map((guide) => {
+        const link = `/${countryCode}/guias/${guide.slug}/`;
+
+        const typeOflink = {
+          restaurant: `/${countryCode}/food/restaurantes/guias/${guide.slug}/`,
+          delivery: `/${countryCode}/food/repartidores/guias/${guide.slug}/`,
+        } as any;
+
         return {
           title: guide.title,
           desc: guide.excerpt,
           image: guide.featuredImage,
-          pathname: guide.slug,
-          btnLink: guide.slug + "/",
+          pathname: typeOflink[columnSection.category] || link,
+          btnLink: typeOflink[columnSection.category] || link,
           btnType: "custom",
           btnText: "Leer Artículo",
           btnMode: "dark",
@@ -972,7 +981,7 @@ const fetchColumnSectionById = async (
           title: article.title,
           desc: article.excerpt,
           image: article.featuredImage,
-          pathname: article.slug,
+          pathname: typeOflink[columnSection.articleCategory] || link,
           btnLink: typeOflink[columnSection.articleCategory] || link,
           btnType: "custom",
           btnText: "Leer Artículo",
@@ -1651,9 +1660,12 @@ const fetchImages = async (imagesList: string[]): Promise<ImageType[]> => {
   return images.data.assetCollection.items;
 };
 
-const fetchSuggestedArticlesColumnSection = async (countryCode: CountryCode, articleCategory: string) => {
+const fetchSuggestedColumnSection = async (countryCode: CountryCode, itemType: string, articleCategory: string) => {
+
+  const categoryAttribute = itemType === "Article" ? "articleCategory" : "guideCategory"; 
+
   const query = `query {
-    columnSectionCollection(where: { country: {code: "${countryCode}"}, itemType: "Article", articleCategory_contains_all: "${articleCategory}"}) {
+    columnSectionCollection(where: { country: {code: "${countryCode}"}, itemType: "${itemType}", ${categoryAttribute}_contains_all: "${articleCategory}"}) {
      items {
        sys {
          id
@@ -1675,6 +1687,8 @@ const fetchSuggestedArticlesColumnSection = async (countryCode: CountryCode, art
   const { id } = data.columnSectionCollection.items[0].sys;
 
   const columnSection = await fetchColumnSectionById(id, { page: 1, limit: 12});
+
+  delete columnSection.pagination;
 
   return columnSection;
 }
@@ -1705,5 +1719,5 @@ export {
   fetchPartnersByCategory,
   fetchFeatureBySlug,
   fetchFeatureByCategory,
-  fetchSuggestedArticlesColumnSection,
+  fetchSuggestedColumnSection,
 };
