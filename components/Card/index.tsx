@@ -27,7 +27,7 @@ const Card = (props: CardT) => {
     descPosition = "beforeBtn",
     pathname,
     isImageIcon,
-    type
+    type,
   } = props;
 
   let dir: any = "ltr";
@@ -40,13 +40,12 @@ const Card = (props: CardT) => {
     return str.length > n ? str.substring(0, n - 1) + "..." : str;
   };
 
-  const isCreditCard = type === 'creditCard' ? "rounded-2xl p-8 lg:w-[600px] w-full" : "max-w-xs"
+  const isCreditCard = type === 'creditCard' ? "rounded-2xl p-8 lg:max-w-[600px] w-full max-w-xs" : "w-full max-w-xs"
 
   return (
     <div
-      style={{ direction: dir }}
-      className={`${isCreditCard}
-       rounded-  flex flex-col items-center ${bgColor} text-${textColor} my-3 text-center lg:mx-4`}
+      style={{ direction: dir, }}
+      className={`${isCreditCard} flex flex-col items-center ${bgColor} text-${textColor} my-3 text-center lg:mx-4`}
     >
       {titlePosition === "beforeImage" && title && (
         <h4 className={`mb-4 text-xl font-bold lg:text-center ${titleStyles}`}>
@@ -99,7 +98,7 @@ const Card = (props: CardT) => {
       )}
 
       <div
-        className={` flex flex-col items-center justify-between px-6 py-4 text-center`}
+        className={`flex flex-col items-center justify-between px-6 py-4 text-center`}
       >
         <div>
           {titlePosition === "afterImage" && title && (

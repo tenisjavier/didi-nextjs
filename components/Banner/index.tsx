@@ -17,10 +17,11 @@ const Banner = ({
   reverse,
   imageBottom,
   video,
+  borderColor
 }: BannerT) => {
 
   return (
-    <div className={`py-8 lg:py-4 ${bgColor && bgColor} text-${textColor}`}>
+    <div className={`${bgColor && bgColor} text-${textColor} ${borderColor ? `border border-solid border-${borderColor}` : ""}`}>
       <div className={`container mx-auto w-full ${bgColor && bgColor} text-${textColor} flex  ${imageBottom ? "flex-col" : ""} items-center ${image ? "justify-between" : "justify-center"} flex-wrap`}>
         <div
           className={` py-4  px-4 lg:px-0  ${image ? "text-left" : "text-center"
