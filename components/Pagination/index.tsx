@@ -16,7 +16,7 @@ const Pagination: React.FC<PaginationProps> = ({ page, limit, total }) => {
     const renderPageButton = (index: number) => {
       const btnToogle =
         page === index
-          ? "bg-gray-primary text-white"
+          ? "bg-gray-primary text-white pointer-events-none"
           : " text-gray-primary bg-gray-light";
       const pageParam = index === 1 ? "./" : `?page=${index}`;
       return (
@@ -45,19 +45,29 @@ const Pagination: React.FC<PaginationProps> = ({ page, limit, total }) => {
     };
     const previousPageParam = page > 2 ? `?page=${page - 1}` : "./";
     const nextPageParam = `?page=${page + 1}`;
+
+    const disabledIfFirstPage =
+      page === 1 ? "pointer-events-none text-white" : "text-gray-primary";
+
+    const disabledIfLastPage =
+      page === totalPage
+        ? "pointer-events-none text-white"
+        : "text-gray-primary";
+
     return (
       <>
         <div className="w-full flex gap-2 justify-center items-center mt-10">
           <Link
             href={`${previousPageParam}`}
-            className="w-10 flex items-center justify-center px-2.5 py-2 text-gray-primary bg-gray-light border border-gray-light hover:cursor-pointer  hover:bg-gray-primary hover:text-white disabled:text-gray-light"
+            className={`${disabledIfFirstPage} w-10 flex items-center justify-center px-2.5 py-2 bg-gray-light border border-gray-light hover:cursor-pointer  hover:bg-gray-primary hover:text-white disabled:text-gray-light`}
+            aria-disabled={true}
           >
             <FaArrowLeft />
           </Link>
           {renderPageButtons()}
           <Link
             href={`${nextPageParam}`}
-            className="w-10 flex items-center justify-center px-2.5 py-2 text-gray-primary bg-gray-light border border-gray-light hover:cursor-pointer  hover:bg-gray-primary hover:text-white disabled:text-gray-light"
+            className={`${disabledIfLastPage} w-10 flex items-center justify-center px-2.5 py-2 bg-gray-light border border-gray-light hover:cursor-pointer  hover:bg-gray-primary hover:text-white disabled:text-gray-light`}
           >
             <FaArrowRight />
           </Link>
