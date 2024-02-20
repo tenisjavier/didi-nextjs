@@ -1,6 +1,9 @@
 import React from "react";
-import { fetchArticleBySlug, fetchArticles } from "@/utils/db";
-import Link from "next/link";
+import {
+  fetchArticleBySlug,
+  fetchArticles,
+  fetchSuggestedColumnSection,
+} from "@/utils/db";
 import CTASection from "@/components/CTASection";
 import RichContent from "@/components/RichContent";
 import Banner from "@/components/Banner";
@@ -50,8 +53,6 @@ const ArticlePage = async ({
 
   const article = articleContent?.items?.[0];
 
-  const countryName = article?.country?.name;
-
   if (!article) return notFound();
 
   const heroProps = {
@@ -75,39 +76,9 @@ const ArticlePage = async ({
     btnMode: "light",
   };
 
-  const suggestedArticlesProps: ColumnSectionT = {
-    name: "Suggested Articles",
-    title: `DiDi Artículos de Lugares para Visitar en ${countryName}`,
-    bgColor: "bg-blue-primary",
-    textColor: "white",
-    gridCols: 3,
-    gap: 0,
-    columns: suggestedArticles.items.map((article) => {
-      const link = `/${countryCode}/articulos/${article.slug}/`;
+  const suggestedArticlesProps: ColumnSectionT =
+    await fetchSuggestedColumnSection(countryCode, "Article", articleCategory);
 
-      const typeOflink = {
-        news: `/${countryCode}/newsroom/${article.slug}/`,
-        food: `/${countryCode}/food/blog/${article.slug}/`,
-        pay: `/${countryCode}/didipay/blog/${article.slug}/`,
-      } as any;
-
-      return {
-        title: (
-          <Link href={`${typeOflink[articleCategory] || link}`}>
-            {article.title}
-          </Link>
-        ),
-        desc: article.excerpt,
-        image: article.featuredImage,
-        bgColor: "bg-white",
-        textColor: "gray-primary",
-        btnType: "custom",
-        btnMode: "dark",
-        btnText: "Leer Guía",
-        btnLink: `${typeOflink[articleCategory] || link}`,
-      };
-    }),
-  };
   return (
     <>
       <CTASection {...heroProps}></CTASection>

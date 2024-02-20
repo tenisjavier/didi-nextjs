@@ -28,6 +28,13 @@ const BusinessSchema = z.enum([
   "drive",
 ]);
 
+const ItemTypeSchema = z.enum([
+  "Partner",
+  "Guide",
+  "Article",
+  "Requirement",
+])
+
 const ArticleCategotySchema = z.enum([
   "rides",
   "food",
@@ -434,6 +441,7 @@ const TextParamsSchema = z.object({
 export type CountryCode = z.infer<typeof CountryCodeSchema>;
 export type LanguageCode = z.infer<typeof languageCodeSchema>;
 export type BusinessType = z.infer<typeof BusinessSchema>;
+export type ItemType = z.infer<typeof ItemTypeSchema>;
 export type ArticleType = z.infer<typeof ArticleCategotySchema>;
 export type GuideType = z.infer<typeof GuideCategotySchema>;
 export type ImageType = z.infer<typeof ImageSchema>;
