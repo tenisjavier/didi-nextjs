@@ -311,6 +311,10 @@ const fetchCTASectionById = async (id: string): Promise<CTASectionT> => {
       bullets
       textColor
       bgColor
+      type
+      bulletsConfigColumn
+      whiteRight
+      borderColor
       bgImage {
         title
         description
@@ -417,6 +421,7 @@ const fetchColumnImageSectionById = async (
         description
         url
       }
+      imageAlignment
       columnsCollection{
 
         items{
@@ -811,6 +816,7 @@ banner(id:"${id}") {
   desc
   bgColor
   textColor
+  borderColor
   image {
     title
     description
@@ -891,6 +897,7 @@ const fetchColumnSectionById = async (
           desc
           textColor
           bgColor
+          type
           image {
             title
             description

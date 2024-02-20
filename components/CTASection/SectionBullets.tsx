@@ -8,7 +8,6 @@ interface SectionBulletsProps {
   margin: string;
   customBulletIcon?: boolean;
   icon?: any;
-  hasTextHighlighter?: boolean;
   textHighlighterStyle?: string;
 }
 
@@ -18,7 +17,6 @@ const SectionBullets = ({
   textDir,
   margin,
   icon,
-  hasTextHighlighter,
 }: SectionBulletsProps) => {
   return (
     <ul
@@ -35,13 +33,11 @@ const SectionBullets = ({
           )}
           <div className="inline-block">
             {typeof item === "string"
-              ? item.split("\n").map((str, index) => (
-                  <p className="mt-0 mb-5 text-xl" key={index}>
-                    {hasTextHighlighter
-                      ? textHighlighter(str, "font-bold")
-                      : str}
-                  </p>
-                ))
+              ? item.split("\\n").map((str, index) => (
+                <p className="mt-0 mb-5 text-xl" key={index}>
+                  {textHighlighter(str, "font-bold")}
+                </p>
+              ))
               : item}
           </div>
         </li>

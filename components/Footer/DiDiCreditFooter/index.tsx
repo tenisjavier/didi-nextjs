@@ -1,7 +1,6 @@
 import React from "react";
 import FooterColumn from "./FooterColumn";
 import { getFooterTarjetaDeCreditoLinks } from "@/config/footer/footer-tarjeta-de-credito-config";
-import FooterItem from "./FooterItem";
 import Image from "next/image";
 
 interface DiDiCreditFooterProps { }
@@ -28,31 +27,23 @@ const DiDiCreditFooter: React.FC<DiDiCreditFooterProps> = ({ }) => {
         </div>
         <div className="flex lg:flex-row flex-col justify-between items-center lg:gap-24 w-full">
           <div>
-            {/* <Image
-              src="/mx/tarjeta-de-credito/logo_DiDi_White.png"
-              imageData={{
-                title: "DiDi Credit",
-                description: "DiDi Credit",
-              }}
-              imageStyle="w-[168px]"
-            /> */}
+            <Image
+              src="/images/logos/didi-logo-card-white.png"
+              alt="DiDi Credit"
+              className="max-w-[168px] h-auto"
+              width={168}
+              height={168}
+            />
             <p>
               © 2020 Regigold, S.A. DE C.V., SOFOM, E.N.R. (DiDi Card) es una
-              entidad financiera <br /> registrada y supervisada por la Comisión
-              Nacional para la Protección y Defensa de <br /> los Usuarios de
-              Servicios Financieros y por la Comisión Nacional Bancaria de
-              Valores.
+              entidad financiera registrada y supervisada por la Comisión
+              Nacional para la Protección y Defensa de los Usuarios de Servicios
+              Financieros y se encuentra sujeta a la supervisión de la Comisión
+              Nacional Bancaria y de Valores, únicamente para efectos de lo
+              dispuesto por el artículo 56 de la Ley General de Organizaciones y
+              Actividades Auxiliares del Crédito.
             </p>
           </div>
-          <FooterItem
-            link="https://privacy-center.didiglobal.com/MX/privacy-notice/6e82a0c4e8becd1ab7788c1978c2f719/Mexico"
-            text="Consulta Términos y Condiciones generales aquí"
-          ></FooterItem>
-          <br></br>
-          <FooterItem
-            link="/mx/legal/consulta-costos-y-comisiones"
-            text="Consulta costos y comisiones"
-          ></FooterItem>
         </div>
       </div>
       <div className="w-full bg-orange-primary text-center py-6 px-6">

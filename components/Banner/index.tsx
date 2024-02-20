@@ -2,6 +2,7 @@ import React from "react";
 import Btn from "@/components/Btn";
 import Image from "next/image";
 import { BannerT } from "@/typings";
+import textHighlighter from "@/utils/textHighlighter";
 
 const Banner = ({
   title,
@@ -16,17 +17,18 @@ const Banner = ({
   reverse,
   imageBottom,
   video,
+  borderColor
 }: BannerT) => {
 
   return (
-    <div className={`py-8 lg:py-4 ${bgColor && bgColor} text-${textColor}`}>
+    <div className={`${bgColor && bgColor} text-${textColor} ${borderColor ? `border border-solid border-${borderColor}` : ""}`}>
       <div className={`container mx-auto w-full ${bgColor && bgColor} text-${textColor} flex  ${imageBottom ? "flex-col" : ""} items-center ${image ? "justify-between" : "justify-center"} flex-wrap`}>
         <div
           className={` py-4  px-4 lg:px-0  ${image ? "text-left" : "text-center"
             }`}
         >
-          <h3 className={`mb-2 text-3xl lg:text-4xl  font-bold `}>{title}</h3>
-          {desc && <p className="text-lg ">{desc}</p>}
+          <h3 className={`mb-2 text-3xl lg:text-4xl  font-bold `}>{textHighlighter(title)}</h3>
+          {desc && <p className="text-lg ">{textHighlighter(desc)}</p>}
           {video && (
             <p className="text-lg ">
               <iframe

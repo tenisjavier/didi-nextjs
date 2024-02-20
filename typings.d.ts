@@ -101,6 +101,13 @@ const CTASectionSchema = z.object({
   bullets: z.array(z.string()).nullish(),
   textColor: z.string(),
   bgColor: z.string(),
+  borderColor: z.enum([
+    "orange-primary",
+    "gray-primary",
+    "gray-light",
+    "white",
+    "black",
+  ]),
   bgImage: ImageSchema.nullish(),
   mobileBgImage: ImageSchema.nullish(),
   image: ImageSchema.nullish(),
@@ -112,11 +119,14 @@ const CTASectionSchema = z.object({
   btnLink: BtnMode.nullish(),
   btnModeSecondary: z.string().optional(),
   reverse: z.boolean().nullish(),
+  type: z.enum(["default", "cashback"]),
+  bulletsConfigColumn: z.enum(["default", "singleColumn"]),
+  whiteRight: z.boolean().nullish(),
 });
 
 const CardSchema = z.object({
   name: z.string(),
-  type: z.enum(["default", "press", "review"]),
+  type: z.enum(["default", "press", "review", "creditCard"]),
   title: z.union([z.string(), React.ReactNode]),
   desc: z.string().nullish(),
   subDesc: z.string().optional(),
@@ -211,6 +221,13 @@ const BannerSchema = z.object({
   title: z.string(),
   desc: z.string().nullish(),
   bgColor: z.string(),
+  borderColor: z.enum([
+    "orange-primary",
+    "gray-primary",
+    "gray-light",
+    "white",
+    "black",
+  ]),
   textColor: z.string(),
   image: ImageSchema.nullish(),
   imageBottom: z.boolean().nullish(),

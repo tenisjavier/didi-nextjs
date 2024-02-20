@@ -15,7 +15,6 @@ const ColumnsSection = (props: ColumnSectionT) => {
     bgColor,
     textColor,
     RTL,
-    hasTextHighlight,
     textHighlightStyles,
     gridCols,
     gap,
@@ -27,6 +26,11 @@ const ColumnsSection = (props: ColumnSectionT) => {
     dir = "rtl";
   }
 
+  const columnsGridCount = gridCols > (columns?.length || 0) ? "flex flex-wraper" : false
+
+  const gridConfig = `${columnsGridCount || `grid grid-cols-1  lg:grid-cols-${gridCols}`}`
+
+
   return (
     <section
       style={{ direction: dir }}
@@ -37,43 +41,42 @@ const ColumnsSection = (props: ColumnSectionT) => {
         {title &&
           title.split("\n").map((str, index) => (
             <h2 key={index} className="text-left lg:text-center text-4xl">
-              {hasTextHighlight
-                ? textHighlighter(str, textHighlightStyles)
-                : str}
+              {textHighlighter(str, textHighlightStyles)}
             </h2>
           ))}
         {desc &&
           desc.split("\n").map((str, index) => (
             <p key={index} className="text-left lg:text-center text-lg">
-              {str}
+              {textHighlighter(str, textHighlightStyles)}
             </p>
           ))}
 
         {columns && (
           <div
-            className={`grid grid-cols-1 ${
-              columns && columns?.length < 3
-                ? columns?.length > 1
-                  ? "grid-cols-2"
-                  : ""
-                : "lg:grid-cols-" + gridCols
-            }  ${"gap-" + gap} mt-10  lg:justify-around `}
+            className={`${gridConfig} ${"gap-" + gap}`}
           >
             {columns &&
               columns.map((col, index) => {
-                return <Card {...col} key={index}></Card>;
+                // const colPositioToEnd = columns.length - (index + 1)
+                // const lastColumns = columns.length % gridCols
+                // const lastItem = Math.abs(colPositioToEnd - gridCols) >= gridCols
+
+                // const colSpan = lastColumns > 0 && lastItem ? `${lastColumns > 1 ? `col-start-${gridCols} col-end-${gridCols + 1}` : `col-start-${Math.ceil(gridCols / 2)}`}` : ``
+
+                return (
+                  <Card {...col} key={index}></Card>
+                )
               })}
           </div>
         )}
-        {items && (
+        {items && items.length > 0 && (
           <div
-            className={`grid grid-cols-1 ${
-              items && items?.length < 3
-                ? items?.length > 1
-                  ? "lg:grid-cols-2"
-                  : ""
-                : "lg:grid-cols-" + gridCols
-            }  ${"gap-" + gap} mt-10  lg:justify-around `}
+            className={`grid grid-cols-1 ${items && items?.length < 3
+              ? items?.length > 1
+                ? "lg:grid-cols-2"
+                : ""
+              : "lg:grid-cols-" + gridCols
+              }  ${"gap-" + gap} mt-10  lg:justify-around `}
           >
             {items &&
               items.map((item, index) => {

@@ -3,16 +3,6 @@ import Card from "../Card";
 import { ColumnImageT } from "@/typings";
 import Image from "next/image";
 
-// interface ColumnImageProps {
-//   columns: any[];
-//   bgColor?: string;
-//   title: string | React.ReactNode;
-//   desc?: string;
-//   textColor?: string;
-//   image?: any;
-//   imageAlignment?: string;
-// }
-
 const ColumnImageSection = (props: ColumnImageT) => {
   const {
     columns,
@@ -32,8 +22,7 @@ const ColumnImageSection = (props: ColumnImageT) => {
   if (imageAlignment === "center") indexImage = 1;
   if (imageAlignment === "right") indexImage = 2;
 
-  const imageStyle =
-    "z-10 m-4 w-60 h-auto lg:w-80 justify-center items-center " + rounded;
+  const imageStyle = `z-10 m-4 w-60 h-80 items-center ${imageAlignment === "center" ? "lg:w-100 lg:h-auto" : "lg:w-80"} lg:h-120 ` + rounded;
 
   return (
     <section className={`${bgColor} text-${textColor} py-16`}>
@@ -46,11 +35,10 @@ const ColumnImageSection = (props: ColumnImageT) => {
         {desc && <p className="text-center">{desc}</p>}
 
         <div
-          className={`mt-10 grid ${gap ? "gap-" + gap : "gap-2"} ${
-            gridCols
-              ? "grid-cols-1 lg:grid-cols-" + gridCols
-              : "grid-cols-1 lg:grid-cols-3"
-          }    justify-center items-center `}
+          className={`mt-10 grid ${gap ? "gap-" + gap : "gap-2"} ${gridCols
+            ? "grid-cols-1 lg:grid-cols-" + gridCols
+            : "grid-cols-1 lg:grid-cols-3"
+            }    justify-center items-center `}
         >
           {columns.map((col, index) => {
             if (index === 0)
@@ -61,7 +49,7 @@ const ColumnImageSection = (props: ColumnImageT) => {
                       <Image
                         src={image.url}
                         alt={image.description}
-                        className={imageStyle}
+                        className={imageStyle + " w-80 h-auto"}
                         width={image.width || 450}
                         height={image.height || 450}
                       />
@@ -73,7 +61,7 @@ const ColumnImageSection = (props: ColumnImageT) => {
             if (index === indexImage)
               return (
                 <>
-                  <div className=" row-span-2 self-center mb-20 lg:mb-0 hidden lg:block">
+                  <div className={`self-center lg:mb-0 lg:block row-span-2 text-center mb-20 hidden ${imageAlignment === "center" ? "lg:flex justify-center items-center lg:max-h-[600px]" : "lg:block "}`}>
                     {image && (
                       <Image
                         src={image.url}
@@ -89,9 +77,9 @@ const ColumnImageSection = (props: ColumnImageT) => {
               );
             return <Card {...col} key={index}></Card>;
           })}
-        </div>
-      </div>
-    </section>
+        </div >
+      </div >
+    </section >
   );
 };
 
