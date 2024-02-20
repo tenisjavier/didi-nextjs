@@ -1,6 +1,7 @@
 import React from "react";
 import { z } from "zod";
 import { BtnType, BtnMode } from "@/components/Btn";
+import exp from "constants";
 
 const CountryCodeSchema = z.enum([
   "mx",
@@ -45,6 +46,8 @@ const ArticleCategotySchema = z.enum([
   "prestamos",
 ]);
 
+const ProductCategorySchema = z.enum(["driver", "pax", "food", "finance"]);
+
 const GuideCategotySchema = z.enum(["driver", "delivery", "restaurant"]);
 
 const ImageSchema = z.object({
@@ -65,6 +68,7 @@ const CitySchema = z.object({
   slug: z.string(),
   country: z.object({
     code: CountrySchema,
+    name: z.string(),
   }),
   image: ImageSchema,
 });
@@ -403,6 +407,37 @@ const ABtestSchema = z.object({
   pagesCollection: z.any(), //! arreglar
 });
 
+const TextParamsSchema = z.object({
+  ctaSectionParams: z
+    .object({
+      title: z.string().optional(),
+      desc: z.string().optional(),
+    })
+    .optional(),
+  bannerParams: z
+    .object({
+      title: z.string().optional(),
+      desc: z.string().optional(),
+    })
+    .optional(),
+  columnSectionParams: z
+    .object({
+      title: z.string().optional(),
+      desc: z.string().optional(),
+    })
+    .optional(),
+  accordionSectionParams: z
+    .object({
+      title: z.string().optional(),
+      desc: z.string().optional(),
+      content: z.object({
+        title: z.string().optional(),
+        contentText: z.string().optional(),
+      }),
+    })
+    .optional(),
+});
+
 export type CountryCode = z.infer<typeof CountryCodeSchema>;
 export type LanguageCode = z.infer<typeof languageCodeSchema>;
 export type BusinessType = z.infer<typeof BusinessSchema>;
@@ -434,5 +469,8 @@ export type FeaturesT = z.infer<typeof FeaturesSchema>;
 export type ProductT = z.infer<typeof ProductShema>;
 export type CardPayT = z.infer<typeof CardPaySchema>;
 export type ABtestT = z.infer<typeof ABtestSchema>;
+export type TextParamnsT = z.infer<typeof TextParamsSchema>;
+export type ProductCategoryT = z.infer<typeof ProductCategorySchema>;
 
 export type PageComponent = { id: string; __typename: string };
+export type PageT = { pathname: string; sys: { publishedAt: Date } };

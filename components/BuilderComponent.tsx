@@ -1,5 +1,5 @@
 import React from "react";
-import { PageComponent } from "@/typings";
+import { AccordionSectionT, ColumnSectionT, PageComponent, TextParamnsT } from "@/typings";
 import {
   fetchCTASectionById,
   fetchColumnSectionById,
@@ -20,11 +20,13 @@ import OptionsSection from "@/components/OptionsSection";
 import ColumnImageSection from "@/components/ColumnImageSection";
 import Carousel from "@/components/Carousel/Carousel";
 import ListSection from "@/components/ListSection";
+import replaceTextParams from "@/utils/replaceTextParams";
 
 interface BuilderComponentProps {
   components: PageComponent[];
   params?: string | undefined;
   searchParams?: { [key: string]: string | string[] | undefined };
+  textParams?: TextParamnsT;
 }
 
 //? return the JSX array of components to show on the opage
@@ -32,6 +34,7 @@ const BuilderComponent = async ({
   components,
   params,
   searchParams,
+  textParams
 }: BuilderComponentProps) => {
   const JSXComponents = [];
   for (const c of components) {
@@ -39,7 +42,8 @@ const BuilderComponent = async ({
       c.__typename,
       c.id,
       params,
-      searchParams
+      searchParams,
+      textParams
     );
     JSXComponents.push(component);
   }
@@ -52,19 +56,31 @@ const fetchComponent = async (
   type: string,
   id: string,
   params: string | undefined,
-  searchParams: { [key: string]: string | string[] | undefined } | undefined
+  searchParams: { [key: string]: string | string[] | undefined } | undefined,
+  textParams?: TextParamnsT
 ) => {
   switch (type) {
     case "CtaSection":
-      const ctaSectionProps = await fetchCTASectionById(id);
+      let ctaSectionProps = await fetchCTASectionById(id);
+
+      if (textParams?.ctaSectionParams) {
+        ctaSectionProps = replaceTextParams(ctaSectionProps, textParams.ctaSectionParams);
+      }
+
       return <CTASection {...ctaSectionProps}></CTASection>;
     case "ColumnSection":
       const page =
         typeof searchParams?.page === "string" ? Number(searchParams.page) : 1;
-      const columnSectionProps = await fetchColumnSectionById(id, {
+
+      let columnSectionProps = await fetchColumnSectionById(id, {
         page: page,
         limit: 12,
       });
+
+      if (textParams?.columnSectionParams) {
+        columnSectionProps = replaceTextParams(columnSectionProps, textParams.columnSectionParams) as ColumnSectionT;
+      }
+
       return <ColumnSection {...columnSectionProps}></ColumnSection>;
     case "ColumnImageSection":
       const columnImageProps = await fetchColumnImageSectionById(id);
@@ -76,7 +92,12 @@ const fetchComponent = async (
       const carouselProps = await fetchCarouselById(id);
       return <Carousel {...carouselProps}></Carousel>;
     case "AccordionSection":
-      const accordionSectionProps = await fetchAccordionSectionById(id);
+      let accordionSectionProps = await fetchAccordionSectionById(id);
+
+      if (textParams?.accordionSectionParams) {
+        accordionSectionProps = replaceTextParams(accordionSectionProps, textParams.accordionSectionParams) as AccordionSectionT
+      }
+
       return <AccordionSection {...accordionSectionProps}></AccordionSection>;
     case "Banner":
       const bannerProps = await fetchBannerById(id);
