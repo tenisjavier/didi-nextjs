@@ -40,6 +40,7 @@ const footerLinks: AllFooterInterface = {
         { text: "CNBV", link: "https://www.gob.mx/cnbv" },
         { text: "Despachos de Cobranza", link: "/mx/legal/despachos-de-cobranza-didi-card" },
         { text: "Documentos Legales", link: "/mx/tarjeta-de-credito/legal" },
+        { text: "Aviso de Privacidad", link: "https://privacycenter.didiglobal.com/MX/privacy-notice/9f268073ac1fa831f0d00b7c0e013971/Mexico" },
       ],
       title: "Regulación",
     },
