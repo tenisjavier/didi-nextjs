@@ -11,13 +11,13 @@ interface GuiasProps {
 }
 
 export async function generateMetadata({ params: { slug } }: GuiasProps) {
-  const article = await generateGuideMetadata(slug, "pe");
+  const article = await generateGuideMetadata(slug, "mx");
 
   return article;
 }
 
 export async function generateStaticParams() {
-  const articlesSlugs = await generateGuideStaticParams("pe", "delivery");
+  const articlesSlugs = await generateGuideStaticParams("mx", "delivery");
 
   return articlesSlugs;
 }
