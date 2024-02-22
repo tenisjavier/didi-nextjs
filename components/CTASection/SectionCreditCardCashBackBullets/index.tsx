@@ -38,11 +38,16 @@ const SectionCreditCardCashBackBullets: React.FC<
             }}
             key={index}
           >
-            <p className="text-xl font-normal lg:text-gray-median text-white">
-              {textHighlighter(bullet.text, "font-bold text-white lg:text-orange-primary")}
-            </p>
+            {bullet.text && (
+              <p className="text-xl font-normal lg:text-gray-median text-white">
+                {textHighlighter({
+                  text: bullet.text,
+                  style: "font-bold text-white lg:!text-orange-primary"
+                })}
+              </p>
+            )}
             {bullet.percentCashBack && (
-              <span className="text-7xl text-white lg:text-orange-primary absolute -top-8 bg-white">
+              <span className="text-7xl text-white lg:text-orange-primary absolute -top-8 lg:bg-white bg-orange-primary">
                 {bullet.percentCashBack}
                 <span className="text-3xl top-10">%</span>
               </span>

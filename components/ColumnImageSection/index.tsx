@@ -2,6 +2,7 @@ import React from "react";
 import Card from "../Card";
 import { ColumnImageT } from "@/typings";
 import Image from "next/image";
+import textBreak from "@/utils/textBreak";
 
 const ColumnImageSection = (props: ColumnImageT) => {
   const {
@@ -29,10 +30,10 @@ const ColumnImageSection = (props: ColumnImageT) => {
       <div className="container mx-auto flex w-full  flex-col justify-center">
         {title && (
           <h2 className="text-3xl lg:text-4xl text-left lg:text-center">
-            {title}
+            {textBreak(title, textColor)}
           </h2>
         )}
-        {desc && <p className="text-center">{desc}</p>}
+        {desc && <p className="text-center">{textBreak(desc, textColor)}</p>}
 
         <div
           className={`mt-10 grid ${gap ? "gap-" + gap : "gap-2"} ${gridCols

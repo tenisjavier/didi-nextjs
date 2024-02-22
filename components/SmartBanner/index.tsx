@@ -4,20 +4,21 @@ import Image from "next/image";
 import { getBtnLinks } from "@/config/btn/btn-config";
 import Btn, { BtnProps } from "@/components/Btn";
 import { CountryCode } from "@/typings";
+import textBreak from "@/utils/textBreak";
 
 interface SmartBannerProps extends BtnProps {
   type:
-    | "both"
-    | "drv"
-    | "drvWhatsapp"
-    | "pax"
-    | "fleet"
-    | "payment"
-    | "foodBusiness"
-    | "foodDelivery"
-    | "foodEater"
-    | "card"
-    | "en";
+  | "both"
+  | "drv"
+  | "drvWhatsapp"
+  | "pax"
+  | "fleet"
+  | "payment"
+  | "foodBusiness"
+  | "foodDelivery"
+  | "foodEater"
+  | "card"
+  | "en";
   title?: string;
   desc?: string;
   countryCode: CountryCode;
@@ -76,16 +77,19 @@ const SmartBanner = (props: SmartBannerProps) => {
 
   return (
     <div
-      className={`opacity-0 fixed bottom-0 z-50 h-auto w-full lg:hidden ${
-        bgColor && bgColor
-      } ${textColor && textColor}`}
+      className={`opacity-0 fixed bottom-0 z-50 h-auto w-full lg:hidden ${bgColor && bgColor
+        } ${textColor && textColor}`}
       data-id="sb"
     >
       <div className="flex h-full items-center justify-between p-2">
         <span className="flex">{Logo}</span>
         <span className="ml-2">
-          <p className="font-bold leading-3">{title}</p>
-          <p className="leading-4">{desc}</p>
+          {title && (
+            <p className="font-bold leading-3">{textBreak(title, textColor)}</p>
+          )}
+          {desc && (
+            <p className="leading-4">{textBreak(desc, textColor)}</p>
+          )}
         </span>
         <Btn
           btnText={btnText?.replace(/ .*/, "")}

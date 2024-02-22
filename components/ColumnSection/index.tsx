@@ -2,9 +2,9 @@
 
 import React from "react";
 import Card from "@/components/Card";
-import textHighlighter from "@/utils/textHighlighter";
-import { ColumnSectionT, ListItemT } from "@/typings";
+import { ColumnSectionT } from "@/typings";
 import Pagination from "../Pagination";
+import textBreak from "@/utils/textBreak";
 
 const ColumnsSection = (props: ColumnSectionT) => {
   const {
@@ -38,18 +38,17 @@ const ColumnsSection = (props: ColumnSectionT) => {
       id={"columnSection"}
     >
       <div className="container mx-auto flex flex-col flex-wrap justify-center items-center md:justify-around">
-        {title &&
-          title.split("\n").map((str, index) => (
-            <h2 key={index} className="text-left lg:text-center text-4xl">
-              {textHighlighter(str, textHighlightStyles)}
-            </h2>
-          ))}
-        {desc &&
-          desc.split("\n").map((str, index) => (
-            <p key={index} className="text-left lg:text-center text-lg">
-              {textHighlighter(str, textHighlightStyles)}
-            </p>
-          ))}
+        {title && (
+          <h2 className="text-left lg:text-center text-4xl">
+            {textBreak(title, textColor)}
+          </h2>
+        )}
+
+        {desc && (
+          <p className="text-left lg:text-center text-lg">
+            {textBreak(desc, textColor)}
+          </p>
+        )}
 
         {columns && (
           <div

@@ -1,9 +1,9 @@
 import React from "react";
 import Btn from "@/components/Btn";
 import Image from "next/image";
-import textHighlighter from "@/utils/textHighlighter";
 import { CardT } from "@/typings";
 import Link from "next/link";
+import textBreak from "@/utils/textBreak";
 
 //? @desc: card component for making columns or cards
 
@@ -20,8 +20,6 @@ const Card = (props: CardT) => {
     btnText,
     btnType,
     RTL,
-    hasTextHighlighter,
-    textHighlighterStyle,
     titleStyles,
     titlePosition = "afterImage",
     descPosition = "beforeBtn",
@@ -36,11 +34,14 @@ const Card = (props: CardT) => {
     dir = "rtl";
   }
 
-  const truncate = (str: string, n: number) => {
-    return str.length > n ? str.substring(0, n - 1) + "..." : str;
-  };
+  // const truncate = (str: string, n: number) => {
+  //   return str.length > n ? str.substring(0, n - 1) + "..." : str;
+  // };
 
   const isCreditCard = type === 'creditCard' ? "rounded-2xl p-8 lg:max-w-[600px] w-full max-w-xs" : "w-full max-w-xs"
+
+
+  const textHighlightColor = ''
 
   return (
     <div
@@ -49,7 +50,7 @@ const Card = (props: CardT) => {
     >
       {titlePosition === "beforeImage" && title && (
         <h4 className={`mb-4 text-xl font-bold lg:text-center ${titleStyles}`}>
-          {textHighlighter(title, textHighlighterStyle)}
+          {textBreak(title, textColor)}
         </h4>
       )}
       {pathname ? (
@@ -105,11 +106,11 @@ const Card = (props: CardT) => {
             <h4
               className={`mb-4 text-xl font-semibold lg:text-center ${titleStyles}`}
             >
-              {textHighlighter(title, textHighlighterStyle)}
+              {textBreak(title, textColor)}
             </h4>
           )}
           {desc && descPosition === "beforeBtn" && (
-            <p>{textHighlighter(desc, textHighlighterStyle)}</p>
+            <p>{textBreak(desc, textColor)}</p>
           )}
         </div>
         <div className="flex justify-center flex-col">
@@ -121,7 +122,7 @@ const Card = (props: CardT) => {
           ></Btn>
         </div>
         {desc && descPosition === "afterBtn" && (
-          <p>{textHighlighter(desc, textHighlighterStyle)}</p>
+          <p>{textBreak(desc, textColor)}</p>
         )}
       </div>
     </div>

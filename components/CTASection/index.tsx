@@ -4,8 +4,8 @@ import SectionBullets from "@/components/CTASection/SectionBullets";
 import SectionList from "@/components/CTASection/SectionList";
 import SectionBtn from "./SectionBtn";
 import SectionCreditCardCashBackBullets from "@/components/CTASection/SectionCreditCardCashBackBullets";
-import textHighlighter from "@/utils/textHighlighter";
 import { CTASectionT } from "@/typings";
+import textBreak from "@/utils/textBreak";
 
 const CTASection = (props: CTASectionT) => {
   const {
@@ -33,11 +33,12 @@ const CTASection = (props: CTASectionT) => {
     descBeforeBullets = true,
     bulletsConfigColumn = "default",
     borderColor,
-    textHighlighterConfig,
     whiteRight,
     mobileTitlePosition,
     brightness,
     type,
+    btnPhoneNumber,
+    btnWhatsAppNumber
   } = props;
 
   const isRtl = RTL ? "rtl" : "ltr";
@@ -54,47 +55,36 @@ const CTASection = (props: CTASectionT) => {
   const getTitleElement = () => {
     if (isHero) {
       return (
-        <h1 className={`text-4xl font-bold md:text-5xl mt-0`}>
-          {title &&
-            title.split("\\n").map((str, index) => (
-              <span key={index}>
-                {textHighlighter(str, textHighlighterConfig?.style || '')}
-                <br />
-              </span>
-            ))}
-        </h1>
+        <>
+          {title && (
+            <h1 className={`text-4xl font-bold md:text-5xl mt-0`}>
+              {textBreak(title, textColor)}
+            </h1>
+          )}
+        </>
       );
     } else {
       return (
-        <h2 className="font-bold text-3xl md:text-4xl">
-          {title &&
-            title.split("\\n").map((str, index) => (
-              <span key={index}>
-                {textHighlighter(str, textHighlighterConfig?.style || '')}
-                <br />
-              </span>
-            ))}
-        </h2>
+        <>
+          {title && (
+            <h2 className="font-bold text-3xl md:text-4xl">
+              {textBreak(title, textColor)}
+            </h2>
+          )}
+        </>
       );
     }
   };
 
   const renderSectionDesc = () => {
-
     return (
-      <p className={`mb-10 text-lg ${bulletsConfigColumn === "singleColumn" ? 'w-11/12 lg:w-1/2' : ''}`}>
-        {desc &&
-          desc.split("\\n").map((str, index) => {
-            return (
-              <span key={index}>
-                {textHighlighterConfig?.hasTextHighlighter
-                  ? textHighlighter(str, textHighlighterConfig.style)
-                  : str}
-                <br />
-              </span>
-            )
-          })}
-      </p>
+      <>
+        {desc && (
+          <p className={`mb-10 text-lg ${bulletsConfigColumn === "singleColumn" ? 'w-11/12 lg:w-1/2' : ''}`}>
+            {textBreak(desc, textColor)}
+          </p>
+        )}
+      </>
     );
   };
 
@@ -182,6 +172,41 @@ const CTASection = (props: CTASectionT) => {
                 btnLink={btnLink}
                 btnText={btnText}
               ></SectionBtn>
+              {btnPhoneNumber || btnWhatsAppNumber ? (
+                <div
+                  className={`mt-10 flex items-center gap-7 justify-center lg:pl-4 pl-0 lg:justify-start`}
+                >
+                  {btnPhoneNumber ? (
+                    <a href={`tel:${btnPhoneNumber}`} target="_blank">
+                      <Image
+                        alt={'Phone Number'}
+                        className="w-9 h-9"
+                        src="/icons/phone.png"
+                        height={50}
+                        width={50}
+                      />
+                    </a>
+                  ) : (
+                    <></>
+                  )}
+
+                  {btnWhatsAppNumber ? (
+                    <a href={`https://wa.me/${btnWhatsAppNumber}`} target="_blank">
+                      <Image
+                        alt={'WhatsApp Number'}
+                        className="w-9 h-9"
+                        src="/icons/whatsapp.png"
+                        height={50}
+                        width={50}
+                      />
+                    </a>
+                  ) : (
+                    <></>
+                  )}
+                </div>
+              ) : (
+                <></>
+              )}
             </div>
           ) : (
             <></>

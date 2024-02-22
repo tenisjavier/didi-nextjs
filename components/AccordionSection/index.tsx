@@ -1,6 +1,7 @@
 import React from "react";
 import Accordion from "@/components/AccordionSection/Accordion";
 import { AccordionSectionT } from "@/typings";
+import textBreak from "@/utils/textBreak";
 
 const AccordionSection = ({
   items,
@@ -32,12 +33,13 @@ const AccordionSection = ({
     >
       <div className="container mx-auto flex flex-col justify-center">
         {title && (
-          <h2 className={`text-4xl md:${textDir} text-left`}>{title}</h2>
+          <h2 className={`text-4xl md:${textDir} text-left`}>{textBreak(title, textColor)}</h2>
         )}
-        {desc &&
-          desc
-            .split("\n")
-            .map((str, index) => <p key={index} className={`text-left md:${textDir}`}>{str}</p>)}
+        {desc && (
+          <p className={`text-left md:${textDir}`}>
+            {textBreak(desc, textColor)}
+          </p>
+        )}
         <div className={`flex flex-wrap justify-around `}>
           {items?.map((item, index) => {
             return (

@@ -11,6 +11,7 @@ import CTASection from "../CTASection";
 import Card from "../Card";
 import CardPay from "../CardPay";
 import { reviewPrestamos } from "@/config/reviews/prestamos";
+import textBreak from "@/utils/textBreak";
 
 function NextArrow(props: any) {
   const { onClick, arrow, arrowColor, hasArrow } = props;
@@ -172,13 +173,13 @@ const Carousel = (props: CarouselT) => {
         margin: "auto",
       }}
     >
-      <div className="flex justify-between items-center">
+      <div className={`flex py-16 ${type === 'pay' ? 'justify-between' : 'justify-center'}  items-center`}>
         {title && (
           <h2
             className={`${type === "pay" ? "text-left" : "text-center"
               } text-3xl md:text-4xl font-bold `}
           >
-            {title}
+            {textBreak(title)}
           </h2>
         )}
         {hasArrows && type === 'pay' && (
@@ -203,7 +204,7 @@ const Carousel = (props: CarouselT) => {
           className={`${type === "pay" ? "text-left" : "text-center"
             } text-base`}
         >
-          {desc}
+          {textBreak(desc)}
         </p>
       )}
       <Slider ref={sliderRefMain}  {...settings} >

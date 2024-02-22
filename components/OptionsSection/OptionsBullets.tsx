@@ -1,5 +1,6 @@
 import { FaCheckCircle } from "react-icons/fa";
 import React from "react";
+import textBreak from "@/utils/textBreak";
 
 interface OptionsBulletsProps {
   bullets?: string[];
@@ -12,7 +13,7 @@ const OptionsBullets: React.FC<OptionsBulletsProps> = ({ bullets }) => {
         {bullets?.map((item, index) => (
           <li key={index} className="flex gap-4">
             <FaCheckCircle className="text-orange-primary" />
-            <span>{item}</span>
+            <span>{textBreak(item)}</span>
           </li>
         ))}
       </ul>
