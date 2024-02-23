@@ -315,6 +315,8 @@ const fetchCTASectionById = async (id: string): Promise<CTASectionT> => {
       bulletsConfigColumn
       whiteRight
       borderColor
+      btnPhoneNumber
+      btnWhatsAppNumber   
       bgImage {
         title
         description
@@ -951,9 +953,8 @@ const fetchColumnSectionById = async (
   }
 
   if (columnSection?.itemType?.toLowerCase() === "guide") {
-
     const countryCode = columnSection?.country?.code;
-    
+
     if (countryCode && columnSection?.guideCategory?.[0]) {
       const guides = await fetchGuides(
         columnSection?.country?.code,
@@ -1001,7 +1002,6 @@ const fetchColumnSectionById = async (
       );
 
       const items: ListItemT = articles?.items?.map((article: any) => {
-
         const countryCode = columnSection.country.code;
 
         const link = `/${countryCode}/articulos/${article.slug}/`;
@@ -1079,8 +1079,6 @@ const fetchListSectionById = async (id: string): Promise<ListSectionT> => {
       data.listSection.country.code,
       data.listSection.productCategory
     );
-
-    console.log("cities", data);
 
     const items: ListItemT = cities.map((city) => {
       let link = `/${city.country.code}/conductor/ciudades/${city.slug}/`;
@@ -1702,9 +1700,13 @@ const fetchImages = async (imagesList: string[]): Promise<ImageType[]> => {
   return images.data.assetCollection.items;
 };
 
-const fetchSuggestedColumnSection = async (countryCode: CountryCode, itemType: ItemType, category: string) => {
-
-  const categoryAttribute = itemType === "Article" ? "articleCategory" : "guideCategory"; 
+const fetchSuggestedColumnSection = async (
+  countryCode: CountryCode,
+  itemType: ItemType,
+  category: string
+) => {
+  const categoryAttribute =
+    itemType === "Article" ? "articleCategory" : "guideCategory";
 
   const query = `query {
     columnSectionCollection(where: { country: {code: "${countryCode}"}, itemType: "${itemType}", ${categoryAttribute}_contains_all: "${category}"}) {
@@ -1728,12 +1730,15 @@ const fetchSuggestedColumnSection = async (countryCode: CountryCode, itemType: I
   const { data } = await res.json();
   const { id } = data.columnSectionCollection.items[0].sys;
 
-  const columnSection = await fetchColumnSectionById(id, { page: 0, limit: 12});
+  const columnSection = await fetchColumnSectionById(id, {
+    page: 0,
+    limit: 12,
+  });
 
   delete columnSection.pagination;
 
   return columnSection;
-}
+};
 
 export {
   fetchCities,

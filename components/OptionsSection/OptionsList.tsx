@@ -4,6 +4,7 @@ import Btn, { BtnMode, BtnType } from "@/components/Btn";
 import Options from "@/components/OptionsSection/Options";
 import OptionsBullets from "@/components/OptionsSection/OptionsBullets";
 import { OptionsT, ImageType } from "@/typings";
+import textBreak from "@/utils/textBreak";
 
 interface OptionsListProps {
   optionsBulletTitle: string;
@@ -43,7 +44,7 @@ const OptionsList = ({
         ))}
       </div>
       <div className="p-4 flex flex-col">
-        <h3 className="text-orange-primary">{optionsBulletTitle}</h3>
+        <h3 className="text-orange-primary">{textBreak(optionsBulletTitle)}</h3>
         <p>{optionsBulletDesc}</p>
         {options?.map((item, index) => {
           const bullets =

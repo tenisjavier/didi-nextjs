@@ -38,7 +38,16 @@ const FooterItem: React.FC<FooterLinkProps> = ({ text, link, icon }) => {
           )}
         </Link>
       ) : (
-        <p>{textHighlighter(text, 'text-white block font-bold')}</p>
+        <>
+          {text && (
+            <p>
+              {textHighlighter({
+                text,
+                style: 'text-white block font-bold'
+              })}
+            </p>
+          )}
+        </>
       )}
     </>
   );

@@ -28,12 +28,7 @@ const BusinessSchema = z.enum([
   "drive",
 ]);
 
-const ItemTypeSchema = z.enum([
-  "Partner",
-  "Guide",
-  "Article",
-  "Requirement",
-])
+const ItemTypeSchema = z.enum(["Partner", "Guide", "Article", "Requirement"]);
 
 const ArticleCategotySchema = z.enum([
   "rides",
@@ -118,6 +113,8 @@ const CTASectionSchema = z.object({
   btnText: BtnType.min(5).max(30).nullish(),
   btnLink: BtnMode.nullish(),
   btnModeSecondary: z.string().optional(),
+  btnPhoneNumber: z.string().optional(),
+  btnWhatsAppNumber: z.string().optional(),
   reverse: z.boolean().nullish(),
   type: z.enum(["default", "cashback"]),
   bulletsConfigColumn: z.enum(["default", "singleColumn"]),
@@ -397,7 +394,7 @@ const FeaturesSchema = z.object({
 
 const CardPaySchema = z.object({
   name: z.string(),
-  type: z.enum(["default", "press", "review"]),
+  type: z.enum(["default", "press", "review", "creditCard"]),
   typeOfCard: z.enum(["Default", "Pay"]),
   title: z.union([z.string(), React.ReactNode]),
   desc: z.string().nullish(),

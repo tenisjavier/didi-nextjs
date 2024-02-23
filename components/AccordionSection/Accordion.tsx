@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useRef } from "react";
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { AiFillPlusCircle, AiFillMinusCircle } from "react-icons/ai";
 import RichContent from "@/components/RichContent";
 import ConditionalWrapper from "@/utils/conditionalWrapper";
@@ -47,9 +46,8 @@ const Accordion = ({
         <>
           <div
             aria-hidden="true"
-            className={`mt-6 flex w-full cursor-pointer items-center justify-between rounded  border-solid border-gray-light px-10 lg:px-20 ${
-              isOpen ? "bg-white border-none" : bgColor
-            }`}
+            className={`mt-6 flex w-full cursor-pointer items-center justify-between rounded  border-solid border-gray-light px-10 lg:px-20 ${isOpen ? "bg-white border-none" : bgColor
+              }`}
             onClick={() => toggle()}
           >
             <h3

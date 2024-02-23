@@ -1,8 +1,27 @@
 import React from "react";
 
-const textHighlighter = (text?: string, styles?: string | undefined | null) => {
+interface TextHighlighterProps {
+  text: string;
+  color?: string;
+  style?: string
+}
+
+const textHighlighter = ({
+  text,
+  color,
+  style
+}: TextHighlighterProps) => {
+
   if (!text) {
     return;
+  }
+
+  if (color === 'orange-primary') {
+    color = 'white'
+  } else if (color === 'white') {
+    color = 'white'
+  } else {
+    color = 'orange-primary'
   }
 
   const regex = /{[^}]+}|[^{}]+/g;
@@ -12,6 +31,8 @@ const textHighlighter = (text?: string, styles?: string | undefined | null) => {
   if (!matches) {
     return null;
   }
+
+
 
   const textWithSpan = matches.map((segment, index) => {
     if (segment.startsWith("{") && segment.endsWith("}")) {
@@ -23,7 +44,7 @@ const textHighlighter = (text?: string, styles?: string | undefined | null) => {
         );
       } else {
         return (
-          <span className={`${styles} text-orange-primary`} key={index}>
+          <span className={`${style} text-${color} font-bold`} key={index}>
             {content}
           </span>
         );

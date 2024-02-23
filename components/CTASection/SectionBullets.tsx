@@ -1,6 +1,6 @@
 import { FaCarSide } from "react-icons/fa";
 import React from "react";
-import textHighlighter from "@/utils/textHighlighter";
+import textBreak from "@/utils/textBreak";
 
 interface SectionBulletsProps {
   bullets?: string[] | JSX.Element[];
@@ -8,7 +8,6 @@ interface SectionBulletsProps {
   margin: string;
   customBulletIcon?: boolean;
   icon?: any;
-  textHighlighterStyle?: string;
 }
 
 const SectionBullets = ({
@@ -33,11 +32,11 @@ const SectionBullets = ({
           )}
           <div className="inline-block">
             {typeof item === "string"
-              ? item.split("\\n").map((str, index) => (
+              ? (
                 <p className="mt-0 mb-5 text-xl" key={index}>
-                  {textHighlighter(str, "font-bold")}
+                  {textBreak(item)}
                 </p>
-              ))
+              )
               : item}
           </div>
         </li>
