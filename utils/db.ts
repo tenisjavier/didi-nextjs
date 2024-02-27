@@ -205,30 +205,35 @@ const fetchPageComponents = async (
       id
     }
   }
+
   fragment columnFields on ColumnSection {
     __typename
     sys {
       id
     }
   }
+
   fragment carouselSectionFields on CarouselSection {
     __typename
     sys {
       id
     }
   }
+
   fragment carouselFields on Carousel {
     __typename
     sys {
       id
     }
   }
+
   fragment accordionFields on AccordionSection {
     __typename
     sys {
       id
     }
   }
+  
   fragment bannerFields on Banner {
     __typename
     sys {
@@ -244,7 +249,6 @@ const fetchPageComponents = async (
   }
 
   fragment columnImageSectionFields on ColumnImageSection {
-
     __typename
     sys {
       id
@@ -252,7 +256,13 @@ const fetchPageComponents = async (
   }
   
   fragment listSectionFields on ListSection {
+    __typename
+    sys {
+      id
+    }
+  }
 
+  fragment legalFields on Legal {
     __typename
     sys {
       id
@@ -273,6 +283,7 @@ const fetchPageComponents = async (
             ...columnImageSectionFields
             ...carouselFields
             ...listSectionFields
+            ...legalFields
           }
         }
       }
@@ -1452,6 +1463,32 @@ const fetchLegalBySlug = async (
   return legal;
 };
 
+const fetchLegalById = async (id: string): Promise<FAQT> => {
+  const query = `query {
+    legal(id:"${id}"){
+      name
+      content {
+        json
+      }
+    }
+  }`;
+
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+  });
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch Legal");
+  }
+  const { data } = await res.json();
+
+  const legal = data.legal;
+
+  return legal;
+
+}
+
 const fetchPartnersByCategory = async (
   countryCode: CountryCode,
   category: string
@@ -1762,6 +1799,7 @@ export {
   fetchArticles,
   fetchGuides,
   fetchLegalBySlug,
+  fetchLegalById,
   fetchPartnerBySlug,
   fetchPartnersByCategory,
   fetchFeatureBySlug,
