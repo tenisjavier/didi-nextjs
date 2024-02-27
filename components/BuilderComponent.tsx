@@ -1,5 +1,10 @@
 import React from "react";
-import { AccordionSectionT, ColumnSectionT, PageComponent, TextParamnsT } from "@/typings";
+import {
+  AccordionSectionT,
+  ColumnSectionT,
+  PageComponent,
+  TextParamnsT,
+} from "@/typings";
 import {
   fetchCTASectionById,
   fetchColumnSectionById,
@@ -10,6 +15,7 @@ import {
   fetchColumnImageSectionById,
   fetchCarouselById,
   fetchListSectionById,
+  fetchLegalById,
 } from "@/utils/db";
 import CTASection from "@/components/CTASection";
 import ColumnSection from "@/components/ColumnSection";
@@ -21,6 +27,7 @@ import ColumnImageSection from "@/components/ColumnImageSection";
 import Carousel from "@/components/Carousel/Carousel";
 import ListSection from "@/components/ListSection";
 import replaceTextParams from "@/utils/replaceTextParams";
+import RichContent from "./RichContent";
 
 interface BuilderComponentProps {
   components: PageComponent[];
@@ -34,7 +41,7 @@ const BuilderComponent = async ({
   components,
   params,
   searchParams,
-  textParams
+  textParams,
 }: BuilderComponentProps) => {
   const JSXComponents = [];
   for (const c of components) {
@@ -64,7 +71,10 @@ const fetchComponent = async (
       let ctaSectionProps = await fetchCTASectionById(id);
 
       if (textParams?.ctaSectionParams) {
-        ctaSectionProps = replaceTextParams(ctaSectionProps, textParams.ctaSectionParams);
+        ctaSectionProps = replaceTextParams(
+          ctaSectionProps,
+          textParams.ctaSectionParams
+        );
       }
 
       return <CTASection {...ctaSectionProps}></CTASection>;
@@ -78,7 +88,10 @@ const fetchComponent = async (
       });
 
       if (textParams?.columnSectionParams) {
-        columnSectionProps = replaceTextParams(columnSectionProps, textParams.columnSectionParams) as ColumnSectionT;
+        columnSectionProps = replaceTextParams(
+          columnSectionProps,
+          textParams.columnSectionParams
+        ) as ColumnSectionT;
       }
 
       return <ColumnSection {...columnSectionProps}></ColumnSection>;
@@ -95,19 +108,33 @@ const fetchComponent = async (
       let accordionSectionProps = await fetchAccordionSectionById(id);
 
       if (textParams?.accordionSectionParams) {
-        accordionSectionProps = replaceTextParams(accordionSectionProps, textParams.accordionSectionParams) as AccordionSectionT
+        accordionSectionProps = replaceTextParams(
+          accordionSectionProps,
+          textParams.accordionSectionParams
+        ) as AccordionSectionT;
       }
 
       return <AccordionSection {...accordionSectionProps}></AccordionSection>;
+
     case "Banner":
       const bannerProps = await fetchBannerById(id);
       return <Banner {...bannerProps}></Banner>;
+
     case "OptionsSection":
       const optionsSectionProps = await fetchOptionsSectionById(id);
       return <OptionsSection {...optionsSectionProps}></OptionsSection>;
+
     case "ListSection":
       const listSectionProps = await fetchListSectionById(id);
       return <ListSection {...listSectionProps}></ListSection>;
+
+    case "Legal":
+      const legalProps = await fetchLegalById(id);
+      return (
+        <section className="container mx-auto mb-32 text-gray-primary md:px-28 pt-16">
+          <RichContent richContent={legalProps.content}></RichContent>
+        </section>
+      );
 
     default:
       return null;
