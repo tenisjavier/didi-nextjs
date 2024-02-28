@@ -1,58 +1,53 @@
 import React from "react";
-import { fetchCitieBySlug, fetchCities, fetchPageComponents } from "@/utils/db";
-import { Metadata } from "next";
-import CTASection from "@/components/CTASection";
-import { notFound } from "next/navigation";
-import { City } from "@/typings";
-import BuilderComponent from "@/components/BuilderComponent";
+import CityPage, { generateCitiesMetadata, generateCitiesStaticParams } from "@/components/Sections/Cities";
 
-interface GuiasProps {
+interface CityProps {
   params: {
     slug: string;
   };
 }
 
-export let metadata: Metadata = {
-  title: "Registrate como Socio Conductor DiDi",
-  description:
-    "DiDi en Mexico, registrate como socio conductor en las categorías express y taxi ganando más y manejando menos. Si sos Socio Conductor llamános al +54 (11) 3987-6342",
-};
+export async function generateMetadata({ params: { slug } }: CityProps) {
+  const city = await generateCitiesMetadata(slug, "mx", 'driver');
 
-const Guide = async ({ params: { slug } }: GuiasProps) => {
-  const city = await fetchCitieBySlug("mx", slug);
-  if (!city) return notFound();
+  return city;
+}
 
-  const heroProps = {
-    title: `Socios Conductores en ${city.name}`,
-    desc: `¿Quieres convertirte en Socio Conductor DiDi en ${city.name}? Regístrate online y comienza a generar ingresos de manera segura y flexible.`,
-    bgColor: "bg-blue-primary",
-    textColor: "white",
-    image: city.image,
-    btnType: "drv",
-    btnMode: "primary",
-    brightness: "brightness-75",
-    reverse: true,
-    isHero: true,
-  };
+export async function generateStaticParams() {
+  const citiesSlugs = await generateCitiesStaticParams("mx", 'driver');
 
-  const components = await fetchPageComponents("/mx/conductor/");
+  return citiesSlugs;
+}
+
+const Page = async ({ params: { slug } }: CityProps) => {
 
   return (
-    <>
-      <CTASection {...heroProps}></CTASection>
-      <BuilderComponent components={components}></BuilderComponent>;
-    </>
+    <CityPage params={{
+      countryCode: "mx",
+      pathname: "/mx/conductor/ciudades/slug/",
+      slug: slug,
+    }}
+    />
   );
 };
 
-export default Guide;
+export default Page;
 
-export async function generateStaticParams() {
-  const cities = await fetchCities("mx", "driver")
-  const citiesSlugs = cities.map((city: City) => {
-    return {
-      slug: city.slug
-    }
-  });
-  return citiesSlugs;
-}
+
+// const heroProps = {
+//   title: `Socios Conductores en ${city.name}`,
+//   desc: `¿Quieres convertirte en Socio Conductor DiDi en ${city.name}? Regístrate online y comienza a generar ingresos de manera segura y flexible.`,
+//   bgColor: "bg-blue-primary",
+//   textColor: "white",
+//   image: city.image,
+//   btnType: "drv",
+//   btnMode: "primary",
+//   brightness: "brightness-75",
+//   reverse: true,
+//   isHero: true,
+// };
+
+
+
+
+

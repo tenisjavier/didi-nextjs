@@ -7,6 +7,8 @@ import {
   PageT,
   ItemType,
   PartnerT,
+  RequirementT,
+  LegalT,
 } from "@/typings";
 import { ImageType } from "@/typings";
 import { PageComponent } from "@/typings";
@@ -79,6 +81,13 @@ const fetchCitieBySlug = async (
       items{
         name
         slug
+        productCollection {
+          items {
+            sys {
+              id
+            }
+          }
+        }
         country {
           code
           name
@@ -100,7 +109,78 @@ const fetchCitieBySlug = async (
     throw new Error("Failed to fetch cities");
   }
   const cities = await res.json();
-  return cities.data.cityCollection.items?.[0];
+
+  const citiesData = {
+    ...cities.data.cityCollection.items?.[0],
+    productsId:
+      cities.data.cityCollection.items?.[0].productCollection.items.map(
+        (item: any) => item.sys.id
+      ),
+  };
+
+  return citiesData;
+};
+
+//? returns a array of products
+//* params: productsId to fetch the products
+const fetchProductsByIds = async (productsId: string[]): Promise<any> => {
+  const idString = productsId.map((id) => `"${id}"`).join(", ");
+  const query = `query ($ids: [String!]!) {
+    productCollection(where: { sys: { id_in: $ids } }) {
+      items {
+        name
+        description
+        image {
+          title
+          description
+          url
+        }
+      }
+    }
+  }`;
+
+  const variables = {
+    ids: productsId,
+  };
+
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    method: "POST",
+    headers: headers,
+    body: JSON.stringify({ query, variables }),
+  });
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch Products");
+  }
+  const products = await res.json();
+  return products.data.productCollection.items;
+};
+
+//? returns a array of requirements
+//* params: country code from the country to fetch the cities
+const fetchRequirementsByCitySlug = async (
+  slug: string
+): Promise<RequirementT[]> => {
+  const query = `query {
+    requirementCollection(where: {city: {slug: "${slug}"}}) {
+      items{
+        name
+        requirement{
+          json
+        }
+      }
+    }
+  }`;
+
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+  });
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch Requirements");
+  }
+  const requirements = await res.json();
+  return requirements.data.requirementCollection.items;
 };
 
 //? returns a object of cities
@@ -174,6 +254,9 @@ const fetchPages = async (): Promise<PageT[]> => {
     pageCollection(limit: 1000){
       items {
         pathname
+        country{
+          code
+        }
         sys{
           publishedAt
         }
@@ -1418,6 +1501,52 @@ const fetchFAQBySlug = async (
 
   return faq;
 };
+
+const fetchFAQS = async (countryCode: CountryCode): Promise<FAQT> => {
+  const query = `query {
+    faqCollection (where: {country: {code:"${countryCode}"}}) {
+      items {
+        title
+        slug
+        type
+        country {
+          code
+        }
+        content {
+          json
+          links {
+            assets {
+              block {
+                sys {
+                  id
+                }
+                title
+                description
+                url
+                width
+                height
+              }
+            }
+          }
+        }
+      }
+    }
+  }`;
+
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+  });
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch listSection");
+  }
+  const { data } = await res.json();
+  const faq = data.faqCollection.items;
+
+  return faq;
+};
+
 //? returns one FAQ component by its slug and country
 //* params: id of the component
 const fetchLegalBySlug = async (
@@ -1462,12 +1591,30 @@ const fetchLegalBySlug = async (
   return legal;
 };
 
-const fetchLegalById = async (id: string): Promise<FAQT> => {
+//? returns one FAQ component by its slug and country
+//* params: id of the component
+const fetchLegal = async (countryCode: CountryCode): Promise<FAQT> => {
   const query = `query {
-    legal(id:"${id}"){
-      name
-      content {
-        json
+    legalCollection (where: {country: {code:"${countryCode}"}}) {
+      items {
+        name
+        content {
+          json
+          links {
+            assets {
+              block {
+                sys {
+                  id
+                }
+                title
+                description
+                url
+                width
+                height
+              }
+            }
+          }
+        }
       }
     }
   }`;
@@ -1481,12 +1628,48 @@ const fetchLegalById = async (id: string): Promise<FAQT> => {
     throw new Error("Failed to fetch Legal");
   }
   const { data } = await res.json();
-
-  const legal = data.legal;
-
+  const legal = data.legalCollection.items;
   return legal;
+};
 
-}
+const fetchLegalById = async (id: string): Promise<LegalT> => {
+  const query = `query {
+    legalCollection (where: {id:"${id}"} limit: 1) {
+      items {
+        name
+        content {
+          json
+          links {
+            assets {
+              block {
+                sys {
+                  id
+                }
+                title
+                description
+                url
+                width
+                height
+              }
+            }
+          }
+        }
+      }
+    }
+  }`;
+
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+  });
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch Legal");
+  }
+  const { data } = await res.json();
+  const legal = data?.legalCollection?.items?.[0];
+  return legal;
+};
 
 const fetchPartnersByCategory = async (
   countryCode: CountryCode,
@@ -1805,4 +1988,8 @@ export {
   fetchFeatureByCategory,
   fetchPages,
   fetchSuggestedColumnSection,
+  fetchFAQS,
+  fetchLegal,
+  fetchProductsByIds,
+  fetchRequirementsByCitySlug,
 };

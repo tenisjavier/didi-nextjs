@@ -61,6 +61,7 @@ const ImageSchema = z.object({
 const CitySchema = z.object({
   name: z.string(),
   slug: z.string(),
+  productsId: z.array(z.string()),
   country: z.object({
     code: CountrySchema,
     name: z.string(),
@@ -259,6 +260,11 @@ const OptionsSectionSchema = z.object({
   btnLink: BtnMode.nullish(),
 });
 
+const RequirementsSchema = z.object({
+  name: z.string(),
+  requirement: z.any(),
+});
+
 const CarouselSchema = z.object({
   title: z.string(),
   desc: z.string().optional(),
@@ -425,6 +431,7 @@ const TextParamsSchema = z.object({
     .object({
       title: z.string().optional(),
       desc: z.string().optional(),
+      image: z.ImageSchema(),
     })
     .optional(),
   bannerParams: z
@@ -439,14 +446,29 @@ const TextParamsSchema = z.object({
       desc: z.string().optional(),
     })
     .optional(),
-  accordionSectionParams: z
+  carouselParams: z
     .object({
       title: z.string().optional(),
       desc: z.string().optional(),
-      content: z.object({
-        title: z.string().optional(),
-        contentText: z.string().optional(),
-      }),
+      ctaSections: z.array(CTASectionSchema).optional(),
+    })
+    .optional(),
+  accordionSectionParams: z
+    .object({
+      items: z
+        .array({
+          title: z.string().optional(),
+          content: z.any().optional(),
+        })
+        .optional(),
+      title: z.string().optional(),
+      desc: z.string().optional(),
+      content: z
+        .object({
+          title: z.string().optional(),
+          contentText: z.string().optional(),
+        })
+        .optional(),
     })
     .optional(),
 });
@@ -484,6 +506,11 @@ export type CardPayT = z.infer<typeof CardPaySchema>;
 export type ABtestT = z.infer<typeof ABtestSchema>;
 export type TextParamnsT = z.infer<typeof TextParamsSchema>;
 export type ProductCategoryT = z.infer<typeof ProductCategorySchema>;
+export type RequirementT = z.infer<typeof RequirementsSchema>;
 
 export type PageComponent = { id: string; __typename: string };
-export type PageT = { pathname: string; sys: { publishedAt: Date } };
+export type PageT = {
+  pathname: string;
+  sys: { publishedAt: Date };
+  country: { code: CountryCode };
+};

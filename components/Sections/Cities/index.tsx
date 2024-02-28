@@ -1,5 +1,5 @@
 import React from "react";
-import { fetchCitieBySlug, fetchCities, fetchPageComponents } from "@/utils/db";
+import { fetchCitieBySlug, fetchCities, fetchPageComponents, fetchProductsByIds, fetchRequirementsByCitySlug } from "@/utils/db";
 import { notFound } from "next/navigation";
 import { CountryCode, ProductCategoryT } from "@/typings";
 import BuilderComponent from "@/components/BuilderComponent";
@@ -16,12 +16,12 @@ interface CityProps {
 export async function generateCitiesMetadata(
   slug: string,
   countryCode: CountryCode,
-  category: "drive" | "food" = 'drive'
+  category: "driver" | "food" = 'driver'
 ) {
   const city = (await fetchCitieBySlug(countryCode, slug))
   const countryName = city.country.name;
 
-  if (category === 'drive') {
+  if (category === 'driver') {
     return {
       title: `Conductor En ${city.name} | DiDi ${countryName}`,
       description: `Conductor En ${city.name}`,
@@ -51,6 +51,23 @@ const CityPage = async ({
 }: CityProps) => {
   const city = await fetchCitieBySlug(countryCode, slug);
 
+  const products = await fetchProductsByIds(city?.productsId)
+
+  const requirements = (await fetchRequirementsByCitySlug(slug)).map((requirement) => {
+    return {
+      title: requirement.name,
+      content: requirement.requirement,
+    }
+  })
+
+  const makeProduct = products?.map((product: { name: any; image: any; description: string }) => {
+    return {
+      title: product.name,
+      desc: product.description,
+      image: product.image,
+    }
+  })
+
   if (!city) return notFound();
 
 
@@ -60,17 +77,18 @@ const CityPage = async ({
     <BuilderComponent
       components={components}
       textParams={{
+        accordionSectionParams: {
+          items: requirements,
+        },
         ctaSectionParams: {
           title: city.name,
-          desc: city.name
+          desc: city.name,
+          image: city.image,
         },
-        accordionSectionParams: {
+        carouselParams: {
           title: city.name,
           desc: city.name,
-          content: {
-            contentText: city.name,
-            title: city.name,
-          },
+          ctaSections: makeProduct
         }
       }}
     ></BuilderComponent>

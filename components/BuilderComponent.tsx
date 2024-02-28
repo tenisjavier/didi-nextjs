@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  AccordionSectionT,
-  ColumnSectionT,
-  PageComponent,
-  TextParamnsT,
-} from "@/typings";
+import { AccordionSectionT, CarouselT, ColumnSectionT, PageComponent, TextParamnsT } from "@/typings";
 import {
   fetchCTASectionById,
   fetchColumnSectionById,
@@ -102,7 +97,17 @@ const fetchComponent = async (
       const carouselSectionProps = await fetchCarouselSectionById(id);
       return <CarouselSection {...carouselSectionProps}></CarouselSection>;
     case "Carousel":
-      const carouselProps = await fetchCarouselById(id);
+      let carouselProps = await fetchCarouselById(id);
+
+      if (textParams?.carouselParams) {
+        carouselProps = replaceTextParams(carouselProps, textParams.carouselParams) as CarouselT
+        if (
+          ![carouselProps?.ctaSection, carouselProps?.cards, carouselProps?.slides, carouselProps?.images, carouselProps?.imagesMobile].every(field => !field)
+        ) {
+          carouselProps.ctaSection = textParams?.carouselParams.ctaSections || [];
+        }
+      }
+
       return <Carousel {...carouselProps}></Carousel>;
     case "AccordionSection":
       let accordionSectionProps = await fetchAccordionSectionById(id);
