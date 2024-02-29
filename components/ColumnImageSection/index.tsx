@@ -18,15 +18,20 @@ const ColumnImageSection = (props: ColumnImageT) => {
     gridCols,
   } = props;
 
-  let indexImage = 2;
-  if (imageAlignment === "left") indexImage = 0;
-  if (imageAlignment === "center") indexImage = 1;
-  if (imageAlignment === "right") indexImage = 2;
+  const imageColStart =
+    {
+      left: 1,
+      center: 2,
+      right: 3,
+    }[imageAlignment] || 3;
 
-  const imageStyle =
-    `z-10 m-4 w-60 h-80 items-center ${
-      imageAlignment === "center" ? "lg:w-100 lg:h-auto" : "lg:w-80"
-    } lg:h-120 ` + rounded;
+  const cardsColStart = {
+    left: [2, 3],
+    center: [1, 3],
+    right: [1, 2],
+  };
+
+  const imageStyle = `z-10 m-4 w-60 h-80 items-center lg:w-70 ` + rounded;
 
   return (
     <section className={`${bgColor} text-${textColor} py-16`}>
@@ -46,48 +51,30 @@ const ColumnImageSection = (props: ColumnImageT) => {
           }    justify-center items-center `}
         >
           {columns.map((col, index) => {
-            if (index === 0)
-              return (
-                <>
-                  <div className=" row-span-2  text-center mb-20 lg:mb-0 block lg:hidden">
-                    {image && (
-                      <Image
-                        src={image.url}
-                        alt={image.description}
-                        className={imageStyle + " w-80 h-auto"}
-                        width={image.width || 450}
-                        height={image.height || 450}
-                      />
-                    )}
-                  </div>
-                  <Card {...col} key={index}></Card>
-                </>
-              );
-            if (index === indexImage)
-              return (
-                <>
-                  <div
-                    className={`self-center lg:mb-0 lg:block row-span-2 text-center mb-20 hidden ${
-                      imageAlignment === "center"
-                        ? "lg:flex justify-center items-center lg:max-h-[600px]"
-                        : "lg:block "
-                    }`}
-                  >
-                    {image && (
-                      <Image
-                        src={image.url}
-                        alt={image.description}
-                        className={imageStyle}
-                        width={image.width || 450}
-                        height={image.height || 450}
-                      />
-                    )}
-                  </div>
-                  <Card {...col} key={index}></Card>
-                </>
-              );
-            return <Card {...col} key={index}></Card>;
+            const columnSide = index % 2;
+            const colStart =
+              cardsColStart[imageAlignment || "right"][columnSide];
+
+            return (
+              <div key={index} className={`lg:col-start-${colStart} `}>
+                <Card {...col} key={index}></Card>;
+              </div>
+            );
           })}
+
+          <div
+            className={`self-center lg:mb-0 lg:block row-span-2 row-start-1 col-start-${imageColStart} text-center mb-20 hidden`}
+          >
+            {image && (
+              <Image
+                src={image.url}
+                alt={image.description}
+                className={imageStyle}
+                width={image.width || 450}
+                height={image.height || 450}
+              />
+            )}
+          </div>
         </div>
       </div>
     </section>
