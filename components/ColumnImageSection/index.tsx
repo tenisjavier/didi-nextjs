@@ -23,11 +23,14 @@ const ColumnImageSection = (props: ColumnImageT) => {
   if (imageAlignment === "center") indexImage = 1;
   if (imageAlignment === "right") indexImage = 2;
 
-  const imageStyle = `z-10 m-4 w-60 h-80 items-center ${imageAlignment === "center" ? "lg:w-100 lg:h-auto" : "lg:w-80"} lg:h-120 ` + rounded;
+  const imageStyle =
+    `z-10 m-4 w-60 h-80 items-center ${
+      imageAlignment === "center" ? "lg:w-100 lg:h-auto" : "lg:w-80"
+    } lg:h-120 max-lg:hidden ` + rounded;
 
   return (
     <section className={`${bgColor} text-${textColor} py-16`}>
-      <div className="container mx-auto flex w-full  flex-col justify-center">
+      <div className="container mx-auto flex w-full  flex-col justify-center items-center">
         {title && (
           <h2 className="text-3xl lg:text-4xl text-left lg:text-center">
             {textBreak(title, textColor)}
@@ -36,10 +39,11 @@ const ColumnImageSection = (props: ColumnImageT) => {
         {desc && <p className="text-center">{textBreak(desc, textColor)}</p>}
 
         <div
-          className={`mt-10 grid ${gap ? "gap-" + gap : "gap-2"} ${gridCols
-            ? "grid-cols-1 lg:grid-cols-" + gridCols
-            : "grid-cols-1 lg:grid-cols-3"
-            }    justify-center items-center `}
+          className={`mt-10 grid ${gap ? "gap-" + gap : "gap-2"} ${
+            gridCols
+              ? "grid-cols-1 lg:grid-cols-" + gridCols
+              : "grid-cols-1 lg:grid-cols-3"
+          }    justify-center items-center `}
         >
           {columns.map((col, index) => {
             if (index === 0)
@@ -62,7 +66,13 @@ const ColumnImageSection = (props: ColumnImageT) => {
             if (index === indexImage)
               return (
                 <>
-                  <div className={`self-center lg:mb-0 lg:block row-span-2 text-center mb-20 hidden ${imageAlignment === "center" ? "lg:flex justify-center items-center lg:max-h-[600px]" : "lg:block "}`}>
+                  <div
+                    className={`self-center lg:mb-0 lg:block row-span-2 text-center mb-20 hidden ${
+                      imageAlignment === "center"
+                        ? "lg:flex justify-center items-center lg:max-h-[600px]"
+                        : "lg:block "
+                    }`}
+                  >
                     {image && (
                       <Image
                         src={image.url}
@@ -78,9 +88,9 @@ const ColumnImageSection = (props: ColumnImageT) => {
               );
             return <Card {...col} key={index}></Card>;
           })}
-        </div >
-      </div >
-    </section >
+        </div>
+      </div>
+    </section>
   );
 };
 
