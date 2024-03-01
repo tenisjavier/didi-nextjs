@@ -215,8 +215,6 @@ export default function insertBtnParams() {
     let pid = url.searchParams.get("pid");
     let utmSource = url.searchParams.get("utm_source");
     let source = url.searchParams.get("source");
-    let rscSource = url.searchParams.get("rsc_source");
-    let rscMedia = url.searchParams.get("rsc_media");
     let utmMedium = url.searchParams.get("utm_medium");
     let c = url.searchParams.get("utm_campaign");
     let campaign = url.searchParams.get("campaign");
@@ -231,8 +229,6 @@ export default function insertBtnParams() {
     let adPosition = url.searchParams.get("adposition");
     let placement = url.searchParams.get("placement");
     let channel = url.searchParams.get("channel");
-    let rscChannel = url.searchParams.get("rsc_channel");
-    let rscProduct = url.searchParams.get("rsc_product");
     let country = countryCode.toUpperCase();
     let fromEnd = "h5";
 
@@ -324,10 +320,6 @@ export default function insertBtnParams() {
     newUrl.searchParams.set("devicemodel", deviceModel);
     newUrl.searchParams.set("adposition", adPosition);
     newUrl.searchParams.set("placement", placement);
-    newUrl.searchParams.set("rsc_source", rscSource);
-    newUrl.searchParams.set("rsc_media", rscMedia);
-    newUrl.searchParams.set("rsc_channel", rscChannel);
-    newUrl.searchParams.set("rsc_product", rscProduct);
     newUrl.searchParams.set("clientType", channelId);
     newUrl.searchParams.set("from_end", fromEnd);
 
