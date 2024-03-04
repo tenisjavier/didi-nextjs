@@ -25,7 +25,7 @@ const ColumnImageSection = (props: ColumnImageT) => {
       right: "lg:col-start-3",
     }[imageAlignment] || "lg:col-start-3";
 
-  const imageStyle = `z-10 m-4 w-60 h-80 items-center lg:w-70 ` + rounded;
+  const imageStyle = `z-10 m-4 w-60 h-auto items-center lg:w-70 ` + rounded;
 
   return (
     <section className={`${bgColor} text-${textColor} py-16`}>
