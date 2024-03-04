@@ -25,12 +25,6 @@ const ColumnImageSection = (props: ColumnImageT) => {
       right: 3,
     }[imageAlignment] || 3;
 
-  const cardsColStart = {
-    left: [2, 3],
-    center: [1, 3],
-    right: [1, 2],
-  };
-
   const imageStyle = `z-10 m-4 w-60 h-80 items-center lg:w-70 ` + rounded;
 
   return (
@@ -51,19 +45,15 @@ const ColumnImageSection = (props: ColumnImageT) => {
           }    justify-center items-center `}
         >
           {columns.map((col, index) => {
-            const columnSide = index % 2;
-            const colStart =
-              cardsColStart[imageAlignment || "right"][columnSide];
-
             return (
-              <div key={index} className={`lg:col-start-${colStart} `}>
+              <div key={index}>
                 <Card {...col} key={index}></Card>;
               </div>
             );
           })}
 
           <div
-            className={`self-center lg:mb-0 lg:block row-span-2 row-start-1 col-start-${imageColStart} text-center mb-20 hidden`}
+            className={`lg:self-center lg:mb-0 lg:block lg:row-span-2 lg:row-start-1 lg:col-start-${imageColStart} lg:text-center lg:mb-20 hidden`}
           >
             {image && (
               <Image
