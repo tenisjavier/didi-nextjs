@@ -1,6 +1,7 @@
 import "../globals.css";
 import localFont from "next/font/local";
 import GTM from "@/config/tracking/gtm";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import React, { Suspense } from "react";
 const aspira = localFont({
   src: [
@@ -34,6 +35,7 @@ export default async function RootLayout({
         <Suspense fallback={"....LOADING"}>
           <GTM />
         </Suspense>
+        <SpeedInsights />
       </body>
     </html>
   );
