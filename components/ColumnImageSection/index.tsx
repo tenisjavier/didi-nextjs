@@ -20,10 +20,10 @@ const ColumnImageSection = (props: ColumnImageT) => {
 
   const imageColStart =
     {
-      left: 1,
-      center: 2,
-      right: 3,
-    }[imageAlignment] || 3;
+      left: "lg:col-start-1",
+      center: "lg:col-start-2",
+      right: "lg:col-start-3",
+    }[imageAlignment] || "lg:col-start-3";
 
   const imageStyle = `z-10 m-4 w-60 h-80 items-center lg:w-70 ` + rounded;
 
@@ -53,7 +53,7 @@ const ColumnImageSection = (props: ColumnImageT) => {
           })}
 
           <div
-            className={`lg:self-center lg:mb-0 lg:block lg:row-span-2 lg:row-start-1 lg:col-start-${imageColStart} lg:text-center lg:mb-20 hidden`}
+            className={`lg:self-center lg:mb-0 lg:block lg:row-span-2 lg:row-start-1 ${imageColStart} lg:text-center lg:mb-20 hidden`}
           >
             {image && (
               <Image
