@@ -250,11 +250,6 @@ const redirectsPaths = [
     permanent: true,
     },
     {
-    source: `/au/safety/fatigue-prevention-feature/`,
-    destination: `/au/safety/fatigue-prevention-feature/`,
-    permanent: true,
-    },
-    {
     source: `/pa/driver/`,
     destination: `/pa/conductor/`,
     permanent: true,
