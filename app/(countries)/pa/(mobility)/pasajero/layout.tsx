@@ -14,7 +14,7 @@ export default async function PALayout({
         btnType="pax"
         btnMode="primary"
         type="pax"
-        btnText="Regístrate"
+        btnText="Descarga"
         textColor="gray-primary"
         bgColor="bg-white"
       ></SmartBanner>
