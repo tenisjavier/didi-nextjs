@@ -33,8 +33,7 @@ export default async function RootLayout({
         </div>
         {children}
         <Suspense fallback={"....LOADING"}>
-          {" "}
-          //! Put a skeleton loader here
+          {" Put a skeleton loader here "}
           <GTM />
         </Suspense>
         <SpeedInsights />
