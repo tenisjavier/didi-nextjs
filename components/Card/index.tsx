@@ -38,14 +38,14 @@ const Card = (props: CardT) => {
   //   return str.length > n ? str.substring(0, n - 1) + "..." : str;
   // };
 
-  const isCreditCard = type === 'creditCard' ? "rounded-2xl p-8 lg:max-w-[600px] w-full max-w-xs" : "w-full max-w-xs"
-
-
-  const textHighlightColor = ''
+  const isCreditCard =
+    type === "creditCard"
+      ? "rounded-2xl p-8 lg:max-w-[600px] w-full max-w-xs"
+      : "w-full max-w-xs";
 
   return (
     <div
-      style={{ direction: dir, }}
+      style={{ direction: dir }}
       className={`${isCreditCard} flex flex-col items-center ${bgColor} text-${textColor} my-3 text-center lg:mx-4`}
     >
       {titlePosition === "beforeImage" && title && (
@@ -60,10 +60,11 @@ const Card = (props: CardT) => {
               <Image
                 src={image.url}
                 alt={image.description}
-                className={`${isImageIcon
-                  ? "w-44  h-auto"
-                  : "max-h-64 object-cover h-full w-full"
-                  }`}
+                className={`${
+                  isImageIcon
+                    ? "w-44  h-auto"
+                    : "max-h-64 object-cover h-full w-full"
+                }`}
                 width={400}
                 height={400}
               ></Image>
@@ -76,10 +77,11 @@ const Card = (props: CardT) => {
             <Image
               src={image.url}
               alt={image.description}
-              className={`${isImageIcon
-                ? "w-20  h-auto"
-                : "max-h-64 object-contain h-full w-full"
-                }`}
+              className={`${
+                isImageIcon
+                  ? "w-20  h-auto"
+                  : "max-h-64 object-contain h-full w-full"
+              }`}
               width={400}
               height={400}
             ></Image>

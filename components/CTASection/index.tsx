@@ -38,26 +38,31 @@ const CTASection = (props: CTASectionT) => {
     brightness,
     type,
     btnPhoneNumber,
-    btnWhatsAppNumber
+    btnWhatsAppNumber,
   } = props;
 
   const isRtl = RTL ? "rtl" : "ltr";
   const textDir = RTL ? "text-right" : "text-left";
   const margin = RTL ? "ml-4" : "mr-4";
   const bgImageStyle = mobileBgImage
-    ? `hidden !absolute z-0 h-full w-full md:block object-cover ${brightness && brightness
-    }}`
-    : `!absolute z-0 h-full w-full md:block object-cover ${brightness && brightness
-    }`;
+    ? `hidden !absolute z-0 h-full w-full md:block object-cover ${
+        brightness && brightness
+      }}`
+    : `!absolute z-0 h-full w-full md:block object-cover ${
+        brightness && brightness
+      }`;
   const mobileBgImageStyle = `!absolute z-0 h-full w-full md:!hidden object-cover`;
-  const imageStyle = "z-10 m-4 w-80 h-auto lg:w-100 " + rounded;
+  const imageStyle =
+    `z-10 w-80 h-auto lg:w-100 ${isHero ? "max-lg:w-1/3 " : "m-4"} ` + rounded;
 
   const getTitleElement = () => {
     if (isHero) {
       return (
         <>
           {title && (
-            <h1 className={`text-4xl font-bold md:text-5xl mt-0`}>
+            <h1
+              className={`text-4xl font-bold md:text-5xl mt-0 max-lg:text-center `}
+            >
               {textBreak(title, textColor)}
             </h1>
           )}
@@ -67,7 +72,7 @@ const CTASection = (props: CTASectionT) => {
       return (
         <>
           {title && (
-            <h2 className="font-bold text-3xl md:text-4xl">
+            <h2 className="font-bold text-3xl md:text-4xl max-lg:text-center ">
               {textBreak(title, textColor)}
             </h2>
           )}
@@ -80,7 +85,11 @@ const CTASection = (props: CTASectionT) => {
     return (
       <>
         {desc && (
-          <p className={`mb-10 text-lg ${bulletsConfigColumn === "singleColumn" ? 'w-11/12 lg:w-1/2' : ''}`}>
+          <p
+            className={`mb-10 text-lg ${
+              bulletsConfigColumn === "singleColumn" ? "w-11/12 lg:w-1/2" : ""
+            }`}
+          >
             {textBreak(desc, textColor)}
           </p>
         )}
@@ -91,21 +100,31 @@ const CTASection = (props: CTASectionT) => {
   return (
     <section
       style={{ direction: isRtl }}
-      className={`relative flex min-h-[44rem] w-full items-center justify-center overflow-hidden ${bgColor && bgColor
-        } ${borderColor && "border-solid border border-" + borderColor} `}
+      className={`relative flex ${
+        isHero ? "max-lg:min-h-[54rem]" : ""
+      } min-h-[44rem] w-full items-center justify-center overflow-hidden ${
+        bgColor && bgColor
+      } ${borderColor && "border-solid border border-" + borderColor} `}
     >
       <div
-        className={`${whiteRight ? "white-right" : "container"
-          }  mx-auto flex w-full lg:flex-nowrap items-center justify-center py-12 ${reverse && isHero
+        className={`${
+          whiteRight ? "white-right" : "container"
+        }  mx-auto flex w-full lg:flex-nowrap items-center justify-center py-12 ${
+          reverse && isHero
             ? "flex-row-reverse flex-wrap-reverse pt-28 lg:pt-12 "
             : "flex-wrap "
-          } ${reverse ? "flex-row-reverse" : ""} ${bulletsConfigColumn === "singleColumn" ? "flex-col-reverse lg:flex-row-reverse" : ""}
-        ${image || imageRawRender || bulletsConfigColumn === "singleColumn"
+        } ${reverse ? "flex-row-reverse" : ""} ${
+          bulletsConfigColumn === "singleColumn"
+            ? "flex-col-reverse lg:flex-row-reverse"
+            : ""
+        }
+        ${
+          image || imageRawRender || bulletsConfigColumn === "singleColumn"
             ? whiteRight
               ? "lg:justify-center"
               : "lg:justify-between"
             : "lg:justify-start"
-          } text-${textColor}`}
+        } text-${textColor}`}
       >
         {image && (
           <Image
@@ -116,51 +135,54 @@ const CTASection = (props: CTASectionT) => {
             height={450}
           />
         )}
-        {type !== "cashback" && bullets && bulletsConfigColumn === "singleColumn" && (
-          <SectionBullets
-            bullets={bullets}
-            customBulletIcon={customBulletIcon}
-            margin={margin}
-            textDir={textDir}
-            icon={icon}
-          />
-        )}
+        {type !== "cashback" &&
+          bullets &&
+          bulletsConfigColumn === "singleColumn" && (
+            <SectionBullets
+              bullets={bullets}
+              customBulletIcon={customBulletIcon}
+              margin={margin}
+              textDir={textDir}
+              icon={icon}
+            />
+          )}
 
         {type === "cashback" && bulletsConfigColumn === "singleColumn" && (
-          <SectionCreditCardCashBackBullets
-            bullets={bullets}
-          />
+          <SectionCreditCardCashBackBullets bullets={bullets} />
         )}
 
         {imageRawRender && imageRawRender}
 
         <div
-          className={`${mobileTitlePosition === "top" ? "absolute top-24 md:static" : ""
-            } w-11/12 mb-8 lg:mt-16 lg:w-1/2 text-${textColor} z-10 xl:${textDir}`}
+          className={`${
+            mobileTitlePosition === "top" ? "absolute top-24 md:static" : ""
+          } ${
+            isHero && image ? "mb-0" : "mb-8"
+          } w-11/12 lg:mt-16 lg:w-1/2 text-${textColor} z-10 xl:${textDir}`}
         >
           {getTitleElement()}
           <div
-            className={`flex ${descBeforeBullets ? "flex-col" : "flex-col-reverse"
-              }`}
+            className={`flex ${
+              descBeforeBullets ? "flex-col" : "flex-col-reverse"
+            }`}
           >
             {desc && renderSectionDesc()}
 
-            {type !== "cashback" && bullets && bulletsConfigColumn !== "singleColumn" && (
-              <SectionBullets
-                bullets={bullets}
-                customBulletIcon={customBulletIcon}
-                margin={margin}
-                textDir={textDir}
-                icon={icon}
-              />
-            )}
+            {type !== "cashback" &&
+              bullets &&
+              bulletsConfigColumn !== "singleColumn" && (
+                <SectionBullets
+                  bullets={bullets}
+                  customBulletIcon={customBulletIcon}
+                  margin={margin}
+                  textDir={textDir}
+                  icon={icon}
+                />
+              )}
 
             {type === "cashback" && bulletsConfigColumn !== "singleColumn" && (
-              <SectionCreditCardCashBackBullets
-                bullets={bullets}
-              />
+              <SectionCreditCardCashBackBullets bullets={bullets} />
             )}
-
           </div>
           {list && <SectionList list={list} />}
 
@@ -179,7 +201,7 @@ const CTASection = (props: CTASectionT) => {
                   {btnPhoneNumber ? (
                     <a href={`tel:${btnPhoneNumber}`} target="_blank">
                       <Image
-                        alt={'Phone Number'}
+                        alt={"Phone Number"}
                         className="w-9 h-9"
                         src="/icons/phone.png"
                         height={50}
@@ -191,9 +213,12 @@ const CTASection = (props: CTASectionT) => {
                   )}
 
                   {btnWhatsAppNumber ? (
-                    <a href={`https://wa.me/${btnWhatsAppNumber}`} target="_blank">
+                    <a
+                      href={`https://wa.me/${btnWhatsAppNumber}`}
+                      target="_blank"
+                    >
                       <Image
-                        alt={'WhatsApp Number'}
+                        alt={"WhatsApp Number"}
                         className="w-9 h-9"
                         src="/icons/whatsapp.png"
                         height={50}
