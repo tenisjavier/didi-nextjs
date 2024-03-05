@@ -9,7 +9,7 @@ export default async function MXLayout({
     <>
       {children}
       <SmartBanner
-        countryCode="cl"
+        countryCode="do"
         title="DiDi Pasajero"
         desc="Pide un Viaje"
         btnType="pax"
