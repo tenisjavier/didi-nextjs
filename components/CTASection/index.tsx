@@ -52,8 +52,7 @@ const CTASection = (props: CTASectionT) => {
         brightness && brightness
       }`;
   const mobileBgImageStyle = `!absolute z-0 h-full w-full md:!hidden object-cover`;
-  const imageStyle =
-    `z-10 h-auto lg:w-100 ${isHero ? "" : "m-4 w-80"} ` + rounded;
+  const imageStyle = `z-10 h-auto lg:w-100 m-4 mb-16 w-80 ` + rounded;
 
   const getTitleElement = () => {
     if (isHero) {
