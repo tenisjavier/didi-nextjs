@@ -53,7 +53,7 @@ const CTASection = (props: CTASectionT) => {
       }`;
   const mobileBgImageStyle = `!absolute z-0 h-full w-full md:!hidden object-cover`;
   const imageStyle =
-    `z-10 w-80 h-auto lg:w-100 ${isHero ? "max-lg:w-1/3 " : "m-4"} ` + rounded;
+    `z-10 h-auto lg:w-100 max-lg:w-35 ${isHero ? "" : "m-4 w-80"} ` + rounded;
 
   const getTitleElement = () => {
     if (isHero) {
@@ -101,15 +101,15 @@ const CTASection = (props: CTASectionT) => {
     <section
       style={{ direction: isRtl }}
       className={`relative flex ${
-        isHero ? "max-lg:min-h-[54rem]" : ""
-      } min-h-[44rem] w-full items-center justify-center overflow-hidden ${
+        isHero ? "max-lg:min-h-[54rem]" : "min-h-[44rem]"
+      } w-full items-center justify-center overflow-hidden ${
         bgColor && bgColor
       } ${borderColor && "border-solid border border-" + borderColor} `}
     >
       <div
         className={`${
           whiteRight ? "white-right" : "container"
-        }  mx-auto flex w-full lg:flex-nowrap items-center justify-center py-12 ${
+        }  mx-auto flex w-full lg:flex-nowrap items-center justify-center ${
           reverse && isHero
             ? "flex-row-reverse flex-wrap-reverse pt-28 lg:pt-12 "
             : "flex-wrap "
