@@ -107,7 +107,7 @@ const fetchCitieBySlug = async (
 //* params: country code from the country to fetch the cities
 const fetchCountries = async (): Promise<Country[]> => {
   const query = `query {
-    countryCollection{
+    countryCollection(order: name_ASC) {
       items{
         name
         code

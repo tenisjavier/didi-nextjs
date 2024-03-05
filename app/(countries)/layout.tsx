@@ -34,7 +34,6 @@ export default async function RootLayout({
         {children}
         <Suspense fallback={"....LOADING"}>
           {" "}
-          //! Put a skeleton loader here
           <GTM />
         </Suspense>
         <SpeedInsights />
