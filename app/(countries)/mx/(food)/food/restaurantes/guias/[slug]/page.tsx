@@ -17,21 +17,22 @@ export async function generateMetadata({ params: { slug } }: GuiasProps) {
 }
 
 export async function generateStaticParams() {
-  const articlesSlugs = await generateGuideStaticParams("mx", "delivery");
+  const articlesSlugs = await generateGuideStaticParams("mx", "restaurant");
 
   return articlesSlugs;
 }
 
-const Guide = async ({ params: { slug } }: GuiasProps) => {
+const Page = async ({ params: { slug } }: GuiasProps) => {
+
   return (
     <GuidePage
       params={{
+        pathname: "/mx/food/restaurantes/guias/slug/",
         countryCode: "mx",
-        guideCategory: "restaurant",
         slug,
       }}
     />
   );
 };
 
-export default Guide;
+export default Page;

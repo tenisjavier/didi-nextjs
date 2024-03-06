@@ -17,18 +17,19 @@ export async function generateMetadata({ params: { slug } }: ArticleProps) {
 }
 
 export async function generateStaticParams() {
-  const articlesSlugs = await generateArticleStaticParams("pe", "news");
+  const articlesSlugs = await generateArticleStaticParams("pe", "rides");
 
   return articlesSlugs;
 }
 
 const Article = async ({ params: { slug } }: ArticleProps) => {
+
   return (
     <ArticlePage
       params={{
         slug,
-        articleCategory: "news",
         countryCode: "pe",
+        pathname: '/pe/newsroom/slug/'
       }}
     />
   );

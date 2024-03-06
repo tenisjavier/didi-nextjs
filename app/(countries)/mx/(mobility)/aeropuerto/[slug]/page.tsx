@@ -1,20 +1,39 @@
 import React from "react";
-import BuilderComponent from "@/components/BuilderComponent";
-import { Metadata } from "next";
-import { fetchPageComponents } from "@/utils/db";
+import CityPage, { generateCitiesMetadata, generateCitiesStaticParams } from "@/components/Sections/Cities";
 
-//? builder will return the array of components fetch by db by pathname
+interface CityProps {
+  params: {
+    slug: string;
+  };
+}
 
-export const metadata: Metadata = {
-  title: "Regístrate como Socio Conductor",
-  description: "Elmejor",
-};
+export async function generateMetadata({ params: { slug } }: CityProps) {
+  const city = await generateCitiesMetadata(slug, "mx", 'airport');
 
+  return city;
+}
 
-const Page = async () => {
-  const components = await fetchPageComponents("/mx/aeropuerto/");
-  return <BuilderComponent components={components}></BuilderComponent>;
+export async function generateStaticParams() {
+  const citiesSlugs = await generateCitiesStaticParams("mx", 'airport');
+
+  return citiesSlugs;
+}
+
+const Page = async ({ params: { slug } }: CityProps) => {
+
+  return (
+    <CityPage
+      params={{
+        countryCode: "mx",
+        pathname: "/mx/aeropuerto/slug/",
+        slug: slug,
+        productCategory: 'airport'
+      }}
+    />
+  );
 };
 
 export default Page;
+
+
 

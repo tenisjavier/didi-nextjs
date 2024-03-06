@@ -2,20 +2,17 @@ import React from "react";
 import {
   fetchGuideBySlug,
   fetchGuides,
-  fetchSuggestedColumnSection,
+  fetchPageComponents,
 } from "@/utils/db";
-import CTASection from "@/components/CTASection";
-import RichContent from "@/components/RichContent";
-import Banner from "@/components/Banner";
 import { notFound } from "next/navigation";
-import { ColumnSectionT, CountryCode, GuideType } from "@/typings";
-import ColumnsSection from "@/components/ColumnSection";
+import { CountryCode } from "@/typings";
+import BuilderComponent from "@/components/BuilderComponent";
 
-interface GuiasProps {
+interface ArticleProps {
   params: {
     slug: string;
     countryCode: CountryCode;
-    guideCategory: GuideType;
+    pathname: string;
   };
 }
 
@@ -44,50 +41,35 @@ export async function generateGuideStaticParams(
   return guidesSlugs;
 }
 
-const GuidePage = async ({
-  params: { slug, guideCategory, countryCode },
-}: GuiasProps) => {
-  const [guideContent, suggestedGuides] = await Promise.all([
-    fetchGuideBySlug(countryCode, slug),
-    fetchGuides(countryCode, guideCategory, 0, 12),
-  ]);
+const Page = async ({
+  params: { slug, countryCode, pathname },
+}: ArticleProps) => {
+  const guideContent = await fetchGuideBySlug(countryCode, slug);
 
   const guide = guideContent?.items?.[0];
 
   if (!guide) return notFound();
 
-  const heroProps = {
-    title: guide.title,
-    desc: guide.excerpt,
-    bgColor: "bg-white",
-    textColor: "white",
-    bgImage: guide.featuredImage,
-    btnType: "drv",
-    btnMode: "light",
-    brightness: "brightness-75",
-  };
-  const bannerProps = {
-    title: "¿Querés ser conductor en DiDi?",
-    desc: "Generá Dinero y maneja tus tiempos",
-    textColor: "white",
-    bgColor: "bg-orange-primary",
-    btnType: "drv",
-    btnMode: "light",
-  };
-
-  const suggestedGuidesProps: ColumnSectionT =
-    await fetchSuggestedColumnSection(countryCode, "Guide", guideCategory);
+  const components = await fetchPageComponents(pathname)
 
   return (
     <>
-      <CTASection {...heroProps}></CTASection>
-      <section className="container ar-auto mb-32 text-gray-primary md:px-28 mt-16">
-        <RichContent richContent={guide.content}></RichContent>
-      </section>
-      <Banner {...bannerProps}></Banner>
-      <ColumnsSection {...suggestedGuidesProps}></ColumnsSection>
+      <BuilderComponent
+        components={components}
+        textParams={{
+          ctaSectionParams: {
+            title: guide.title,
+            desc: guide.excerpt,
+            bgImage: guide.featuredImage,
+            btnText: guide.btnCustomText,
+            btnLink: guide.btnCustomLink,
+            btnType: 'custom'
+          },
+          richTextParams: guide.content
+        }}
+      ></BuilderComponent>
     </>
   );
 };
 
-export default GuidePage;
+export default Page;

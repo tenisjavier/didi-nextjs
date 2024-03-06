@@ -27,8 +27,8 @@ const Article = async ({ params: { slug } }: ArticleProps) => {
     <ArticlePage
       params={{
         slug,
-        articleCategory: "pay",
         countryCode: "mx",
+        pathname: "/mx/didipay/blog/slug/",
       }}
     />
   );

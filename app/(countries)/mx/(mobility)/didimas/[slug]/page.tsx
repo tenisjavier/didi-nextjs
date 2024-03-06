@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  fetchCities,
   fetchPartnerBySlug,
   fetchPartnersByCategory,
 } from "@/utils/db";
@@ -8,7 +7,7 @@ import { Metadata } from "next";
 import CTASection from "@/components/CTASection";
 import RichContent from "@/components/RichContent";
 import { notFound } from "next/navigation";
-import { City, ColumnSectionT, PartnerT } from "@/typings";
+import { PartnerT } from "@/typings";
 import ColumnsSection from "@/components/ColumnSection";
 
 interface GuiasProps {

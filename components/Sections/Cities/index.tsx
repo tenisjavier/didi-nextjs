@@ -1,14 +1,16 @@
 import React from "react";
-import { fetchCitieBySlug, fetchCities, fetchPageComponents, fetchProductsByIds, fetchRequirementsByCitySlug } from "@/utils/db";
+import { fetchCitieBySlug, fetchCities, fetchFAQS, fetchPageComponents, fetchProductsByIds, fetchRequirementsByCitySlug } from "@/utils/db";
 import { notFound } from "next/navigation";
 import { CountryCode, ProductCategoryT } from "@/typings";
 import BuilderComponent from "@/components/BuilderComponent";
+import AccordionSection from "@/components/AccordionSection";
 
 interface CityProps {
   params: {
     slug: string;
     countryCode: CountryCode;
     pathname: string;
+    productCategory: ProductCategoryT;
   };
 }
 
@@ -16,7 +18,7 @@ interface CityProps {
 export async function generateCitiesMetadata(
   slug: string,
   countryCode: CountryCode,
-  category: "driver" | "food" = 'driver'
+  category: ProductCategoryT = 'driver'
 ) {
   const city = (await fetchCitieBySlug(countryCode, slug))
   const countryName = city.country.name;
@@ -30,6 +32,11 @@ export async function generateCitiesMetadata(
     return {
       title: `Pide Comida a Domicilio  en ${city.name} | DiDi Food ${countryName}`,
       description: `¿Qué se te antoja en este momento? Pide tu Comida a Domicilio en ${city.name} por DiDi Food y disfruta de los mejores restaurantes de ${city.name}, en minutos.`,
+    }
+  } else if (category === 'airport') {
+    return {
+      title: `DiDi Aeropuerto | DiDi ${countryName}`,
+      description: `DiDi Aeropuerto`,
     }
   }
 }
@@ -47,9 +54,9 @@ export async function generateCitiesStaticParams(
 }
 
 const CityPage = async ({
-  params: { slug, countryCode, pathname },
+  params: { slug, countryCode, pathname, productCategory },
 }: CityProps) => {
-  const city = await fetchCitieBySlug(countryCode, slug);
+  const city = await fetchCitieBySlug(countryCode, slug, productCategory);
 
   const products = await fetchProductsByIds(city?.productsId)
 
@@ -70,7 +77,6 @@ const CityPage = async ({
 
   if (!city) return notFound();
 
-
   const components = await fetchPageComponents(pathname);
 
   return (
@@ -78,12 +84,13 @@ const CityPage = async ({
       components={components}
       textParams={{
         accordionSectionParams: {
+          title: city.name,
           items: requirements,
         },
         ctaSectionParams: {
           title: city.name,
           desc: city.name,
-          image: city.image,
+          image: city?.image || city?.imageMap,
         },
         carouselParams: {
           title: city.name,

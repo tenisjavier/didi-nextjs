@@ -22,11 +22,13 @@ export async function generateStaticParams() {
 const Page = async ({ params: { slug } }: CityProps) => {
 
   return (
-    <CityPage params={{
-      countryCode: "mx",
-      pathname: "/mx/conductor/ciudades/slug/",
-      slug: slug,
-    }}
+    <CityPage
+      params={{
+        countryCode: "mx",
+        pathname: "/mx/conductor/ciudades/slug/",
+        slug: slug,
+        productCategory: 'driver'
+      }}
     />
   );
 };

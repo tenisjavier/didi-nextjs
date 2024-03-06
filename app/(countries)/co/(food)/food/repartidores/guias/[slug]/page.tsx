@@ -22,16 +22,21 @@ export async function generateStaticParams() {
   return articlesSlugs;
 }
 
-const Guide = async ({ params: { slug } }: GuiasProps) => {
+const Page = async ({ params: { slug } }: GuiasProps) => {
+
   return (
     <GuidePage
       params={{
+        pathname: "/co/food/repartidores/guias/slug/",
         countryCode: "co",
-        guideCategory: "delivery",
         slug,
       }}
     />
   );
 };
 
-export default Guide;
+export default Page;
+
+
+
+

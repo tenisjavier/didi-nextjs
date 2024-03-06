@@ -11,27 +11,28 @@ interface GuiasProps {
 }
 
 export async function generateMetadata({ params: { slug } }: GuiasProps) {
-  const article = await generateGuideMetadata(slug, "pe");
+  const article = await generateGuideMetadata(slug, "cr");
 
   return article;
 }
 
 export async function generateStaticParams() {
-  const articlesSlugs = await generateGuideStaticParams("pe", "delivery");
+  const articlesSlugs = await generateGuideStaticParams("cr", "restaurant");
 
   return articlesSlugs;
 }
 
-const Guide = async ({ params: { slug } }: GuiasProps) => {
+const Page = async ({ params: { slug } }: GuiasProps) => {
+
   return (
     <GuidePage
       params={{
+        pathname: "/cr/food/restaurantes/guias/slug/",
         countryCode: "cr",
-        guideCategory: "restaurant",
         slug,
       }}
     />
   );
 };
 
-export default Guide;
+export default Page;

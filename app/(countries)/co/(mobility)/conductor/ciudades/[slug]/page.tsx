@@ -26,28 +26,10 @@ const Page = async ({ params: { slug } }: CityProps) => {
       countryCode: "co",
       pathname: "/co/conductor/ciudades/slug/",
       slug: slug,
+      productCategory: 'driver'
     }}
     />
   );
 };
 
 export default Page;
-
-
-// const heroProps = {
-//   title: `Socios Conductores en ${city.name}`,
-//   desc: `¿Quieres convertirte en Socio Conductor DiDi en ${city.name}? Regístrate online y comienza a generar ingresos de manera segura y flexible.`,
-//   bgColor: "bg-blue-primary",
-//   textColor: "white",
-//   image: city.image,
-//   btnType: "drv",
-//   btnMode: "primary",
-//   brightness: "brightness-75",
-//   reverse: true,
-//   isHero: true,
-// };
-
-
-
-
-

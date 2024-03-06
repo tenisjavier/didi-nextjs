@@ -26,6 +26,7 @@ const Page = async ({ params: { slug } }: CityProps) => {
       countryCode: "ar",
       pathname: "/ar/conductor/ciudades/slug/",
       slug: slug,
+      productCategory: 'driver'
     }}
     />
   );
