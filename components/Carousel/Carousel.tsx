@@ -37,7 +37,6 @@ function PrevArrow(props: any) {
 
 const Carousel = (props: CarouselT) => {
   const {
-    speedAutoPlay,
     isAutoPlay,
     slides,
     carouselType,
@@ -126,7 +125,7 @@ const Carousel = (props: CarouselT) => {
     arrows: hasArrows || true,
     infinite: true,
     autoplay: isAutoPlay,
-    speed: speedAutoPlay,
+    speed: 500,
     autoplaySpeed: 0,
     slidesToShow: toShow,
     slidesToScroll: toScroll,
@@ -136,14 +135,14 @@ const Carousel = (props: CarouselT) => {
       <NextArrow
         arrow={arrowNext}
         arrowColor={arrowColor}
-        hasArrow={hasArrows && type !== 'pay'}
+        hasArrow={hasArrows && type !== "pay"}
       />
     ),
     prevArrow: (
       <PrevArrow
         arrow={arrowPrev}
         arrowColor={arrowColor}
-        hasArrow={hasArrows && type !== 'pay'}
+        hasArrow={hasArrows && type !== "pay"}
       />
     ),
     dotsClass: "slick-dots flex justify-center z-50 !bottom-10",
@@ -173,16 +172,21 @@ const Carousel = (props: CarouselT) => {
         margin: "auto",
       }}
     >
-      <div className={`flex py-16 ${type === 'pay' ? 'justify-between' : 'justify-center'}  items-center`}>
+      <div
+        className={`flex py-16 ${
+          type === "pay" ? "justify-between" : "justify-center"
+        }  items-center`}
+      >
         {title && (
           <h2
-            className={`${type === "pay" ? "text-left" : "text-center"
-              } text-3xl md:text-4xl font-bold `}
+            className={`${
+              type === "pay" ? "text-left" : "text-center"
+            } text-3xl md:text-4xl font-bold `}
           >
             {textBreak(title)}
           </h2>
         )}
-        {hasArrows && type === 'pay' && (
+        {hasArrows && type === "pay" && (
           <div className="hidden lg:flex">
             <button
               className="m-4 text-4xl border-0 p-0 outline-0 bg-inherit cursor-pointer hover:font-bold"
@@ -201,13 +205,14 @@ const Carousel = (props: CarouselT) => {
       </div>
       {desc && (
         <p
-          className={`${type === "pay" ? "text-left" : "text-center"
-            } text-base`}
+          className={`${
+            type === "pay" ? "text-left" : "text-center"
+          } text-base`}
         >
           {textBreak(desc)}
         </p>
       )}
-      <Slider ref={sliderRefMain}  {...settings} >
+      <Slider ref={sliderRefMain} {...settings}>
         {sliderContent && sliderContent}
       </Slider>
       <Slider ref={sliderRefMobile} {...settings}>

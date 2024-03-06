@@ -539,7 +539,6 @@ const fetchCarouselById = async (id: string): Promise<CarouselT> => {
       hasArrows
       carouselType
       slidesToShow
-      speedAutoPlay
       imagesMobileCollection{
         items{
           title
