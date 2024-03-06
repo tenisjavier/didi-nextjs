@@ -700,6 +700,7 @@ const fetchAccordionSectionById = async (
   const handleFetch = async (skip: number, limit: number) => {
     const query = `fragment faqFields on Faq {
       title
+      slug
       content {
         json
         links {
@@ -721,6 +722,7 @@ const fetchAccordionSectionById = async (
   
     fragment productFields on Product {
       name
+      slug
       requirement {
         json
         links {
