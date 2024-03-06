@@ -1,18 +1,33 @@
 import React from "react";
-import BuilderComponent from "@/components/BuilderComponent";
-import { Metadata } from "next";
-import { fetchPageComponents } from "@/utils/db";
 
-//? builder will return the array of components fetch by db by pathname
+import FAQPage, { generateFaqsMetadata } from "@/components/Sections/Faqs";
 
-export const metadata: Metadata = {
-  title: "Regístrate como Socio Conductor",
-  description: "Elmejor",
-};
+interface FAQProps {
+  params: {
+    slug: string;
+  };
+}
 
-const CentroDeAyuda = async ({ params }: { params: { slug: string } }) => {
-  const components = await fetchPageComponents("/cr/centro-de-ayuda/");
-  return <BuilderComponent components={components}></BuilderComponent>;
+// or Dynamic metadata
+export async function generateMetadata({ params: { slug } }: FAQProps) {
+  const faq = await generateFaqsMetadata(slug, "cr");
+
+  return faq
+}
+
+const CentroDeAyuda = async ({ params: { slug } }: FAQProps) => {
+
+  return (
+    <>
+      <FAQPage
+        params={{
+          countryCode: "cr",
+          pathname: "/cr/centro-de-ayuda/slug/",
+          slug,
+        }}
+      />
+    </>
+  );
 };
 
 export default CentroDeAyuda;

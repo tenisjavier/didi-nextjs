@@ -27,7 +27,7 @@ const Article = async ({ params: { slug } }: ArticleProps) => {
     <ArticlePage
       params={{
         slug,
-        articleCategory: "news",
+        pathname: '/mx/newsroom/slug/',
         countryCode: "mx",
       }}
     />

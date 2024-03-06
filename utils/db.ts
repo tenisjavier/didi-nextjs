@@ -7,6 +7,8 @@ import {
   PageT,
   ItemType,
   PartnerT,
+  RequirementT,
+  LegalT,
 } from "@/typings";
 import { ImageType } from "@/typings";
 import { PageComponent } from "@/typings";
@@ -40,8 +42,13 @@ const fetchCities = async (
   countryCode: CountryCode,
   productCategory: string
 ): Promise<City[]> => {
+  const filterParams =
+    productCategory === "airport"
+      ? "hasAirport: true"
+      : `product:{category_contains_some:"${productCategory}"}`;
+
   const query = `query {
-    cityCollection(order: [name_ASC],where: {country:{code:"${countryCode}"}, product:{category_contains_some:"${productCategory}"}}){
+    cityCollection(order: [name_ASC],where: {${filterParams}, country:{code:"${countryCode}"}}){
       items{
         name
         slug
@@ -53,13 +60,14 @@ const fetchCities = async (
           description
           url
         }
-
       }
     }
     }`;
 
   const res = await fetch(`${apiUrl}?query=${query}`, {
+    method: "POST",
     headers: headers,
+    body: JSON.stringify({ query }),
   });
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
@@ -72,18 +80,28 @@ const fetchCities = async (
 //* params: country code from the country to fetch the cities
 const fetchCitieBySlug = async (
   countryCode: CountryCode,
-  slug: string
+  slug: string,
+  productCategory?: string
 ): Promise<City> => {
+  const imageFieldQuery = productCategory === "airport" ? "imageMap" : `image`;
+
   const query = `query {
     cityCollection(order: [name_ASC],where: {country:{code: "${countryCode}"}, slug: "${slug}" }){
       items{
         name
         slug
+        productCollection {
+          items {
+            sys {
+              id
+            }
+          }
+        }
         country {
           code
           name
         }
-        image {
+        ${imageFieldQuery} {
           title
           description
           url
@@ -100,7 +118,77 @@ const fetchCitieBySlug = async (
     throw new Error("Failed to fetch cities");
   }
   const cities = await res.json();
-  return cities.data.cityCollection.items?.[0];
+
+  const citiesData = {
+    ...cities.data.cityCollection.items?.[0],
+    productsId:
+      cities.data.cityCollection.items?.[0].productCollection.items.map(
+        (item: any) => item.sys.id
+      ),
+  };
+
+  return citiesData;
+};
+
+//? returns a array of products
+//* params: productsId to fetch the products
+const fetchProductsByIds = async (productsId: string[]): Promise<any> => {
+  const query = `query ($ids: [String!]!) {
+    productCollection(where: { sys: { id_in: $ids } }) {
+      items {
+        name
+        description
+        image {
+          title
+          description
+          url
+        }
+      }
+    }
+  }`;
+
+  const variables = {
+    ids: productsId,
+  };
+
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    method: "POST",
+    headers: headers,
+    body: JSON.stringify({ query, variables }),
+  });
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch Products");
+  }
+  const products = await res.json();
+  return products.data.productCollection.items;
+};
+
+//? returns a array of requirements
+//* params: country code from the country to fetch the cities
+const fetchRequirementsByCitySlug = async (
+  slug: string
+): Promise<RequirementT[]> => {
+  const query = `query {
+    requirementCollection(where: {city: {slug: "${slug}"}}) {
+      items{
+        name
+        requirement{
+          json
+        }
+      }
+    }
+  }`;
+
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+  });
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch Requirements");
+  }
+  const requirements = await res.json();
+  return requirements.data.requirementCollection.items;
 };
 
 //? returns a object of cities
@@ -174,6 +262,9 @@ const fetchPages = async (): Promise<PageT[]> => {
     pageCollection(limit: 1000){
       items {
         pathname
+        country{
+          code
+        }
         sys{
           publishedAt
         }
@@ -199,6 +290,13 @@ const fetchPageComponents = async (
   pathname: string
 ): Promise<PageComponent[]> => {
   const query = `
+  fragment richTextFields on ContentTypeRichText {
+    __typename
+    sys {
+      id
+    }
+  }
+
   fragment ctaFields on CtaSection {
     __typename
     sys {
@@ -284,6 +382,7 @@ const fetchPageComponents = async (
             ...carouselFields
             ...listSectionFields
             ...legalFields
+            ...richTextFields
           }
         }
       }
@@ -302,8 +401,12 @@ const fetchPageComponents = async (
 
   const componentsToFetch =
     pageComponents.data.pageCollection.items[0].componentsCollection.items.map(
-      (item: { sys: { id: string }; __typename: string }) => {
-        return { id: item.sys?.id, __typename: item.__typename };
+      (item: { sys: { id: string }; __typename: string; name: string }) => {
+        return {
+          id: item.sys?.id,
+          __typename: item.__typename,
+          name: item.name,
+        };
       }
     );
 
@@ -691,14 +794,18 @@ carouselSection(id:"${id}") {
 //? returns one Accordion Section component by its Id
 //* params: id of the component
 const fetchAccordionSectionById = async (
-  id: string
+  id: string,
+  params?: {
+    faqRelatedCity?: string;
+  }
 ): Promise<AccordionSectionT> => {
   const itemsCollection: FAQT[] = [];
 
   let accordionSection: Partial<AccordionSectionT> = {};
 
   const handleFetch = async (skip: number, limit: number) => {
-    const query = `fragment faqFields on Faq {
+    const query = `
+    fragment faqFields on Faq {
       title
       content {
         json
@@ -744,6 +851,9 @@ const fetchAccordionSectionById = async (
       accordionSection(id:"${id}") {
         name
         title
+        country{
+          code
+        }
         desc
         textColor
         bgColor
@@ -752,6 +862,8 @@ const fetchAccordionSectionById = async (
         isClosed
         rtl
         isFaq
+        accordionType
+        faqType
         itemsCollection(limit:${limit || 0}, skip: ${skip || 0}){
           total
           skip
@@ -808,8 +920,24 @@ const fetchAccordionSectionById = async (
     });
   }
 
-  //@ts-ignore
-  accordionSection.items = itemsCollection;
+  if (accordionSection?.accordionType === "faqs") {
+    const faqs = await fetchFAQS(accordionSection?.country?.code, {
+      types: accordionSection?.faqType || [],
+      relatedCity: params?.faqRelatedCity,
+    });
+
+    //@ts-ignore
+    accordionSection.items = faqs.map((faq) => {
+      return {
+        title: faq.title,
+        content: faq.content,
+      };
+    });
+  } else {
+    //@ts-ignore
+    accordionSection.items = itemsCollection;
+  }
+
   //@ts-ignore
   delete accordionSection.itemsCollection;
 
@@ -1105,6 +1233,10 @@ const fetchListSectionById = async (id: string): Promise<ListSectionT> => {
         link = `/${city.country.code}/food/ciudad/${city.slug}/`;
       }
 
+      if (data?.listSection.productCategory?.includes("airport")) {
+        link = `/${city.country.code}/aeropuerto/${city.slug}/`;
+      }
+
       return {
         text: city.name,
         image: city.image,
@@ -1117,9 +1249,19 @@ const fetchListSectionById = async (id: string): Promise<ListSectionT> => {
   if (data.listSection.listType === "faq") {
     const items: ListItemT = data.listSection.faqsCollection.items.map(
       (faq: { title: string; slug: string }) => {
+        let link = `/${data.listSection.country.code}/centro-de-ayuda/${faq.slug}/`;
+
+        if (
+          data.listSection.country.code === "nz" ||
+          data.listSection.country.code === "au" ||
+          data.listSection.country.code === "eg"
+        ) {
+          link = `/${data.listSection.country.code}/help-center/${faq.slug}/`;
+        }
+
         return {
           text: faq.title,
-          link: `/${data.listSection.country.code}/centro-de-ayuda/${faq.slug}/`,
+          link,
         };
       }
     );
@@ -1411,13 +1553,72 @@ const fetchFAQBySlug = async (
 
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch listSection");
+    throw new Error("Failed to fetch Faq");
   }
   const { data } = await res.json();
   const faq = data.faqCollection.items[0];
 
   return faq;
 };
+
+const fetchFAQS = async (
+  countryCode: CountryCode,
+  params?: {
+    types?: string[];
+    relatedCity?: string;
+  }
+): Promise<FAQT[]> => {
+  const query = `query MyQuery($relatedCity: String, $type_contains_some: [String]) {
+      faqCollection(where: { type_contains_some: $type_contains_some, relatedCity: $relatedCity, country: { code: "${countryCode}" } }, limit: 10) {
+          items {
+              title
+              slug
+              type
+              country {
+                  code
+              }
+              content {
+                  json
+                  links {
+                      assets {
+                          block {
+                              sys {
+                                  id
+                              }
+                              title
+                              description
+                              url
+                              width
+                              height
+                          }
+                      }
+                  }
+              }
+          }
+      }
+  }`;
+
+  const variables = {
+    type_contains_some: params?.types,
+    relatedCity: params?.relatedCity,
+  };
+
+  const res = await fetch(apiUrl, {
+    method: "POST",
+    headers: headers,
+    body: JSON.stringify({ query, variables }),
+  });
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch FAQS");
+  }
+  const { data } = await res.json();
+  const faq = data.faqCollection.items;
+
+  return faq;
+};
+
 //? returns one FAQ component by its slug and country
 //* params: id of the component
 const fetchLegalBySlug = async (
@@ -1462,12 +1663,30 @@ const fetchLegalBySlug = async (
   return legal;
 };
 
-const fetchLegalById = async (id: string): Promise<FAQT> => {
+//? returns one FAQ component by its slug and country
+//* params: id of the component
+const fetchLegal = async (countryCode: CountryCode): Promise<FAQT> => {
   const query = `query {
-    legal(id:"${id}"){
-      name
-      content {
-        json
+    legalCollection (where: {country: {code:"${countryCode}"}}) {
+      items {
+        name
+        content {
+          json
+          links {
+            assets {
+              block {
+                sys {
+                  id
+                }
+                title
+                description
+                url
+                width
+                height
+              }
+            }
+          }
+        }
       }
     }
   }`;
@@ -1481,12 +1700,48 @@ const fetchLegalById = async (id: string): Promise<FAQT> => {
     throw new Error("Failed to fetch Legal");
   }
   const { data } = await res.json();
-
-  const legal = data.legal;
-
+  const legal = data.legalCollection.items;
   return legal;
+};
 
-}
+const fetchLegalById = async (id: string): Promise<LegalT> => {
+  const query = `query {
+    legalCollection (where: {sys: {id:"${id}"}} limit: 1) {
+      items {
+        name
+        content {
+          json
+          links {
+            assets {
+              block {
+                sys {
+                  id
+                }
+                title
+                description
+                url
+                width
+                height
+              }
+            }
+          }
+        }
+      }
+    }
+  }`;
+
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+  });
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch Legal");
+  }
+  const { data } = await res.json();
+  const legal = data?.legalCollection?.items?.[0];
+  return legal;
+};
 
 const fetchPartnersByCategory = async (
   countryCode: CountryCode,
@@ -1805,4 +2060,8 @@ export {
   fetchFeatureByCategory,
   fetchPages,
   fetchSuggestedColumnSection,
+  fetchFAQS,
+  fetchLegal,
+  fetchProductsByIds,
+  fetchRequirementsByCitySlug,
 };

@@ -125,7 +125,7 @@ const Carousel = (props: CarouselT) => {
     arrows: hasArrows || true,
     infinite: true,
     autoplay: isAutoPlay,
-    speed: 500,
+    speed: isAutoPlay ? 8000 : 1000,
     autoplaySpeed: 0,
     slidesToShow: toShow,
     slidesToScroll: toScroll,
@@ -173,15 +173,13 @@ const Carousel = (props: CarouselT) => {
       }}
     >
       <div
-        className={`flex py-16 ${
-          type === "pay" ? "justify-between" : "justify-center"
-        }  items-center`}
+        className={`flex py-16 ${type === "pay" ? "justify-between" : "justify-center"
+          }  items-center`}
       >
         {title && (
           <h2
-            className={`${
-              type === "pay" ? "text-left" : "text-center"
-            } text-3xl md:text-4xl font-bold `}
+            className={`${type === "pay" ? "text-left" : "text-center"
+              } text-3xl md:text-4xl font-bold `}
           >
             {textBreak(title)}
           </h2>
@@ -205,9 +203,8 @@ const Carousel = (props: CarouselT) => {
       </div>
       {desc && (
         <p
-          className={`${
-            type === "pay" ? "text-left" : "text-center"
-          } text-base`}
+          className={`${type === "pay" ? "text-left" : "text-center"
+            } text-base`}
         >
           {textBreak(desc)}
         </p>

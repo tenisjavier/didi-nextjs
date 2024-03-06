@@ -2,20 +2,17 @@ import React from "react";
 import {
   fetchArticleBySlug,
   fetchArticles,
-  fetchSuggestedColumnSection,
+  fetchPageComponents,
 } from "@/utils/db";
-import CTASection from "@/components/CTASection";
-import RichContent from "@/components/RichContent";
-import Banner from "@/components/Banner";
-import ColumnsSection from "@/components/ColumnSection";
 import { notFound } from "next/navigation";
-import { ArticleType, ColumnSectionT, CountryCode } from "@/typings";
+import { CountryCode } from "@/typings";
+import BuilderComponent from "@/components/BuilderComponent";
 
 interface ArticleProps {
   params: {
     slug: string;
     countryCode: CountryCode;
-    articleCategory: ArticleType;
+    pathname: string;
   };
 }
 
@@ -44,49 +41,30 @@ export async function generateArticleStaticParams(
 }
 
 const ArticlePage = async ({
-  params: { slug, countryCode, articleCategory },
+  params: { slug, countryCode, pathname },
 }: ArticleProps) => {
-  const [articleContent, suggestedArticles] = await Promise.all([
-    fetchArticleBySlug(slug, countryCode),
-    fetchArticles(countryCode, articleCategory, 0, 12),
-  ]);
+  const articleContent = await fetchArticleBySlug(slug, countryCode);
 
   const article = articleContent?.items?.[0];
 
   if (!article) return notFound();
 
-  const heroProps = {
-    isHero: true,
-    title: article.title,
-    desc: article.excerpt,
-    bgColor: "bg-white",
-    textColor: "white",
-    bgImage: article.featuredImage,
-    btnType: "pax",
-    btnMode: "light",
-    brightness: "brightness-75",
-  };
+  const components = await fetchPageComponents(pathname)
 
-  const bannerProps = {
-    title: "¿Querés ser conductor en DiDi?",
-    desc: "Generá Dinero y maneja tus tiempos",
-    textColor: "white",
-    bgColor: "bg-orange-primary",
-    btnType: "drv",
-    btnMode: "light",
-  };
-
-  const suggestedArticlesProps: ColumnSectionT =
-    await fetchSuggestedColumnSection(countryCode, "Article", articleCategory);
 
   return (
     <>
-      <CTASection {...heroProps}></CTASection>
-      <section className="container mx-auto mb-32 text-gray-primary md:px-28 mt-16">
-        <RichContent richContent={article.content}></RichContent>
-      </section>
-      <Banner {...bannerProps}></Banner>
-      <ColumnsSection {...suggestedArticlesProps}></ColumnsSection>
+      <BuilderComponent
+        components={components}
+        textParams={{
+          ctaSectionParams: {
+            title: article.title,
+            desc: article.excerpt,
+            bgImage: article.featuredImage
+          },
+          richTextParams: article.content
+        }}
+      ></BuilderComponent>
     </>
   );
 };

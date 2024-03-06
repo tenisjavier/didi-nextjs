@@ -1,14 +1,16 @@
 import React from "react";
-import { fetchCitieBySlug, fetchCities, fetchPageComponents } from "@/utils/db";
+import { fetchCitieBySlug, fetchCities, fetchFAQS, fetchPageComponents, fetchProductsByIds, fetchRequirementsByCitySlug } from "@/utils/db";
 import { notFound } from "next/navigation";
 import { CountryCode, ProductCategoryT } from "@/typings";
 import BuilderComponent from "@/components/BuilderComponent";
+import AccordionSection from "@/components/AccordionSection";
 
 interface CityProps {
   params: {
     slug: string;
     countryCode: CountryCode;
     pathname: string;
+    productCategory: ProductCategoryT;
   };
 }
 
@@ -16,12 +18,12 @@ interface CityProps {
 export async function generateCitiesMetadata(
   slug: string,
   countryCode: CountryCode,
-  category: "drive" | "food" = 'drive'
+  category: ProductCategoryT = 'driver'
 ) {
   const city = (await fetchCitieBySlug(countryCode, slug))
   const countryName = city.country.name;
 
-  if (category === 'drive') {
+  if (category === 'driver') {
     return {
       title: `Conductor En ${city.name} | DiDi ${countryName}`,
       description: `Conductor En ${city.name}`,
@@ -30,6 +32,11 @@ export async function generateCitiesMetadata(
     return {
       title: `Pide Comida a Domicilio  en ${city.name} | DiDi Food ${countryName}`,
       description: `¿Qué se te antoja en este momento? Pide tu Comida a Domicilio en ${city.name} por DiDi Food y disfruta de los mejores restaurantes de ${city.name}, en minutos.`,
+    }
+  } else if (category === 'airport') {
+    return {
+      title: `DiDi Aeropuerto | DiDi ${countryName}`,
+      description: `DiDi Aeropuerto`,
     }
   }
 }
@@ -47,12 +54,28 @@ export async function generateCitiesStaticParams(
 }
 
 const CityPage = async ({
-  params: { slug, countryCode, pathname },
+  params: { slug, countryCode, pathname, productCategory },
 }: CityProps) => {
-  const city = await fetchCitieBySlug(countryCode, slug);
+  const city = await fetchCitieBySlug(countryCode, slug, productCategory);
+
+  const products = await fetchProductsByIds(city?.productsId)
+
+  const requirements = (await fetchRequirementsByCitySlug(slug)).map((requirement) => {
+    return {
+      title: requirement.name,
+      content: requirement.requirement,
+    }
+  })
+
+  const makeProduct = products?.map((product: { name: any; image: any; description: string }) => {
+    return {
+      title: product.name,
+      desc: product.description,
+      image: product.image,
+    }
+  })
 
   if (!city) return notFound();
-
 
   const components = await fetchPageComponents(pathname);
 
@@ -60,17 +83,19 @@ const CityPage = async ({
     <BuilderComponent
       components={components}
       textParams={{
-        ctaSectionParams: {
-          title: city.name,
-          desc: city.name
-        },
         accordionSectionParams: {
           title: city.name,
+          items: requirements,
+        },
+        ctaSectionParams: {
+          title: city.name,
           desc: city.name,
-          content: {
-            contentText: city.name,
-            title: city.name,
-          },
+          image: city?.image || city?.imageMap,
+        },
+        carouselParams: {
+          title: city.name,
+          desc: city.name,
+          ctaSections: makeProduct
         }
       }}
     ></BuilderComponent>

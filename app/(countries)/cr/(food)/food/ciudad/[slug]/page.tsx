@@ -26,6 +26,7 @@ const Page = async ({ params: { slug } }: CityProps) => {
       countryCode: "cr",
       pathname: "/cr/food/ciudad/slug/",
       slug: slug,
+      productCategory: 'food'
     }}
     />
   );

@@ -23,12 +23,13 @@ export async function generateStaticParams() {
 }
 
 const Article = async ({ params: { slug } }: ArticleProps) => {
+
   return (
     <ArticlePage
       params={{
         slug,
-        articleCategory: "news",
         countryCode: "co",
+        pathname: '/co/newsroom/slug/'
       }}
     />
   );

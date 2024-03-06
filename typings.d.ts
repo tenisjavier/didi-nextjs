@@ -41,7 +41,13 @@ const ArticleCategotySchema = z.enum([
   "prestamos",
 ]);
 
-const ProductCategorySchema = z.enum(["driver", "pax", "food", "finance"]);
+const ProductCategorySchema = z.enum([
+  "driver",
+  "pax",
+  "food",
+  "finance",
+  "airport",
+]);
 
 const GuideCategotySchema = z.enum(["driver", "delivery", "restaurant"]);
 
@@ -61,11 +67,13 @@ const ImageSchema = z.object({
 const CitySchema = z.object({
   name: z.string(),
   slug: z.string(),
+  productsId: z.array(z.string()),
   country: z.object({
     code: CountrySchema,
     name: z.string(),
   }),
   image: ImageSchema,
+  imageMap: ImageSchema,
 });
 
 const CountrySchema = z.object({
@@ -204,6 +212,7 @@ const AccordionSchema = z.object({
 const AccordionSectionSchema = z.object({
   items: z.array(AccordionSchema),
   title: z.string(),
+  country: z.object(CountrySchema),
   desc: z.string().optional(),
   textColor: z.string(),
   bgColor: z.string(),
@@ -212,6 +221,8 @@ const AccordionSectionSchema = z.object({
   isClosed: z.boolean(),
   RTL: z.boolean(),
   isFaq: z.boolean(),
+  accordionType: z.string(),
+  faqType: z.array(z.string()),
 });
 const BannerSchema = z.object({
   name: z.string(),
@@ -257,6 +268,11 @@ const OptionsSectionSchema = z.object({
   btnMode: BtnMode.nullish(),
   btnText: BtnType.min(5).max(30).nullish(),
   btnLink: BtnMode.nullish(),
+});
+
+const RequirementsSchema = z.object({
+  name: z.string(),
+  requirement: z.any(),
 });
 
 const CarouselSchema = z.object({
@@ -321,20 +337,22 @@ const GuideSchema = z.object({
   total: z.number(),
   limit: z.number(),
   skip: z.number(),
-  items: z.array({
-    title: z.string(),
-    slug: z.string(),
-    excerpt: z.string(),
-    category: z.enum(["driver", "delivery", "restaurant"]),
-    country: z.countryCodeSchema(),
-    seoTitle: z.string(),
-    seoDescription: z.string(),
-    btnCustomText: z.string(),
-    btnCustomLink: z.string(),
-    featuredImage: z.ImageSchema(),
-    featuredImageMobile: z.ImageSchema(),
-    content: z.any(),
-  }),
+  items: z.array(
+    z.object({
+      title: z.string(),
+      slug: z.string(),
+      excerpt: z.string(),
+      category: z.enum(["driver", "delivery", "restaurant"]),
+      country: z.string(), // ou substitua por `z.countryCodeSchema()`
+      seoTitle: z.string(),
+      seoDescription: z.string(),
+      btnCustomText: z.string(),
+      btnCustomLink: z.string(),
+      featuredImage: z.any(), // ou substitua por `z.ImageSchema()`
+      featuredImageMobile: z.any(), // ou substitua por `z.ImageSchema()`
+      content: z.any(),
+    })
+  ),
 });
 
 const ArticleSchema = z.object({
@@ -425,6 +443,11 @@ const TextParamsSchema = z.object({
     .object({
       title: z.string().optional(),
       desc: z.string().optional(),
+      image: z.ImageSchema(),
+      bgImage: z.ImageSchema(),
+      btnText: z.string().optional(),
+      btnLink: z.string().optional(),
+      btnType: z.string().optional(),
     })
     .optional(),
   bannerParams: z
@@ -439,14 +462,30 @@ const TextParamsSchema = z.object({
       desc: z.string().optional(),
     })
     .optional(),
-  accordionSectionParams: z
+  carouselParams: z
     .object({
       title: z.string().optional(),
       desc: z.string().optional(),
-      content: z.object({
-        title: z.string().optional(),
-        contentText: z.string().optional(),
-      }),
+      ctaSections: z.array(CTASectionSchema).optional(),
+    })
+    .optional(),
+  richTextParams: z.any().optional(),
+  accordionSectionParams: z
+    .object({
+      items: z
+        .array({
+          title: z.string().optional(),
+          content: z.any().optional(),
+        })
+        .optional(),
+      title: z.string().optional(),
+      desc: z.string().optional(),
+      content: z
+        .object({
+          title: z.string().optional(),
+          contentText: z.string().optional(),
+        })
+        .optional(),
     })
     .optional(),
 });
@@ -484,6 +523,11 @@ export type CardPayT = z.infer<typeof CardPaySchema>;
 export type ABtestT = z.infer<typeof ABtestSchema>;
 export type TextParamnsT = z.infer<typeof TextParamsSchema>;
 export type ProductCategoryT = z.infer<typeof ProductCategorySchema>;
+export type RequirementT = z.infer<typeof RequirementsSchema>;
 
-export type PageComponent = { id: string; __typename: string };
-export type PageT = { pathname: string; sys: { publishedAt: Date } };
+export type PageComponent = { id: string; __typename: string; name: string };
+export type PageT = {
+  pathname: string;
+  sys: { publishedAt: Date };
+  country: { code: CountryCode };
+};

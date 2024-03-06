@@ -22,16 +22,17 @@ export async function generateStaticParams() {
   return articlesSlugs;
 }
 
-const Guide = async ({ params: { slug } }: GuiasProps) => {
+const Page = async ({ params: { slug } }: GuiasProps) => {
+
   return (
     <GuidePage
       params={{
+        pathname: "/cl/guias/slug/",
         countryCode: "cl",
-        guideCategory: "driver",
         slug,
       }}
     />
   );
 };
 
-export default Guide;
+export default Page;

@@ -28,6 +28,38 @@ const replaceTextParams = (props: Props, newTextObject: Props) => {
     });
   }
 
+  //put values
+
+  if (newTextObject.image && !props?.image && !props.bgImage) {
+    props.image = newTextObject.image;
+  }
+  if (newTextObject.bgImage && !props.bgImage) {
+    props.bgImage = newTextObject.bgImage;
+  }
+  if (newTextObject.btnText && !props?.btnText) {
+    props.btnText = newTextObject.btnText;
+  }
+  if (newTextObject.btnLink && !props?.btnLink) {
+    props.btnLink = newTextObject.btnLink;
+  }
+
+  if (
+    newTextObject?.ctaSections &&
+    ![
+      props?.ctaSection,
+      props?.cards,
+      props?.slides,
+      props?.images,
+      props?.imagesMobile,
+    ].every((field) => !field)
+  ) {
+    props.ctaSection = newTextObject?.ctaSections || [];
+  }
+
+  if (newTextObject?.items && props?.items?.length === 0) {
+    props.items = newTextObject?.items || [];
+  }
+
   return props;
 };
 

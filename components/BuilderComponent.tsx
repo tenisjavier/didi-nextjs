@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  AccordionSectionT,
-  ColumnSectionT,
-  PageComponent,
-  TextParamnsT,
-} from "@/typings";
+import { AccordionSectionT, CarouselT, ColumnSectionT, PageComponent, TextParamnsT } from "@/typings";
 import {
   fetchCTASectionById,
   fetchColumnSectionById,
@@ -68,17 +63,17 @@ const fetchComponent = async (
 ) => {
   switch (type) {
     case "CtaSection":
+
       let ctaSectionProps = await fetchCTASectionById(id);
 
       if (textParams?.ctaSectionParams) {
-        ctaSectionProps = replaceTextParams(
-          ctaSectionProps,
-          textParams.ctaSectionParams
-        );
+        ctaSectionProps = replaceTextParams(ctaSectionProps, textParams.ctaSectionParams);
       }
 
       return <CTASection {...ctaSectionProps}></CTASection>;
+
     case "ColumnSection":
+
       const page =
         typeof searchParams?.page === "string" ? Number(searchParams.page) : 1;
 
@@ -95,37 +90,55 @@ const fetchComponent = async (
       }
 
       return <ColumnSection {...columnSectionProps}></ColumnSection>;
+
     case "ColumnImageSection":
+
       const columnImageProps = await fetchColumnImageSectionById(id);
+
       return <ColumnImageSection {...columnImageProps}></ColumnImageSection>;
+
     case "CarouselSection":
+
       const carouselSectionProps = await fetchCarouselSectionById(id);
+
       return <CarouselSection {...carouselSectionProps}></CarouselSection>;
+
     case "Carousel":
-      const carouselProps = await fetchCarouselById(id);
+
+      let carouselProps = await fetchCarouselById(id);
+
+      if (textParams?.carouselParams) {
+        carouselProps = replaceTextParams(carouselProps, textParams.carouselParams) as CarouselT
+      }
+
       return <Carousel {...carouselProps}></Carousel>;
+
     case "AccordionSection":
-      let accordionSectionProps = await fetchAccordionSectionById(id);
+
+      let accordionSectionProps = await fetchAccordionSectionById(id, { faqRelatedCity: textParams?.accordionSectionParams?.title });
 
       if (textParams?.accordionSectionParams) {
-        accordionSectionProps = replaceTextParams(
-          accordionSectionProps,
-          textParams.accordionSectionParams
-        ) as AccordionSectionT;
+        accordionSectionProps = replaceTextParams(accordionSectionProps, textParams.accordionSectionParams) as AccordionSectionT
       }
 
       return <AccordionSection {...accordionSectionProps}></AccordionSection>;
 
     case "Banner":
+
       const bannerProps = await fetchBannerById(id);
+
       return <Banner {...bannerProps}></Banner>;
 
     case "OptionsSection":
+
       const optionsSectionProps = await fetchOptionsSectionById(id);
+
       return <OptionsSection {...optionsSectionProps}></OptionsSection>;
 
     case "ListSection":
+
       const listSectionProps = await fetchListSectionById(id);
+
       return <ListSection {...listSectionProps}></ListSection>;
 
     case "Legal":
@@ -135,6 +148,15 @@ const fetchComponent = async (
           <RichContent richContent={legalProps.content}></RichContent>
         </section>
       );
+    case "ContentTypeRichText":
+
+      const richTextParamsProps = textParams?.richTextParams
+
+      return (
+        <section className="container mx-auto mb-32 text-gray-primary md:px-28 mt-16">
+          <RichContent richContent={richTextParamsProps}></RichContent>
+        </section>
+      )
 
     default:
       return null;
