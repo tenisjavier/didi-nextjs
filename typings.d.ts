@@ -274,7 +274,6 @@ const CarouselSchema = z.object({
   arrowPrev: z.string(),
   arrowColor: z.string(),
   isAutoPlay: z.boolean(),
-  speedAutoPlay: z.number(),
   imagesMobile: z.array(ImageSchema),
   imageContainerStyle: z.string(),
   imageStyle: z.string(),
