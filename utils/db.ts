@@ -1706,7 +1706,7 @@ const fetchLegal = async (countryCode: CountryCode): Promise<FAQT> => {
 
 const fetchLegalById = async (id: string): Promise<LegalT> => {
   const query = `query {
-    legalCollection (where: {id:"${id}"} limit: 1) {
+    legalCollection (where: {sys: {id:"${id}"}} limit: 1) {
       items {
         name
         content {
