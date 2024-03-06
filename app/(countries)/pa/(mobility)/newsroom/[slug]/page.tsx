@@ -12,7 +12,7 @@ interface ArticleProps {
 
 export async function generateMetadata({ params: { slug } }: ArticleProps) {
   const article = await generateArticleMetadata(slug, "pa");
-
+  article.title = article.title + " | DiDi Panamá";
   return article;
 }
 
@@ -23,13 +23,12 @@ export async function generateStaticParams() {
 }
 
 const Article = async ({ params: { slug } }: ArticleProps) => {
-
   return (
     <ArticlePage
       params={{
         slug,
         countryCode: "pa",
-        pathname: '/pa/newsroom/slug/'
+        pathname: "/pa/newsroom/slug/",
       }}
     />
   );

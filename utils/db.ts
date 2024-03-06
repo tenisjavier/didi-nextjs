@@ -245,7 +245,6 @@ const fetchABtest = async (pathname: string): Promise<ABtestT> => {
 
   const res = await fetch(`${apiUrl}?query=${query}`, {
     headers: headers,
-    next: { revalidate: 60 },
   });
 
   if (!res.ok) {
@@ -1336,7 +1335,6 @@ const fetchGuideBySlug = async (
 
   const res = await fetch(`${apiUrl}?query=${query}`, {
     headers: headers,
-    next: { revalidate: 60 },
   });
 
   if (!res.ok) {
@@ -1398,7 +1396,6 @@ const fetchArticleBySlug = async (
 
   const res = await fetch(`${apiUrl}?query=${query}`, {
     headers: headers,
-    next: { revalidate: 60 },
   });
 
   if (!res.ok) {
