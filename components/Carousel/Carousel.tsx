@@ -166,56 +166,61 @@ const Carousel = (props: CarouselT) => {
   };
 
   return (
-    <div
-      style={{
-        maxWidth: `${maxWidth}px`,
-        margin: "auto",
-      }}
-    >
+    <section className="container mx-auto">
       <div
-        className={`flex py-16 ${type === "pay" ? "justify-between" : "justify-center"
-          }  items-center`}
+        style={{
+          maxWidth: `${maxWidth}px`,
+          margin: "auto",
+        }}
       >
-        {title && (
-          <h2
-            className={`${type === "pay" ? "text-left" : "text-center"
-              } text-3xl md:text-4xl font-bold `}
-          >
-            {textBreak(title)}
-          </h2>
-        )}
-        {hasArrows && type === "pay" && (
-          <div className="hidden lg:flex">
-            <button
-              className="m-4 text-4xl border-0 p-0 outline-0 bg-inherit cursor-pointer hover:font-bold"
-              onClick={next}
-            >
-              ←
-            </button>
-            <button
-              className="m-4 text-4xl border-0 p-0 outline-0 bg-inherit cursor-pointer hover:font-bold"
-              onClick={previous}
-            >
-              →
-            </button>
-          </div>
-        )}
-      </div>
-      {desc && (
-        <p
-          className={`${type === "pay" ? "text-left" : "text-center"
-            } text-base`}
+        <div
+          className={`flex py-16 ${
+            type === "pay" ? "justify-between" : "justify-center"
+          }  items-center`}
         >
-          {textBreak(desc)}
-        </p>
-      )}
-      <Slider ref={sliderRefMain} {...settings}>
-        {sliderContent && sliderContent}
-      </Slider>
-      <Slider ref={sliderRefMobile} {...settings}>
-        {sliderContentMobile && sliderContentMobile}
-      </Slider>
-    </div>
+          {title && (
+            <h2
+              className={`${
+                type === "pay" ? "text-left" : "text-center"
+              } text-3xl md:text-4xl font-bold `}
+            >
+              {textBreak(title)}
+            </h2>
+          )}
+          {hasArrows && type === "pay" && (
+            <div className="hidden lg:flex">
+              <button
+                className="m-4 text-4xl border-0 p-0 outline-0 bg-inherit cursor-pointer hover:font-bold"
+                onClick={next}
+              >
+                ←
+              </button>
+              <button
+                className="m-4 text-4xl border-0 p-0 outline-0 bg-inherit cursor-pointer hover:font-bold"
+                onClick={previous}
+              >
+                →
+              </button>
+            </div>
+          )}
+        </div>
+        {desc && (
+          <p
+            className={`${
+              type === "pay" ? "text-left" : "text-center"
+            } text-base`}
+          >
+            {textBreak(desc)}
+          </p>
+        )}
+        <Slider ref={sliderRefMain} {...settings}>
+          {sliderContent && sliderContent}
+        </Slider>
+        <Slider ref={sliderRefMobile} {...settings}>
+          {sliderContentMobile && sliderContentMobile}
+        </Slider>
+      </div>
+    </section>
   );
 };
 

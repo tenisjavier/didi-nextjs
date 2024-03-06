@@ -12,7 +12,7 @@ interface ArticleProps {
 
 export async function generateMetadata({ params: { slug } }: ArticleProps) {
   const article = await generateArticleMetadata(slug, "mx");
-
+  article.title = article.title + " | DiDi México";
   return article;
 }
 
