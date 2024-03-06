@@ -59,7 +59,7 @@ const Banner = ({
         </div>
 
         {image ? (
-          <Image className={`"z-10 my-10 w-56 h-auto object-contain" ${imageBottom ? "w-full max-h-[1000px] " : ""}`} src={image.url} alt={image.description} width={image?.width || 400} height={image?.height || 400}></Image>
+          <Image className={`"z-10 my-10 mx-60 w-140 h-auto object-contain" ${imageBottom ? "w-full max-h-[1000px] " : ""}`} src={image.url} alt={image.description} width={image?.width || 1100} height={image?.height || 1100}></Image>
         ) : (
           ""
         )}
