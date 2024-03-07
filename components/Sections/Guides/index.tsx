@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  fetchGuideBySlug,
-  fetchGuides,
-  fetchPageComponents,
-} from "@/utils/db";
+import { fetchGuideBySlug, fetchGuides, fetchPageComponents } from "@/utils/db";
 import { notFound } from "next/navigation";
 import { CountryCode } from "@/typings";
 import BuilderComponent from "@/components/BuilderComponent";
@@ -50,7 +46,7 @@ const Page = async ({
 
   if (!guide) return notFound();
 
-  const components = await fetchPageComponents(pathname)
+  const components = await fetchPageComponents(pathname);
 
   return (
     <>
@@ -63,9 +59,9 @@ const Page = async ({
             bgImage: guide.featuredImage,
             btnText: guide.btnCustomText,
             btnLink: guide.btnCustomLink,
-            btnType: 'custom'
+            btnType: "custom",
           },
-          richTextParams: guide.content
+          richTextParams: guide.content,
         }}
       ></BuilderComponent>
     </>
