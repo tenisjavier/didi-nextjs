@@ -166,7 +166,7 @@ const Carousel = (props: CarouselT) => {
   };
 
   return (
-    <section className="container mx-auto">
+    <section className=" mx-auto">
       <div
         style={{
           maxWidth: `${maxWidth}px`,
@@ -174,15 +174,13 @@ const Carousel = (props: CarouselT) => {
         }}
       >
         <div
-          className={`flex py-16 ${
-            type === "pay" ? "justify-between" : "justify-center"
-          }  items-center`}
+          className={`flex py-16 ${type === "pay" ? "justify-between" : "justify-center"
+            }  items-center`}
         >
           {title && (
             <h2
-              className={`${
-                type === "pay" ? "text-left" : "text-center"
-              } text-3xl md:text-4xl font-bold `}
+              className={`${type === "pay" ? "text-left" : "text-center"
+                } text-3xl md:text-4xl font-bold `}
             >
               {textBreak(title)}
             </h2>
@@ -206,9 +204,8 @@ const Carousel = (props: CarouselT) => {
         </div>
         {desc && (
           <p
-            className={`${
-              type === "pay" ? "text-left" : "text-center"
-            } text-base`}
+            className={`${type === "pay" ? "text-left" : "text-center"
+              } text-base`}
           >
             {textBreak(desc)}
           </p>
