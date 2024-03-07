@@ -11,12 +11,11 @@ interface FAQProps {
 // or Dynamic metadata
 export async function generateMetadata({ params: { slug } }: FAQProps) {
   const faq = await generateFaqsMetadata(slug, "au");
-
-  return faq
+  faq.title = faq.title + " | DiDi Australia";
+  return faq;
 }
 
 const Page = async ({ params: { slug } }: FAQProps) => {
-
   return (
     <>
       <FAQPage

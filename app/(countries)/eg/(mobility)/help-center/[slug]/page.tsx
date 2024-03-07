@@ -12,11 +12,10 @@ interface FAQProps {
 export async function generateMetadata({ params: { slug } }: FAQProps) {
   const faq = await generateFaqsMetadata(slug, "eg");
 
-  return faq
+  return faq;
 }
 
 const CentroDeAyuda = async ({ params: { slug } }: FAQProps) => {
-
   return (
     <>
       <FAQPage
