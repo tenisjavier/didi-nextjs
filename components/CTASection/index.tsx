@@ -53,7 +53,9 @@ const CTASection = (props: CTASectionT) => {
       }`;
   const mobileBgImageStyle = `!absolute z-0 h-full w-full md:!hidden object-cover`;
   const imageStyle =
-    `z-10 h-auto lg:w-100 lg:m-4 ${isHero ? "mb-24" : ""} w-60 ` + rounded;
+    `z-10 h-auto lg:w-100 lg:m-4 ${
+      isHero ? "max-lg:mb-24 lg:mb-16" : ""
+    } w-60 ` + rounded;
 
   const getTitleElement = () => {
     if (isHero) {
