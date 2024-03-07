@@ -156,7 +156,6 @@ const ColumnSectionSchema = z.object({
   sectionID: z.string().nullish(),
   RTL: z.boolean().nullish(),
   hasTextHighlight: z.boolean().nullish(),
-  textHighlightStyles: z.string().nullish(),
   gridCols: z.number(),
   gap: z.number(),
   columns: z.array(CardSchema),
