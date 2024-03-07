@@ -26,7 +26,7 @@ CarouselSectionT) => {
         className={` text-${textColor} flex flex-wrap items-center justify-center`}
       >
         <div
-          className={`absolute max-lg:top-130 lg:top-115 w-80 lg:w-fit p-2 lg:p-4 z-30 h-32 ${bgColor} rounded-xl shadow-xl`}
+          className={`absolute max-lg:top-120 lg:top-115 w-80 lg:w-fit p-2 lg:p-4 z-30 h-32 ${bgColor} rounded-xl shadow-xl`}
         >
           <div className="flex justify-center items-center h-full ">
             {icons.map((icon, index) => (
