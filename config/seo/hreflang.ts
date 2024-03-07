@@ -58,4 +58,22 @@ export const hreflangs = {
     "en-NZ": "https://web.didiglobal.com/nz/help-center/",
     "ar-EG": "https://web.didiglobal.com/eg/help-center/",
   },
+  food: {
+    "es-PE": "https://web.didiglobal.com/pe/food/",
+    "es-CO": "https://web.didiglobal.com/co/food/",
+    "es-CR": "https://web.didiglobal.com/cr/food/",
+    "es-MX": "https://web.didiglobal.com/mx/food/",
+  },
+  foodDelivery: {
+    "es-PE": "https://web.didiglobal.com/pe/food/repartidores/",
+    "es-CO": "https://web.didiglobal.com/co/food/repartidores/",
+    "es-CR": "https://web.didiglobal.com/cr/food/repartidores/",
+    "es-MX": "https://web.didiglobal.com/mx/food/repartidores/",
+  },
+  foodBusiness: {
+    "es-PE": "https://web.didiglobal.com/pe/food/restaurantes/",
+    "es-CO": "https://web.didiglobal.com/co/food/restaurantes/",
+    "es-CR": "https://web.didiglobal.com/cr/food/restaurantes/",
+    "es-MX": "https://web.didiglobal.com/mx/food/restaurantes/",
+  },
 };

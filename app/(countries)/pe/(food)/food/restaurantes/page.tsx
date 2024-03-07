@@ -2,7 +2,7 @@ import React from "react";
 import BuilderComponent from "@/components/BuilderComponent";
 import { Metadata } from "next";
 import { fetchPageComponents } from "@/utils/db";
-
+import { hreflangs } from "@/config/seo/hreflang";
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
@@ -11,6 +11,7 @@ export const metadata: Metadata = {
     "Inscribe tu Restaurante en DiDi Food y empieza a generar ventas fuera de tu local físico. Expande tu negocio. Es rápido, cómodo y barato. Descarga gratis la app de DiDi Food ¡Recibe tu pedido en minutos!",
   alternates: {
     canonical: `https://web.didiglobal.com/pe/food/restaurantes/`,
+    languages: hreflangs.foodBusiness,
   },
 };
 

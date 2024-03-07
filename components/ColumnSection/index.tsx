@@ -15,7 +15,6 @@ const ColumnsSection = (props: ColumnSectionT) => {
     bgColor,
     textColor,
     RTL,
-    textHighlightStyles,
     gridCols,
     gap,
     pagination,
@@ -26,10 +25,12 @@ const ColumnsSection = (props: ColumnSectionT) => {
     dir = "rtl";
   }
 
-  const columnsGridCount = gridCols > (columns?.length || 0) ? "flex flex-wraper" : false
+  const columnsGridCount =
+    gridCols > (columns?.length || 0) ? "flex flex-wraper" : false;
 
-  const gridConfig = `${columnsGridCount || `grid grid-cols-1  lg:grid-cols-${gridCols}`}`
-
+  const gridConfig = `${
+    columnsGridCount || `grid grid-cols-1  lg:grid-cols-${gridCols}`
+  }`;
 
   return (
     <section
@@ -51,9 +52,7 @@ const ColumnsSection = (props: ColumnSectionT) => {
         )}
 
         {columns && (
-          <div
-            className={`${gridConfig} ${"gap-" + gap}`}
-          >
+          <div className={`${gridConfig} ${"gap-" + gap}`}>
             {columns &&
               columns.map((col, index) => {
                 // const colPositioToEnd = columns.length - (index + 1)
@@ -62,20 +61,19 @@ const ColumnsSection = (props: ColumnSectionT) => {
 
                 // const colSpan = lastColumns > 0 && lastItem ? `${lastColumns > 1 ? `col-start-${gridCols} col-end-${gridCols + 1}` : `col-start-${Math.ceil(gridCols / 2)}`}` : ``
 
-                return (
-                  <Card {...col} key={index}></Card>
-                )
+                return <Card {...col} key={index}></Card>;
               })}
           </div>
         )}
         {items && items.length > 0 && (
           <div
-            className={`grid grid-cols-1 ${items && items?.length < 3
-              ? items?.length > 1
-                ? "lg:grid-cols-2"
-                : ""
-              : "lg:grid-cols-" + gridCols
-              }  ${"gap-" + gap} mt-10  lg:justify-around `}
+            className={`grid grid-cols-1 ${
+              items && items?.length < 3
+                ? items?.length > 1
+                  ? "lg:grid-cols-2"
+                  : ""
+                : "lg:grid-cols-" + gridCols
+            }  ${"gap-" + gap} mt-10  lg:justify-around `}
           >
             {items &&
               items.map((item, index) => {
