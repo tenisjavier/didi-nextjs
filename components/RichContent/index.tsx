@@ -24,17 +24,17 @@ const RichContent = ({ richContent }: any) => {
         <h1 className={"my-14 text-center text-4xl font-bold"}>{children}</h1>
       ),
       [BLOCKS.HEADING_2]: (node, children) => (
-        <h2 id={"1"} className={"text-3xl font-bold pt-20"}>
+        <h2 id={"1"} className={"text-3xl font-bold pt-6"}>
           {children}
         </h2>
       ),
       [BLOCKS.HEADING_3]: (node, children) => (
-        <h3 id={"1"} className={"text-3xl font-bold pt-20 text-gray-primary"}>
+        <h3 id={"1"} className={"text-3xl font-bold pt-6 text-gray-primary"}>
           {children}
         </h3>
       ),
       [BLOCKS.HEADING_4]: (node, children) => (
-        <h4 id={"1"} className={"text-2xl font-bold pt-20 text-gray-primary"}>
+        <h4 id={"1"} className={"text-2xl font-bold pt-4 text-gray-primary"}>
           {children}
         </h4>
       ),

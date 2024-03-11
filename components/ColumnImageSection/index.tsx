@@ -28,8 +28,8 @@ const ColumnImageSection = (props: ColumnImageT) => {
   const imageStyle = `z-10 m-4 w-60 h-auto items-center lg:w-70 ` + rounded;
 
   return (
-    <section className={`${bgColor} text-${textColor} py-16`}>
-      <div className="container mx-auto flex w-full  flex-col justify-center items-center">
+    <section className={`${bgColor} text-${textColor} py-8 px-4`}>
+      <div className=" container mx-auto flex w-full  flex-col justify-center items-center">
         {title && (
           <h2 className="text-3xl lg:text-4xl text-left lg:text-center">
             {textBreak(title, textColor)}

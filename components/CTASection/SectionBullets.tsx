@@ -31,13 +31,13 @@ const SectionBullets = ({
             icon && icon
           )}
           <div className="inline-block">
-            {typeof item === "string"
-              ? (
-                <p className="mt-0 mb-5 text-xl" key={index}>
-                  {textBreak(item)}
-                </p>
-              )
-              : item}
+            {typeof item === "string" ? (
+              <p className="mt-0 mb-5 text-lg" key={index}>
+                {textBreak(item)}
+              </p>
+            ) : (
+              item
+            )}
           </div>
         </li>
       ))}
