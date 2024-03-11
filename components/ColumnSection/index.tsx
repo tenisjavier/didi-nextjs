@@ -35,7 +35,7 @@ const ColumnsSection = (props: ColumnSectionT) => {
   return (
     <section
       style={{ direction: dir }}
-      className={`${bgColor} text-${textColor} py-12`}
+      className={`${bgColor} text-${textColor} py-6 px-4`}
       id={"columnSection"}
     >
       <div className="container mx-auto flex flex-col flex-wrap justify-center items-center md:justify-around">

@@ -53,9 +53,9 @@ const CTASection = (props: CTASectionT) => {
       }`;
   const mobileBgImageStyle = `!absolute z-0 h-full w-full md:!hidden object-cover`;
   const imageStyle =
-    `z-10 h-auto lg:w-100 lg:m-4 ${
-      isHero ? "max-lg:mb-24 lg:mb-16" : ""
-    } w-60 ` + rounded;
+    `z-10 h-auto  lg:w-96 mx-4  mb-8 ${
+      isHero ? "max-lg:mb-24 lg:mb-16 mt-0 w-60" : "object-contain mt-6 w-80"
+    } ` + rounded;
 
   const getTitleElement = () => {
     if (isHero) {
@@ -63,7 +63,7 @@ const CTASection = (props: CTASectionT) => {
         <>
           {title && (
             <h1
-              className={`text-4xl font-bold md:text-5xl mt-0 max-lg:text-center `}
+              className={`text-4xl font-bold md:text-5xl max-lg:text-center `}
             >
               {textBreak(title, textColor)}
             </h1>
@@ -74,7 +74,7 @@ const CTASection = (props: CTASectionT) => {
       return (
         <>
           {title && (
-            <h2 className="font-bold text-3xl md:text-4xl max-lg:text-center ">
+            <h2 className="font-bold text-3xl md:text-4xl text-left ">
               {textBreak(title, textColor)}
             </h2>
           )}
@@ -88,7 +88,7 @@ const CTASection = (props: CTASectionT) => {
       <>
         {desc && (
           <p
-            className={`mb-10 text-lg max-lg:text-center ${
+            className={`mb-10 text-lg text-left ${
               bulletsConfigColumn === "singleColumn" ? "w-11/12 lg:w-1/2" : ""
             }`}
           >
@@ -102,7 +102,7 @@ const CTASection = (props: CTASectionT) => {
   return (
     <section
       style={{ direction: isRtl }}
-      className={`relative flex ${
+      className={`px-4 py-8 relative flex ${
         isHero ? "max-lg:min-h-[54rem]" : "min-h-[44rem]"
       } min-h-[44rem] w-full items-center justify-center overflow-hidden ${
         bgColor && bgColor
@@ -160,7 +160,7 @@ const CTASection = (props: CTASectionT) => {
             mobileTitlePosition === "top" ? "absolute top-24 md:static" : ""
           } ${
             isHero && image ? "mb-0" : "mb-8"
-          } w-11/12 lg:mt-10 lg:w-1/2 text-${textColor} z-10 xl:${textDir}`}
+          } lg:mt-10 lg:w-1/2 text-${textColor} z-10 xl:${textDir}`}
         >
           {getTitleElement()}
           <div

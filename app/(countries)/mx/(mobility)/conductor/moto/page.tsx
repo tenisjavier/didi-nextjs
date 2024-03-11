@@ -6,8 +6,9 @@ import { fetchPageComponents } from "@/utils/db";
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
-  title: "Moto | DiDi México",
-  description: "Moto.",
+  title: "DiDi Moto - Genera Ganancias Extras | DiDi México",
+  description:
+    "Genera inresos extra conectándote con DiDi Moto disponible ahora en México.",
   alternates: {
     canonical: `https://web.didiglobal.com/mx/conductor/moto/`,
   },

@@ -5,7 +5,7 @@ const config: Config = {
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./utils/*.{js,ts,jsx,tsx,mdx}"
+    "./utils/*.{js,ts,jsx,tsx,mdx}",
   ],
   safelist: [
     "bg-gray-light",
@@ -15,7 +15,7 @@ const config: Config = {
     "bg-green-primary",
     "bg-white",
     "bg-blue-dark",
-    "bg-orange-500"
+    "bg-orange-500",
   ],
   theme: {
     fontFamily: {
@@ -37,6 +37,7 @@ const config: Config = {
         110: "30rem",
         115: "34rem",
         120: "688px",
+        124: "720px",
         128: "768px",
         140: "880px",
       },

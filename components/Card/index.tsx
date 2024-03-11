@@ -106,13 +106,13 @@ const Card = (props: CardT) => {
         <div>
           {titlePosition === "afterImage" && title && (
             <h4
-              className={`mb-4 text-xl font-semibold lg:text-center ${titleStyles}`}
+              className={`mb-4 text-2xl font-semibold lg:text-center ${titleStyles}`}
             >
               {textBreak(title, textColor)}
             </h4>
           )}
           {desc && descPosition === "beforeBtn" && (
-            <p>{textBreak(desc, textColor)}</p>
+            <p className="text-lg">{textBreak(desc, textColor)}</p>
           )}
         </div>
         <div className="flex justify-center flex-col">
@@ -124,7 +124,7 @@ const Card = (props: CardT) => {
           ></Btn>
         </div>
         {desc && descPosition === "afterBtn" && (
-          <p>{textBreak(desc, textColor)}</p>
+          <p className="text-sm">{textBreak(desc, textColor)}</p>
         )}
       </div>
     </div>
