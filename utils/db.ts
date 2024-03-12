@@ -424,6 +424,7 @@ const fetchCTASectionById = async (id: string): Promise<CTASectionT> => {
       bullets
       textColor
       bgColor
+      brightness
       type
       bulletsConfigColumn
       whiteRight
@@ -658,6 +659,7 @@ const fetchCarouselById = async (id: string): Promise<CarouselT> => {
           title
           desc
           bullets
+          brightness
           textColor
           bgColor
           bgImage {

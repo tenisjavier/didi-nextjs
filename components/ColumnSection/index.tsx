@@ -28,9 +28,8 @@ const ColumnsSection = (props: ColumnSectionT) => {
   const columnsGridCount =
     gridCols > (columns?.length || 0) ? "flex flex-wraper" : false;
 
-  const gridConfig = `${
-    columnsGridCount || `grid grid-cols-1  lg:grid-cols-${gridCols}`
-  }`;
+  const gridConfig = `${columnsGridCount || `grid grid-cols-1  lg:grid-cols-${gridCols}`
+    }`;
 
   return (
     <section
@@ -61,23 +60,22 @@ const ColumnsSection = (props: ColumnSectionT) => {
 
                 // const colSpan = lastColumns > 0 && lastItem ? `${lastColumns > 1 ? `col-start-${gridCols} col-end-${gridCols + 1}` : `col-start-${Math.ceil(gridCols / 2)}`}` : ``
 
-                return <Card {...col} key={index}></Card>;
+                return <Card {...col} key={index}></Card>
               })}
           </div>
         )}
         {items && items.length > 0 && (
           <div
-            className={`grid grid-cols-1 ${
-              items && items?.length < 3
+            className={`grid grid-cols-1 ${items && items?.length < 3
                 ? items?.length > 1
                   ? "lg:grid-cols-2"
                   : ""
                 : "lg:grid-cols-" + gridCols
-            }  ${"gap-" + gap} mt-10  lg:justify-around `}
+              }  ${"gap-" + gap} mt-10  lg:justify-around `}
           >
             {items &&
               items.map((item, index) => {
-                return <Card {...item} key={index}></Card>;
+                return <Card {...item} key={index}></Card>
               })}
           </div>
         )}

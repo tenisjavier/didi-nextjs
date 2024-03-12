@@ -38,16 +38,15 @@ const ColumnImageSection = (props: ColumnImageT) => {
         {desc && <p className="text-center">{textBreak(desc, textColor)}</p>}
 
         <div
-          className={`mt-10 grid ${gap ? "gap-" + gap : "gap-2"} ${
-            gridCols
+          className={`mt-10 grid ${gap ? "gap-" + gap : "gap-2"} ${gridCols
               ? "grid-cols-1 lg:grid-cols-" + gridCols
               : "grid-cols-1 lg:grid-cols-3"
-          }    justify-center items-center `}
+            }    justify-center items-center `}
         >
           {columns.map((col, index) => {
             return (
               <div key={index}>
-                <Card {...col} key={index}></Card>;
+                <Card {...col} key={index}></Card>
               </div>
             );
           })}
