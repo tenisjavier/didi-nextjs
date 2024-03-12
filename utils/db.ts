@@ -584,6 +584,7 @@ const fetchCarouselById = async (id: string): Promise<CarouselT> => {
       title
       desc
       arrowColor
+      brightness
       cardsCollection{
         items{
           type
@@ -728,6 +729,7 @@ const fetchCarouselSectionById = async (
     bullets
     textColor
     bgColor
+    brightness
     bgImage {
       title
       description
