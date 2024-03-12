@@ -103,6 +103,7 @@ const CTASectionSchema = z.object({
   desc: z.string().nullish(),
   bullets: z.array(z.string()).nullish(),
   textColor: z.string(),
+  brightness: z.string(),
   bgColor: z.string(),
   borderColor: z.enum([
     "orange-primary",
