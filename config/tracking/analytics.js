@@ -20,14 +20,8 @@ export default function insertBtnParams() {
   const thisDomain = countryCode === "br" ? "99app.com" : "didiglobal.com";
 
   var referrer = document.referrer;
-  var gaReferral = {
-    source: "(direct)",
-    medium: "(none)",
-    campaign: "none",
-  };
 
   var referringDomain = getDomain_(referrer);
-
   //? search is the parameters complete string without ?
   var search = window.location.search.slice(1);
 
@@ -38,20 +32,19 @@ export default function insertBtnParams() {
       !document.location.pathname.includes("store")
     ) {
       //this function return if it is SEO, direct or referral
+      console.log(referrer);
       var referringInfo = parseGaReferrer(referrer);
-
+      console.log(referringInfo);
       // organic source and medium
 
-      gaReferral.source = referringInfo.source;
-      gaReferral.medium = referringInfo.medium;
       search =
         "utm_source=" +
-        gaReferral.source +
+        referringInfo.source +
         "&utm_medium=" +
-        gaReferral.medium +
+        referringInfo.medium +
         "&utm_campaign=" +
-        gaReferral.campaign;
-
+        referringInfo.campaign;
+      console.log(referringInfo);
       localStorage.setItem("urlSearch", search);
     } else {
       search = localStorage.getItem("urlSearch") || "";
@@ -118,6 +111,7 @@ export default function insertBtnParams() {
   }
 
   function parseGaReferrer(referrer) {
+    console.log(referrer);
     var values = {};
     //? is referrer empty? then direct
     if (!referrer) {
@@ -228,7 +222,7 @@ export default function insertBtnParams() {
     let deviceModel = url.searchParams.get("devicemodel");
     let adPosition = url.searchParams.get("adposition");
     let placement = url.searchParams.get("placement");
-    let channel = url.searchParams.get("channel");
+    let channelId = url.searchParams.get("channel");
     let country = countryCode.toUpperCase();
     let fromEnd = "h5";
 
@@ -239,15 +233,9 @@ export default function insertBtnParams() {
     let form_url =
       "https://page.didiglobal.com/driver-page/register/index.html";
 
-    let channelId;
-    if (channel) {
-      channelId = channel;
-      if (utmSource) {
-        pid = utmSource ? utmSource : "website_direct";
-      } else {
-        pid = source ? source : "website_direct";
-      }
-    }
+    if (channelId === 14) pid = "website_direct";
+    if (channelId === 17) pid = "website_referral ";
+    if (channelId === 19) pid = "website_seo";
 
     if (!pid) {
       channelId = channels[utmMedium] ? channels[utmMedium] : 14;
