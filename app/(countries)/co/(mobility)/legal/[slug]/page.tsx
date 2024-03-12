@@ -1,25 +1,26 @@
 import React from "react";
-import { Metadata } from "next";
 import { fetchLegalBySlug } from "@/utils/db";
 import { notFound } from "next/navigation";
 import RichContent from "@/components/RichContent";
 
-interface FAQProps {
+interface LegalProps {
   params: {
     slug: string;
   };
 }
 
-export let metadata: Metadata;
-
-const Legal = async ({ params: { slug } }: FAQProps) => {
+export async function generateMetadata({ params: { slug } }: LegalProps) {
   const legal = await fetchLegalBySlug("co", slug);
   if (!legal) return notFound();
-  const content = legal.content.json.content[0].content[0].value;
-  metadata = {
-    title: "Términos y Condiciones DiDi | DiDi Colômbia", //! fix after migration
-    description: content.slice(0, 150),
+
+  return {
+    title: legal.name,
+    description: legal.content.json.content[0].content[0].value,
   };
+}
+
+const Legal = async ({ params: { slug } }: LegalProps) => {
+  const legal = await fetchLegalBySlug("co", slug);
   return (
     <>
       <section className="container mx-auto mb-32 text-gray-primary md:px-28 pt-16">

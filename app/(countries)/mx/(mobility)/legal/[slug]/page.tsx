@@ -9,7 +9,6 @@ interface LegalProps {
   };
 }
 
-// or Dynamic metadata
 export async function generateMetadata({ params: { slug } }: LegalProps) {
   const legal = await fetchLegalBySlug("mx", slug);
   if (!legal) return notFound();
