@@ -847,6 +847,28 @@ const fetchAccordionSectionById = async (
         }
       }
     }
+
+    fragment documentFields on Document {
+      title
+      slug
+      content {
+        json
+        links {
+          assets {
+            block {
+              sys {
+                id
+              }
+              title
+              description
+              url
+              width
+              height
+            }
+          }
+        }
+      }
+    }
   
     query {
       accordionSection(id:"${id}") {
@@ -873,6 +895,7 @@ const fetchAccordionSectionById = async (
             __typename
                ...faqFields
                ...productFields
+               ...documentFields
           }
         }
       }

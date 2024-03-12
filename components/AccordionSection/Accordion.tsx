@@ -46,8 +46,9 @@ const Accordion = ({
         <>
           <div
             aria-hidden="true"
-            className={`mt-6 flex w-full cursor-pointer items-center justify-between rounded  border-solid border-gray-light px-10 lg:px-20 ${isOpen ? "bg-white border-none" : bgColor
-              }`}
+            className={`mt-6 flex w-full cursor-pointer items-center justify-between rounded  border-solid border-gray-light px-10 lg:px-20 ${
+              isOpen ? "bg-white border-none" : bgColor
+            }`}
             onClick={() => toggle()}
           >
             <h3

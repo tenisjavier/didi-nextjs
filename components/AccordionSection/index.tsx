@@ -33,7 +33,9 @@ const AccordionSection = ({
     >
       <div className="container mx-auto flex flex-col justify-center">
         {title && (
-          <h2 className={`text-4xl md:${textDir} text-left`}>{textBreak(title, textColor)}</h2>
+          <h2 className={`text-4xl md:${textDir} text-left`}>
+            {textBreak(title, textColor)}
+          </h2>
         )}
         {desc && (
           <p className={`text-left md:${textDir}`}>

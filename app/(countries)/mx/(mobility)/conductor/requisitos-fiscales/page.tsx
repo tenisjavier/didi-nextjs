@@ -18,6 +18,7 @@ const Moto = async () => {
   const components = await fetchPageComponents(
     "/mx/conductor/requisitos-fiscales/"
   );
+
   return <BuilderComponent components={components}></BuilderComponent>;
 };
 
