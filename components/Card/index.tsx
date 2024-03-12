@@ -46,7 +46,7 @@ const Card = (props: CardT) => {
   return (
     <div
       style={{ direction: dir }}
-      className={`${isCreditCard} flex flex-col items-center ${bgColor} text-${textColor} my-3 text-center lg:mx-4`}
+      className={`${isCreditCard} flex flex-col items-center ${bgColor} text-${textColor} my-3 text-center lg:mx-4 rounded`}
     >
       {titlePosition === "beforeImage" && title && (
         <h4 className={`mb-4 text-xl font-bold lg:text-center ${titleStyles}`}>
