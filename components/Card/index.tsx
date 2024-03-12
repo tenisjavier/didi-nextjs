@@ -63,7 +63,7 @@ const Card = (props: CardT) => {
                 className={`${
                   isImageIcon
                     ? "w-44  h-auto"
-                    : "max-h-64 object-cover h-full w-full"
+                    : "h-64 object-cover w-full rounded-t"
                 }`}
                 width={400}
                 height={400}
@@ -80,7 +80,7 @@ const Card = (props: CardT) => {
               className={`${
                 isImageIcon
                   ? "w-20  h-auto"
-                  : "max-h-64 object-contain h-full w-full"
+                  : "max-h-64 object-contain h-full w-full rounded-t"
               }`}
               width={400}
               height={400}
@@ -101,7 +101,7 @@ const Card = (props: CardT) => {
       )}
 
       <div
-        className={`flex flex-col items-center justify-between px-6 py-4 text-center`}
+        className={`h-full flex flex-col items-center justify-between px-6 py-4 text-center`}
       >
         <div>
           {titlePosition === "afterImage" && title && (
@@ -115,7 +115,7 @@ const Card = (props: CardT) => {
             <p className="text-lg">{textBreak(desc, textColor)}</p>
           )}
         </div>
-        <div className="flex justify-center flex-col">
+        <div className="flex justify-center flex-col ">
           <Btn
             btnType={btnType}
             btnLink={btnLink}
