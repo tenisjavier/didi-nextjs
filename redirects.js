@@ -1,5 +1,10 @@
 const redirectsPaths = [
     {
+    source: '/mx/food/repartidores/linea-de-soporte-247/',
+    destination: '/mx/food/contacto/',
+    permanent: true,
+    },
+    {
     source: '/mx/conductor/didi-flex/',
     destination: '/mx/conductor/didi-pon-tu-precio/',
     permanent: true,
