@@ -42,10 +42,14 @@ const Banner = ({
               {textBreak(title, textColor)}
             </h3>
           )}
-          {desc && <p className="text-lg ">{textBreak(desc, textColor)}</p>}
+          {desc && (
+            <p className="text-lg lg:text-center ">
+              {textBreak(desc, textColor)}
+            </p>
+          )}
 
           {video && (
-            <p className="text-lg ">
+            <p className="text-lg lg:text-center">
               <iframe
                 className="mt-8 w-full h-64 md:h-110"
                 src={video}

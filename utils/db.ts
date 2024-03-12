@@ -584,7 +584,6 @@ const fetchCarouselById = async (id: string): Promise<CarouselT> => {
       title
       desc
       arrowColor
-      brightness
       cardsCollection{
         items{
           type
@@ -694,6 +693,7 @@ const fetchCarouselById = async (id: string): Promise<CarouselT> => {
   });
 
   if (!res.ok) {
+    console.log("Status: ", res.status);
     // This will activate the closest `error.js` Error Boundary
     throw new Error("Failed to fetch carousel");
   }
