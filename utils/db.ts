@@ -584,7 +584,6 @@ const fetchCarouselById = async (id: string): Promise<CarouselT> => {
       title
       desc
       arrowColor
-      brightness
       cardsCollection{
         items{
           type
