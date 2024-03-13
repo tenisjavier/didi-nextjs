@@ -1047,6 +1047,7 @@ const fetchColumnSectionById = async (
       itemType
       guideCategory
       articleCategory
+      isSuggestedSection
       order
       limitItemsPerPage
       country {
@@ -1151,7 +1152,7 @@ const fetchColumnSectionById = async (
       });
       columnSection.items = items;
       columnSection.pagination = {
-        total: guides?.total,
+        total: columnSection.isSuggestedSection ? 12 : guides?.total,
         limit: pagination.limit,
         page: pagination.page,
       };
@@ -1193,7 +1194,7 @@ const fetchColumnSectionById = async (
       });
       columnSection.items = items;
       columnSection.pagination = {
-        total: articles?.total,
+        total: columnSection.isSuggestedSection ? 12 : articles?.total,
         limit: pagination.limit,
         page: pagination.page,
       };
