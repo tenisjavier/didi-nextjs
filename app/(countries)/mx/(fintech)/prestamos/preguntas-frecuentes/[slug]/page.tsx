@@ -11,7 +11,7 @@ interface FAQProps {
 // or Dynamic metadata
 export async function generateMetadata({ params: { slug } }: FAQProps) {
   const faq = await generateFaqsMetadata(slug, "mx");
-  faq.title = faq.title + " | DiDi Card México";
+  faq.title = faq.title + " | DiDi Préstamos México";
   return faq;
 }
 
@@ -21,7 +21,7 @@ const CentroDeAyuda = async ({ params: { slug } }: FAQProps) => {
       <FAQPage
         params={{
           countryCode: "mx",
-          pathname: "/mx/tarjeta-de-credito/preguntas-frecuentes/slug/",
+          pathname: "/mx/prestamos/preguntas-frecuentes/slug/",
           slug,
         }}
       />
