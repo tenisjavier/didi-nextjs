@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  fetchPageComponents,
-  fetchFAQBySlug,
-  fetchFAQS
-} from "@/utils/db";
+import { fetchPageComponents, fetchFAQBySlug, fetchFAQS } from "@/utils/db";
 import { notFound } from "next/navigation";
 import { CountryCode } from "@/typings";
 import BuilderComponent from "@/components/BuilderComponent";
@@ -21,23 +17,24 @@ export async function generateFaqsMetadata(
   slug: string,
   countryCode: CountryCode
 ) {
-  const faq = (await fetchFAQBySlug(countryCode, slug))
-  const content = faq.content.json.content[0].content[0]?.value?.slice(0, 150)
+  const faq = await fetchFAQBySlug(countryCode, slug);
+  const content = faq.content.json.content[0].content[0]?.value?.slice(0, 150);
   return {
     title: faq.title,
-    description: content ? content + '...' : faq.title
+    description: content ? content + "..." : faq.title,
   };
 }
 
 // SSG approach for this pages
 export async function generateFAQSStaticParams(
-  countryCode: CountryCode,
+  countryCode: CountryCode
   // category: string
 ) {
   const faqs = await fetchFAQS(countryCode);
   const faqsSlugs = faqs.map((faq: any) => {
     slug: faq.slug;
   });
+  console.log(faqsSlugs);
   return faqsSlugs;
 }
 
@@ -48,7 +45,7 @@ const FAQPage = async ({
 
   if (!faq) return notFound();
 
-  const components = await fetchPageComponents(pathname)
+  const components = await fetchPageComponents(pathname);
 
   return (
     <>
@@ -59,12 +56,14 @@ const FAQPage = async ({
             title: faq.title,
           },
           accordionSectionParams: {
-            items: [{
-              title: faq.title,
-              content: faq.content,
-              slug: faq.slug,
-            }]
-          }
+            items: [
+              {
+                title: faq.title,
+                content: faq.content,
+                slug: faq.slug,
+              },
+            ],
+          },
         }}
       ></BuilderComponent>
     </>

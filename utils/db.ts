@@ -949,6 +949,7 @@ const fetchAccordionSectionById = async (
   }
 
   if (accordionSection?.accordionType === "faqs") {
+    console.log(accordionSection.faqType);
     const faqs = await fetchFAQS(accordionSection?.country?.code, {
       types: accordionSection?.faqType || [],
       relatedCity: params?.faqRelatedCity,
@@ -1275,17 +1276,35 @@ const fetchListSectionById = async (id: string): Promise<ListSectionT> => {
   }
 
   if (data.listSection.listType === "faq") {
-    const items: ListItemT = data.listSection.faqsCollection.items.map(
-      (faq: { title: string; slug: string }) => {
-        let link = `/${data.listSection.country.code}/centro-de-ayuda/${faq.slug}/`;
+    let faqDirectory: string;
 
-        if (
+    switch (data.listSection.productCategory) {
+      case "foodDelivery":
+        faqDirectory = "/food/repartidores/preguntas-frecuentes/";
+        break;
+      case "foodBusiness":
+        faqDirectory = "/food/restaurantes/preguntas-frecuentes/";
+        break;
+      case "card":
+        faqDirectory = "/tarjeta-de-credito/preguntas-frecuentes/";
+        break;
+      case "loan":
+        faqDirectory = "/prestamos/preguntas-frecuentes/";
+        break;
+      case "pay":
+        faqDirectory = "/didipay/preguntas-frecuentes/";
+        break;
+      default:
+        faqDirectory =
           data.listSection.country.code === "nz" ||
           data.listSection.country.code === "au" ||
           data.listSection.country.code === "eg"
-        ) {
-          link = `/${data.listSection.country.code}/help-center/${faq.slug}/`;
-        }
+            ? "/help-center/"
+            : "/centro-de-ayuda/";
+    }
+    const items: ListItemT = data.listSection.faqsCollection.items.map(
+      (faq: { title: string; slug: string }) => {
+        let link = `/${data.listSection.country.code}${faqDirectory}${faq.slug}/`;
 
         return {
           text: faq.title,
