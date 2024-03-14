@@ -1,6 +1,9 @@
 import React from "react";
 
-import FAQPage, { generateFaqsMetadata } from "@/components/Sections/Faqs";
+import FAQPage, {
+  generateFAQSStaticParams,
+  generateFaqsMetadata,
+} from "@/components/Sections/Faqs";
 
 interface FAQProps {
   params: {
@@ -11,8 +14,12 @@ interface FAQProps {
 // or Dynamic metadata
 export async function generateMetadata({ params: { slug } }: FAQProps) {
   const faq = await generateFaqsMetadata(slug, "eg");
-
   return faq;
+}
+
+export async function generateStaticParams() {
+  const FAQSSlugs = await generateFAQSStaticParams("eg");
+  return FAQSSlugs;
 }
 
 const CentroDeAyuda = async ({ params: { slug } }: FAQProps) => {

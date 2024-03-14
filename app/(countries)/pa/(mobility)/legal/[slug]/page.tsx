@@ -1,7 +1,8 @@
 import React from "react";
-import { fetchLegalBySlug } from "@/utils/db";
+import { fetchLegalBySlug, fetchLegals } from "@/utils/db";
 import { notFound } from "next/navigation";
 import RichContent from "@/components/RichContent";
+import { CountryCode } from "@/typings";
 
 interface FAQProps {
   params: {
@@ -17,6 +18,20 @@ export async function generateMetadata({ params: { slug } }: FAQProps) {
     title: legal.name + " | DiDi Panamá",
     description: content.slice(0, 150),
   };
+}
+
+async function generateLegalStaticParams(countryCode: CountryCode) {
+  const legals = (await fetchLegals(countryCode)).items;
+  console.log(legals);
+  const legalSlugs = legals.map((legal: any) => {
+    slug: legal.slug;
+  });
+  return legalSlugs;
+}
+
+export async function generateStaticParams() {
+  const legalSlugs = await generateLegalStaticParams("pa");
+  return legalSlugs;
 }
 
 const Legal = async ({ params: { slug } }: FAQProps) => {

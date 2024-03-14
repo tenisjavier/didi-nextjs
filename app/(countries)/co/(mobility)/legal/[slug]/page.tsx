@@ -1,7 +1,8 @@
 import React from "react";
-import { fetchLegalBySlug } from "@/utils/db";
+import { fetchLegalBySlug, fetchLegals } from "@/utils/db";
 import { notFound } from "next/navigation";
 import RichContent from "@/components/RichContent";
+import { CountryCode } from "@/typings";
 
 interface LegalProps {
   params: {
@@ -17,6 +18,19 @@ export async function generateMetadata({ params: { slug } }: LegalProps) {
     title: legal.name,
     description: legal.content.json.content[0].content[0].value,
   };
+}
+
+async function generateLegalStaticParams(countryCode: CountryCode) {
+  const legals = (await fetchLegals(countryCode)).items;
+  const legalSlugs = legals.map((legal: any) => {
+    slug: legal.slug;
+  });
+  return legalSlugs;
+}
+
+export async function generateStaticParams() {
+  const legalSlugs = await generateLegalStaticParams("co");
+  return legalSlugs;
 }
 
 const Legal = async ({ params: { slug } }: LegalProps) => {

@@ -1048,6 +1048,7 @@ const fetchColumnSectionById = async (
       itemType
       guideCategory
       articleCategory
+      isSuggestedSection
       order
       limitItemsPerPage
       country {
@@ -1152,7 +1153,7 @@ const fetchColumnSectionById = async (
       });
       columnSection.items = items;
       columnSection.pagination = {
-        total: guides?.total,
+        total: columnSection.isSuggestedSection ? 12 : guides?.total,
         limit: pagination.limit,
         page: pagination.page,
       };
@@ -1194,7 +1195,7 @@ const fetchColumnSectionById = async (
       });
       columnSection.items = items;
       columnSection.pagination = {
-        total: articles?.total,
+        total: columnSection.isSuggestedSection ? 12 : articles?.total,
         limit: pagination.limit,
         page: pagination.page,
       };
@@ -1710,28 +1711,13 @@ const fetchLegalBySlug = async (
 
 //? returns one FAQ component by its slug and country
 //* params: id of the component
-const fetchLegal = async (countryCode: CountryCode): Promise<FAQT> => {
+const fetchLegals = async (countryCode: CountryCode): Promise<FAQT> => {
   const query = `query {
     legalCollection (where: {country: {code:"${countryCode}"}}) {
+      total
       items {
         name
-        content {
-          json
-          links {
-            assets {
-              block {
-                sys {
-                  id
-                }
-                title
-                description
-                url
-                width
-                height
-              }
-            }
-          }
-        }
+        slug
       }
     }
   }`;
@@ -1745,7 +1731,7 @@ const fetchLegal = async (countryCode: CountryCode): Promise<FAQT> => {
     throw new Error("Failed to fetch Legal");
   }
   const { data } = await res.json();
-  const legal = data.legalCollection.items;
+  const legal = data.legalCollection;
   return legal;
 };
 
@@ -2106,7 +2092,7 @@ export {
   fetchPages,
   fetchSuggestedColumnSection,
   fetchFAQS,
-  fetchLegal,
+  fetchLegals,
   fetchProductsByIds,
   fetchRequirementsByCitySlug,
 };
