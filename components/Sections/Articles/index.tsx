@@ -51,6 +51,16 @@ const ArticlePage = async ({
 
   const components = await fetchPageComponents(pathname)
 
+  const buttonTypes = {
+    'rides': 'drv',
+    'food': 'foodEater',
+    'news': 'pax',
+    'pay': 'payBusiness',
+    'prestamos': 'prestamos',
+    'card': 'card'
+  }
+
+  const btnType = article?.category?.find((item) => buttonTypes[item]) as "rides" | "food" | "news" | "pay" | "prestamos" | "card"
 
   return (
     <>
@@ -60,7 +70,8 @@ const ArticlePage = async ({
           ctaSectionParams: {
             title: article.title,
             desc: article.excerpt,
-            bgImage: article.featuredImage
+            bgImage: article.featuredImage,
+            btnType: buttonTypes[btnType]
           },
           richTextParams: article.content
         }}

@@ -1027,6 +1027,7 @@ const fetchColumnSectionById = async (
     name
     desc
     slug
+    category
     logo {
       title
       description
@@ -1096,8 +1097,9 @@ const fetchColumnSectionById = async (
     ...data.columnSection,
     columns: data?.columnSection?.columnsCollection?.items,
     items: [],
-    // items: data?.columnSection?.itemsCollection?.items,
   };
+
+  const countryCode = columnSection?.country?.code;
 
   if (columnSection?.itemType?.toLowerCase() === "partner") {
     const partnersItems = data?.columnSection?.itemsCollection?.items?.filter(
@@ -1106,8 +1108,18 @@ const fetchColumnSectionById = async (
 
     if (partnersItems && partnersItems?.length > 0) {
       partnersItems.forEach((item: any) => {
+        const links = {
+          didimas: `/${countryCode}/didimas/${item.slug}`,
+          didifleet: `/${countryCode}/didifleet/${item.slug}`,
+          creditCard: `/${countryCode}/tarjeta-de-credito/beneficios/${item.slug}`,
+        };
+
+        const category = item.category.find(
+          (item: "didimas" | "didifleet" | "creditCard") => links[item]
+        ) as "didimas" | "didifleet" | "creditCard";
+
         item.title = item.name;
-        item.pathname = item.slug;
+        item.pathname = links[category];
         item.image = item.logo;
         item.isImageIcon = true;
 
@@ -1408,6 +1420,7 @@ const fetchArticleBySlug = async (
         title
         slug
         seoTitle
+        category
         seoDescription
         country {
           code
