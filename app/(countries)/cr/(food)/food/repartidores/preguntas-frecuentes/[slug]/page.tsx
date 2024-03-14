@@ -21,7 +21,7 @@ const CentroDeAyuda = async ({ params: { slug } }: FAQProps) => {
       <FAQPage
         params={{
           countryCode: "cr",
-          pathname: "/cr/centro-de-ayuda/slug/",
+          pathname: "/cr/food/repartidores/preguntas-frecuentes/slug/",
           slug,
         }}
       />
