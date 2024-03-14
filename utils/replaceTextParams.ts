@@ -42,6 +42,9 @@ const replaceTextParams = (props: Props, newTextObject: Props) => {
   if (newTextObject.btnLink && !props?.btnLink) {
     props.btnLink = newTextObject.btnLink;
   }
+  if (newTextObject.btnType && !props?.btnType) {
+    props.btnType = newTextObject.btnType;
+  }
 
   if (
     newTextObject?.ctaSections &&

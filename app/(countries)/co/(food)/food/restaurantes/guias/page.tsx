@@ -20,7 +20,7 @@ const Guias = async ({
   params: { slug: string };
   searchParams: { [key: string]: string | string[] | undefined };
 }) => {
-  const components = await fetchPageComponents("/pe/food/restaurantes/guias/");
+  const components = await fetchPageComponents("/co/food/restaurantes/guias/");
   return (
     <BuilderComponent
       components={components}

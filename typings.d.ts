@@ -342,7 +342,7 @@ const GuideSchema = z.object({
       title: z.string(),
       slug: z.string(),
       excerpt: z.string(),
-      category: z.enum(["driver", "delivery", "restaurant"]),
+      category: z.array(z.enum(["driver", "delivery", "restaurant"])),
       country: z.string(), // ou substitua por `z.countryCodeSchema()`
       seoTitle: z.string(),
       seoDescription: z.string(),
@@ -356,16 +356,21 @@ const GuideSchema = z.object({
 });
 
 const ArticleSchema = z.object({
-  items: z.array({
-    title: z.string(),
-    slug: z.string(),
-    seoTitle: z.string(),
-    seoDescription: z.string(),
-    featuredImage: z.ImageSchema(),
-    content: z.any(),
-    excerpt: z.string(),
-    country: z.countryCodeSchema(),
-  }),
+  items: z.array(
+    z.object({
+      title: z.string(),
+      slug: z.string(),
+      seoTitle: z.string(),
+      seoDescription: z.string(),
+      featuredImage: z.ImageSchema(),
+      content: z.any(),
+      excerpt: z.string(),
+      country: z.countryCodeSchema(),
+      category: z.array(
+        z.enum(["rides", "food", "news", "pay", "prestamos", "card"])
+      ),
+    })
+  ),
   total: z.number(),
   limit: z.number(),
   skip: z.number(),

@@ -48,6 +48,14 @@ const Page = async ({
 
   const components = await fetchPageComponents(pathname);
 
+  const buttonTypes = {
+    'driver': 'drv',
+    'delivery': 'foodDelivery',
+    'restaurant': 'foodBusiness'
+  }
+
+  const btnType = guide.category.find((item) => buttonTypes[item]) as 'driver' | 'delivery' | 'restaurant'
+
   return (
     <>
       <BuilderComponent
@@ -59,7 +67,7 @@ const Page = async ({
             bgImage: guide.featuredImage,
             btnText: guide.btnCustomText,
             btnLink: guide.btnCustomLink,
-            btnType: "custom",
+            btnType: guide.btnCustomText && guide.btnCustomLink ? 'custom' : buttonTypes[btnType],
           },
           richTextParams: guide.content,
         }}

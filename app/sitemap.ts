@@ -4,6 +4,7 @@ import {
   fetchCities,
   fetchGuides,
   fetchPages,
+  fetchPartnersByCategory,
 } from "@/utils/db";
 import { MetadataRoute } from "next";
 
@@ -43,8 +44,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const cityPages = await getCityPages(pages);
     const guidesPages = await getGuidesPages(pages);
     const articlesPages = await getArticlesPages(pages);
+    const partnersPages = await getPartnersPages(pages);
 
-    pages.push(...cityPages, ...guidesPages, ...articlesPages);
+    pages.push(
+      ...cityPages,
+      ...guidesPages,
+      ...articlesPages,
+      ...partnersPages
+    );
   };
 
   console.log("antes", pages.length);
@@ -221,4 +228,55 @@ const getArticlesPages = async (pages: MetadataRoute.Sitemap) => {
   const articlesPages = await Promise.all(articlesPagesPromises);
 
   return articlesPages;
+};
+
+const getPartnersPages = async (pages: MetadataRoute.Sitemap) => {
+  const partnersPagesPromises: Promise<SitemapType>[] = [];
+
+  const makePartnersPage = async (
+    validation: boolean,
+    params: {
+      slug: string;
+      countryCode: CountryCode;
+      category: string;
+    }
+  ) => {
+    const { category, countryCode, slug } = params;
+    if (validation) {
+      const partners = await fetchPartnersByCategory(countryCode, category);
+
+      const slugPage = slug.replace("/slug/", "/");
+
+      partners.forEach((partners) => {
+        const partnerPagePromise = Promise.resolve(
+          makeObjectToSitemap(`/${countryCode}${slugPage}${partners.slug}/`)
+        );
+
+        partnersPagesPromises.push(partnerPagePromise);
+      });
+    }
+  };
+
+  for (const page of pages) {
+    const countryCode = page?.url?.split("/")?.[3] as CountryCode;
+
+    await makePartnersPage(page.url.includes("/didimas/slug/"), {
+      slug: "/didimas/slug/",
+      category: "didimas",
+      countryCode,
+    });
+
+    await makePartnersPage(
+      page.url.includes("/tarjeta-de-credito/beneficios/slug/"),
+      {
+        slug: "/tarjeta-de-credito/beneficios/slug/",
+        category: "creditCard",
+        countryCode,
+      }
+    );
+  }
+
+  const partnersPages = await Promise.all(partnersPagesPromises);
+
+  return partnersPages;
 };
