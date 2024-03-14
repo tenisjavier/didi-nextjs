@@ -1,6 +1,9 @@
 import React from "react";
 
-import FAQPage, { generateFaqsMetadata } from "@/components/Sections/Faqs";
+import FAQPage, {
+  generateFAQSStaticParams,
+  generateFaqsMetadata,
+} from "@/components/Sections/Faqs";
 
 interface FAQProps {
   params: {
@@ -13,6 +16,11 @@ export async function generateMetadata({ params: { slug } }: FAQProps) {
   const faq = await generateFaqsMetadata(slug, "ec");
   faq.title = faq.title + " | DiDi Ecuador";
   return faq;
+}
+
+export async function generateStaticParams() {
+  const FAQSSlugs = await generateFAQSStaticParams("ec");
+  return FAQSSlugs;
 }
 
 const CentroDeAyuda = async ({ params: { slug } }: FAQProps) => {
