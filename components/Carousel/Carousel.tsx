@@ -166,9 +166,9 @@ const Carousel = (props: CarouselT) => {
   };
 
   return (
-    <section className=" py-8 px-4">
+    <section className="pt-10">
       <div
-        className="container mx-auto "
+        className="mx-auto"
         style={{
           maxWidth: `${maxWidth}px`,
         }}
