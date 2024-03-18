@@ -27,7 +27,7 @@ type SitemapType = {
 const BASE_URL =
   process.env.IS_DEVELOPMENT === "true"
     ? "http://localhost:3000"
-    : process.env.NEXT_PUBLIC_BASE_URL;
+    : process.env.BASE_URL || "https://web.didiglobal.com";
 
 const makeObjectToSitemap = (slug: string): SitemapType => {
   return {
