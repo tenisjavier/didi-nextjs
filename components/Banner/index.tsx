@@ -21,18 +21,14 @@ const Banner = ({
 }: BannerT) => {
   return (
     <section
-      className={` py-8 px-4 ${bgColor && bgColor} text-${textColor} ${
-        borderColor ? `border border-solid border-${borderColor}` : ""
-      }`}
+      className={` py-8 px-4 ${bgColor && bgColor} text-${textColor} ${borderColor ? `border border-solid border-${borderColor}` : ""
+        }`}
     >
       <div
-        className={`container mx-auto w-full ${
-          bgColor && bgColor
-        } text-${textColor} flex  ${
-          imageBottom ? "flex-col" : ""
-        } items-center ${
-          image ? "justify-between" : "justify-center"
-        } flex-wrap`}
+        className={`container mx-auto w-full ${bgColor && bgColor
+          } text-${textColor} flex  ${imageBottom ? "flex-col" : ""
+          } items-center ${image ? "justify-between" : "justify-center"
+          } flex-wrap`}
       >
         <div>
           {title && (
@@ -62,9 +58,8 @@ const Banner = ({
           )}
 
           <span
-            className={`flex justify-center my-8 ${
-              btnText != "VideoSection.btnText" ? "" : "hidden"
-            }`}
+            className={`flex justify-center my-8 ${btnText != "VideoSection.btnText" ? "" : "hidden"
+              }`}
           >
             <Btn
               btnType={btnType}
@@ -77,9 +72,8 @@ const Banner = ({
 
         {image ? (
           <Image
-            className={`"z-10 my-10 mx-10 w-140 h-auto object-contain" ${
-              imageBottom ? "w-full max-h-[1000px] " : ""
-            }`}
+            className={`"z-10 my-10 mx-10 w-56 h-auto object-contain" ${imageBottom ? "w-full max-h-[1000px] " : ""
+              }`}
             src={image.url}
             alt={image.description}
             width={image?.width || 1100}
