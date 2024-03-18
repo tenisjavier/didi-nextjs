@@ -325,6 +325,11 @@ const redirectsPaths = [
     permanent: true,
     },
     {
+    source: `/ar/ciudades/`,
+    destination: `/ar/conductor/ciudades/`,
+    permanent: true,
+    },
+    {
     source: `/cl/driver/`,
     destination: `/cl/conductor/`,
     permanent: true,
