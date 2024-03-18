@@ -8,7 +8,6 @@ import {
   fetchPartnersByCategory,
   fetchProducts,
 } from "@/utils/db";
-import generateSitemapXmlFile from "@/utils/generateSitemapXmlFile";
 import { MetadataRoute } from "next";
 
 type SitemapType = {
@@ -25,9 +24,10 @@ type SitemapType = {
   priority: number;
 };
 
-const BASE_URL = process.env.IS_DEVELOPMENT
-  ? "http://localhost:3000"
-  : "https://web.didiglobal.com";
+const BASE_URL =
+  process.env.IS_DEVELOPMENT === "true"
+    ? "http://localhost:3000"
+    : process.env.NEXT_PUBLIC_BASE_URL;
 
 const makeObjectToSitemap = (slug: string): SitemapType => {
   return {
@@ -60,8 +60,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   };
 
   await dynamicPage();
-
-  generateSitemapXmlFile(pages.filter((page) => !page.url.includes("/slug/")));
 
   return pages.filter((page) => !page.url.includes("/slug/"));
 }
