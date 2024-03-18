@@ -34,7 +34,6 @@ export async function generateFAQSStaticParams(
   const faqsSlugs = faqs.map((faq: any) => {
     slug: faq.slug;
   });
-  console.log(faqsSlugs);
   return faqsSlugs;
 }
 

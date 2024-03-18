@@ -51,6 +51,20 @@ const ProductCategorySchema = z.enum([
 
 const GuideCategotySchema = z.enum(["driver", "delivery", "restaurant"]);
 
+const faqTypes = z.array(
+  z.enum([
+    "drv",
+    "pax",
+    "prestamos",
+    "pay",
+    "delivery",
+    "card",
+    "airportDistance",
+    "airportPoints",
+    "city",
+  ])
+);
+
 const ImageSchema = z.object({
   title: z.string(),
   url: z.string(),
@@ -222,7 +236,7 @@ const AccordionSectionSchema = z.object({
   RTL: z.boolean(),
   isFaq: z.boolean(),
   accordionType: z.string(),
-  faqType: z.array(z.string()),
+  faqType: faqTypes,
 });
 const BannerSchema = z.object({
   name: z.string(),
@@ -317,7 +331,7 @@ const ListItemSchema = z.object({
 const FAQSchema = z.object({
   title: z.string(),
   slug: z.string(),
-  type: z.any(), //!FIX and rename category as other components
+  type: faqTypes,
   country: z.countryCodeSchema(),
   content: z.any(),
   isEducationalGuide: z.boolean(),
@@ -502,6 +516,7 @@ export type ItemType = z.infer<typeof ItemTypeSchema>;
 export type ArticleType = z.infer<typeof ArticleCategotySchema>;
 export type GuideType = z.infer<typeof GuideCategotySchema>;
 export type ImageType = z.infer<typeof ImageSchema>;
+export type FAQType = z.infer<typeof faqTypes>;
 export type City = z.infer<typeof CitySchema>;
 export type Country = z.infer<typeof CountrySchema>;
 export type CTASectionT = z.infer<typeof CTASectionSchema>;
