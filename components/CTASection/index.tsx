@@ -103,7 +103,7 @@ const CTASection = (props: CTASectionT) => {
   return (
     <section
       style={{ direction: isRtl }}
-      className={`px-4 py-8 relative flex ${
+      className={`relative flex ${
         isHero ? "max-lg:min-h-[54rem]" : "min-h-[44rem]"
       } min-h-[44rem] w-full items-center justify-center overflow-hidden ${
         bgColor && bgColor
@@ -112,7 +112,7 @@ const CTASection = (props: CTASectionT) => {
       <div
         className={`${
           whiteRight ? "white-right" : "container"
-        }  mx-auto flex w-full lg:flex-nowrap items-center justify-center ${
+        }  mx-auto py-8 flex w-full lg:flex-nowrap items-center justify-center ${
           reverse && isHero
             ? "flex-row-reverse flex-wrap-reverse pt-28 lg:pt-12 lg:pb-12 "
             : "flex-wrap "

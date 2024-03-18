@@ -27,11 +27,8 @@ const AccordionSection = ({
   };
 
   return (
-    <section
-      style={directionStyle}
-      className={`${bgColor} text-${textColor} py-8 px-4`}
-    >
-      <div className="container mx-auto flex flex-col justify-center">
+    <section style={directionStyle} className={`${bgColor} text-${textColor}`}>
+      <div className="container py-8 flex flex-col justify-center">
         {title && (
           <h2 className={`text-4xl md:${textDir} text-left`}>
             {textBreak(title, textColor)}
