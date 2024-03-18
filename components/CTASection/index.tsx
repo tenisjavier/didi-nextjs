@@ -52,7 +52,9 @@ const CTASection = (props: CTASectionT) => {
     : `!absolute z-0 h-full w-full md:block object-cover ${
         brightness && `brightness-${brightnessPercent}`
       }`;
-  const mobileBgImageStyle = `!absolute z-0 h-full w-full md:!hidden object-cover`;
+  const mobileBgImageStyle = `!absolute z-0 h-full w-full md:!hidden object-cover ${
+    brightness && `brightness-${brightnessPercent}`
+  }`;
   const imageStyle =
     `z-10 h-auto  lg:w-96 mx-4  mb-8 ${
       isHero ? "max-lg:mb-24 lg:mb-16 mt-0 w-60" : "object-contain mt-6 w-80"

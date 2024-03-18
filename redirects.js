@@ -315,6 +315,16 @@ const redirectsPaths = [
     permanent: true,
     },
     {
+    source: `/ar/conductor/didi-moto-argentina/`,
+    destination: `/ar/conductor/moto/`,
+    permanent: true,
+    },
+    {
+    source: `/ar/conductor/didi-taxi-argentina/`,
+    destination: `/ar/taxi/`,
+    permanent: true,
+    },
+    {
     source: `/cl/driver/`,
     destination: `/cl/conductor/`,
     permanent: true,

@@ -125,7 +125,7 @@ const Carousel = (props: CarouselT) => {
     arrows: hasArrows || true,
     infinite: true,
     autoplay: isAutoPlay,
-    speed: isAutoPlay ? 8000 : 1000,
+    speed: isAutoPlay ? 8000 : 500,
     autoplaySpeed: 0,
     slidesToShow: toShow,
     slidesToScroll: toScroll,
