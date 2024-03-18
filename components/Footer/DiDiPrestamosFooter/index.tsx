@@ -1,6 +1,5 @@
 import React from "react";
 import { getFooterPrestamosLinks } from "@/config/footer/footer-prestamos-config";
-import FooterItem from "../DiDiPrestamosFooter/FooterItem";
 import FooterColumn from "./FooterColumn";
 import Image from "next/image";
 

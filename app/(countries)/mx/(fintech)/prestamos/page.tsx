@@ -17,10 +17,7 @@ export const metadata: Metadata = {
 
 const Page = async () => {
   const components = await fetchPageComponents("/mx/prestamos/");
-  return <>
-    <BuilderComponent components={components}></BuilderComponent>
-    <DiDiPrestamosFooter></DiDiPrestamosFooter>
-  </>;
+  return <BuilderComponent components={components}></BuilderComponent>
 };
 
 export default Page;

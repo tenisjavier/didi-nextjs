@@ -49,7 +49,7 @@ const footerLinks: AllFooterInterface = {
           text: "Despachos de Cobranza",
           link: "/mx/legal/despachos-de-cobranza-didi-prestamos",
         },
-        { text: "Documentos Legales", link: "/mx/tarjeta-de-credito/legal" },
+        { text: "Documentos Legales", link: "/mx/prestamos/contrato-y-caratula-v12-26-02-24.pdf" },
         {
           text: "Aviso de Privacidad",
           link: "https://privacycenter.didiglobal.com/MX/privacy-notice/9f268073ac1fa831f0d00b7c0e013971/Mexico",
