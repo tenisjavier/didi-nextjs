@@ -112,7 +112,7 @@ const Card = (props: CardT) => {
             </h4>
           )}
           {desc && descPosition === "beforeBtn" && (
-            <p className="text-lg">{textBreak(desc, textColor)}</p>
+            <p className="text-lg line-clamp-8">{textBreak(desc, textColor)}</p>
           )}
         </div>
         <div className="flex justify-center flex-col ">
@@ -124,7 +124,7 @@ const Card = (props: CardT) => {
           ></Btn>
         </div>
         {desc && descPosition === "afterBtn" && (
-          <p className="text-sm">{textBreak(desc, textColor)}</p>
+          <p className="text-sm line-clamp-8">{textBreak(desc, textColor)}</p>
         )}
       </div>
     </div>
