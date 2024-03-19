@@ -285,8 +285,18 @@ const OptionsSectionSchema = z.object({
 });
 
 const RequirementsSchema = z.object({
-  name: z.string(),
-  requirement: z.any(),
+  total: z.number(),
+  limit: z.number(),
+  skip: z.number(),
+  items: z.array(
+    z.object({
+      name: z.string(),
+      slug: z.string(),
+      country: z.any(), // ou substitua por `z.countryCodeSchema()`
+      image: z.any(), // ou substitua por `z.ImageSchema()`
+      requirement: z.any(),
+    }),
+  )
 });
 
 const CarouselSchema = z.object({

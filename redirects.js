@@ -10,6 +10,11 @@ const redirectsPaths = [
     permanent: true,
   },
   {
+    source: "/au/driver/driver-sydney/",
+    destination: "/au/driver/cities/sydney/",
+    permanent: true,
+  },
+  {
     source: "/mx/ciudades/",
     destination: "/mx/conductor/ciudades/",
     permanent: true,
