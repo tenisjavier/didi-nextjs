@@ -1,5 +1,15 @@
 const redirectsPaths = [
   {
+    source: "/au/cities/",
+    destination: "/au/driver/cities/",
+    permanent: true,
+  },
+  {
+    source: `/au/driver/driver-:path`,
+    destination: `/au/driver/cities/:path`,
+    permanent: true,
+  },
+  {
     source: "/mx/ciudades/",
     destination: "/mx/conductor/ciudades/",
     permanent: true,

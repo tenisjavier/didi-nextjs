@@ -29,6 +29,7 @@ import {
   FAQT,
   ABtestT,
 } from "@/typings";
+import { notFound } from "next/navigation";
 
 //? Contentful API URL and Token from .env.local
 const apiUrl = `https://graphql.contentful.com/content/v1/spaces/${process.env.CONTENTFUL_SPACE_ID}/environments/master`;
@@ -120,15 +121,20 @@ const fetchCitieBySlug = async (
   }
   const cities = await res.json();
 
-  const citiesData = {
-    ...cities.data.cityCollection.items?.[0],
-    productsId:
-      cities.data.cityCollection.items?.[0].productCollection.items.map(
-        (item: any) => item.sys.id
-      ),
-  };
+  try {
+    const citiesData = {
+      ...cities.data.cityCollection.items?.[0],
+      productsId:
+        cities.data.cityCollection.items?.[0].productCollection?.items.map(
+          (item: any) => item.sys.id
+        ),
+    };
 
-  return citiesData;
+    return citiesData;
+    
+  } catch (e) {
+    notFound();
+  }
 };
 
 //? returns a array of products
