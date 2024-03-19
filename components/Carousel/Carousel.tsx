@@ -166,14 +166,14 @@ const Carousel = (props: CarouselT) => {
   };
 
   return (
-    <section className=" py-8 px-4">
+    <section className="container py-8 px-4">
       <div
-        className="container mx-auto "
+        className="mx-auto"
         style={{
           maxWidth: `${maxWidth}px`,
         }}
       >
-        <div>
+        <div className="flex items-center justify-between">
           {title && (
             <h2
               className={`text-left lg:text-center text-3xl md:text-4xl font-bold `}
@@ -185,13 +185,13 @@ const Carousel = (props: CarouselT) => {
             <div className="hidden lg:flex">
               <button
                 className="m-4 text-4xl border-0 p-0 outline-0 bg-inherit cursor-pointer hover:font-bold"
-                onClick={next}
+                onClick={previous}
               >
                 ←
               </button>
               <button
                 className="m-4 text-4xl border-0 p-0 outline-0 bg-inherit cursor-pointer hover:font-bold"
-                onClick={previous}
+                onClick={next}
               >
                 →
               </button>
