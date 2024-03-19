@@ -7,12 +7,12 @@ interface FeatureProps {
 }
 
 export async function generateMetadata({ params: { slug } }: FeatureProps) {
-  const feature = await generateFeaturesMetadata(slug, "mx");
+  const feature = await generateFeaturesMetadata(slug, "cr");
   return feature;
 }
 
 export async function generateStaticParams() {
-  const featuresSlugs = await generateFeaturesStaticParams("mx", "pax");
+  const featuresSlugs = await generateFeaturesStaticParams("cr", "driver");
 
   return featuresSlugs;
 }
@@ -22,10 +22,10 @@ const Page = ({ params: { slug } }: FeatureProps) => {
   return (
     <FeaturePage
       params={{
-        countryCode: 'mx',
-        pathname: '/mx/seguridad/pasajeros/slug/',
+        countryCode: 'cr',
+        pathname: '/cr/seguridad/conductores/slug/',
         slug,
-        featureCategory: 'pax'
+        featureCategory: 'driver'
       }}
     />
   )

@@ -1088,6 +1088,8 @@ const fetchColumnSectionById = async (
       gridCols
   		gap
       itemType
+      featureType
+      featureCategory
       guideCategory
       articleCategory
       isSuggestedSection
@@ -1253,6 +1255,52 @@ const fetchColumnSectionById = async (
         page: pagination.page,
       };
     }
+  }
+
+  if (columnSection?.itemType?.toLowerCase() === "feature") {
+    const features = await fetchFeatures(
+      countryCode,
+      columnSection?.featureCategory
+    );
+
+    const beforeTravelLenght = features?.filter(
+      (feature) => feature.type?.[0] === "before"
+    ).length;
+    const duringTravelLenght = features?.filter(
+      (feature) => feature.type?.[0] === "during"
+    ).length;
+
+    const items: ListItemT = features
+      ?.filter((feature) => feature.type?.[0] === columnSection?.featureType)
+      ?.map((feature, index) => {
+        const link = `/${countryCode}/seguridad/conductores/${feature.slug}/`;
+
+        const typeOflink = {
+          driver: `/${countryCode}/seguridad/conductores/${feature.slug}/`,
+          pax: `/${countryCode}/seguridad/pasajeros/${feature.slug}/`,
+        } as any;
+
+        const itemPosition = {
+          before: index + 1,
+          during: index + 1 + beforeTravelLenght,
+          after: index + 1 + beforeTravelLenght + duringTravelLenght,
+        };
+
+        const indexItem =
+          itemPosition[
+            columnSection?.featureType as "before" | "during" | "after"
+          ];
+
+        return {
+          title: `${indexItem}. ${feature.name}`,
+          desc: feature.description,
+          image: feature.image,
+          pathname: typeOflink[columnSection.featureCategory] || link,
+          bgColor: columnSection?.bgColor || "gray-primary",
+          textColor: columnSection?.textColor || "gray-primary",
+        };
+      });
+    columnSection.items = items;
   }
 
   delete columnSection.columnsCollection;
@@ -1661,15 +1709,18 @@ const fetchFAQBySlug = async (
   return faq;
 };
 
+//? returns one FAQ component by its slug and country
+//* params: id of the component
 const fetchFAQS = async (
   countryCode: CountryCode,
   params?: {
+    ids?: string[];
     types?: FAQType;
     relatedCity?: string;
   }
 ): Promise<FAQT[]> => {
-  const query = `query MyQuery($relatedCity: String, $type_contains_some: [String]) {
-      faqCollection(where: { type_contains_some: $type_contains_some, relatedCity: $relatedCity, country: { code: "${countryCode}" } }, limit: 10) {
+  const query = `query MyQuery($ids: [String],$relatedCity: String, $type_contains_some: [String]) {
+      faqCollection(where: {sys: {id_in: $ids}, type_contains_some: $type_contains_some, relatedCity: $relatedCity, country: { code: "${countryCode}" } }, limit: 10) {
           items {
               title
               slug
@@ -1701,6 +1752,7 @@ const fetchFAQS = async (
   const variables = {
     type_contains_some: params?.types,
     relatedCity: params?.relatedCity,
+    ids: params?.ids,
   };
 
   const res = await fetch(apiUrl, {
@@ -1714,6 +1766,65 @@ const fetchFAQS = async (
     throw new Error("Failed to fetch FAQS");
   }
   const { data } = await res.json();
+
+  const faq = data.faqCollection.items;
+
+  return faq;
+};
+
+//? returns one FAQ component by its slug and country
+//* params: ids of the component
+const fetchFAQSByIds = async (params?: {
+  ids?: string[];
+  types?: FAQType;
+}): Promise<FAQT[]> => {
+  const query = `query MyQuery($ids: [String], $type_contains_some: [String]) {
+      faqCollection(where: {sys: {id_in: $ids}, type_contains_some: $type_contains_some}, limit: 10) {
+          items {
+              title
+              slug
+              type
+              country {
+                  code
+              }
+              content {
+                  json
+                  links {
+                      assets {
+                          block {
+                              sys {
+                                  id
+                              }
+                              title
+                              description
+                              url
+                              width
+                              height
+                          }
+                      }
+                  }
+              }
+          }
+      }
+  }`;
+
+  const variables = {
+    type_contains_some: params?.types,
+    ids: params?.ids,
+  };
+
+  const res = await fetch(apiUrl, {
+    method: "POST",
+    headers: headers,
+    body: JSON.stringify({ query, variables }),
+  });
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch FAQS");
+  }
+  const { data } = await res.json();
+
   const faq = data.faqCollection.items;
 
   return faq;
@@ -1943,6 +2054,13 @@ const fetchFeatureBySlug = async (
       items {
         name
         slug
+        faqCollection {
+          items{
+            sys{
+              id
+            }
+          }
+        }
         image{
           url
           width
@@ -1997,10 +2115,14 @@ const fetchFeatureBySlug = async (
   const { data } = await res.json();
   const feature: FeaturesT = data.featureCollection.items[0];
 
+  feature.faqsId = feature?.faqCollection?.items?.map(
+    (item: { sys: { id: string } }) => item.sys.id
+  );
+
   if (feature?.components?.meta) {
     for (let i = 0; i < feature?.components?.meta?.length; i++) {
       feature.components.meta[i].image =
-        feature.componentImagesCollection.items[i];
+        feature?.componentImagesCollection?.items?.[i];
       delete feature.componentImagesCollection;
     }
   }
@@ -2028,6 +2150,42 @@ const fetchFeatureByCategory = async (
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
     throw new Error("Failed to fetch Feature");
+  }
+
+  const { data } = await res.json();
+  const feature = data.featureCollection.items;
+
+  return feature;
+};
+
+const fetchFeatures = async (
+  countryCode: CountryCode,
+  category: "driver" | "pax"
+): Promise<FeaturesT[]> => {
+  const query = `query {
+    featureCollection (where: {country: {code:"${countryCode}"}, category_contains_all:"${category}"}) {
+      items {
+        name
+        description
+        slug
+        type
+        category
+        image{
+          title
+          description
+          url
+        }
+      }
+    }
+  }`;
+
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+  });
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch Features");
   }
 
   const { data } = await res.json();
@@ -2150,4 +2308,6 @@ export {
   fetchProductsByIds,
   fetchRequirementsByCitySlug,
   fetchProducts,
+  fetchFeatures,
+  fetchFAQSByIds,
 };
