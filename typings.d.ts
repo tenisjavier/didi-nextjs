@@ -168,6 +168,7 @@ const ColumnSectionSchema = z.object({
   textColor: z.string(),
   bgColor: z.string(),
   sectionID: z.string().nullish(),
+  anchor: z.string().optional(),
   RTL: z.boolean().nullish(),
   hasTextHighlight: z.boolean().nullish(),
   gridCols: z.number(),
