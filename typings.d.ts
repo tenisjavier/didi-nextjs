@@ -225,18 +225,18 @@ const AccordionSchema = z.object({
 
 const AccordionSectionSchema = z.object({
   items: z.array(AccordionSchema),
-  title: z.string(),
+  title: z.string().optional(),
   country: z.object(CountrySchema),
   desc: z.string().optional(),
-  textColor: z.string(),
+  textColor: z.string().optional(),
   bgColor: z.string(),
   textAccordionColor: z.string(),
   bgAccordionColor: z.string(),
   isClosed: z.boolean(),
-  RTL: z.boolean(),
+  RTL: z.boolean().optional(),
   isFaq: z.boolean(),
-  accordionType: z.string(),
-  faqType: faqTypes,
+  accordionType: z.string().optional(),
+  faqType: faqTypes.optional(),
 });
 const BannerSchema = z.object({
   name: z.string(),
@@ -424,6 +424,7 @@ const FeaturesSchema = z.object({
   content: z.any(),
   category: z.enum(["driver", "pax", "food"]),
   type: z.enum(["before", "during", "after"]),
+  faqsId: z.array(z.string()).optional(),
   components: ComponentsJSONSchema,
   componentImages: z.array(ImageSchema),
 });

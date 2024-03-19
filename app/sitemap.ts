@@ -3,6 +3,7 @@ import {
   fetchArticles,
   fetchCities,
   fetchFAQS,
+  fetchFeatures,
   fetchGuides,
   fetchPages,
   fetchPartnersByCategory,
@@ -49,13 +50,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const articlesPages = await getArticlesPages(pages);
     const partnersPages = await getPartnersPages(pages);
     const faqsPages = await getFAQSPages(pages);
+    const featuresPages = await getFeaturesPages(pages);
 
     pages.push(
       ...cityPages,
       ...guidesPages,
       ...articlesPages,
       ...partnersPages,
-      ...faqsPages
+      ...faqsPages,
+      ...featuresPages
     );
   };
 
@@ -445,4 +448,52 @@ const getFAQSPages = async (pages: MetadataRoute.Sitemap) => {
   const faqsPages = await Promise.all(faqsPagesPromises);
 
   return faqsPages;
+};
+
+const getFeaturesPages = async (pages: MetadataRoute.Sitemap) => {
+  const featuresPagesPromises: Promise<SitemapType>[] = [];
+
+  const makeFeaturesPage = async (
+    validation: boolean,
+    params: {
+      slug: string;
+      countryCode: CountryCode;
+      category: "driver" | "pax";
+    }
+  ) => {
+    const { category, countryCode, slug } = params;
+    if (validation) {
+      const features = await fetchFeatures(countryCode, category);
+
+      const slugPage = slug.replace("/slug/", "/");
+
+      features.forEach((feature) => {
+        const partnerPagePromise = Promise.resolve(
+          makeObjectToSitemap(`/${countryCode}${slugPage}${feature.slug}/`)
+        );
+
+        featuresPagesPromises.push(partnerPagePromise);
+      });
+    }
+  };
+
+  for (const page of pages) {
+    const countryCode = page?.url?.split("/")?.[3] as CountryCode;
+
+    await makeFeaturesPage(page.url.includes("/seguridad/conductores/slug/"), {
+      slug: "/seguridad/conductores/slug/",
+      category: "driver",
+      countryCode,
+    });
+
+    await makeFeaturesPage(page.url.includes("/seguridad/pasajeros/slug/"), {
+      slug: "/seguridad/pasajeros/slug/",
+      category: "pax",
+      countryCode,
+    });
+  }
+
+  const featuresPages = await Promise.all(featuresPagesPromises);
+
+  return featuresPages;
 };
