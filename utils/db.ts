@@ -1087,6 +1087,7 @@ const fetchColumnSectionById = async (
       bgColor
       gridCols
   		gap
+      anchor
       itemType
       featureType
       featureCategory

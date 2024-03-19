@@ -18,6 +18,7 @@ const ColumnsSection = (props: ColumnSectionT) => {
     gridCols,
     gap,
     pagination,
+    anchor
   } = props;
   let dir: any = "ltr";
 
@@ -28,15 +29,14 @@ const ColumnsSection = (props: ColumnSectionT) => {
   const columnsGridCount =
     gridCols > (columns?.length || 0) ? "flex flex-wraper" : false;
 
-  const gridConfig = `${
-    columnsGridCount || `grid grid-cols-1  lg:grid-cols-${gridCols}`
-  }`;
+  const gridConfig = `${columnsGridCount || `grid grid-cols-1  lg:grid-cols-${gridCols}`
+    }`;
 
   return (
     <section
       style={{ direction: dir }}
       className={`${bgColor} text-${textColor} py-8`}
-      id={"columnSection"}
+      id={anchor || "columnSection"}
     >
       <div className="container flex flex-col flex-wrap justify-center items-center md:justify-around">
         {title && (
@@ -67,13 +67,12 @@ const ColumnsSection = (props: ColumnSectionT) => {
         )}
         {items && items.length > 0 && (
           <div
-            className={`grid grid-cols-1 ${
-              items && items?.length < 3
+            className={`grid grid-cols-1 ${items && items?.length < 3
                 ? items?.length > 1
                   ? "lg:grid-cols-2"
                   : ""
                 : "lg:grid-cols-" + gridCols
-            }  ${"gap-" + gap} mt-10  lg:justify-around `}
+              }  ${"gap-" + gap} mt-10  lg:justify-around `}
           >
             {items &&
               items.map((item, index) => {
