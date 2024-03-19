@@ -330,6 +330,11 @@ const redirectsPaths = [
     permanent: true,
     },
     {
+    source: `/ar/conductor/conductor-en-buenos-aires/`,
+    destination: `/ar/conductor/ciudades/buenos-aires/`,
+    permanent: true,
+    },
+    {
     source: `/cl/driver/`,
     destination: `/cl/conductor/`,
     permanent: true,
