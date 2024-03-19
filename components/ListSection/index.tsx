@@ -11,10 +11,8 @@ const ListSection = ({
   textColor,
 }: ListSectionT) => {
   return (
-    <section
-      className={` text-${textColor} ${bgColor} py-8 px-4 text-left w-full `}
-    >
-      <div className="container mx-auto">
+    <section className={` text-${textColor} ${bgColor} text-left w-full `}>
+      <div className="container py-8">
         {title && <h2 className="text-3xl ">{textBreak(title, textColor)}</h2>}
         {desc && <p>{textBreak(desc, textColor)}</p>}
         <ul

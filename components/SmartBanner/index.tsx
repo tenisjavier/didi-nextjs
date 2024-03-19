@@ -8,17 +8,18 @@ import textBreak from "@/utils/textBreak";
 
 interface SmartBannerProps extends BtnProps {
   type:
-  | "both"
-  | "drv"
-  | "drvWhatsapp"
-  | "pax"
-  | "fleet"
-  | "payment"
-  | "foodBusiness"
-  | "foodDelivery"
-  | "foodEater"
-  | "card"
-  | "en";
+    | "both"
+    | "drv"
+    | "moto"
+    | "pax"
+    | "fleet"
+    | "pay"
+    | "foodBusiness"
+    | "foodDelivery"
+    | "foodEater"
+    | "card"
+    | "prestamos"
+    | "en";
   title?: string;
   desc?: string;
   countryCode: CountryCode;
@@ -42,23 +43,25 @@ const SmartBanner = (props: SmartBannerProps) => {
   const btnData = getBtnLinks(countryCode);
   let Logo;
 
-  if (type === "drv" || type === "drvWhatsapp") {
+  if (type === "drv" || type === "moto") {
     Logo = <DrvLogo></DrvLogo>;
   } else if (type === "pax") {
     Logo = <PaxLogo></PaxLogo>;
   } else if (type === "fleet" && btnData.fleetText) {
     Logo = <DiDiFleet></DiDiFleet>;
-  } else if (type === "payment" && btnData.payText) {
+  } else if (type === "pay" && btnData.payText) {
     Logo = <DiDiPay></DiDiPay>;
   } else if (type === "foodEater") {
     Logo = <FoodEaterLogo></FoodEaterLogo>;
   } else if (type === "foodBusiness") {
     Logo = <FoodEaterLogo></FoodEaterLogo>;
   } else if (type === "foodDelivery") {
-    Logo = <FoodEaterLogo></FoodEaterLogo>;
+    Logo = <CourierLogo></CourierLogo>;
   } else if (type === "en") {
     Logo = <PaxLogo></PaxLogo>;
   } else if (type === "card") {
+    Logo = <PaxLogo></PaxLogo>;
+  } else if (type === "prestamos") {
     Logo = <PaxLogo></PaxLogo>;
   }
 
@@ -77,8 +80,9 @@ const SmartBanner = (props: SmartBannerProps) => {
 
   return (
     <div
-      className={`opacity-0 fixed bottom-0 z-50 h-auto w-full lg:hidden ${bgColor && bgColor
-        } ${textColor && textColor}`}
+      className={`opacity-0 fixed bottom-0 z-50 h-auto w-full lg:hidden ${
+        bgColor && bgColor
+      } ${textColor && textColor}`}
       data-id="sb"
     >
       <div className="flex h-full items-center justify-between p-2">
@@ -87,9 +91,7 @@ const SmartBanner = (props: SmartBannerProps) => {
           {title && (
             <p className="font-bold leading-3">{textBreak(title, textColor)}</p>
           )}
-          {desc && (
-            <p className="leading-4">{textBreak(desc, textColor)}</p>
-          )}
+          {desc && <p className="leading-4">{textBreak(desc, textColor)}</p>}
         </span>
         <Btn
           btnText={btnText?.replace(/ .*/, "")}
@@ -132,7 +134,7 @@ const DiDiFleet = () => {
   return (
     <div className="p-3">
       <Image
-        src="../images/didi-fleet-logo.png"
+        src="/images/logos/didi-fleet-logo.png"
         alt="didi fleet logo"
         className=""
         width={50}
@@ -146,7 +148,7 @@ const DiDiPay = () => {
   return (
     <div className="p-3">
       <Image
-        src="../images/drv-logo.png"
+        src="/images/logos/drv-logo.png"
         alt="didi pay logo"
         className=""
         width={50}
@@ -160,7 +162,7 @@ const FoodEaterLogo = () => {
   return (
     <div className="p-3">
       <Image
-        src="../images/didi-food-eater-logo.png"
+        src="/images/logos/didi-food-logo.png"
         alt="didi eater logo"
         className=""
         width={50}
@@ -178,12 +180,18 @@ const FoodEaterLogo = () => {
   );
 };*/
 
-/*const FoodDeliveryLogo = () => {
+const CourierLogo = () => {
   return (
     <div className="p-3">
-      <Image src="../images/didi-food-delivery-logo.png" alt="didi delivery logo" className="" width={50} />
+      <Image
+        src="/images/logos/courier-logo.png"
+        alt="didi repartidor logo"
+        className=""
+        width={50}
+        height={50}
+      />
     </div>
   );
-};*/
+};
 
 export default SmartBanner;

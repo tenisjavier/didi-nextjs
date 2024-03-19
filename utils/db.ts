@@ -9,6 +9,7 @@ import {
   PartnerT,
   RequirementT,
   LegalT,
+  FAQType,
 } from "@/typings";
 import { ImageType } from "@/typings";
 import { PageComponent } from "@/typings";
@@ -149,6 +150,48 @@ const fetchProductsByIds = async (productsId: string[]): Promise<any> => {
 
   const variables = {
     ids: productsId,
+  };
+
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    method: "POST",
+    headers: headers,
+    body: JSON.stringify({ query, variables }),
+  });
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch Products");
+  }
+  const products = await res.json();
+  return products.data.productCollection.items;
+};
+
+//? returns a array of products
+//* params: products to fetch the products
+const fetchProducts = async (
+  countryCode: CountryCode,
+  params?: {
+    categories?: string[];
+    name?: string;
+  }
+): Promise<any> => {
+  const query = `query ($categories: [String], $name: String){
+    productCollection(where: {category_contains_all: $categories, country: {code: "${countryCode}"}, name: $name }) {
+      items {
+        name
+        description
+        faqCollection{
+          items{
+            title
+            slug
+          }
+        }
+      }
+    }
+  }`;
+
+  const variables = {
+    categories: params?.categories,
+    name: params?.name,
   };
 
   const res = await fetch(`${apiUrl}?query=${query}`, {
@@ -693,7 +736,6 @@ const fetchCarouselById = async (id: string): Promise<CarouselT> => {
   });
 
   if (!res.ok) {
-    console.log("Status: ", res.status);
     // This will activate the closest `error.js` Error Boundary
     throw new Error("Failed to fetch carousel");
   }
@@ -949,7 +991,6 @@ const fetchAccordionSectionById = async (
   }
 
   if (accordionSection?.accordionType === "faqs") {
-    console.log(accordionSection.faqType);
     const faqs = await fetchFAQS(accordionSection?.country?.code, {
       types: accordionSection?.faqType || [],
       relatedCity: params?.faqRelatedCity,
@@ -1623,7 +1664,7 @@ const fetchFAQBySlug = async (
 const fetchFAQS = async (
   countryCode: CountryCode,
   params?: {
-    types?: string[];
+    types?: FAQType;
     relatedCity?: string;
   }
 ): Promise<FAQT[]> => {
@@ -2108,4 +2149,5 @@ export {
   fetchLegals,
   fetchProductsByIds,
   fetchRequirementsByCitySlug,
+  fetchProducts,
 };

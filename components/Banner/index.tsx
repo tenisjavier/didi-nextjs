@@ -21,12 +21,12 @@ const Banner = ({
 }: BannerT) => {
   return (
     <section
-      className={` py-8 px-4 ${bgColor && bgColor} text-${textColor} ${
+      className={`${bgColor && bgColor} text-${textColor} ${
         borderColor ? `border border-solid border-${borderColor}` : ""
       }`}
     >
       <div
-        className={`container mx-auto w-full ${
+        className={`container py-8 mx-auto w-full ${
           bgColor && bgColor
         } text-${textColor} flex  ${
           imageBottom ? "flex-col" : ""
