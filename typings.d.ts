@@ -149,7 +149,6 @@ const CardSchema = z.object({
   type: z.enum(["default", "press", "review", "creditCard"]),
   title: z.union([z.string(), React.ReactNode]),
   desc: z.string().nullish(),
-  subDesc: z.string().optional(),
   textColor: z.string(),
   bgColor: z.string(),
   image: z.union([ImageSchema.nullish(), React.ReactNode]),

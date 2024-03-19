@@ -22,7 +22,6 @@ export async function generateMetadata({ params: { slug } }: LegalProps) {
 
 async function generateLegalStaticParams(countryCode: CountryCode) {
   const legals = (await fetchLegals(countryCode)).items;
-  console.log(legals);
   const legalSlugs = legals.map((legal: any) => {
     slug: legal.slug;
   });

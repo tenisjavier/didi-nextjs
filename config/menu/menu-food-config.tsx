@@ -115,7 +115,7 @@ const menuLinksFood: AllMenuInterface = {
         },
         {
           text: "Guías",
-          url: "/cr/food/restaurantes/",
+          url: "/cr/food/restaurantes/guias/",
         },
         {
           text: "Restaurantes FAQ",

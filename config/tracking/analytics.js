@@ -32,9 +32,7 @@ export default function insertBtnParams() {
       !document.location.pathname.includes("store")
     ) {
       //this function return if it is SEO, direct or referral
-      console.log(referrer);
       var referringInfo = parseGaReferrer(referrer);
-      console.log(referringInfo);
       // organic source and medium
 
       search =
@@ -44,7 +42,6 @@ export default function insertBtnParams() {
         referringInfo.medium +
         "&utm_campaign=" +
         referringInfo.campaign;
-      console.log(referringInfo);
       localStorage.setItem("urlSearch", search);
     } else {
       search = localStorage.getItem("urlSearch") || "";
@@ -111,7 +108,6 @@ export default function insertBtnParams() {
   }
 
   function parseGaReferrer(referrer) {
-    console.log(referrer);
     var values = {};
     //? is referrer empty? then direct
     if (!referrer) {
