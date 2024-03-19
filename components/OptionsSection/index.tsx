@@ -19,7 +19,7 @@ const OptionsSection = ({
 }: OptionsSectionT) => {
   return (
     <section className={`${bgColor && bgColor} ${textColor && textColor}`}>
-      <div className="container flex justify-center flex-col">
+      <div className="container py-12 flex justify-center flex-col">
         {title && <h2 className="text-4xl">{textBreak(title, textColor)}</h2>}
         {desc && <p className="text-center">{textBreak(desc, textColor)}</p>}
         {optionsTitle && (

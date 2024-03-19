@@ -162,7 +162,7 @@ const FoodEaterLogo = () => {
   return (
     <div className="p-3">
       <Image
-        src="/images/logos/didi-food-logo.png"
+        src="/images/logos/didi-food-eater-logo.png"
         alt="didi eater logo"
         className=""
         width={50}
