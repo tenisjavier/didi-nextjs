@@ -360,6 +360,26 @@ const redirectsPaths = [
     permanent: true,
   },
   {
+    source: `/ar/conductor/didi-moto-argentina/`,
+    destination: `/ar/conductor/moto/`,
+    permanent: true,
+  },
+  {
+    source: `/ar/conductor/didi-taxi-argentina/`,
+    destination: `/ar/taxi/`,
+    permanent: true,
+  },
+  {
+    source: `/ar/ciudades/`,
+    destination: `/ar/conductor/ciudades/`,
+    permanent: true,
+  },
+  {
+    source: `/ar/conductor/conductor-en-buenos-aires/`,
+    destination: `/ar/conductor/ciudades/buenos-aires/`,
+    permanent: true,
+  },
+  {
     source: `/cl/driver/`,
     destination: `/cl/conductor/`,
     permanent: true,
