@@ -53,12 +53,12 @@ const Footer = async ({
 
   const footerCard = {
     card: getFooterTarjetaDeCreditoLinks(countryCode),
-    prestamos: getFooterPrestamosLinks(countryCode)
+    loan: getFooterPrestamosLinks(countryCode)
   }
 
   return (
     <>
-      {businessType === 'card' || businessType === 'prestamos' ? (
+      {businessType === 'card' || businessType === 'loan' ? (
         <FooterCard {...footerCard[businessType]} />
       ) : (
         <footer className="pb-36 lg:pb-0 bg-gray-primary">

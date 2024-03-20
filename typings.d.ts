@@ -26,7 +26,6 @@ const BusinessSchema = z.enum([
   "card",
   "loan",
   "drive",
-  "prestamos",
 ]);
 
 const ItemTypeSchema = z.enum(["Partner", "Guide", "Article", "Requirement"]);

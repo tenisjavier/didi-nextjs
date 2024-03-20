@@ -21,7 +21,7 @@ export default async function MXLayout({
         textColor="gray-primary"
         bgColor="bg-white"
       ></SmartBanner>
-      <Footer countryCode="mx" businessType="prestamos" languageCode="es"></Footer>
+      <Footer countryCode="mx" businessType="loan" languageCode="es"></Footer>
     </>
   );
 }
