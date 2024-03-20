@@ -1,7 +1,6 @@
 import Header from "@/components/Header/index";
 import Footer from "@/components/Footer/index";
 import SmartBanner from "@/components/SmartBanner";
-import DiDiPrestamosFooter from "@/components/Footer/DiDiPrestamosFooter";
 export default async function MXLayout({
   children,
 }: {
@@ -22,8 +21,7 @@ export default async function MXLayout({
         textColor="gray-primary"
         bgColor="bg-white"
       ></SmartBanner>
-      {/* <Footer countryCode="mx" businessType="pay" languageCode="es"></Footer> */}
-      <DiDiPrestamosFooter></DiDiPrestamosFooter>
+      <Footer countryCode="mx" businessType="prestamos" languageCode="es"></Footer>
     </>
   );
 }

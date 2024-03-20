@@ -1,9 +1,7 @@
 import React from "react";
 import { FaFacebook, FaInstagram, FaTiktok, FaTwitter } from "react-icons/fa";
 import { FiArrowUpRight } from "react-icons/fi";
-// import textHighlighter from "@/util/textHighlighter";
 import Link from "next/link";
-import Image from "next/image";
 import textHighlighter from "@/utils/textHighlighter";
 
 export type iconsType = "facebook" | "instagram" | "tiktok" | "twitter";

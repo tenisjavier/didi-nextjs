@@ -1,6 +1,5 @@
 import React from "react";
-import FooterItem, { iconsType } from "../FooterItem";
-
+import FooterItem, { iconsType } from "./FooterItem";
 
 type FooterColumnItemType = {
   text?: string;
@@ -8,7 +7,7 @@ type FooterColumnItemType = {
   icon?: iconsType;
 }
 
-interface FooterColumnProps {
+export interface FooterColumnProps {
   items?: FooterColumnItemType[];
   title?: string;
   isColumn?: boolean;

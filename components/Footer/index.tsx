@@ -4,7 +4,9 @@ import Link from "next/link";
 import Image from "next/image";
 import FooterLink from "@/components/Footer/FooterLink";
 import { CountryCode, LanguageCode, BusinessType, Country } from "@/typings";
-import DiDiCreditFooter from "./DiDiCreditFooter";
+import { getFooterTarjetaDeCreditoLinks } from "@/config/footer/footer-tarjeta-de-credito-config";
+import { getFooterPrestamosLinks } from "@/config/footer/footer-prestamos-config";
+import FooterCard from "./FooterCard";
 
 interface FooterProps {
   countryCode: CountryCode;
@@ -48,10 +50,16 @@ const Footer = async ({
     );
   }
 
+
+  const footerCard = {
+    card: getFooterTarjetaDeCreditoLinks(countryCode),
+    prestamos: getFooterPrestamosLinks(countryCode)
+  }
+
   return (
     <>
-      {businessType === 'card' ? (
-        <DiDiCreditFooter />
+      {businessType === 'card' || businessType === 'prestamos' ? (
+        <FooterCard {...footerCard[businessType]} />
       ) : (
         <footer className="pb-36 lg:pb-0 bg-gray-primary">
           <div className="border-buffer h-32 border-x-0 border-b-2 border-t-0 border-solid border-white text-white ">

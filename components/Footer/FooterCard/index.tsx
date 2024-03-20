@@ -1,14 +1,15 @@
 import React from "react";
-import FooterColumn from "./FooterColumn";
-import { getFooterTarjetaDeCreditoLinks } from "@/config/footer/footer-tarjeta-de-credito-config";
+import FooterColumn, { FooterColumnProps } from "./FooterColumn";
 import Image from "next/image";
 
-interface DiDiCreditFooterProps { }
+interface FooterCardProps {
+  contactanos: FooterColumnProps
+  regulacion: FooterColumnProps
+  blog: FooterColumnProps
+  siguenos: FooterColumnProps
+}
 
-const DiDiCreditFooter: React.FC<DiDiCreditFooterProps> = ({ }) => {
-  const countryCode = "mx";
-  const { contactanos, regulacion, blog, siguenos } =
-    getFooterTarjetaDeCreditoLinks(countryCode);
+const FooterCard: React.FC<FooterCardProps> = ({ blog, contactanos, regulacion, siguenos }) => {
 
   return (
     <footer className="bg-gray-median text-white flex justify-center flex-col items-center">
@@ -56,4 +57,4 @@ const DiDiCreditFooter: React.FC<DiDiCreditFooterProps> = ({ }) => {
   );
 };
 
-export default DiDiCreditFooter;
+export default FooterCard;
