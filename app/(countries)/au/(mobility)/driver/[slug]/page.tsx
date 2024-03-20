@@ -1,23 +1,27 @@
 import React from "react";
 import RequirementPage, {
-  generateRequirementsMetadata,
+  generateRequirementMetadata,
+  generateRequirementStaticParams,
 } from "@/components/Sections/Requirement";
 
-interface RequirementsProps {
+interface RequirementProps {
   params: {
     slug: string;
   };
 }
 
-export async function generateMetadata({
-  params: { slug },
-}: RequirementsProps) {
-  const requirement = await generateRequirementsMetadata(slug, "au");
+export async function generateMetadata({ params: { slug } }: RequirementProps) {
+  const requirement = await generateRequirementMetadata(slug, "au");
   requirement.title = requirement.title + " | DiDi Australia";
   return requirement;
 }
 
-const Page = async ({ params: { slug } }: RequirementsProps) => {
+export async function generateStaticParams() {
+  const requirementsSlugs = await generateRequirementStaticParams("au");
+  return requirementsSlugs;
+}
+
+const Page = async ({ params: { slug } }: RequirementProps) => {
   return (
     <RequirementPage
       params={{

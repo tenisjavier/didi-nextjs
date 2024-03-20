@@ -292,7 +292,12 @@ const fetchRequirementBySlug = async (countryCode: CountryCode, slug: string): P
 
   const requirements = await res.json();
 
-  return requirements.data.requirementCollection;
+  const requirement = (
+    requirements.data.requirementCollection.items?.[0] ? 
+    requirements.data.requirementCollection.items?.[0] : 
+    notFound());
+
+  return requirement;
 
 }
 

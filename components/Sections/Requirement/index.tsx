@@ -15,26 +15,36 @@ interface RequirementProps {
   };
 }
 
-// or Dynamic metadata
-export async function generateRequirementsMetadata(
+export async function generateRequirementMetadata(
   slug: string,
   countryCode: CountryCode
 ) {
-  const requirement = (await fetchRequirementBySlug(countryCode, slug))
-    .items?.[0];
+  const requirement = await fetchRequirementBySlug(countryCode, slug);
 
   return {
     title: requirement.name,
+    description:
+      requirement.requirement.json.content[0].content[0]?.value?.slice(0, 150),
   };
+}
+
+export async function generateRequirementStaticParams(
+  countryCode: CountryCode
+) {
+  const requirements = (await fetchRequirements(countryCode))?.items;
+  const requirementsSlugs = requirements?.map(
+    (requirement: { slug: string }) => {
+      slug: requirement.slug;
+    }
+  );
+
+  return requirementsSlugs;
 }
 
 const Page = async ({
   params: { slug, countryCode, pathname },
 }: RequirementProps) => {
-  const requirementContent = await fetchRequirementBySlug(countryCode, slug);
-
-  const requirement = requirementContent?.items?.[0];
-
+  const requirement = await fetchRequirementBySlug(countryCode, slug);
   const components = await fetchPageComponents(pathname);
 
   return (
@@ -44,7 +54,6 @@ const Page = async ({
         textParams={{
           ctaSectionParams: {
             title: `Driver Requirements for ${requirement.name}`,
-            bgImage: requirement.image,
           },
           richTextParams: requirement.requirement,
         }}
