@@ -153,6 +153,7 @@ const CardSchema = z.object({
   textColor: z.string(),
   bgColor: z.string(),
   image: z.union([ImageSchema.nullish(), React.ReactNode]),
+  imageRound: z.string().nullish(),
   video: z.string().nullish(),
   btnType: BtnType.nullish(),
   btnMode: BtnMode.nullish(),

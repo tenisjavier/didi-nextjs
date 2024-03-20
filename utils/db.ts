@@ -1209,6 +1209,7 @@ const fetchColumnSectionById = async (
             description
             url
           }
+          imageRound
           isImageIcon
           video
           btnType
