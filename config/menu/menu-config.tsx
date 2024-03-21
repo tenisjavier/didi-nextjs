@@ -192,7 +192,7 @@ const menuLinks: Menu = {
         },
         {
           text: "Regístrate Online",
-          url: "https://ssa-rides-driver.onelink.me/mbwy/cldriverhero",
+          url: "https://page.didiglobal.com/global/silver-bullet-online/didi-dvr-cl",
         },
         {
           text: "Requisitos Para Conducir",
@@ -297,7 +297,7 @@ const menuLinks: Menu = {
         },
         {
           text: "Regístrate Online",
-          url: "https://ssa-rides-driver.onelink.me/mbwy/mxdriverhero",
+          url: "https://page.didiglobal.com/global/silver-bullet-online/didi-dvr-mx",
         },
         {
           text: "Requisitos para Conductores",
@@ -456,7 +456,7 @@ const menuLinks: Menu = {
         },
         {
           text: "Regístrate Online",
-          url: "https://ssa-rides-driver.onelink.me/mbwy/ardriverhero",
+          url: "https://page.didiglobal.com/global/silver-bullet-online/didi-dvr-ar",
         },
         {
           text: "Requisitos Para Conducir",
@@ -571,7 +571,7 @@ const menuLinks: Menu = {
         },
         {
           text: "Regístrate Online",
-          url: "https://ssa-rides-driver.onelink.me/mbwy/ardriverhero",
+          url: "https://page.didiglobal.com/global/silver-bullet-online/didi-dvr-pe",
         },
         {
           text: "Requisitos Para Conducir",
@@ -680,7 +680,7 @@ const menuLinks: Menu = {
         },
         {
           text: "Regístrate Online",
-          url: "https://page.didiglobal.com/driver-page/register/index.html",
+          url: "https://page.didiglobal.com/global/silver-bullet-online/didi-dvr-co",
         },
         {
           text: "Requisitos Para Conducir",
@@ -972,7 +972,7 @@ const menuLinks: Menu = {
         },
         {
           text: "Regístrate Online",
-          url: "https://ssa-rides-driver.onelink.me/mbwy/padriverhero",
+          url: "https://page.didiglobal.com/global/silver-bullet-online/didi-dvr-pa",
         },
         {
           text: "Ciudades Operativas",
@@ -1027,7 +1027,7 @@ const menuLinks: Menu = {
         },
         {
           text: "Regístrate Online",
-          url: "https://ssa-rides-driver.onelink.me/mbwy/crdriverhero",
+          url: "https://page.didiglobal.com/global/silver-bullet-online/didi-dvr-cr",
         },
         {
           text: "Requisitos Para Conducir",
@@ -1135,7 +1135,7 @@ const menuLinks: Menu = {
         },
         {
           text: "Regístrate Online",
-          url: "https://ssa-rides-driver.onelink.me/mbwy/dodriverhero",
+          url: "https://page.didiglobal.com/global/silver-bullet-online/didi-dvr-do",
         },
         {
           text: "Requisitos Para Conducir",
@@ -1201,7 +1201,7 @@ const menuLinks: Menu = {
         },
         {
           text: "Regístrate Online",
-          url: "https://ssa-rides-driver.onelink.me/mbwy/dodriverhero",
+          url: "https://page.didiglobal.com/global/silver-bullet-online/didi-dvr-ec",
         },
         {
           text: "Requisitos Para Conducir",
