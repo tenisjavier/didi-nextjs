@@ -192,7 +192,7 @@ const menuLinks: Menu = {
         },
         {
           text: "Regístrate Online",
-          url: "https://page.didiglobal.com/global/silver-bullet-online/didi-dvr-cl",
+          url: "https://page.didiglobal.com/global/silver-bullet-online/didi-dvr-cl?location_country=CL&country=CL&lang=es-CL&channel=14&pid=website_direct&af_adset_id=null&af_ad_id=null&af_c_id=null&af_channel=null&c=refpage_%2Fcl%2Fconductor%2F&campaign=refpage_%2Fcl%2Fconductor%2F&utm_medium=%28none%29&utm_source=%28direct%29&utm_campaign=refpage_%2Fcl%2Fconductor%2F&utm_term=null&source=null&campaign_id=refpage_%2Fcl%2Fconductor%2F&ad_group_id=202403-courier-original&creative_id=null&target_id=null&keyword=null&matchtype=null&devicemodel=null&adposition=null&placement=null&rsc_source=null&rsc_media=null&rsc_channel=null&rsc_product=null&clientType=14&from_end=h5&af_web_dp=https%3A%2F%2Fweb.didiglobal.com%2Fcl%2Fstore",
         },
         {
           text: "Requisitos Para Conducir",
@@ -297,7 +297,7 @@ const menuLinks: Menu = {
         },
         {
           text: "Regístrate Online",
-          url: "https://page.didiglobal.com/global/silver-bullet-online/didi-dvr-mx",
+          url: "https://page.didiglobal.com/global/silver-bullet-online/didi-dvr-mx?location_country=MX&country=MX&lang=es-MX&channel=14&pid=website_direct&af_adset_id=null&af_ad_id=null&af_c_id=null&af_channel=null&c=refpage_%2Fmx%2F&campaign=refpage_%2Fmx%2F&utm_medium=%28none%29&utm_source=%28direct%29&utm_campaign=refpage_%2Fmx%2F&utm_term=null&source=null&campaign_id=refpage_%2Fmx%2F&ad_group_id=202403-courier-original&creative_id=null&target_id=null&keyword=null&matchtype=null&devicemodel=null&adposition=null&placement=null&rsc_source=null&rsc_media=null&rsc_channel=null&rsc_product=null&clientType=14&from_end=h5&af_web_dp=https%3A%2F%2Fweb.didiglobal.com%2Fmx%2Fstore",
         },
         {
           text: "Requisitos para Conductores",
@@ -456,7 +456,7 @@ const menuLinks: Menu = {
         },
         {
           text: "Regístrate Online",
-          url: "https://page.didiglobal.com/global/silver-bullet-online/didi-dvr-ar",
+          url: "https://page.didiglobal.com/global/silver-bullet-online/didi-dvr-ar?location_country=AR&country=AR&lang=es-AR&channel=14&pid=website_direct&af_adset_id=null&af_ad_id=null&af_c_id=null&af_channel=null&c=refpage_%2Far%2Fconductor%2F&campaign=refpage_%2Far%2Fconductor%2F&utm_medium=%28none%29&utm_source=%28direct%29&utm_campaign=refpage_%2Far%2Fconductor%2F&utm_term=null&source=null&campaign_id=refpage_%2Far%2Fconductor%2F&ad_group_id=202403-courier-original&creative_id=null&target_id=null&keyword=null&matchtype=null&devicemodel=null&adposition=null&placement=null&rsc_source=null&rsc_media=null&rsc_channel=null&rsc_product=null&clientType=14&from_end=h5&af_web_dp=https%3A%2F%2Fweb.didiglobal.com%2Far%2Fstore",
         },
         {
           text: "Requisitos Para Conducir",
@@ -571,7 +571,7 @@ const menuLinks: Menu = {
         },
         {
           text: "Regístrate Online",
-          url: "https://page.didiglobal.com/global/silver-bullet-online/didi-dvr-pe",
+          url: "https://page.didiglobal.com/driver-page/register/index.html?lang=es-PE&country=PE&af_c_id=null&rsc_media=null&campaign_id=refpage_/pe/conductor/&clientType=14&af_adset_id=null&placement=null&rsc_channel=null&location_country=PE&pid=website_direct&devicemodel=null&target_id=null&campaign=refpage_/pe/conductor/&keyword=null&matchtype=null&ad_group_id=202403-courier-original&utm_source=(direct)&utm_medium=(none)&source=null&creative_id=null&utm_campaign=refpage_/pe/conductor/&af_channel=null&channel=14&from_end=h5&rsc_product=null&adposition=null&rsc_source=null&utm_term=null&af_ad_id=null&c=refpage_/pe/conductor/#/loginMxComp",
         },
         {
           text: "Requisitos Para Conducir",
@@ -680,7 +680,7 @@ const menuLinks: Menu = {
         },
         {
           text: "Regístrate Online",
-          url: "https://page.didiglobal.com/global/silver-bullet-online/didi-dvr-co",
+          url: "https://page.didiglobal.com/global/silver-bullet-online/didi-dvr-co?location_country=CO&country=CO&lang=es-CO&channel=14&pid=website_direct&af_adset_id=null&af_ad_id=null&af_c_id=null&af_channel=null&c=refpage_%2Fco%2Fconductor%2F&campaign=refpage_%2Fco%2Fconductor%2F&utm_medium=%28none%29&utm_source=%28direct%29&utm_campaign=refpage_%2Fco%2Fconductor%2F&utm_term=null&source=null&campaign_id=refpage_%2Fco%2Fconductor%2F&ad_group_id=202403-courier-original&creative_id=null&target_id=null&keyword=null&matchtype=null&devicemodel=null&adposition=null&placement=null&rsc_source=null&rsc_media=null&rsc_channel=null&rsc_product=null&clientType=14&from_end=h5&af_web_dp=https%3A%2F%2Fweb.didiglobal.com%2Fco%2Fstore",
         },
         {
           text: "Requisitos Para Conducir",
@@ -972,7 +972,7 @@ const menuLinks: Menu = {
         },
         {
           text: "Regístrate Online",
-          url: "https://page.didiglobal.com/global/silver-bullet-online/didi-dvr-pa",
+          url: "https://page.didiglobal.com/global/silver-bullet-online/didi-dvr-pa?location_country=PA&country=PA&lang=es-PA&channel=14&pid=website_direct&af_adset_id=null&af_ad_id=null&af_c_id=null&af_channel=null&c=refpage_%2Fpa%2Fconductor%2F&campaign=refpage_%2Fpa%2Fconductor%2F&utm_medium=%28none%29&utm_source=%28direct%29&utm_campaign=refpage_%2Fpa%2Fconductor%2F&utm_term=null&source=null&campaign_id=refpage_%2Fpa%2Fconductor%2F&ad_group_id=202403-courier-original&creative_id=null&target_id=null&keyword=null&matchtype=null&devicemodel=null&adposition=null&placement=null&rsc_source=null&rsc_media=null&rsc_channel=null&rsc_product=null&clientType=14&from_end=h5&af_web_dp=https%3A%2F%2Fweb.didiglobal.com%2Fpa%2Fstore",
         },
         {
           text: "Ciudades Operativas",
@@ -1027,7 +1027,7 @@ const menuLinks: Menu = {
         },
         {
           text: "Regístrate Online",
-          url: "https://page.didiglobal.com/global/silver-bullet-online/didi-dvr-cr",
+          url: "https://page.didiglobal.com/driver-page/register/index.html?lang=es-CR&country=CR&af_c_id=null&rsc_media=null&campaign_id=refpage_/cr/conductor/&clientType=14&af_adset_id=null&placement=null&rsc_channel=null&location_country=CR&pid=website_direct&devicemodel=null&target_id=null&campaign=refpage_/cr/conductor/&keyword=null&matchtype=null&ad_group_id=202403-courier-original&utm_source=(direct)&utm_medium=(none)&source=null&creative_id=null&utm_campaign=refpage_/cr/conductor/&af_channel=null&channel=14&from_end=h5&rsc_product=null&adposition=null&rsc_source=null&utm_term=null&af_ad_id=null&c=refpage_/cr/conductor/#/loginMxComp",
         },
         {
           text: "Requisitos Para Conducir",
@@ -1135,7 +1135,7 @@ const menuLinks: Menu = {
         },
         {
           text: "Regístrate Online",
-          url: "https://page.didiglobal.com/global/silver-bullet-online/didi-dvr-do",
+          url: "https://page.didiglobal.com/global/silver-bullet-online/didi-dvr-do?location_country=DO&country=DO&lang=es-DO&channel=14&pid=website_direct&af_adset_id=null&af_ad_id=null&af_c_id=null&af_channel=null&c=refpage_%2Fdo%2Fconductor%2F&campaign=refpage_%2Fdo%2Fconductor%2F&utm_medium=%28none%29&utm_source=%28direct%29&utm_campaign=refpage_%2Fdo%2Fconductor%2F&utm_term=null&source=null&campaign_id=refpage_%2Fdo%2Fconductor%2F&ad_group_id=202403-courier-original&creative_id=null&target_id=null&keyword=null&matchtype=null&devicemodel=null&adposition=null&placement=null&rsc_source=null&rsc_media=null&rsc_channel=null&rsc_product=null&clientType=14&from_end=h5&af_web_dp=https%3A%2F%2Fweb.didiglobal.com%2Fdo%2Fstore",
         },
         {
           text: "Requisitos Para Conducir",
@@ -1201,7 +1201,7 @@ const menuLinks: Menu = {
         },
         {
           text: "Regístrate Online",
-          url: "https://page.didiglobal.com/global/silver-bullet-online/didi-dvr-ec",
+          url: "https://page.didiglobal.com/global/silver-bullet-online/didi-dvr-ec?location_country=EC&country=EC&lang=es-EC&channel=14&pid=website_direct&af_adset_id=null&af_ad_id=null&af_c_id=null&af_channel=null&c=refpage_%2Fec%2Fconductor%2F&campaign=refpage_%2Fec%2Fconductor%2F&utm_medium=%28none%29&utm_source=%28direct%29&utm_campaign=refpage_%2Fec%2Fconductor%2F&utm_term=null&source=null&campaign_id=refpage_%2Fec%2Fconductor%2F&ad_group_id=202403-courier-original&creative_id=null&target_id=null&keyword=null&matchtype=null&devicemodel=null&adposition=null&placement=null&rsc_source=null&rsc_media=null&rsc_channel=null&rsc_product=null&clientType=14&from_end=h5&af_web_dp=https%3A%2F%2Fweb.didiglobal.com%2Fec%2Fstore",
         },
         {
           text: "Requisitos Para Conducir",
