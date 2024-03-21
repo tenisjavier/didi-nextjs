@@ -6,8 +6,7 @@ import { fetchPageComponents } from "@/utils/db";
 //? builder will return the array of components fetch by db by pathname
 
 export const metadata: Metadata = {
-  title:
-    "Centro de Ayuda DiDi Conductor - App nº1 en movilidad del mundo | DiDi Argentina",
+  title: "Seguridad para Conductores | DiDi Argentina",
   description:
     "Conoce aquí las funcionalidades y medidas de seguridad que hemos tomado para que en tu próximo viajes lo disfrutes al máximo.",
   alternates: {
