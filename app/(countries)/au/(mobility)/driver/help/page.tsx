@@ -13,9 +13,9 @@ export const metadata: Metadata = {
   },
 };
 
-const Pasajero = async () => {
+const Page = async () => {
   const components = await fetchPageComponents("/au/driver/help/");
   return <BuilderComponent components={components}></BuilderComponent>;
 };
 
-export default Pasajero;
+export default Page;

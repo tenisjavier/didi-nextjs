@@ -12,7 +12,7 @@ interface GuiasProps {
 
 export async function generateMetadata({ params: { slug } }: GuiasProps) {
   const article = await generateGuideMetadata(slug, "cl");
-  article.title = article.title + " | DiDi Argentina";
+  article.title = article.title + " | DiDi Chile";
   return article;
 }
 
