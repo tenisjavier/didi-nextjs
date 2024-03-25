@@ -12,8 +12,16 @@ export type FooterLinks = {
   };
 };
 
+type FooterContent = {
+  footerLogo: {
+    src: string;
+    alt: string;
+  },
+  description: string;
+};
+
 interface AllFooterInterface {
-  [countryCode: string]: FooterLinks;
+  [countryCode: string]: FooterLinks & FooterContent;
 }
 
 const footerLinks: AllFooterInterface = {
@@ -21,30 +29,21 @@ const footerLinks: AllFooterInterface = {
     contactanos: {
       items: [
         {
-          text: "Llámanos al: 800 953 3300",
+          text: "Llámanos al: {800 953 3300}",
         },
         {
           text: "PROFECO",
-          link: "https://www.gob.mx/profeco",
+          link: "https://www.gob.mx/profeco"
         },
         {
           text: "Soporte DiDi",
           link: "/mx/tarjeta-de-credito/preguntas-frecuentes/",
         },
-        { text: "Escríbenos a: {tarjetacredito@mx.didiglobal.com}" },
-        { text: "Llámanos al: {800 953 3300}" },
-        { text: "UNE", link: "/mx/tarjeta-de-credito/une.pdf" },
       ],
       title: "Contáctanos",
     },
     regulacion: {
       items: [
-        {
-          text: "Buró de entidades financieras",
-          link: "/mx/legal/buro-de-entidades-financieras-didi-card",
-        },
-        { text: "CONDUSEF", link: "/mx/legal/condusef-didi-card/" },
-        { text: "CNBV", link: "https://www.gob.mx/cnbv" },
         {
           text: "Despachos de Cobranza",
           link: "/mx/legal/despachos-de-cobranza-didi-prestamos",
@@ -58,26 +57,27 @@ const footerLinks: AllFooterInterface = {
       title: "Regulación",
     },
     blog: {
-      items: [{ text: "Artículos", link: "/mx/tarjeta-de-credito/blog/" }],
-      title: "Blog",
+      items: [],
     },
     siguenos: {
-      items: [
-        { icon: "facebook", link: "https://www.facebook.com/didicardmx/" },
-        {
-          icon: "instagram",
-          link: "https://instagram.com/didicardmx?igshid=MzRlODBiNWFlZA==",
-        },
-        // { icon: "tiktok", link: "/" },
-        // { icon: "twitter", link: "/" },
-      ],
-      title: "Síguenos",
+      items: [],
     },
+    footerLogo: {
+      src: "/images/logos/prestamos-logo.png",
+      alt: "DiDi Prestamos Logo"
+    },
+    description: `DiDi Pay, S.A. de C.V. es una entidad supervisada por la Procuraduría Federal del Consumidor (PROFECO) y obligada a cumplir conforme a lo discpuesto en la Ley de Transparencia y Ordenamiento de los Servicios Financieros. \n
+
+    Cuide su capacidad de pago, generalmente sus pagos por créditos no debe de exceder en conjunto del 35% de sus ingresos periódicos, los costos por mora son muy elevados. \n
+    
+    Incumplir con sus obligaciones te puede generar comisiones e intereses moratorios \n
+    
+    ¹ CAT promedio informativo 315% sin IVA`,
   },
 };
 
-const getFooterPrestamosLinks = (countryCode: string): FooterLinks => {
+const getFooterPrestamosLinks = (countryCode: string): FooterLinks & FooterContent => {
   return footerLinks[countryCode];
 };
 
-export { getFooterPrestamosLinks };
+export { getFooterPrestamosLinks, type FooterContent };

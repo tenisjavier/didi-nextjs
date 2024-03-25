@@ -1,15 +1,18 @@
 import React from "react";
 import FooterColumn, { FooterColumnProps } from "./FooterColumn";
 import Image from "next/image";
+import { FooterContent } from "@/config/footer/footer-prestamos-config";
 
 interface FooterCardProps {
   contactanos: FooterColumnProps
   regulacion: FooterColumnProps
   blog: FooterColumnProps
   siguenos: FooterColumnProps
+  footerLogo: { src: string, alt: string }
+  description: string
 }
 
-const FooterCard: React.FC<FooterCardProps> = ({ blog, contactanos, regulacion, siguenos }) => {
+const FooterCard: React.FC<FooterCardProps> = ({ blog, contactanos, regulacion, siguenos, footerLogo, description }) => {
 
   return (
     <footer className="bg-gray-median text-white flex justify-center flex-col items-center">
@@ -29,20 +32,14 @@ const FooterCard: React.FC<FooterCardProps> = ({ blog, contactanos, regulacion, 
         <div className="flex lg:flex-row flex-col justify-between items-center lg:gap-24 w-full">
           <div>
             <Image
-              src="/images/logos/didi-logo-card-white.png"
-              alt="DiDi Credit"
+              src={footerLogo.src}
+              alt={footerLogo.alt}
               className="max-w-[168px] h-auto"
               width={168}
               height={168}
             />
             <p>
-              © 2020 Regigold, S.A. DE C.V., SOFOM, E.N.R. (DiDi Card) es una
-              entidad financiera registrada y supervisada por la Comisión
-              Nacional para la Protección y Defensa de los Usuarios de Servicios
-              Financieros y se encuentra sujeta a la supervisión de la Comisión
-              Nacional Bancaria y de Valores, únicamente para efectos de lo
-              dispuesto por el artículo 56 de la Ley General de Organizaciones y
-              Actividades Auxiliares del Crédito.
+              {description}
             </p>
           </div>
         </div>

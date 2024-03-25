@@ -12,8 +12,16 @@ export type FooterLinks = {
   };
 };
 
+type FooterContent = {
+  footerLogo: {
+    src: string;
+    alt: string;
+  },
+  description: string;
+};
+
 interface AllFooterInterface {
-  [countryCode: string]: FooterLinks;
+  [countryCode: string]: FooterLinks & FooterContent;
 }
 
 const footerLinks: AllFooterInterface = {
@@ -60,10 +68,21 @@ const footerLinks: AllFooterInterface = {
       ],
       title: "Síguenos",
     },
+    footerLogo: {
+      src: "/images/logos/didi-logo-card-white.png",
+      alt: "DiDi Card Logo"
+    },
+    description: `© 2020 Regigold, S.A. DE C.V., SOFOM, E.N.R. (DiDi Card) es una
+    entidad financiera registrada y supervisada por la Comisión
+    Nacional para la Protección y Defensa de los Usuarios de Servicios
+    Financieros y se encuentra sujeta a la supervisión de la Comisión
+    Nacional Bancaria y de Valores, únicamente para efectos de lo
+    dispuesto por el artículo 56 de la Ley General de Organizaciones y
+    Actividades Auxiliares del Crédito.`,
   },
 };
 
-const getFooterTarjetaDeCreditoLinks = (countryCode: string): FooterLinks => {
+const getFooterTarjetaDeCreditoLinks = (countryCode: string): FooterLinks & FooterContent => {
   return footerLinks[countryCode];
 };
 
