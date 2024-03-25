@@ -42,7 +42,7 @@ const ColumnImageSection = (props: ColumnImageT) => {
             gridCols
               ? "grid-cols-1 lg:grid-cols-" + gridCols
               : "grid-cols-1 lg:grid-cols-3"
-          }    justify-center items-center `}
+          }    justify-center items-start `}
         >
           {columns.map((col, index) => {
             return (

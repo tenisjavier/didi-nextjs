@@ -152,6 +152,7 @@ const CardSchema = z.object({
   textColor: z.string(),
   bgColor: z.string(),
   image: z.union([ImageSchema.nullish(), React.ReactNode]),
+  imageRound: z.string().nullish(),
   video: z.string().nullish(),
   btnType: BtnType.nullish(),
   btnMode: BtnMode.nullish(),
@@ -287,6 +288,7 @@ const OptionsSectionSchema = z.object({
 const RequirementsSchema = z.object({
   name: z.string(),
   requirement: z.any(),
+  image: z.any(),
 });
 
 const CarouselSchema = z.object({

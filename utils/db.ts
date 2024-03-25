@@ -29,6 +29,7 @@ import {
   FAQT,
   ABtestT,
 } from "@/typings";
+import { notFound } from "next/navigation";
 
 //? Contentful API URL and Token from .env.local
 const apiUrl = `https://graphql.contentful.com/content/v1/spaces/${process.env.CONTENTFUL_SPACE_ID}/environments/master`;
@@ -120,15 +121,20 @@ const fetchCitieBySlug = async (
   }
   const cities = await res.json();
 
-  const citiesData = {
-    ...cities.data.cityCollection.items?.[0],
-    productsId:
-      cities.data.cityCollection.items?.[0].productCollection.items.map(
-        (item: any) => item.sys.id
-      ),
-  };
+  try {
+    const citiesData = {
+      ...cities.data.cityCollection.items?.[0],
+      productsId:
+        cities.data.cityCollection.items?.[0].productCollection?.items.map(
+          (item: any) => item.sys.id
+        ),
+    };
 
-  return citiesData;
+    return citiesData;
+    
+  } catch (e) {
+    notFound();
+  }
 };
 
 //? returns a array of products
@@ -206,6 +212,94 @@ const fetchProducts = async (
   const products = await res.json();
   return products.data.productCollection.items;
 };
+
+const fetchRequirements = async (countryCode: CountryCode) => {
+  const query = `
+    query {
+      requirementCollection(where: {country:{code: "${countryCode}"}})
+      {
+        total
+        limit
+        skip
+        items{
+          name
+          slug
+          country {
+            code
+          }
+        }
+      }
+    }
+  `;
+
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+  });
+  if (!res.ok) {
+    throw new Error("Failed to fetch Requirements");
+  }
+
+  const requirements = await res.json();
+  return requirements.data.requirementCollection;
+
+}
+
+const fetchRequirementBySlug = async (countryCode: CountryCode, slug: string): Promise<RequirementT> => {
+  const query = `query {
+    requirementCollection(where: {country:{code: "${countryCode}"}, slug: "${slug}"}, limit: 1){
+      total
+      limit
+      skip
+      items{
+        name
+        slug
+        country {
+          code
+          name
+        }
+        image {
+          title
+          description
+          url
+        }
+        requirement {
+          json
+          links {
+          assets {
+              block {
+                sys {
+                  id
+                }
+                title
+                description
+                url
+                width
+                height
+              }
+            }
+          }
+        }
+      }
+    }
+  }`
+
+  const res = await fetch(`${apiUrl}?query=${query}`, {
+    headers: headers,
+  });
+  if (!res.ok) {
+    throw new Error("Failed to fetch Requirement");
+  }
+
+  const requirements = await res.json();
+
+  const requirement = (
+    requirements.data.requirementCollection.items?.[0] ? 
+    requirements.data.requirementCollection.items?.[0] : 
+    notFound());
+
+  return requirement;
+
+}
 
 //? returns a array of requirements
 //* params: country code from the country to fetch the cities
@@ -1118,6 +1212,7 @@ const fetchColumnSectionById = async (
             description
             url
           }
+          imageRound
           isImageIcon
           video
           btnType
@@ -2307,6 +2402,8 @@ export {
   fetchFAQS,
   fetchLegals,
   fetchProductsByIds,
+  fetchRequirements,
+  fetchRequirementBySlug,
   fetchRequirementsByCitySlug,
   fetchProducts,
   fetchFeatures,

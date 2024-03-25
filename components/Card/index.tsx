@@ -14,6 +14,7 @@ const Card = (props: CardT) => {
     bgColor,
     textColor,
     image,
+    imageRound = "rounded-t",
     video,
     btnLink,
     btnMode,
@@ -56,7 +57,7 @@ const Card = (props: CardT) => {
                 className={`${
                   isImageIcon
                     ? "w-44  h-auto"
-                    : "h-64 object-cover w-full rounded-t"
+                    : `h-64 object-cover w-full ${imageRound || "rounded-t"} `
                 }`}
                 width={400}
                 height={400}
@@ -73,7 +74,9 @@ const Card = (props: CardT) => {
               className={`${
                 isImageIcon
                   ? "w-20  h-auto"
-                  : "max-h-64 object-contain h-full w-full rounded-t"
+                  : `max-h-64 object-contain h-full w-full ${
+                      imageRound || "rounded-t"
+                    } `
               }`}
               width={400}
               height={400}
