@@ -18,6 +18,7 @@ const ColumnsSection = (props: ColumnSectionT) => {
     gridCols,
     gap,
     pagination,
+    anchor
   } = props;
   let dir: any = "ltr";
 
@@ -34,10 +35,10 @@ const ColumnsSection = (props: ColumnSectionT) => {
   return (
     <section
       style={{ direction: dir }}
-      className={`${bgColor} text-${textColor} py-6 px-4`}
-      id={"columnSection"}
+      className={`${bgColor} text-${textColor} py-8`}
+      id={anchor || "columnSection"}
     >
-      <div className="container mx-auto flex flex-col flex-wrap justify-center items-center md:justify-around">
+      <div className="container flex flex-col flex-wrap justify-center items-center md:justify-around">
         {title && (
           <h2 className="text-left lg:text-center text-4xl">
             {textBreak(title, textColor)}
@@ -60,7 +61,7 @@ const ColumnsSection = (props: ColumnSectionT) => {
 
                 // const colSpan = lastColumns > 0 && lastItem ? `${lastColumns > 1 ? `col-start-${gridCols} col-end-${gridCols + 1}` : `col-start-${Math.ceil(gridCols / 2)}`}` : ``
 
-                return <Card {...col} key={index}></Card>
+                return <Card {...col} key={index}></Card>;
               })}
           </div>
         )}
@@ -75,7 +76,7 @@ const ColumnsSection = (props: ColumnSectionT) => {
           >
             {items &&
               items.map((item, index) => {
-                return <Card {...item} key={index}></Card>
+                return <Card {...item} key={index}></Card>;
               })}
           </div>
         )}

@@ -10,7 +10,7 @@ interface SmartBannerProps extends BtnProps {
   type:
     | "both"
     | "drv"
-    | "drvWhatsapp"
+    | "moto"
     | "pax"
     | "fleet"
     | "pay"
@@ -43,7 +43,7 @@ const SmartBanner = (props: SmartBannerProps) => {
   const btnData = getBtnLinks(countryCode);
   let Logo;
 
-  if (type === "drv" || type === "drvWhatsapp") {
+  if (type === "drv" || type === "moto") {
     Logo = <DrvLogo></DrvLogo>;
   } else if (type === "pax") {
     Logo = <PaxLogo></PaxLogo>;
@@ -162,7 +162,7 @@ const FoodEaterLogo = () => {
   return (
     <div className="p-3">
       <Image
-        src="/images/logos/didi-food-logo.png"
+        src="/images/logos/didi-food-eater-logo.png"
         alt="didi eater logo"
         className=""
         width={50}

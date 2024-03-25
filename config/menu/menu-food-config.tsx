@@ -60,7 +60,7 @@ const menuLinksFood: AllMenuInterface = {
         },
         {
           text: "Regístrate como Repartidor",
-          url: "https://global-food-courier.onelink.me/zzaY/delivery",
+          url: "https://page.didiglobal.com/global/silver-bullet-online/socio-repartidos-mx",
         },
         {
           text: "Repartidores FAQ",
@@ -115,7 +115,7 @@ const menuLinksFood: AllMenuInterface = {
         },
         {
           text: "Guías",
-          url: "/cr/food/restaurantes/",
+          url: "/cr/food/restaurantes/guias/",
         },
         {
           text: "Restaurantes FAQ",
@@ -142,7 +142,7 @@ const menuLinksFood: AllMenuInterface = {
         },
         {
           text: "Registrate como Repartidor",
-          url: "https://global-food-courier.onelink.me/zzaY/delivery",
+          url: "https://page.didiglobal.com/global/silver-bullet-online/socio-repartidos-cr",
         },
         {
           text: "Repartidores FAQ",
@@ -215,7 +215,7 @@ const menuLinksFood: AllMenuInterface = {
         },
         {
           text: "Registrate como Repartidor",
-          url: "https://global-food-courier.onelink.me/zzaY/delivery",
+          url: "https://page.didiglobal.com/global/silver-bullet-online/socio-repartidos-co",
         },
         {
           text: "Repartidores FAQ",
@@ -288,7 +288,7 @@ const menuLinksFood: AllMenuInterface = {
         },
         {
           text: "Regístrate como Repartidor",
-          url: "https://global-food-courier.onelink.me/zzaY/delivery",
+          url: "https://page.didiglobal.com/global/silver-bullet-online/socio-repartidos-pe",
         },
         {
           text: "Repartidores FAQ",

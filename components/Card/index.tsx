@@ -14,6 +14,7 @@ const Card = (props: CardT) => {
     bgColor,
     textColor,
     image,
+    imageRound = "rounded-t",
     video,
     btnLink,
     btnMode,
@@ -21,8 +22,6 @@ const Card = (props: CardT) => {
     btnType,
     RTL,
     titleStyles,
-    titlePosition = "afterImage",
-    descPosition = "beforeBtn",
     pathname,
     isImageIcon,
     type,
@@ -48,11 +47,6 @@ const Card = (props: CardT) => {
       style={{ direction: dir }}
       className={`${isCreditCard} flex flex-col items-center ${bgColor} text-${textColor} my-3 text-center lg:mx-4 rounded`}
     >
-      {titlePosition === "beforeImage" && title && (
-        <h4 className={`mb-4 text-xl font-bold lg:text-center ${titleStyles}`}>
-          {textBreak(title, textColor)}
-        </h4>
-      )}
       {pathname ? (
         <>
           <Link href={pathname}>
@@ -63,7 +57,7 @@ const Card = (props: CardT) => {
                 className={`${
                   isImageIcon
                     ? "w-44  h-auto"
-                    : "h-64 object-cover w-full rounded-t"
+                    : `h-64 object-cover w-full ${imageRound || "rounded-t"} `
                 }`}
                 width={400}
                 height={400}
@@ -80,7 +74,9 @@ const Card = (props: CardT) => {
               className={`${
                 isImageIcon
                   ? "w-20  h-auto"
-                  : "max-h-64 object-contain h-full w-full rounded-t"
+                  : `max-h-64 object-contain h-full w-full ${
+                      imageRound || "rounded-t"
+                    } `
               }`}
               width={400}
               height={400}
@@ -104,15 +100,24 @@ const Card = (props: CardT) => {
         className={`h-full flex flex-col items-center justify-between px-6 py-4 text-center`}
       >
         <div>
-          {titlePosition === "afterImage" && title && (
+          {title && !pathname && (
             <h4
               className={`mb-4 text-2xl font-semibold lg:text-center ${titleStyles}`}
             >
               {textBreak(title, textColor)}
             </h4>
           )}
-          {desc && descPosition === "beforeBtn" && (
-            <p className="text-lg">{textBreak(desc, textColor)}</p>
+          {title && pathname && (
+            <Link href={pathname}>
+              <h4
+                className={`mb-4 text-2xl font-semibold lg:text-center ${titleStyles}`}
+              >
+                {textBreak(title, textColor)}
+              </h4>
+            </Link>
+          )}
+          {desc && (
+            <p className="text-lg line-clamp-8">{textBreak(desc, textColor)}</p>
           )}
         </div>
         <div className="flex justify-center flex-col ">
@@ -123,9 +128,6 @@ const Card = (props: CardT) => {
             btnText={btnText}
           ></Btn>
         </div>
-        {desc && descPosition === "afterBtn" && (
-          <p className="text-sm">{textBreak(desc, textColor)}</p>
-        )}
       </div>
     </div>
   );

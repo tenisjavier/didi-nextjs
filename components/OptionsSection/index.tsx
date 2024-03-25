@@ -18,10 +18,8 @@ const OptionsSection = ({
   btnLink,
 }: OptionsSectionT) => {
   return (
-    <section
-      className={`py-8 px-4 ${bgColor && bgColor} ${textColor && textColor}`}
-    >
-      <div className="container mx-auto flex justify-center flex-col">
+    <section className={`${bgColor && bgColor} ${textColor && textColor}`}>
+      <div className="container py-12 flex justify-center flex-col">
         {title && <h2 className="text-4xl">{textBreak(title, textColor)}</h2>}
         {desc && <p className="text-center">{textBreak(desc, textColor)}</p>}
         {optionsTitle && (

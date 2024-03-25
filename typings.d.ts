@@ -51,6 +51,20 @@ const ProductCategorySchema = z.enum([
 
 const GuideCategotySchema = z.enum(["driver", "delivery", "restaurant"]);
 
+const faqTypes = z.array(
+  z.enum([
+    "drv",
+    "pax",
+    "prestamos",
+    "pay",
+    "delivery",
+    "card",
+    "airportDistance",
+    "airportPoints",
+    "city",
+  ])
+);
+
 const ImageSchema = z.object({
   title: z.string(),
   url: z.string(),
@@ -135,10 +149,10 @@ const CardSchema = z.object({
   type: z.enum(["default", "press", "review", "creditCard"]),
   title: z.union([z.string(), React.ReactNode]),
   desc: z.string().nullish(),
-  subDesc: z.string().optional(),
   textColor: z.string(),
   bgColor: z.string(),
   image: z.union([ImageSchema.nullish(), React.ReactNode]),
+  imageRound: z.string().nullish(),
   video: z.string().nullish(),
   btnType: BtnType.nullish(),
   btnMode: BtnMode.nullish(),
@@ -155,6 +169,7 @@ const ColumnSectionSchema = z.object({
   textColor: z.string(),
   bgColor: z.string(),
   sectionID: z.string().nullish(),
+  anchor: z.string().optional(),
   RTL: z.boolean().nullish(),
   hasTextHighlight: z.boolean().nullish(),
   gridCols: z.number(),
@@ -211,18 +226,18 @@ const AccordionSchema = z.object({
 
 const AccordionSectionSchema = z.object({
   items: z.array(AccordionSchema),
-  title: z.string(),
+  title: z.string().optional(),
   country: z.object(CountrySchema),
   desc: z.string().optional(),
-  textColor: z.string(),
+  textColor: z.string().optional(),
   bgColor: z.string(),
   textAccordionColor: z.string(),
   bgAccordionColor: z.string(),
   isClosed: z.boolean(),
-  RTL: z.boolean(),
+  RTL: z.boolean().optional(),
   isFaq: z.boolean(),
-  accordionType: z.string(),
-  faqType: z.array(z.string()),
+  accordionType: z.string().optional(),
+  faqType: faqTypes.optional(),
 });
 const BannerSchema = z.object({
   name: z.string(),
@@ -273,6 +288,7 @@ const OptionsSectionSchema = z.object({
 const RequirementsSchema = z.object({
   name: z.string(),
   requirement: z.any(),
+  image: z.any(),
 });
 
 const CarouselSchema = z.object({
@@ -317,7 +333,7 @@ const ListItemSchema = z.object({
 const FAQSchema = z.object({
   title: z.string(),
   slug: z.string(),
-  type: z.any(), //!FIX and rename category as other components
+  type: faqTypes,
   country: z.countryCodeSchema(),
   content: z.any(),
   isEducationalGuide: z.boolean(),
@@ -410,6 +426,7 @@ const FeaturesSchema = z.object({
   content: z.any(),
   category: z.enum(["driver", "pax", "food"]),
   type: z.enum(["before", "during", "after"]),
+  faqsId: z.array(z.string()).optional(),
   components: ComponentsJSONSchema,
   componentImages: z.array(ImageSchema),
 });
@@ -502,6 +519,7 @@ export type ItemType = z.infer<typeof ItemTypeSchema>;
 export type ArticleType = z.infer<typeof ArticleCategotySchema>;
 export type GuideType = z.infer<typeof GuideCategotySchema>;
 export type ImageType = z.infer<typeof ImageSchema>;
+export type FAQType = z.infer<typeof faqTypes>;
 export type City = z.infer<typeof CitySchema>;
 export type Country = z.infer<typeof CountrySchema>;
 export type CTASectionT = z.infer<typeof CTASectionSchema>;

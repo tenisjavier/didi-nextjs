@@ -18,6 +18,10 @@ const config: Config = {
     "bg-orange-500",
   ],
   theme: {
+    container: {
+      center: true,
+      padding: "2rem",
+    },
     fontFamily: {
       GorutsXbold: ["Goruts Xbold", "sans-serif"],
     },

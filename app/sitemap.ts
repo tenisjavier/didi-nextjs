@@ -1,10 +1,13 @@
-import { CountryCode, ProductCategoryT } from "@/typings";
+import { CountryCode, FAQType, ProductCategoryT } from "@/typings";
 import {
   fetchArticles,
   fetchCities,
+  fetchFAQS,
+  fetchFeatures,
   fetchGuides,
   fetchPages,
   fetchPartnersByCategory,
+  fetchProducts,
 } from "@/utils/db";
 import { MetadataRoute } from "next";
 
@@ -22,9 +25,10 @@ type SitemapType = {
   priority: number;
 };
 
-const BASE_URL = process.env.IS_DEVELOPMENT
-  ? "http://localhost:3000"
-  : "https://web.didiglobal.com";
+const BASE_URL =
+  process.env.IS_DEVELOPMENT === "true"
+    ? "http://localhost:3000"
+    : process.env.BASE_URL || "https://web.didiglobal.com";
 
 const makeObjectToSitemap = (slug: string): SitemapType => {
   return {
@@ -45,18 +49,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const guidesPages = await getGuidesPages(pages);
     const articlesPages = await getArticlesPages(pages);
     const partnersPages = await getPartnersPages(pages);
+    const faqsPages = await getFAQSPages(pages);
+    const featuresPages = await getFeaturesPages(pages);
 
     pages.push(
       ...cityPages,
       ...guidesPages,
       ...articlesPages,
-      ...partnersPages
+      ...partnersPages,
+      ...faqsPages,
+      ...featuresPages
     );
   };
 
-  console.log("antes", pages.length);
   await dynamicPage();
-  console.log("depois", pages.length);
 
   return pages.filter((page) => !page.url.includes("/slug/"));
 }
@@ -279,4 +285,215 @@ const getPartnersPages = async (pages: MetadataRoute.Sitemap) => {
   const partnersPages = await Promise.all(partnersPagesPromises);
 
   return partnersPages;
+};
+
+const getFAQSPages = async (pages: MetadataRoute.Sitemap) => {
+  const faqsPagesPromises: Promise<SitemapType>[] = [];
+
+  const makeFAQSPage = async (
+    validation: boolean,
+    params: {
+      type: "faq" | "product";
+      slug: string;
+      countryCode: CountryCode;
+      faqType?: FAQType;
+      categories?: string[];
+      productName?: string;
+    }
+  ) => {
+    const { categories, countryCode, slug, productName, type, faqType } =
+      params;
+    if (validation) {
+      const slugPage = slug.replace("/slug/", "/");
+
+      if (type === "faq") {
+        const faqs = await fetchFAQS(countryCode, { types: faqType });
+        faqs.forEach((faq: any) => {
+          const partnerPagePromise = Promise.resolve(
+            makeObjectToSitemap(`/${countryCode}${slugPage}${faq.slug}/`)
+          );
+
+          faqsPagesPromises.push(partnerPagePromise);
+        });
+
+        return;
+      }
+
+      const products = await fetchProducts(countryCode, {
+        categories,
+        name: productName,
+      });
+
+      const faqs = products?.[0]?.faqCollection?.items;
+
+      faqs?.forEach((faq: any) => {
+        const partnerPagePromise = Promise.resolve(
+          makeObjectToSitemap(`/${countryCode}${slugPage}${faq?.slug}/`)
+        );
+
+        faqsPagesPromises.push(partnerPagePromise);
+      });
+    }
+  };
+
+  for (const page of pages) {
+    const countryCode = page?.url?.split("/")?.[3] as CountryCode;
+
+    await makeFAQSPage(
+      page.url.includes("/food/restaurantes/preguntas-frecuentes/slug/"),
+      {
+        type: "product",
+        slug: "/food/restaurantes/preguntas-frecuentes/slug/",
+        categories: ["food"],
+        countryCode,
+        productName: "DiDi Restaurant Tienda",
+      }
+    );
+
+    await makeFAQSPage(
+      page.url.includes("/food/restaurantes/preguntas-frecuentes/slug/"),
+      {
+        type: "product",
+        slug: "/food/restaurantes/preguntas-frecuentes/slug/",
+        categories: ["food"],
+        countryCode,
+        productName: "DiDi Restaurant Operaciones",
+      }
+    );
+
+    await makeFAQSPage(
+      page.url.includes("/food/repartidores/preguntas-frecuentes/slug/"),
+      {
+        type: "product",
+        slug: "/food/repartidores/preguntas-frecuentes/slug/",
+        categories: ["food"],
+        countryCode,
+        productName: "DiDi Restaurant Repartidores",
+      }
+    );
+
+    await makeFAQSPage(
+      page.url.includes("/food/repartidores/preguntas-frecuentes/slug/"),
+      {
+        type: "faq",
+        slug: "/food/repartidores/preguntas-frecuentes/slug/",
+        countryCode,
+        faqType: ["delivery"],
+      }
+    );
+
+    await makeFAQSPage(
+      page.url.includes("/tarjeta-de-credito/preguntas-frecuentes/slug/"),
+      {
+        type: "faq",
+        slug: "/tarjeta-de-credito/preguntas-frecuentes/slug/",
+        countryCode,
+        faqType: ["card"],
+      }
+    );
+
+    await makeFAQSPage(
+      page.url.includes("/didipay/preguntas-frecuentes/slug/"),
+      {
+        type: "faq",
+        slug: "/didipay/preguntas-frecuentes/slug/",
+        countryCode,
+        faqType: ["pay"],
+      }
+    );
+
+    await makeFAQSPage(page.url.includes("/help-center/slug/"), {
+      type: "product",
+      slug: "/help-center/slug/",
+      countryCode,
+      productName: "DiDi Riders Australia",
+    });
+
+    await makeFAQSPage(page.url.includes("/help-center/slug/"), {
+      type: "product",
+      slug: "/help-center/slug/",
+      countryCode,
+      productName: "DiDi Express Australia",
+    });
+
+    await makeFAQSPage(page.url.includes("/help-center/slug/"), {
+      type: "product",
+      slug: "/help-center/slug/",
+      countryCode,
+      productName: "DiDi Delivery Australia Rider",
+    });
+
+    await makeFAQSPage(page.url.includes("/help-center/slug/"), {
+      type: "product",
+      slug: "/help-center/slug/",
+      countryCode,
+      productName: "DiDi Delivery Australia",
+    });
+
+    await makeFAQSPage(page.url.includes("/help-center/slug/"), {
+      type: "product",
+      slug: "/help-center/slug/",
+      countryCode,
+      productName: "DiDi Express New Zealand",
+    });
+
+    await makeFAQSPage(page.url.includes("/help-center/slug/"), {
+      type: "product",
+      slug: "/help-center/slug/",
+      countryCode,
+      productName: "DiDi Express Egypt",
+    });
+  }
+
+  const faqsPages = await Promise.all(faqsPagesPromises);
+
+  return faqsPages;
+};
+
+const getFeaturesPages = async (pages: MetadataRoute.Sitemap) => {
+  const featuresPagesPromises: Promise<SitemapType>[] = [];
+
+  const makeFeaturesPage = async (
+    validation: boolean,
+    params: {
+      slug: string;
+      countryCode: CountryCode;
+      category: "driver" | "pax";
+    }
+  ) => {
+    const { category, countryCode, slug } = params;
+    if (validation) {
+      const features = await fetchFeatures(countryCode, category);
+
+      const slugPage = slug.replace("/slug/", "/");
+
+      features.forEach((feature) => {
+        const partnerPagePromise = Promise.resolve(
+          makeObjectToSitemap(`/${countryCode}${slugPage}${feature.slug}/`)
+        );
+
+        featuresPagesPromises.push(partnerPagePromise);
+      });
+    }
+  };
+
+  for (const page of pages) {
+    const countryCode = page?.url?.split("/")?.[3] as CountryCode;
+
+    await makeFeaturesPage(page.url.includes("/seguridad/conductores/slug/"), {
+      slug: "/seguridad/conductores/slug/",
+      category: "driver",
+      countryCode,
+    });
+
+    await makeFeaturesPage(page.url.includes("/seguridad/pasajeros/slug/"), {
+      slug: "/seguridad/pasajeros/slug/",
+      category: "pax",
+      countryCode,
+    });
+  }
+
+  const featuresPages = await Promise.all(featuresPagesPromises);
+
+  return featuresPages;
 };
