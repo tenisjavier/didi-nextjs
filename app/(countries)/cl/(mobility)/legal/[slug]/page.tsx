@@ -13,6 +13,7 @@ interface FAQProps {
 export async function generateMetadata({ params: { slug } }: FAQProps) {
   const legal = await fetchLegalBySlug("cl", slug);
   const content = legal.content.json.content[0].content[0].value;
+
   return {
     title: legal.name + " | DiDi Chile",
     description: content.slice(0, 150),
