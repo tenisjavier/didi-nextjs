@@ -9,11 +9,13 @@ interface OptionsBulletsProps {
 const OptionsBullets: React.FC<OptionsBulletsProps> = ({ bullets }) => {
   return (
     <>
-      <ul className="mb-4 grid whitespace-nowrap grid-cols-3 font-bold list-none p-0 m-0">
+      <ul className="mb-4 grid whitespace-nowrap grid-cols-3 max-lg:grid-cols-2 font-bold list-none p-0 m-0">
         {bullets?.map((item, index) => (
-          <li key={index} className="flex gap-4">
-            <FaCheckCircle className="text-orange-primary" />
-            <span>{textBreak(item)}</span>
+          <li key={index} className="flex items-center">
+            <FaCheckCircle className="text-orange-primary mr-2" />
+            <span>
+              <p className="m-0">{textBreak(item)}</p>
+            </span>
           </li>
         ))}
       </ul>
