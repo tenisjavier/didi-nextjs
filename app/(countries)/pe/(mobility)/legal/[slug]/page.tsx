@@ -34,7 +34,7 @@ export async function generateStaticParams() {
 }
 
 const Legal = async ({ params: { slug } }: LegalProps) => {
-  const legal = await fetchLegalBySlug("pa", slug);
+  const legal = await fetchLegalBySlug("pe", slug);
   if (!legal) return notFound();
   return (
     <>
