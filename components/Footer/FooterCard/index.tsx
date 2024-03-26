@@ -1,15 +1,18 @@
 import React from "react";
-import { getFooterPrestamosLinks } from "@/config/footer/footer-prestamos-config";
-import FooterItem from "../DiDiPrestamosFooter/FooterItem";
-import FooterColumn from "./FooterColumn";
+import FooterColumn, { FooterColumnProps } from "./FooterColumn";
 import Image from "next/image";
+import { FooterContent } from "@/config/footer/footer-prestamos-config";
 
-interface DiDiCreditFooterProps { }
+interface FooterCardProps {
+  contactanos: FooterColumnProps
+  regulacion: FooterColumnProps
+  blog: FooterColumnProps
+  siguenos: FooterColumnProps
+  footerLogo: { src: string, alt: string }
+  description: string
+}
 
-const DiDiCreditFooter: React.FC<DiDiCreditFooterProps> = ({ }) => {
-  const countryCode = "mx";
-  const { contactanos, regulacion, blog, siguenos } =
-    getFooterPrestamosLinks(countryCode);
+const FooterCard: React.FC<FooterCardProps> = ({ blog, contactanos, regulacion, siguenos, footerLogo, description }) => {
 
   return (
     <footer className="bg-gray-median text-white flex justify-center flex-col items-center">
@@ -29,25 +32,14 @@ const DiDiCreditFooter: React.FC<DiDiCreditFooterProps> = ({ }) => {
         <div className="flex lg:flex-row flex-col justify-between items-center lg:gap-24 w-full">
           <div>
             <Image
-              src="/images/logos/didi-logo-card-white.png"
-              alt="DiDi Credit"
+              src={footerLogo.src}
+              alt={footerLogo.alt}
               className="max-w-[168px] h-auto"
               width={168}
               height={168}
             />
             <p>
-              DiDi Pay, S.A. de C.V. es una entidad supervisada por la Procuraduría Federal del Consumidor (PROFECO) y obligada a cumplir
-              conforme a lo discpuesto en la Ley de Transparencia y Ordenamiento de los Servicios Financieros.
-            </p>
-            <p>
-              Cuide su capacidad de pago, generalmente sus pagos por créditos no debe de exceder en conjunto del 35% de sus ingresos periódicos, los
-              costos por mora son muy elevados.
-            </p>
-            <p>
-              Incumplir con sus obligaciones te puede generar comisiones e intereses moratorios
-            </p>
-            <p>
-              ¹ CAT promedio informativo 315% sin IVA
+              {description}
             </p>
           </div>
         </div>
@@ -62,4 +54,4 @@ const DiDiCreditFooter: React.FC<DiDiCreditFooterProps> = ({ }) => {
   );
 };
 
-export default DiDiCreditFooter;
+export default FooterCard;

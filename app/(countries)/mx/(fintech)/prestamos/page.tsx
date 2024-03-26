@@ -2,7 +2,6 @@ import React from "react";
 import BuilderComponent from "@/components/BuilderComponent";
 import { Metadata } from "next";
 import { fetchPageComponents } from "@/utils/db";
-import DiDiPrestamosFooter from "@/components/Footer/DiDiPrestamosFooter";
 
 //? builder will return the array of components fetch by db by pathname
 
@@ -17,10 +16,7 @@ export const metadata: Metadata = {
 
 const Page = async () => {
   const components = await fetchPageComponents("/mx/prestamos/");
-  return <>
-    <BuilderComponent components={components}></BuilderComponent>
-    <DiDiPrestamosFooter></DiDiPrestamosFooter>
-  </>;
+  return <BuilderComponent components={components}></BuilderComponent>
 };
 
 export default Page;
