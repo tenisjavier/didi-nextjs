@@ -14,8 +14,9 @@ const Store = () => {
     <>
       <QrCode
         QRUrl="https://global-rides-passenger.onelink.me/xNlo"
-        title={"Escanea el QR con tu celular"}
-        desc={"Descarga DiDi Food escaneando el código con tu celular"} />
+        title={"Escaneá el QR con tu celular"}
+        desc={"Descargá DiDi Food escaneando el código con tu celular"}
+      />
     </>
   );
 };
