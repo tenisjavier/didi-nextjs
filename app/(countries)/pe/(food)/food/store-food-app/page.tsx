@@ -12,7 +12,10 @@ import QrCode from "@/components/Qr";
 const Store = () => {
   return (
     <>
-      <QrCode />
+      <QrCode
+        QRUrl="https://www.didi-food.com/es-PE/store"
+        title={"Escanea el QR con tu celular"}
+        desc={"Descarga DiDi Food escaneando el código con tu celular"} />
     </>
   );
 };
