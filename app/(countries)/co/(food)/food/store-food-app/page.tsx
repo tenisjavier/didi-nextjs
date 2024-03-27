@@ -13,7 +13,7 @@ const Store = () => {
   return (
     <>
       <QrCode
-        QRUrl="https://global-rides-passenger.onelink.me/xNlo"
+        QRUrl="https://www.didi-food.com/es-CO/store"
         title={"Escanea el QR con tu celular"}
         desc={"Descarga DiDi Food escaneando el código con tu celular"} />
     </>
