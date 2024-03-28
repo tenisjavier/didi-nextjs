@@ -1,6 +1,6 @@
 import { CardPayT } from "@/typings";
 
-export const reviewPrestamos: CardPayT[] = [
+export const reviewLoan: CardPayT[] = [
   {
     title: "Excelente servicio",
     desc: "¡Excelente servicio! Me ayudó mucho. Usaré DiDi Préstamos en el futuro. ",

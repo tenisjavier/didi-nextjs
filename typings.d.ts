@@ -38,7 +38,6 @@ const ArticleCategotySchema = z.enum([
   "pr",
   "loan",
   "food-courier",
-  "prestamos",
 ]);
 
 const ProductCategorySchema = z.enum([
@@ -55,7 +54,7 @@ const faqTypes = z.array(
   z.enum([
     "drv",
     "pax",
-    "prestamos",
+    "loan",
     "pay",
     "delivery",
     "card",
@@ -383,7 +382,7 @@ const ArticleSchema = z.object({
       excerpt: z.string(),
       country: z.countryCodeSchema(),
       category: z.array(
-        z.enum(["rides", "food", "news", "pay", "prestamos", "card"])
+        z.enum(["rides", "food", "news", "pay", "loan", "card"])
       ),
     })
   ),

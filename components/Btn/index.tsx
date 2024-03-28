@@ -24,8 +24,8 @@ export type BtnType =
   | "foodEaterOnline"
   | "custom"
   | "bothFood"
-  | "prestamos"
-  | "bothPrestamos"
+  | "loan"
+  | "bothLoan"
   | "entrega"
   | "entregaBusiness"
   | "en"
@@ -95,9 +95,9 @@ const Btn = ({
   } else if (btnType === "foodEaterOnline") {
     btnLink = btnData.foodEaterOnlineLink;
     btnText = btnText || btnData.foodEaterOnlineText;
-  } else if (btnType === "prestamos") {
-    btnLink = btnData.prestamosLink;
-    btnText = btnText || btnData.prestamosText;
+  } else if (btnType === "loan") {
+    btnLink = btnData.loanLink;
+    btnText = btnText || btnData.loanText;
   } else if (btnType === "entrega") {
     btnLink = btnData.entregaLink;
     btnText = btnText || btnData.entregaText;
@@ -140,9 +140,8 @@ const Btn = ({
       <div
         tabIndex={0}
         role="button"
-        className={`${
-          btnTextCenter ? "text-center" : ""
-        } p-0 text-lg md:text-base my-2 btn-${btnMode}`}
+        className={`${btnTextCenter ? "text-center" : ""
+          } p-0 text-lg md:text-base my-2 btn-${btnMode}`}
       >
         {isLoading ? (
           <FaSpinner className="animate-spin px-8 py-3.5"></FaSpinner>

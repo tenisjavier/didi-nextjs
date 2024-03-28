@@ -10,7 +10,7 @@ import Image from "next/image";
 import CTASection from "../CTASection";
 import Card from "../Card";
 import CardPay from "../CardPay";
-import { reviewPrestamos } from "@/config/reviews/prestamos";
+import { reviewLoan } from "@/config/reviews/loan";
 import textBreak from "@/utils/textBreak";
 
 function NextArrow(props: any) {
@@ -107,7 +107,7 @@ const Carousel = (props: CarouselT) => {
     });
   } else if (carouselType === "Card") {
     if (type === "pay" && cards?.length === 0) {
-      sliderContent = reviewPrestamos?.map((sld, index) => (
+      sliderContent = reviewLoan?.map((sld, index) => (
         <CardPay key={index} {...sld}></CardPay>
       ));
     } else {
