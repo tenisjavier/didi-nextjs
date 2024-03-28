@@ -1,5 +1,270 @@
 const redirectsPaths = [
   {
+    source: "/au/safety/fatigue-prevention-education/",
+    destination: "/au/safety/fatigue-prevention-feature/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/tips-para-recibir-mas-pedidos/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/metodos-de-pago-en-didi-food/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/no-puedes-contactar-al-usuario/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/abono-de-ganancias-a-tu-cuenta/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/detalles-del-retiro/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/geocercas-de-seguridad/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/vincula-tu-cuenta/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/medidas-de-prevencion-para-el-covid-19/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/reportar-problemas-muy-seguido/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/la-direccion-del-establecimiento-es-incorrecta/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/tus-ganancias/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/como-repartir-con-la-app-de-didi-food/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/recomendaciones-para-antes-de-comenzar-a-entregar/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/el-repartidor-senalo-que-llego-al-restaurante-pero-no-fue-asi-que-puedo/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/el-establecimiento-esta-demorando-en-entregar-el-pedido/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/el-establecimiento-no-quiere-entregarme-el-pedido/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/emergencias-en-el-momento/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/por-que-es-importante-reportar-situaciones-que-te-ponen-en-peligro/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/problemas-recogiendo-el-pedido-en-el-establecimiento/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/realiza-tus-viajes-protegido-y-con-mayor-tranquilidad/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/cuales-son-los-pasos-a-seguir-para-reportar-un-incidente-dentro-de-la-plataforma/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/comunicaciones-de-seguridad-automaticas/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/como-mejorar-la-experiencia-de-los-usuarios-mejorando-tu-rendimiento/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/deslizaste-muy-pronto/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/llegue-y-el-establecimiento-estaba-cerrado/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/que-debo-hacer-si-no-puedo-contactar-al-socio-repartidor/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/estado-de-cuenta/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/linea-de-soporte-247/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/reportar-pedido-danado-en-la-app/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/como-referir-a-otro-repartidor/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/problemas-entregando-el-pedido-al-usuario/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/problemas-contactando-al-cliente/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/recomendaciones-si-vas-retrasado-a-la-entrega/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/conoce-la-nueva-funcion-de-codigo-de-verificacion-en-restaurante/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/que-tipo-de-situaciones-puedes-reportar/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/reducir-la-tasa-de-cancelacion/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/el-repartidor-no-marco-en-la-app-que-ya-recogio-el-pedido-que-puedo-hacer/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/el-usuario-rechazo-el-pedido/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/herramientas-de-seguridad-en-didi-food-para-repartidores/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/herramientas-de-seguridad-en-didi-food-para-usuarios-repartidores",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/como-funcionan-las-recompensas/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/reporte-para-problemas-recogiendo-tu-pedido/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/descubre-el-uso-de-tu-codigo-de-referencia/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/billetera-de-repartidor/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/visita-el-club-de-repartidores/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/pagos-en-efectivo/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/exclusionesque-no-cubre-la-asistencia-vial/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/registrate-como-repartidor-de-didi-food/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/historial-de-retiros/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/detalles-de-las-coberturas-que-te-protegen/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/mejorar-tus-estadisticas-te-permite-participar-en-mas-promociones-y-generar-mas-ganancias/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/tu-proximo-retiro/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/",
+    permanent: true,
+  },
+  {
+    source: "/mx/food/repartidores/preguntas-frecuentes/preguntas-frecuentes/",
+    destination: "/mx/food/repartidores/preguntas-frecuentes/seguros-y-coberturas/",
+    permanent: true,
+  },
+  {
     source: "/au/cities/",
     destination: "/au/driver/cities/",
     permanent: true,
