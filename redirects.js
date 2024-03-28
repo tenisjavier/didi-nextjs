@@ -1,5 +1,10 @@
 const redirectsPaths = [
   {
+    source: "/au/safety/fatigue-prevention-education/",
+    destination: "/au/safety/fatigue-prevention-feature/",
+    permanent: true,
+  },
+  {
     source: "/mx/food/repartidores/preguntas-frecuentes/tips-para-recibir-mas-pedidos/",
     destination: "/mx/food/repartidores/preguntas-frecuentes/",
     permanent: true
