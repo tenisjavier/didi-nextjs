@@ -2,7 +2,7 @@ const redirectsPaths = [
   {
     source: "/mx/food/repartidores/preguntas-frecuentes/tips-para-recibir-mas-pedidos/",
     destination: "/mx/food/repartidores/preguntas-frecuentes/",
-    permanent: true,
+    permanent: true
   },
   {
     source: "/mx/food/repartidores/preguntas-frecuentes/metodos-de-pago-en-didi-food/",
@@ -90,11 +90,6 @@ const redirectsPaths = [
     permanent: true,
   },
   {
-    source: "/mx/food/repartidores/preguntas-frecuentes/evita-acumular-saldo-negativo/",
-    destination: "/mx/food/repartidores/preguntas-frecuentes/",
-    permanent: true,
-  },
-  {
     source: "/mx/food/repartidores/preguntas-frecuentes/problemas-recogiendo-el-pedido-en-el-establecimiento/",
     destination: "/mx/food/repartidores/preguntas-frecuentes/",
     permanent: true,
@@ -176,11 +171,6 @@ const redirectsPaths = [
   },
   {
     source: "/mx/food/repartidores/preguntas-frecuentes/que-tipo-de-situaciones-puedes-reportar/",
-    destination: "/mx/food/repartidores/preguntas-frecuentes/",
-    permanent: true,
-  },
-  {
-    source: "/mx/food/repartidores/preguntas-frecuentes/tips-para-mejorar-tu-servicio/",
     destination: "/mx/food/repartidores/preguntas-frecuentes/",
     permanent: true,
   },
