@@ -26,8 +26,8 @@ interface SingleBtnInterface {
   foodEaterText?: string;
   foodEaterOnlineLink?: string;
   foodEaterOnlineText?: string;
-  prestamosLink?: string;
-  prestamosText?: string;
+  loanLink?: string;
+  loanText?: string;
   entregaLink?: string;
   entregaText?: string;
   entregaBusinessLink?: string;
@@ -198,8 +198,8 @@ const btnLinks: AllBtnInterface = {
     payBusinessLink:
       "https://page.didiglobal.com/public-biz/pc-login/3.0.7/index.html?lang=es-MX&role=5001&source=70001&appid=200026&redirectUrl=https%3A%2F%2Fdidipay.didiglobal.com%2Fmerchant%2Fapi%2Fouter%2Fuser%2Flogin%3FredirectUrl%3Dhttps%3A%2F%2Fdidipay.didiglobal.com#/",
     payBusinessText: "Iniciar Sesión",
-    prestamosText: "Descarga DiDi Préstamos",
-    prestamosLink: "https://global-cash.onelink.me/k8Zv/yf4oglpn",
+    loanText: "Descarga DiDi Préstamos",
+    loanLink: "https://global-cash.onelink.me/k8Zv/yf4oglpn",
     entregaText: "Usa DiDi Entrega",
     entregaLink:
       "https://global-rides-passenger.onelink.me/xNlo/globalhomepage",

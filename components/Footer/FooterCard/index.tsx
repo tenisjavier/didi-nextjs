@@ -1,7 +1,7 @@
 import React from "react";
 import FooterColumn, { FooterColumnProps } from "./FooterColumn";
 import Image from "next/image";
-import { FooterContent } from "@/config/footer/footer-prestamos-config";
+import { FooterContent } from "@/config/footer/footer-loan-config";
 
 interface FooterCardProps {
   contactanos: FooterColumnProps

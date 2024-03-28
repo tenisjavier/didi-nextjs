@@ -56,11 +56,11 @@ const ArticlePage = async ({
     'food': 'foodEater',
     'news': 'pax',
     'pay': 'payBusiness',
-    'prestamos': 'prestamos',
+    'loan': 'loan',
     'card': 'card'
   }
 
-  const btnType = article?.category?.find((item) => buttonTypes[item]) as "rides" | "food" | "news" | "pay" | "prestamos" | "card"
+  const btnType = article?.category?.find((item) => buttonTypes[item]) as "rides" | "food" | "news" | "pay" | "loan" | "card"
 
   return (
     <>

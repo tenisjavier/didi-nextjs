@@ -5,7 +5,7 @@ import Image from "next/image";
 import FooterLink from "@/components/Footer/FooterLink";
 import { CountryCode, LanguageCode, BusinessType, Country } from "@/typings";
 import { getFooterTarjetaDeCreditoLinks } from "@/config/footer/footer-tarjeta-de-credito-config";
-import { getFooterPrestamosLinks } from "@/config/footer/footer-prestamos-config";
+import { getFooterLoanLinks } from "@/config/footer/footer-loan-config";
 import FooterCard from "./FooterCard";
 
 interface FooterProps {
@@ -53,7 +53,7 @@ const Footer = async ({
 
   const footerCard = {
     card: getFooterTarjetaDeCreditoLinks(countryCode),
-    loan: getFooterPrestamosLinks(countryCode)
+    loan: getFooterLoanLinks(countryCode)
   }
 
   return (

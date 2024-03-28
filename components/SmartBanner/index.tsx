@@ -8,18 +8,18 @@ import textBreak from "@/utils/textBreak";
 
 interface SmartBannerProps extends BtnProps {
   type:
-    | "both"
-    | "drv"
-    | "moto"
-    | "pax"
-    | "fleet"
-    | "pay"
-    | "foodBusiness"
-    | "foodDelivery"
-    | "foodEater"
-    | "card"
-    | "prestamos"
-    | "en";
+  | "both"
+  | "drv"
+  | "moto"
+  | "pax"
+  | "fleet"
+  | "pay"
+  | "foodBusiness"
+  | "foodDelivery"
+  | "foodEater"
+  | "card"
+  | "loan"
+  | "en";
   title?: string;
   desc?: string;
   countryCode: CountryCode;
@@ -61,7 +61,7 @@ const SmartBanner = (props: SmartBannerProps) => {
     Logo = <PaxLogo></PaxLogo>;
   } else if (type === "card") {
     Logo = <PaxLogo></PaxLogo>;
-  } else if (type === "prestamos") {
+  } else if (type === "loan") {
     Logo = <PaxLogo></PaxLogo>;
   }
 
@@ -80,9 +80,8 @@ const SmartBanner = (props: SmartBannerProps) => {
 
   return (
     <div
-      className={`opacity-0 fixed bottom-0 z-50 h-auto w-full lg:hidden ${
-        bgColor && bgColor
-      } ${textColor && textColor}`}
+      className={`opacity-0 fixed bottom-0 z-50 h-auto w-full lg:hidden ${bgColor && bgColor
+        } ${textColor && textColor}`}
       data-id="sb"
     >
       <div className="flex h-full items-center justify-between p-2">

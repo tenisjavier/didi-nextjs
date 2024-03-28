@@ -76,8 +76,8 @@ const footerLinks: AllFooterInterface = {
   },
 };
 
-const getFooterPrestamosLinks = (countryCode: string): FooterLinks & FooterContent => {
+const getFooterLoanLinks = (countryCode: string): FooterLinks & FooterContent => {
   return footerLinks[countryCode];
 };
 
-export { getFooterPrestamosLinks, type FooterContent };
+export { getFooterLoanLinks, type FooterContent };
